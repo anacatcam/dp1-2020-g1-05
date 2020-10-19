@@ -12,4 +12,7 @@
             <img class="img-responsive" src="${petsImage}"/>
         </div>
     </div>
+    <div>
+    	<img alt="Logo Universidad de Sevilla" src="/resources/images/logoPNG_3.png" width="100" height="100">
+    </div>
 </petclinic:layout>
