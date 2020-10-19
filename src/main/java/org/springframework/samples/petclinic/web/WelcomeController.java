@@ -26,7 +26,7 @@ public class WelcomeController {
 		  personas.add(persona2);
 		  Person persona3 = new Person();
 		  persona3.setFirstName("Antonio ");
-		  persona3.setLastName("Pérez");
+		  persona3.setLastName("Pérez Vázquez");
 		  personas.add(persona3);
 		  Person persona4 = new Person();
 		  persona4.setFirstName("Manuel ");
@@ -34,11 +34,11 @@ public class WelcomeController {
 		  personas.add(persona4);
 		  Person persona5 = new Person();
 		  persona5.setFirstName("Daniel ");
-		  persona5.setLastName("[Apellidos]");
+		  persona5.setLastName("Toro Valle");
 		  personas.add(persona5);
 		  Person persona6 = new Person();
 		  persona6.setFirstName("Alejandro ");
-		  persona6.setLastName("[Apellidos]");
+		  persona6.setLastName("Piury Pinzón");
 		  personas.add(persona6);
 		  model.put("personas", personas);
 		  model.put("titulo", "dp1-2020-g1-05");
