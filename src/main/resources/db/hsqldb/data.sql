@@ -54,7 +54,7 @@ INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085
 INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tremen Daverga 69', 'Ubrique', '608960165', 'owner1');
+INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tremen Daverga 69', 'Ubrique', '608960165', 'manpercar1');
 INSERT INTO owners VALUES (12, 'Juan José', 'Pérez Plata', '50 Lombars St.', 'San Francisco', '648213789', 'juaperpla');
 INSERT INTO owners VALUES (13, 'Álvaro', 'Echegoyán Delgado', '3218 Lindberg', 'Germany', '606972325', 'alvechdel');
 INSERT INTO owners VALUES (14, 'Antonio', 'Pérez', 'Triana', 'Sevilla', '673469510', 'antpervaz');
