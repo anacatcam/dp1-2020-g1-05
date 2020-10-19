@@ -255,6 +255,12 @@
         </license>
     </licenses>
 
-
+	<developers>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
+		</developer>
+	</developers>
 
 </project>
