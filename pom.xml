@@ -65,6 +65,11 @@
 				<role>developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
+		</developer>
 	</developers>
 
     <dependencies>
@@ -290,6 +295,5 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-	
 
 </project>
