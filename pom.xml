@@ -38,7 +38,7 @@
 		  <name>Antonio</name>
 		  <email>aperezva32@gmail.com</email>
  		  <roles>
- 		 	<role></role>
+ 		 	<role>developer</role>
  		  </roles>
  		</developer>
 		<developer>
@@ -46,7 +46,7 @@
 			<name>Alejandro</name>
 			<email>alejandropiuryp@gmail.com</email>
 			<roles>
-				<role>leader</role>
+				<role>developer</role>
 			</roles>
 		</developer>
 		<developer>
@@ -54,7 +54,15 @@
 			<name>Manuel</name>
 			<email>manuelperezcarrillo@yahoo.es</email>
 			<roles>
-				<role></role>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
+			<roles>
+				<role>developer</role>
 			</roles>
 		</developer>
 	</developers>
@@ -282,6 +290,5 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-	
 
 </project>
