@@ -10,6 +10,9 @@ INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 --usuario Juan Jose
 INSERT INTO users(username,password,enabled) VALUES ('juaperpla','JacoLeah',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'juaperpla','owner');
+-- owner user Álvaro
+INSERT INTO users(username,password,enabled) VALUES ('alvechdel','alv1710',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (5,'alvechdel','owner');
 -- owner user Antonio
 INSERT INTO users(username,password,enabled) VALUES ('antpervaz','antdp1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'antpervaz','owner');
@@ -50,6 +53,7 @@ INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Mad
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
 INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tommy Nabo 69', 'Ubrique', '608960165', 'owner1');
 INSERT INTO owners VALUES (12, 'Juan José', 'Pérez Plata', '50 Lombars St.', 'San Francisco', '648213789', 'juaperpla');
+INSERT INTO owners VALUES (13, 'Álvaro', 'Echegoyán Delgado', '3218 Lindberg', 'Germany', '606972325', 'alvechdel');
 INSERT INTO owners VALUES (14, 'Antonio', 'Pérez', 'Triana', 'Sevilla', '673469510', 'antpervaz');
 
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
@@ -67,6 +71,7 @@ INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'ElRubius', '1649-06-08', 1, 11);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Jaco', '2015-06-25', 2, 12);
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Sinbad', '2017-08-12', 2, 13);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Lana', '2009-02-02', 2, 14);
 
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
