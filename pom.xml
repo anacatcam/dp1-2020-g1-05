@@ -33,14 +33,22 @@
     </properties>
 
 	<developers>
-		 <developer>
+		<developer>
 		  <id>antpervaz</id>
 		  <name>Antonio</name>
 		  <email>aperezva32@gmail.com</email>
  		  <roles>
  		 	<role></role>
  		  </roles>
- 		 </developer>
+ 		</developer>
+		<developer>
+			<id>Alejandro</id>
+			<name>Alejandro</name>
+			<email>alejandropiuryp@gmail.com</email>
+			<roles>
+				<role>leader</role>
+			</roles>
+		</developer>
 	</developers>
 
     <dependencies>
@@ -159,6 +167,7 @@
     </dependencies>
 
     <build>
+    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -265,16 +274,6 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-	<developers>
-		<developer>
-			<id>Alejandro</id>
-			<name>Alejandro</name>
-			<email>alejandropiuryp@gmail.com</email>
-			<roles>
-				<role>leader</role>
-			</roles>
-		</developer>
-	</developers>
-
+	
 
 </project>
