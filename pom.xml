@@ -49,6 +49,11 @@
 				<role>leader</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
+		</developer>
 	</developers>
 
     <dependencies>
