@@ -16,6 +16,9 @@ INSERT INTO authorities(id,username,authority) VALUES (5,'alvechdel','owner');
 -- owner user Antonio
 INSERT INTO users(username,password,enabled) VALUES ('antpervaz','antdp1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'antpervaz','owner');
+--owner user Manuel
+INSERT INTO users(username,password,enabled) VALUES ('manpercar1','pakito123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar','owner');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -51,7 +54,7 @@ INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085
 INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tommy Nabo 69', 'Ubrique', '608960165', 'owner1');
+INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tremen Daverga 69', 'Ubrique', '608960165', 'owner1');
 INSERT INTO owners VALUES (12, 'Juan José', 'Pérez Plata', '50 Lombars St.', 'San Francisco', '648213789', 'juaperpla');
 INSERT INTO owners VALUES (13, 'Álvaro', 'Echegoyán Delgado', '3218 Lindberg', 'Germany', '606972325', 'alvechdel');
 INSERT INTO owners VALUES (14, 'Antonio', 'Pérez', 'Triana', 'Sevilla', '673469510', 'antpervaz');
