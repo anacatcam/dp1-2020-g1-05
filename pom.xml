@@ -38,7 +38,7 @@
 		  <name>Antonio</name>
 		  <email>aperezva32@gmail.com</email>
  		  <roles>
- 		 	<role></role>
+ 		 	<role>developer</role>
  		  </roles>
  		</developer>
 		<developer>
@@ -46,13 +46,21 @@
 			<name>Alejandro</name>
 			<email>alejandropiuryp@gmail.com</email>
 			<roles>
-				<role>leader</role>
+				<role>developer</role>
 			</roles>
 		</developer>
 		<developer>
 			<id>manpercar1</id>
 			<name>Manuel</name>
 			<email>manuelperezcarrillo@yahoo.es</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
 			<roles>
 				<role>developer</role>
 			</roles>
