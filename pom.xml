@@ -49,6 +49,14 @@
 				<role>leader</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>manpercar1</id>
+			<name>Manuel</name>
+			<email>manuelperezcarrillo@yahoo.es</email>
+			<roles>
+				<role></role>
+			</roles>
+		</developer>
 	</developers>
 
     <dependencies>
