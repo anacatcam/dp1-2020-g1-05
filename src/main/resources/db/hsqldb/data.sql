@@ -18,7 +18,7 @@ INSERT INTO users(username,password,enabled) VALUES ('antpervaz','antdp1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'antpervaz','owner');
 --owner user Manuel
 INSERT INTO users(username,password,enabled) VALUES ('manpercar1','pakito123',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar','owner');
+INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
