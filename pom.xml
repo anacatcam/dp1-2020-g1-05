@@ -72,6 +72,13 @@
 			<roles>
 				<role>developer</role>
 			</roles>
+		</developer><developer>
+			<id>dantorval</id>
+			<name>Daniel</name>
+			<email>dantorval@alum.us.es</email>
+			<roles>
+				<role>developer</role>
+			</roles>
 		</developer>
 	</developers>
 
