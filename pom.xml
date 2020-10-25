@@ -12,7 +12,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
     </parent>
-    <name>petclinic</name>
+    <name>G1-05</name>
 
     <properties>
 
@@ -31,6 +31,49 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
+
+	<developers>
+		<developer>
+		  <id>antpervaz</id>
+		  <name>Antonio</name>
+		  <email>aperezva32@gmail.com</email>
+ 		  <roles>
+ 		 	<role>developer</role>
+ 		  </roles>
+ 		</developer>
+		<developer>
+			<id>Alejandro</id>
+			<name>Alejandro</name>
+			<email>alejandropiuryp@gmail.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>manpercar1</id>
+			<name>Manuel</name>
+			<email>manuelperezcarrillo@yahoo.es</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>JJosePP</id>
+			<name>Juan José</name>
+			<email>jjperezplata@gmail.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>alvechdel</id>
+			<name>Álvaro</name>
+			<email>alvaroechegoyan2000@gmail.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
@@ -148,6 +191,7 @@
     </dependencies>
 
     <build>
+    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -254,7 +298,5 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-
-
 
 </project>
