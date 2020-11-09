@@ -32,6 +32,12 @@
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Vehículos</span>
 				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'error'}" url="/oups"
+					title="trigger a RuntimeException to see how it is handled">
+					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span>Error</span>
+				</madaja:menuItem>
 			</ul>
 			
 			
