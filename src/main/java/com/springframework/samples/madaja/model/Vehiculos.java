@@ -17,11 +17,11 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	
 	@Column(name = "precioAlquiler")
 	@NotEmpty
-	private String precioAlquiler;
+	private Integer precioAlquiler;
 	
 	@Column(name = "precioVenta")
 	@NotEmpty
-	private String precioVenta;
+	private Integer precioVenta;
 	
 	@Column(name = "marca")
 	@NotEmpty
@@ -33,7 +33,7 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	
 	@Column(name = "plazas")
 	@NotEmpty
-	private String plazas;
+	private Integer plazas;
 	
 	@Column(name = "cambio")
 	@NotEmpty
@@ -55,19 +55,19 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 		this.matricula = matricula;
 	}
 
-	public String getPrecioAlquiler() {
+	public Integer getPrecioAlquiler() {
 		return precioAlquiler;
 	}
 
-	public void setPrecioAlquiler(String precioAlquiler) {
+	public void setPrecioAlquiler(Integer precioAlquiler) {
 		this.precioAlquiler = precioAlquiler;
 	}
 
-	public String getPrecioVenta() {
+	public Integer getPrecioVenta() {
 		return precioVenta;
 	}
 
-	public void setPrecioVenta(String precioVenta) {
+	public void setPrecioVenta(Integer precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 
@@ -87,11 +87,11 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 		this.modelo = modelo;
 	}
 
-	public String getPlazas() {
+	public Integer getPlazas() {
 		return plazas;
 	}
 
-	public void setPlazas(String plazas) {
+	public void setPlazas(Integer plazas) {
 		this.plazas = plazas;
 	}
 

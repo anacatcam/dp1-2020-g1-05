@@ -23,7 +23,9 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
 
-INSERT INTO vehiculos VALUES (2, '2484 MPW', '432', '13000', 'Opel', 'Corsa', '5','automatico', 'grande', '200km recorridos');
-INSERT INTO vehiculos VALUES (3, '2485 FLE', '356', '21000', 'NISSAN', 'Qascai','4', 'manual', 'mediano', '5 puertas');
-INSERT INTO vehiculos VALUES (4, '2482 XML', '312', '26000', 'Renault', 'Megane','3', 'manual', 'mediano', 'ninguna');
+INSERT INTO vehiculos VALUES (1, 'automatico', '200km recorridos', 'grande', 'Opel', '2484 MPW', 'Corsa','5', '432', '13000');
+INSERT INTO vehiculos VALUES (2, 'manual', 'ninguna', 'mediano', 'NISSAN', '2341 EXH', 'Qascai','5', '432', '13000');
+INSERT INTO vehiculos VALUES (3, 'automatico', 'color a elegir', 'pequeño', 'Renault', '6832 HDS', 'Megane','5', '432', '13000');
+INSERT INTO vehiculos VALUES (4, 'manual', 'asientos abatibles', 'pequeño', 'Citroen', '4685 ADT', 'Sara','5', '432', '13000');
+INSERT INTO vehiculos VALUES (5, 'manual', 'ventana en el techo', 'grande', 'Lamborgini', '6874 KJU', 'Fasterosa','5', '432', '13000');
 
