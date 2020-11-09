@@ -19,7 +19,11 @@ INSERT INTO authorities(id,username,authority) VALUES (6,'antpervaz','owner');
 --owner user Manuel
 INSERT INTO users(username,password,enabled) VALUES ('manpercar1','pakito123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
+--owner user Daniel
+INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
 
 INSERT INTO vehiculos VALUES (2, '2484 MPW', '432', '13000', 'Opel', 'Corsa', '5','automatico', 'grande', '200km recorridos');
 INSERT INTO vehiculos VALUES (3, '2485 FLE', '356', '21000', 'NISSAN', 'Qascai','4', 'manual', 'mediano', '5 puertas');
 INSERT INTO vehiculos VALUES (4, '2482 XML', '312', '26000', 'Renault', 'Megane','3', 'manual', 'mediano', 'ninguna');
+
