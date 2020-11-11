@@ -1,7 +1,16 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,11 +24,11 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	@NotEmpty
 	private String matricula;
 	
-	@Column(name = "precioAlquiler")
+	@Column(name = "precio_alquiler")
 	@NotEmpty
 	private Integer precioAlquiler;
 	
-	@Column(name = "precioVenta")
+	@Column(name = "precio_venta")
 	@NotEmpty
 	private Integer precioVenta;
 	
@@ -35,13 +44,13 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	@NotEmpty
 	private Integer plazas;
 	
-	@Column(name = "cambio")
-	@NotEmpty
-	private String cambio;
+	@ManyToOne
+	@JoinColumn(name = "cambio_id")
+	private Cambio cambio;
 	
-	@Column(name = "maletero")
-	@NotEmpty
-	private String maletero;
+	@ManyToOne
+	@JoinColumn(name = "maletero_id")
+	private Maletero maletero;
 	
 	@Column(name = "caracteristicas")
 	@NotEmpty
@@ -95,19 +104,19 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 		this.plazas = plazas;
 	}
 
-	public String getTipoCambio() {
+	public Cambio getCambio() {
 		return cambio;
 	}
 
-	public void setTipoCambio(String tipoCambio) {
+	public void setCambio(Cambio tipoCambio) {
 		this.cambio = tipoCambio;
 	}
 
-	public String getTipoMaletero() {
+	public Maletero getMaletero() {
 		return maletero;
 	}
 
-	public void setTipoMaletero(String tipoMaletero) {
+	public void setMaletero(Maletero tipoMaletero) {
 		this.maletero = tipoMaletero;
 	}
 
@@ -126,7 +135,7 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 				.append("id", this.getId()).append("new", this.isNew()).append(matricula, this.matricula)
 				.append(precioAlquiler.toString(), this.precioAlquiler).append(precioVenta.toString(), this.precioVenta)
 				.append(marca, this.marca).append(modelo, this.modelo).append(plazas.toString(), this.plazas)
-				.append(cambio, this.cambio).append(maletero, this.maletero)
+				.append(cambio.toString(), this.cambio).append(maletero.toString(), this.maletero)
 				.append(caracteristicas, this.caracteristicas).toString();
 	
 	}

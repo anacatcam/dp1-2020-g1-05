@@ -15,6 +15,11 @@
 			<th style="width: 150px;">Precio de alquiler</th>
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
+			<th style="width: 150px;">Características</th>
+			<th style="width: 150px;">Marca</th>
+			<th style="width: 150px;">Modelo</th>
+			<th style="width: 150px;">Cambio</th>
+			<th style="width: 150px;">Maletero</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -34,6 +39,21 @@
 					</td>
 					<td>
 						<c:out value="${vehiculo.plazas}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.caracteristicas}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.marca}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.modelo}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.cambio}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.maletero}"/>
 					</td>
 				</tr>
 			</c:forEach>

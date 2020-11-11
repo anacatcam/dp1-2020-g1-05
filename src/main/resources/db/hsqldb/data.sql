@@ -23,9 +23,15 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
 
-INSERT INTO vehiculos VALUES (1, 'automatico', '200km recorridos', 'grande', 'Opel', '2484 MPW', 'Corsa','5', '432', '13000');
-INSERT INTO vehiculos VALUES (2, 'manual', 'ninguna', 'mediano', 'NISSAN', '2341 EXH', 'Qascai','5', '432', '13000');
-INSERT INTO vehiculos VALUES (3, 'automatico', 'color a elegir', 'pequeño', 'Renault', '6832 HDS', 'Megane','5', '432', '13000');
-INSERT INTO vehiculos VALUES (4, 'manual', 'asientos abatibles', 'pequeño', 'Citroen', '4685 ADT', 'Sara','5', '432', '13000');
-INSERT INTO vehiculos VALUES (5, 'manual', 'ventana en el techo', 'grande', 'Lamborgini', '6874 KJU', 'Fasterosa','5', '432', '13000');
+INSERT INTO cambio VALUES (1, 'automático');
+INSERT INTO cambio VALUES (2, 'manual');
 
+INSERT INTO maletero VALUES (1, 'pequeño');
+INSERT INTO maletero VALUES (2, 'mediano');
+INSERT INTO maletero VALUES (3, 'grande');
+
+INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (1, '200km recorridos', 'Opel', '2484 MPW', 'Corsa', 5, 432, 13000, 1, 1);
+INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (2, 'ninguna', 'NISSAN', '2341 EXH', 'Qascai', 5, 432, 13000, 2, 2);
+INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (3, 'color a elegir', 'Renault', '6832 HDS', 'Megane', 5, 432, 13000, 2, 2);
+INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (4, 'asientos abatibles', 'Citroen', '4685 ADT', 'Sara', 5, 432, 13000, 1, 3);
+INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (5, 'ventana en el techo', 'Lamborgini', '6874 KJU', 'Fasterosa', 5, 432, 13000, 1, 1);

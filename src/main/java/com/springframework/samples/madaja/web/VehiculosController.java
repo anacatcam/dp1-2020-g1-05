@@ -32,7 +32,6 @@ public class VehiculosController {
 		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
 		model.put("vehiculos", vehiculos);
 		return "vehiculos/mostrarVehiculos";
-		
 	}
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/edit")
