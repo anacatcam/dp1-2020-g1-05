@@ -51,7 +51,7 @@ public class VehiculosController {
 		else {
 			vehiculo.setId(vehiculoId);
 			this.vehiculosService.saveVehiculo(vehiculo);
-			return "redirect:/owners/{vehiculoId}";
+			return "redirect:/vehiculos/{vehiculoId}";
 		}
 	}
 	
