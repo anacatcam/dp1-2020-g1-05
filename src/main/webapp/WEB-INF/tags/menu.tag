@@ -39,6 +39,12 @@
 					<span>Vehículos</span>
 				</madaja:menuItem>
 				
+				<madaja:menuItem active="${name eq 'oferta'}" url="/oferta"
+					title="oferta">
+					<span class="glyphicon glyphicon-eur" aria-hidden="true"></span>
+					<span>Ofertas</span>
+				</madaja:menuItem>
+				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
