@@ -2,24 +2,24 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
 <madaja:layout pageName="vehiculos">
 	<h2>Vehículos</h2>
-	
+
 	<table id="ownersTable" class="table table-striped">
 		<thead>
 		<tr>
 			<th style="width: 150px;">Matrícula</th>
+			<th style="width: 150px;">Marca</th>
+			<th style="width: 150px;">Modelo</th>
 			<th style="width: 150px;">Precio de alquiler</th>
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
-			<th style="width: 150px;">Características</th>
-			<th style="width: 150px;">Marca</th>
-			<th style="width: 150px;">Modelo</th>
-			<th style="width: 150px;">Cambio</th>
-			<th style="width: 150px;">Maletero</th>
+			<th style="width: 150px;">Disponibilidad</th>
+			
 		</tr>
 		</thead>
 		<tbody>
@@ -32,31 +32,40 @@
 						<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
 					</td>
 					<td>
-						<c:out value="${vehiculo.precioAlquiler}"/>
-					</td>
-					<td>
-						<c:out value="${vehiculo.precioVenta}"/>
-					</td>
-					<td>
-						<c:out value="${vehiculo.plazas}"/>
-					</td>
-					<td>
-						<c:out value="${vehiculo.caracteristicas}"/>
-					</td>
-					<td>
 						<c:out value="${vehiculo.marca}"/>
 					</td>
 					<td>
 						<c:out value="${vehiculo.modelo}"/>
 					</td>
 					<td>
-						<c:out value="${vehiculo.cambio}"/>
+						<c:out value="${vehiculo.precioAlquiler}"/>
 					</td>
 					<td>
-						<c:out value="${vehiculo.maletero}"/>
+						<c:out value="${vehiculo.precioVenta}"/>
+					</td>
+					<td>
+						<c:out value="${vehiculo.plazas}"/> pasajeros
+					</td>
+					<td>
+						<c:choose>
+                    		<c:when test="${vehiculo.disponible}">
+                        		<span>Disponible</span>
+                    		</c:when>
+                    		<c:when test="${vehiculo.alquilado}">
+                        		<span>Alquilado</span>
+                    		</c:when>
+                    		<c:when test="${vehiculo.vendido}">
+                        		<span>Vendido</span>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<span>No especificado</span>
+                    		</c:otherwise>
+                		</c:choose>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<br/>
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/new" htmlEscape="true"/>'>Añadir vehículo</a>
 </madaja:layout>

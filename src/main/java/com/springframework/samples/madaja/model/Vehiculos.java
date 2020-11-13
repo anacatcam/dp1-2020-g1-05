@@ -1,35 +1,36 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "vehiculos")
-public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencias> Incidencias y Concesionario Concesionario
+public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 	
 	@Column(name = "matricula")
 	@NotEmpty
 	private String matricula;
 	
 	@Column(name = "precio_alquiler")
-	@NotEmpty
 	private Integer precioAlquiler;
 	
 	@Column(name = "precio_venta")
-	@NotEmpty
 	private Integer precioVenta;
 	
 	@Column(name = "marca")
@@ -41,7 +42,6 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	private String modelo;
 	
 	@Column(name = "plazas")
-	@NotEmpty
 	private Integer plazas;
 	
 	@ManyToOne
@@ -55,6 +55,22 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	@Column(name = "caracteristicas")
 	@NotEmpty
 	private String caracteristicas;
+	
+	@Column(name = "disponible")
+	private Boolean disponible;
+	
+	@Column(name = "alquilado")
+	private Boolean alquilado;
+	
+	@Column(name = "vendido")
+	private Boolean vendido;
+	
+	@ManyToOne
+	@JoinColumn(name = "concesionario_id")
+	private Concesionario concesionario;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
+	private Set<Incidencia> incidencias;
 
 	public String getMatricula() {
 		return matricula;
@@ -108,7 +124,8 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 		return cambio;
 	}
 
-	public void setCambio(Cambio tipoCambio) {
+	public void setCambio(Cambio tipoCambio, String name) {
+		tipoCambio.setName(name);
 		this.cambio = tipoCambio;
 	}
 
@@ -116,7 +133,8 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 		return maletero;
 	}
 
-	public void setMaletero(Maletero tipoMaletero) {
+	public void setMaletero(Maletero tipoMaletero, String name) {
+		tipoMaletero.setName(name);
 		this.maletero = tipoMaletero;
 	}
 
@@ -127,6 +145,64 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
+	
+	public Boolean getDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(Boolean disponible) {
+		this.disponible = disponible;
+	}
+	
+	public Boolean getAlquilado() {
+		return alquilado;
+	}
+
+	public void setAlquilado(Boolean alquilado) {
+		this.alquilado = alquilado;
+	}
+	
+	public Boolean getVendido() {
+		return vendido;
+	}
+
+	public void setVendido(Boolean vendido) {
+		this.vendido = vendido;
+	}
+	
+	public Concesionario getConcesionario() {
+		return concesionario;
+	}
+
+	public void setConcesionario(Concesionario concesionario) {
+		this.concesionario = concesionario;
+	}
+	
+	protected Set<Incidencia> getIncidenciasInternal() {
+		if (this.incidencias == null) {
+			this.incidencias = new HashSet<>();
+		}
+		return this.incidencias;
+	}
+
+	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
+	
+	public List<Incidencia> getIncidencias() {
+		List<Incidencia> sortedIncidencias = new ArrayList<>(getIncidenciasInternal());
+		PropertyComparator.sort(sortedIncidencias, new MutableSortDefinition("descripcion", true, true));
+		return Collections.unmodifiableList(sortedIncidencias);
+	}
+	
+	public void addIncidencia(Incidencia incidencia) {
+		getIncidenciasInternal().add(incidencia);
+		incidencia.setVehiculo(this);
+	}
+	
+	public boolean removeIncidencia(Incidencia incidencia) {
+		return getIncidenciasInternal().remove(incidencia);
+	}
 
 	@Override
 	public String toString() {
@@ -136,7 +212,10 @@ public class Vehiculos extends BaseEntity{ //Pendiente de añadir Set<Incidencia
 				.append(precioAlquiler.toString(), this.precioAlquiler).append(precioVenta.toString(), this.precioVenta)
 				.append(marca, this.marca).append(modelo, this.modelo).append(plazas.toString(), this.plazas)
 				.append(cambio.toString(), this.cambio).append(maletero.toString(), this.maletero)
-				.append(caracteristicas, this.caracteristicas).toString();
+				.append(caracteristicas, this.caracteristicas).append(disponible.toString(), this.disponible)
+				.append(alquilado.toString(), this.alquilado).append(vendido.toString(), this.vendido)
+				.append(concesionario.toString(), this.concesionario)
+				.toString();
 	
 	}
 

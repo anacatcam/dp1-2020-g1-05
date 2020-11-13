@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
-		<div class="navbar-header">
+<!-- 	<div class="navbar-header">
 			<a class="navbar-brand"
 				href="<spring:url value="/" htmlEscape="true" />"><span>MADAJA</span></a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -19,12 +19,18 @@
 					class="icon-bar"></span>
 			</button>
 		</div>
-		<div class="navbar-collapse collapse" id="main-navbar">
+-->		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 				<madaja:menuItem active="${name eq 'inicio'}" url="/"
 					title="home page">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
+				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'concesionarios'}" url="/concesionario"
+					title="concesionarios">
+					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+					<span>Concesionarios</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'vehiculos'}" url="/vehiculos"

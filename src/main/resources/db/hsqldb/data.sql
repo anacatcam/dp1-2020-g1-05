@@ -30,8 +30,20 @@ INSERT INTO maletero VALUES (1, 'pequeño');
 INSERT INTO maletero VALUES (2, 'mediano');
 INSERT INTO maletero VALUES (3, 'grande');
 
-INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (1, '200km recorridos', 'Opel', '2484 MPW', 'Corsa', 5, 432, 13000, 1, 1);
-INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (2, 'ninguna', 'NISSAN', '2341 EXH', 'Qascai', 5, 432, 13000, 2, 2);
-INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (3, 'color a elegir', 'Renault', '6832 HDS', 'Megane', 5, 432, 13000, 2, 2);
-INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (4, 'asientos abatibles', 'Citroen', '4685 ADT', 'Sara', 5, 432, 13000, 1, 3);
-INSERT INTO vehiculos(id,caracteristicas,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id) VALUES (5, 'ventana en el techo', 'Lamborgini', '6874 KJU', 'Fasterosa', 5, 432, 13000, 1, 1);
+INSERT INTO concesionario VALUES (1, 'concesionario1@gmail.com', '6085551023');
+INSERT INTO concesionario VALUES (2, 'concesionario2@gmail.com', '6085551749');
+INSERT INTO concesionario VALUES (3, 'concesionario3@gmail.com', '6085553198');
+
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (1, false, false, '200km recorridos', true, 'Opel', '2484 MPW', 'Corsa', 5, 432, 13000, 1, 1, 2);
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (2, true, false, 'ninguna', false, 'NISSAN', '2341 EXH', 'Qascai', 4, 432, 13000, 2, 2, 3);
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (3, false, true, 'color a elegir', false, 'Renault', '6832 HDS', 'Megane', 3, 432, 13000, 2, 2, 1);
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (4, false, false, 'asientos abatibles', true, 'Citroen', '4685 ADT', 'Sara', 5, 432, 13000, 1, 3, 2);
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (5, true, false, 'ventana en el techo', false, 'Lamborgini', '6874 KJU', 'Bicharraco', 2, 432, 13000, 1, 1, 3);
+INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (6, false, false, 'dos ruea como mi nabo', false, 'El trastó', '6548 SED', 'de tuawela', 1, 432, 13000, 1, 1, 1);
+
+INSERT INTO incidencia VALUES (1, 'rozonaso en la ventana y to bollao por enfrente', false, 1);
+INSERT INTO incidencia VALUES (2, 'enverda no le pasa na', false, 3);
+INSERT INTO incidencia VALUES (3, 'lan reventao el cristal', true, 5);
+INSERT INTO incidencia VALUES (4, 'una ruea pinxa', true, 2);
+INSERT INTO incidencia VALUES (5, 'el asiento de atrás esta lleno de pota', true, 4);
+INSERT INTO incidencia VALUES (6, 'faltan 20 céntimos en el salpicaero', true, 2);

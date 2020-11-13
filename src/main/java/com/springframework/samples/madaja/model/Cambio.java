@@ -15,15 +15,15 @@ public class Cambio extends NamedEntity{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cambio")
 	private Set<Vehiculos> vehiculos;
 	
-	protected Set<Vehiculos> getPetsInternal() {
+	protected Set<Vehiculos> getVehiculosInternal() {
 		if (this.vehiculos == null) {
 			this.vehiculos = new HashSet<>();
 		}
 		return this.vehiculos;
 	}
 
-	protected void setPetsInternal(Set<Vehiculos> pets) {
-		this.vehiculos = pets;
+	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
+		this.vehiculos = vehiculos;
 	}
 	
 }
