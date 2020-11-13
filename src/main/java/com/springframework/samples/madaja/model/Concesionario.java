@@ -1,6 +1,9 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
@@ -36,6 +41,12 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 			this.vehiculos = new HashSet<>();
 		}
 		return this.vehiculos;
+	}
+	
+	public List<Vehiculos> getVehiculos() {
+		List<Vehiculos> sortedVehiculos = new ArrayList<>(getVehiculosInternal());
+		PropertyComparator.sort(sortedVehiculos, new MutableSortDefinition("matricula", true, true));
+		return Collections.unmodifiableList(sortedVehiculos);
 	}
 
 	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {

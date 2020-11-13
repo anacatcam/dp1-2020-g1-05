@@ -60,7 +60,7 @@ public class VehiculosController {
 			
 			return "redirect:/vehiculos/" + vehiculo.getId();
 		}
-	}
+	}   //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
 	
 //	@GetMapping(value = "/vehiculos/buscar")
 //	public String processFindForm(Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
@@ -107,7 +107,7 @@ public class VehiculosController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
-	}
+	}  //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
 	
 	@GetMapping("/vehiculos/{vehiculoId}")
 	public ModelAndView showVehiculo(@PathVariable("vehiculoId") int vehiculoId) {

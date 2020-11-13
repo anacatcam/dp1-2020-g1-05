@@ -71,6 +71,9 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
 	private Set<Incidencia> incidencias;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
+	private Set<Oferta> ofertas;
 
 	public String getMatricula() {
 		return matricula;
@@ -202,6 +205,23 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 	
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
+	}
+	
+	protected Set<Oferta> getOfertasInternal() {
+		if (this.ofertas == null) {
+			this.ofertas = new HashSet<>();
+		}
+		return this.ofertas;
+	}
+
+	protected void setOfertasInternal(Set<Oferta> ofertas) {
+		this.ofertas = ofertas;
+	}
+	
+	public List<Oferta> getOfertas() {
+		List<Oferta> sortedOfertas = new ArrayList<>(getOfertasInternal());
+		PropertyComparator.sort(sortedOfertas, new MutableSortDefinition("name", true, true));
+		return Collections.unmodifiableList(sortedOfertas);
 	}
 
 	@Override

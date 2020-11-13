@@ -41,6 +41,12 @@ INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matr
 INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (5, true, false, 'ventana en el techo', false, 'Lamborgini', '6874 KJU', 'Bicharraco', 2, 432, 13000, 1, 1, 3);
 INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (6, false, false, 'dos ruea como mi nabo', false, 'El trastó', '6548 SED', 'de tuawela', 1, 432, 13000, 1, 1, 1);
 
+INSERT INTO oferta VALUES (1, 'ahorarse los dineros', 300.50, '2020-12-07', '00:00:00', 3);
+INSERT INTO oferta VALUES (2, 'encogíos de mierda', 600.50, '2021-05-30', '00:00:00', 1);
+INSERT INTO oferta VALUES (3, 'bugas guapos pa los tiesos', 700.00, '2021-01-24', '00:00:00', 2);
+INSERT INTO oferta VALUES (4, 'mi abuela en bragas', 500.00, '2021-03-16', '00:00:00', 4);
+INSERT INTO oferta VALUES (5, 'primavera en el cortingles', 300.00, '2021-02-08', '00:00:00', 6);
+
 INSERT INTO incidencia VALUES (1, 'rozonaso en la ventana y to bollao por enfrente', false, 1);
 INSERT INTO incidencia VALUES (2, 'enverda no le pasa na', false, 3);
 INSERT INTO incidencia VALUES (3, 'lan reventao el cristal', true, 5);
