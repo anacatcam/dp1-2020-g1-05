@@ -18,4 +18,7 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.id =:id")
 	public Vehiculos findById(@Param("id") int id);
 
+//	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.plazas =:plazas")
+//	Collection<Vehiculos> findByPlazas(@Param("plazas") int plazas);
+
 }

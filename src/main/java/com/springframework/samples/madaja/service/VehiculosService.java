@@ -13,7 +13,7 @@ import com.springframework.samples.madaja.repository.VehiculosRepository;
 public class VehiculosService {
 	
 	private VehiculosRepository vehiculosRepository;
-	
+		
 	public VehiculosService(VehiculosRepository vehiculosRepository) {
 		this.vehiculosRepository=vehiculosRepository;
 	}
@@ -32,6 +32,11 @@ public class VehiculosService {
 	public void saveVehiculo(Vehiculos vehiculo) {
 		vehiculosRepository.save(vehiculo);
 	}
+
+//	@Transactional(readOnly = true)
+//	public Collection<Vehiculos> findVehiculoByPlazas(int plazas) {
+//		return vehiculosRepository.findByPlazas(plazas);
+//	}
 
 
 }
