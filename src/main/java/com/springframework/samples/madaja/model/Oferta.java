@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
@@ -24,6 +26,10 @@ public class Oferta extends NamedEntity {
 	@Column(name = "hora_limite")        
 	@DateTimeFormat(pattern = "hh:mm:ss")
 	private LocalTime horaLimite;
+	
+	@ManyToOne
+	@JoinColumn(name = "vehiculos_id")
+	private Vehiculos vehiculos;
 	
 
 	public Double getDescuento() {
@@ -48,6 +54,14 @@ public class Oferta extends NamedEntity {
 
 	public void setHoraLimite(LocalTime horaLimite) {
 		this.horaLimite = horaLimite;
+	}
+	
+	public Vehiculos getVehiculo() {
+		return vehiculos;
+	}
+
+	public void setVehiculo(Vehiculos vehiculo) {
+		this.vehiculos = vehiculo;
 	}
 	
 	public String toString() {

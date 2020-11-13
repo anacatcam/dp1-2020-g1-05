@@ -46,4 +46,54 @@
         </tr>
 	</table>
 	
+	<br/>
+    <br/>
+    <br/>
+    <h2>Vehículos asociados</h2>
+    
+    <table class="table table-striped">
+    	<c:forEach var="vehiculo" items="${concesionario.vehiculos}">
+    		<tr>
+                <td valign="top">
+                    <dl class="dl-horizontal">
+                    	<dd>
+                        <dt>Matrícula</dt>
+                        <dd>
+                        	<spring:url value="/concesionario/{concesionarioId}/vehiculos/{vehiculoId}" var="vehiculoUrl">
+	                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+                            </spring:url>
+                        	<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
+                        </dd>
+                        <dt>Marca</dt>
+                        <dd><c:out value="${vehiculo.marca}"/></dd>
+                        <dt>Modelo</dt>
+                        <dd><c:out value="${vehiculo.modelo}"/></dd>
+                        <dt>Plazas</dt>
+                        <dd><c:out value="${vehiculo.plazas}"/></dd>
+                        <dt>Precio de alquiler</dt>
+                        <dd><c:out value="${vehiculo.precioAlquiler}"/></dd>
+                        <dt>Precio de venta</dt>
+                        <dd><c:out value="${vehiculo.precioVenta}"/></dd>
+                        <dt>Disponibilidad</dt>
+			        	<dd>
+			        		<c:choose>
+			                	<c:when test="${vehiculos.disponible}">
+			                   		<span>Disponible</span>
+			               		</c:when>
+			               		<c:when test="${vehiculos.alquilado}">
+			                   		<span>Alquilado</span>
+			               		</c:when>
+			               		<c:when test="${vehiculos.vendido}">
+			                   		<span>Vendido</span>
+			               		</c:when>
+			               		<c:otherwise>
+			               			<span>No especificado</span>
+			               		</c:otherwise>
+			           		</c:choose>
+			           	</dd>
+                    </dl>
+                </td>
+    	</c:forEach>
+    </table>
+	
 </madaja:layout>
