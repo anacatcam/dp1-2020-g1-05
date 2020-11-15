@@ -16,7 +16,7 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "Franquicia")
+@Table(name = "franquicia")
 public class Franquicia extends BaseEntity{ //ASOCIADO A SEGURO
 	
 	
@@ -39,7 +39,7 @@ public class Franquicia extends BaseEntity{ //ASOCIADO A SEGURO
 	@Email
 	protected String email;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seguro")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "franquicia")
 	private Set<Seguro> seguros;
 
 	public Integer getTarifaFija() {

@@ -12,6 +12,7 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
+
 @MappedSuperclass
 public class Seguro{ //ASOCIADO A FRANQUICIA
 

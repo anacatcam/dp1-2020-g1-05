@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -12,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table (name = "contratos alquiler")
-public class ContratosAlquiler extends BaseEntity { //unir con alquiler, cliente y vehiculo y generar tostring
+public class ContratosAlquiler extends BaseEntity { // cliente y vehiculo y generar tostring
 
 	
 	@Column(name = "fechaInicio")
@@ -31,7 +34,17 @@ public class ContratosAlquiler extends BaseEntity { //unir con alquiler, cliente
 	@Column(name = "limiteKM")
 	private Integer limiteKm;
 	
+	@OneToOne
+	@JoinColumn(name = "alquilerId", unique = true)
+	private Alquileres alquiler;
 	
+	@ManyToOne
+	@JoinColumn(name = "vehiculoId", unique = true)
+	private Vehiculos vehiculos;
+	
+	@ManyToOne
+	@JoinColumn(name = "clienteId", unique = true)
+	private Cliente cliente;
 
 	public LocalDate getFechaIn() {
 		return fechaIn;
@@ -65,6 +78,31 @@ public class ContratosAlquiler extends BaseEntity { //unir con alquiler, cliente
 		this.limiteKm = limiteKm;
 	}
 
+	public Alquileres getAlquiler() {
+		return alquiler;
+	}
+
+	public void setAlquiler(Alquileres alquiler) {
+		this.alquiler = alquiler;
+	}
+
+	public Vehiculos getVehiculo() {
+		return vehiculos;
+	}
+
+	public void setVehiculo(Vehiculos vehiculo) {
+		this.vehiculos = vehiculo;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 
 
 }
