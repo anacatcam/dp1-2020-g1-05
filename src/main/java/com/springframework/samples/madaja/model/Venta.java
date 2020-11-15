@@ -1,25 +1,25 @@
 package com.springframework.samples.madaja.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-public class Venta {
-	
-	@Id
-	@Column(name="id")
-	@NotEmpty
-	protected String id;
+@Table
+@Entity(name = "venta")
+public class Venta extends BaseEntity { //AÑADIR RESERVA
 
-	public String getId() {
-		return id;
+	@OneToOne
+	@JoinColumn(name = "contrato_venta_id", unique = true)
+	private ContratoVenta contratoVenta;
+
+	public ContratoVenta getContratoVenta() {
+		return contratoVenta;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	
-	
+	public void setContratoVenta(ContratoVenta contratoVenta) {
+		this.contratoVenta = contratoVenta;
+	}	
 
 }

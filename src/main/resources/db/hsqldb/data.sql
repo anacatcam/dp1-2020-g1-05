@@ -30,7 +30,7 @@ INSERT INTO maletero VALUES (1, 'pequeño');
 INSERT INTO maletero VALUES (2, 'mediano');
 INSERT INTO maletero VALUES (3, 'grande');
 
-INSERT INTO concesionario VALUES (1, 'concesionario1@gmail.com', '6085551023');
+/*INSERT INTO concesionario VALUES (1, 'concesionario1@gmail.com', '6085551023');
 INSERT INTO concesionario VALUES (2, 'concesionario2@gmail.com', '6085551749');
 INSERT INTO concesionario VALUES (3, 'concesionario3@gmail.com', '6085553198');
 
@@ -53,3 +53,4 @@ INSERT INTO incidencia VALUES (3, 'lan reventao el cristal', true, 5);
 INSERT INTO incidencia VALUES (4, 'una ruea pinxa', true, 2);
 INSERT INTO incidencia VALUES (5, 'el asiento de atrás esta lleno de pota', true, 4);
 INSERT INTO incidencia VALUES (6, 'faltan 20 céntimos en el salpicaero', true, 2);
+*/

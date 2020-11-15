@@ -12,8 +12,8 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
-
-@MappedSuperclass
+@Entity
+@Table(name = "seguro")
 public class Seguro{ //ASOCIADO A FRANQUICIA
 
 	@Id

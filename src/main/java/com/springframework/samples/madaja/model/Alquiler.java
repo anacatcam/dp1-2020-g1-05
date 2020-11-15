@@ -6,13 +6,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "alquileres")
-public class Alquileres extends BaseEntity{ //unir con reserva, seguro cliente, envio, recogida
+@Table(name = "alquiler")
+public class Alquiler extends BaseEntity{ //unir con reserva, seguro cliente, envio, recogida
 	
-	@OneToOne(mappedBy = "alquiler", cascade = CascadeType.ALL)
-	private ContratosAlquiler contrato;
+	@OneToOne(mappedBy = "alquileres", cascade = CascadeType.ALL)
+	private ContratoAlquiler contrato;
 	
-	@OneToOne(mappedBy = "alquiler", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "alquileres", cascade = CascadeType.ALL)
 	private SeguroCliente segCliente;
 	
 //	private Reserva reserva;

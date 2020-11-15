@@ -38,7 +38,7 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	private Set<Vehiculos> vehiculos;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gestor", referencedColumnName = "concesionario")
+    @JoinColumn(name = "gestor")
 	private Gestor gestor;
 	
 	protected Set<Vehiculos> getVehiculosInternal() {
