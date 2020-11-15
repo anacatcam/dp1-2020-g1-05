@@ -14,29 +14,29 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table (name = "contratos alquiler")
-public class ContratosAlquiler extends BaseEntity { // cliente y vehiculo y generar tostring
+@Table (name = "contrato_alquiler")
+public class ContratoAlquiler extends BaseEntity {
 
 	
-	@Column(name = "fechaInicio")
+	@Column(name = "fecha_inicio")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotEmpty
 	private LocalDate fechaIn;
 	
-	@Column(name = "fechaFin")
+	@Column(name = "fecha_fin")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotEmpty
 	private LocalDate fechaFin;
 	
-	@Column(name = "depositoLleno")
+	@Column(name = "deposito_lleno")
 	private Boolean depLleno;
 	
-	@Column(name = "limiteKM")
+	@Column(name = "limite_km")
 	private Integer limiteKm;
 	
 	@OneToOne
 	@JoinColumn(name = "alquiler_id", unique = true)
-	private Alquileres alquiler;
+	private Alquiler alquileres;
 	
 	@ManyToOne
 	@JoinColumn(name = "vehiculo_id", unique = true)
@@ -78,12 +78,12 @@ public class ContratosAlquiler extends BaseEntity { // cliente y vehiculo y gene
 		this.limiteKm = limiteKm;
 	}
 
-	public Alquileres getAlquiler() {
-		return alquiler;
+	public Alquiler getAlquiler() {
+		return alquileres;
 	}
 
-	public void setAlquiler(Alquileres alquiler) {
-		this.alquiler = alquiler;
+	public void setAlquiler(Alquiler alquiler) {
+		this.alquileres = alquiler;
 	}
 
 	public Vehiculos getVehiculo() {

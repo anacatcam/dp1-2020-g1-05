@@ -10,7 +10,7 @@ import org.springframework.core.style.ToStringCreator;
 
 
 @Entity
-@Table(name = "gestores")
+@Table(name = "gestor")
 public class Gestor extends Trabajador{
 	
 	@OneToOne(cascade = CascadeType.ALL)
