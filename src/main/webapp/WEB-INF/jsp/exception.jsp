@@ -7,7 +7,7 @@
     <spring:url value="/resources/images/clipo.png" var="clipo"/>
     <img class="img-responsive" src="${clipo}"/>
 
-    <h2>Parece que ha habido un error...</h2>
+    <h2>Parece que ha habido un error...¿necesitas ayuda?</h2>
 
     <p>${exception.message}</p>
 
