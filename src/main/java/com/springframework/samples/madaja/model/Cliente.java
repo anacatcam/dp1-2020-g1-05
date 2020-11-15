@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Table(name = "clientes")
 public class Cliente extends Persona{
 
+	
 	@Column(name = "esConflictivo") 
 	protected String esConflictivo; //PREGUNTAR SI LLEVARIA ALGUNA RESTRICCIÓN @
 

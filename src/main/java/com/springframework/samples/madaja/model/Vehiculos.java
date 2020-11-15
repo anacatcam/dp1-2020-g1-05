@@ -75,6 +75,9 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
 	private Set<Oferta> ofertas;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
+	private Set<ContratosAlquiler> contratos_alquileres;
+	
 	public String getMatricula() {
 		return matricula;
 	}
