@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -21,7 +22,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "vehiculos")
-public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
+public class Vehiculos extends BaseEntity{
 	
 	@Column(name = "matricula")
 	@NotEmpty
@@ -75,6 +76,16 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
 	private Set<Oferta> ofertas;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
+	private Set<ContratoAlquiler> contratos_alquileres;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vehiculos")
+	private ContratoVenta contratoVenta;
+	
+	@OneToOne
+	@JoinColumn(name = "seguro_vehiculo_id", unique = true)
+	private SeguroVehiculo seguroVehiculo;
+	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -224,6 +235,22 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 		return Collections.unmodifiableList(sortedOfertas);
 	}
 
+	public Set<ContratoAlquiler> getContratos_alquileres() {
+		return contratos_alquileres;
+	}
+
+	public void setContratos_alquileres(Set<ContratoAlquiler> contratos_alquileres) {
+		this.contratos_alquileres = contratos_alquileres;
+	}
+
+	public ContratoVenta getContratos_ventas() {
+		return contratoVenta;
+	}
+
+	public void setContratos_ventas(ContratoVenta contratos_ventas) {
+		this.contratoVenta = contratos_ventas;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringCreator(this)
@@ -235,6 +262,8 @@ public class Vehiculos extends BaseEntity{ //FALTA AÑADIR SEGUROS
 				.append(caracteristicas, this.caracteristicas).append(disponible.toString(), this.disponible)
 				.append(alquilado.toString(), this.alquilado).append(vendido.toString(), this.vendido)
 				.append(concesionario.toString(), this.concesionario)
+				.append(contratoVenta.toString(), this.contratoVenta)
+				.append(contratos_alquileres.toString(), this.contratos_alquileres)
 				.toString();
 	
 	}

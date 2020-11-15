@@ -9,7 +9,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+
 
 @Entity
 @Table(name = "concesionario")
@@ -34,7 +37,9 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "concesionario")
 	private Set<Vehiculos> vehiculos;
 	
-	//FALTA POR AÑADIR GESTOR
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gestor")
+	private Gestor gestor;
 	
 	protected Set<Vehiculos> getVehiculosInternal() {
 		if (this.vehiculos == null) {
@@ -68,12 +73,23 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
+
+	public Gestor getGestor() {
+		return gestor;
+	}
+
+	public void setGestor(Gestor gestor) {
+		this.gestor = gestor;
+	}
+	//AÑADIR COSAS
 	@Override
 	public String toString() {
-		return new ToStringCreator(this)
-				
-				.append("id", this.getId()).append(email, this.email).append(telefono, this.telefono).toString();
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("email", email);
+		builder.append("telefono", telefono);
+		builder.append("vehiculos", vehiculos);
+		builder.append("gestor", gestor);
+		return builder.toString();
 	}
 	
 }
