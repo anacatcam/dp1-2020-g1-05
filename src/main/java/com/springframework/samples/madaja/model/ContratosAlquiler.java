@@ -35,15 +35,15 @@ public class ContratosAlquiler extends BaseEntity { // cliente y vehiculo y gene
 	private Integer limiteKm;
 	
 	@OneToOne
-	@JoinColumn(name = "alquilerId", unique = true)
+	@JoinColumn(name = "alquiler_id", unique = true)
 	private Alquileres alquiler;
 	
 	@ManyToOne
-	@JoinColumn(name = "vehiculoId", unique = true)
+	@JoinColumn(name = "vehiculo_id", unique = true)
 	private Vehiculos vehiculos;
 	
 	@ManyToOne
-	@JoinColumn(name = "clienteId", unique = true)
+	@JoinColumn(name = "cliente_id", unique = true)
 	private Cliente cliente;
 
 	public LocalDate getFechaIn() {
