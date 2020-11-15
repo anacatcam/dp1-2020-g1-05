@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.core.style.ToStringCreator;
+
 @MappedSuperclass
 public class Trabajador extends Persona{
 	
@@ -17,5 +19,5 @@ public class Trabajador extends Persona{
 
 	public void setSueldo(Double sueldo) {
 		this.sueldo = sueldo;
-	}
+	}	
 }

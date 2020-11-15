@@ -1,8 +1,14 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -25,7 +31,8 @@ public class Incidencia extends BaseEntity {
 	@JoinColumn(name = "vehiculos_id")
 	private Vehiculos vehiculos;
 	
-	//FALTA POR AÑADIR GESTOR
+	@ManyToMany(mappedBy = "incidencias")
+	private Set<Mecanico> mecanicos;
 
 	public String getDescripcion() {
 		return descripcion;
@@ -52,11 +59,20 @@ public class Incidencia extends BaseEntity {
 	}
 	
 	
-	public String toString() {
-		return new ToStringCreator(this)
-				
-				.append("id", this.id).append("new", this.isNew()).append(descripcion, this.descripcion)
-				.append(solucionada.toString(), this.solucionada).append(vehiculos.toString(), this.vehiculos).toString();
+	public void setMecanicos(Set<Mecanico> mecanicos) {
+		this.mecanicos = mecanicos;
 	}
+
+	@Override
+	public String toString() {
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("descripcion", descripcion);
+		builder.append("solucionada", solucionada);
+		builder.append("vehiculos", vehiculos);
+		builder.append("mecanicos", mecanicos);
+		return builder.toString();
+	}
+
+	
 	
 }
