@@ -21,5 +21,4 @@ public class SeguroCliente extends Seguro { //ASOCIADO 1 A 1 A CLIENTE
 		this.alquileres = alquileres;
 	}
 	
-	
 }

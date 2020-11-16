@@ -20,6 +20,4 @@ public class SeguroVehiculo extends Seguro {
 		this.vehiculo = vehiculo;
 	}
 	
-	
-
 }

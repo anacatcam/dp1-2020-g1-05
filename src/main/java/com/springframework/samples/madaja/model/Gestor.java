@@ -14,7 +14,7 @@ import org.springframework.core.style.ToStringCreator;
 public class Gestor extends Trabajador{
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "concesionario", referencedColumnName = "gestor")
+    @JoinColumn(name = "concesionario_id", referencedColumnName = "gestor_id")
 	private Concesionario concesionario;
 
 	public Concesionario getConcesionario() {

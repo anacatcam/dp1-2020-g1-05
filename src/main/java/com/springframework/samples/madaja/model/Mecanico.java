@@ -15,7 +15,7 @@ import org.springframework.core.style.ToStringCreator;
 
 
 @Entity
-@Table(name = "mecanicos")
+@Table(name = "mecanico")
 public class Mecanico extends Trabajador{
 
 	@ManyToMany(cascade = CascadeType.ALL)
