@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,7 +25,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "concesionario")
-public class Concesionario extends BaseEntity/* esto se borra luego y se pone extends Localizacion*/ {
+public class Concesionario extends Localizacion {
 	
 	@Column(name = "email")
 	@NotEmpty
@@ -34,28 +36,15 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	@Digits(fraction = 0, integer = 10)
 	private String telefono;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "concesionario")
-	private Set<Vehiculos> vehiculos;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gestor_id")
-	private Gestor gestor;
-	
-	protected Set<Vehiculos> getVehiculosInternal() {
-		if (this.vehiculos == null) {
-			this.vehiculos = new HashSet<>();
-		}
-		return this.vehiculos;
-	}
-	
-	public List<Vehiculos> getVehiculos() {
-		List<Vehiculos> sortedVehiculos = new ArrayList<>(getVehiculosInternal());
-		PropertyComparator.sort(sortedVehiculos, new MutableSortDefinition("matricula", true, true));
-		return Collections.unmodifiableList(sortedVehiculos);
-	}
+	@JoinTable(name = "concesionarios_gestores", joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Gestor> gestores;
 
-	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
-		this.vehiculos = vehiculos;
+	protected Set<Gestor> getGestoresInternal(){
+		if(this.gestores == null) {
+			this.gestores = new HashSet<Gestor>();
+		}
+		return this.gestores;
 	}
 
 	public String getEmail() {
@@ -74,22 +63,22 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 		this.telefono = telefono;
 	}
 
-	public Gestor getGestor() {
-		return gestor;
+	public Set<Gestor> getGestores() {
+		return gestores;
 	}
 
-	public void setGestor(Gestor gestor) {
-		this.gestor = gestor;
+	public void setGestores(Set<Gestor> gestores) {
+		this.gestores = gestores;
 	}
-	//AÑADIR COSAS
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("email", email);
-		builder.append("telefono", telefono);
-		builder.append("vehiculos", vehiculos);
-		builder.append("gestor", gestor);
-		return builder.toString();
+
+	public Concesionario(@NotEmpty String email, @NotEmpty @Digits(fraction = 0, integer = 10) String telefono,
+			Set<Gestor> gestores) {
+		super();
+		this.email = email;
+		this.telefono = telefono;
+		this.gestores = gestores;
 	}
 	
+	
+
 }

@@ -67,25 +67,17 @@ public class Vehiculos extends BaseEntity{
 	private Boolean vendido;
 	
 	@ManyToOne
-	@JoinColumn(name = "concesionario_id")
-	private Concesionario concesionario;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<Incidencia> incidencias;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<Oferta> ofertas;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<ContratoAlquiler> contratos_alquileres;
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private ContratoVenta contratoVenta;
+	@JoinColumn(nullable = true)
+	private Concesionario concesionario;	
 	
 	@OneToOne
-	@JoinColumn(name = "seguro_vehiculo_id", unique = true)
-	private SeguroVehiculo seguroVehiculo;
+	@JoinColumn(name = "oferta_id")
+	private Oferta oferta;
 	
+	@OneToOne
+	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = false)
+	private SeguroVehiculo seguroVehiculo;
+
 	public String getMatricula() {
 		return matricula;
 	}
@@ -138,18 +130,16 @@ public class Vehiculos extends BaseEntity{
 		return cambio;
 	}
 
-	public void setCambio(Cambio tipoCambio, String name) {
-		tipoCambio.setName(name);
-		this.cambio = tipoCambio;
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
 	}
 
 	public Maletero getMaletero() {
 		return maletero;
 	}
 
-	public void setMaletero(Maletero tipoMaletero, String name) {
-		tipoMaletero.setName(name);
-		this.maletero = tipoMaletero;
+	public void setMaletero(Maletero maletero) {
+		this.maletero = maletero;
 	}
 
 	public String getCaracteristicas() {
@@ -159,7 +149,7 @@ public class Vehiculos extends BaseEntity{
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
-	
+
 	public Boolean getDisponible() {
 		return disponible;
 	}
@@ -167,7 +157,7 @@ public class Vehiculos extends BaseEntity{
 	public void setDisponible(Boolean disponible) {
 		this.disponible = disponible;
 	}
-	
+
 	public Boolean getAlquilado() {
 		return alquilado;
 	}
@@ -175,7 +165,7 @@ public class Vehiculos extends BaseEntity{
 	public void setAlquilado(Boolean alquilado) {
 		this.alquilado = alquilado;
 	}
-	
+
 	public Boolean getVendido() {
 		return vendido;
 	}
@@ -183,7 +173,7 @@ public class Vehiculos extends BaseEntity{
 	public void setVendido(Boolean vendido) {
 		this.vendido = vendido;
 	}
-	
+
 	public Concesionario getConcesionario() {
 		return concesionario;
 	}
@@ -191,81 +181,65 @@ public class Vehiculos extends BaseEntity{
 	public void setConcesionario(Concesionario concesionario) {
 		this.concesionario = concesionario;
 	}
-	
-	protected Set<Incidencia> getIncidenciasInternal() {
-		if (this.incidencias == null) {
-			this.incidencias = new HashSet<>();
-		}
-		return this.incidencias;
+
+	public Oferta getOferta() {
+		return oferta;
 	}
 
-	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
-		this.incidencias = incidencias;
-	}
-	
-	public List<Incidencia> getIncidencias() {
-		List<Incidencia> sortedIncidencias = new ArrayList<>(getIncidenciasInternal());
-		PropertyComparator.sort(sortedIncidencias, new MutableSortDefinition("descripcion", true, true));
-		return Collections.unmodifiableList(sortedIncidencias);
-	}
-	
-	public void addIncidencia(Incidencia incidencia) {
-		getIncidenciasInternal().add(incidencia);
-		incidencia.setVehiculo(this);
-	}
-	
-	public boolean removeIncidencia(Incidencia incidencia) {
-		return getIncidenciasInternal().remove(incidencia);
-	}
-	
-	protected Set<Oferta> getOfertasInternal() {
-		if (this.ofertas == null) {
-			this.ofertas = new HashSet<>();
-		}
-		return this.ofertas;
+	public void setOferta(Oferta oferta) {
+		this.oferta = oferta;
 	}
 
-	protected void setOfertasInternal(Set<Oferta> ofertas) {
-		this.ofertas = ofertas;
-	}
-	
-	public List<Oferta> getOfertas() {
-		List<Oferta> sortedOfertas = new ArrayList<>(getOfertasInternal());
-		PropertyComparator.sort(sortedOfertas, new MutableSortDefinition("name", true, true));
-		return Collections.unmodifiableList(sortedOfertas);
+	public SeguroVehiculo getSeguroVehiculo() {
+		return seguroVehiculo;
 	}
 
-	public Set<ContratoAlquiler> getContratos_alquileres() {
-		return contratos_alquileres;
-	}
-
-	public void setContratos_alquileres(Set<ContratoAlquiler> contratos_alquileres) {
-		this.contratos_alquileres = contratos_alquileres;
-	}
-
-	public ContratoVenta getContratos_ventas() {
-		return contratoVenta;
-	}
-
-	public void setContratos_ventas(ContratoVenta contratos_ventas) {
-		this.contratoVenta = contratos_ventas;
+	public void setSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
+		this.seguroVehiculo = seguroVehiculo;
 	}
 
 	@Override
 	public String toString() {
-		return new ToStringCreator(this)
-				
-				.append("id", this.getId()).append("new", this.isNew()).append(matricula, this.matricula)
-				.append(precioAlquiler.toString(), this.precioAlquiler).append(precioVenta.toString(), this.precioVenta)
-				.append(marca, this.marca).append(modelo, this.modelo).append(plazas.toString(), this.plazas)
-				.append(cambio.toString(), this.cambio).append(maletero.toString(), this.maletero)
-				.append(caracteristicas, this.caracteristicas).append(disponible.toString(), this.disponible)
-				.append(alquilado.toString(), this.alquilado).append(vendido.toString(), this.vendido)
-				.append(concesionario.toString(), this.concesionario)
-				.append(contratoVenta.toString(), this.contratoVenta)
-				.append(contratos_alquileres.toString(), this.contratos_alquileres)
-				.toString();
-	
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("matricula", matricula);
+		builder.append("precioAlquiler", precioAlquiler);
+		builder.append("precioVenta", precioVenta);
+		builder.append("marca", marca);
+		builder.append("modelo", modelo);
+		builder.append("plazas", plazas);
+		builder.append("cambio", cambio);
+		builder.append("maletero", maletero);
+		builder.append("caracteristicas", caracteristicas);
+		builder.append("disponible", disponible);
+		builder.append("alquilado", alquilado);
+		builder.append("vendido", vendido);
+		builder.append("concesionario", concesionario);
+		builder.append("oferta", oferta);
+		builder.append("seguroVehiculo", seguroVehiculo);
+		builder.append("id", id);
+		builder.append("getMatricula()", getMatricula());
+		builder.append("getPrecioAlquiler()", getPrecioAlquiler());
+		builder.append("getPrecioVenta()", getPrecioVenta());
+		builder.append("getMarca()", getMarca());
+		builder.append("getModelo()", getModelo());
+		builder.append("getPlazas()", getPlazas());
+		builder.append("getCambio()", getCambio());
+		builder.append("getMaletero()", getMaletero());
+		builder.append("getCaracteristicas()", getCaracteristicas());
+		builder.append("getDisponible()", getDisponible());
+		builder.append("getAlquilado()", getAlquilado());
+		builder.append("getVendido()", getVendido());
+		builder.append("getConcesionario()", getConcesionario());
+		builder.append("getOferta()", getOferta());
+		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
+		builder.append("getClass()", getClass());
+		builder.append("hashCode()", hashCode());
+		builder.append("toString()", super.toString());
+		return builder.toString();
 	}
+	
+	
 
 }

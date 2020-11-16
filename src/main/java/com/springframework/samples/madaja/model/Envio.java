@@ -2,9 +2,11 @@ package com.springframework.samples.madaja.model;
 
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -13,22 +15,15 @@ import javax.validation.constraints.NotEmpty;
 
 public class Envio extends Localizacion {
 	
-	@Id
-	@Column(name = "id")
-	@NotEmpty
-	private Integer id;
-	
 	@Column(name = "hora")
 	@NotEmpty
 	private LocalTime hora;
+	
+	@OneToOne(mappedBy = "envio", cascade = CascadeType.ALL)
+	private Alquiler alquiler;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Mecanico mecanico;
 
 	public LocalTime getHora() {
 		return hora;
@@ -37,5 +32,30 @@ public class Envio extends Localizacion {
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
+
+	public Alquiler getAlquiler() {
+		return alquiler;
+	}
+
+	public void setAlquiler(Alquiler alquiler) {
+		this.alquiler = alquiler;
+	}
+
+	public Mecanico getMecanico() {
+		return mecanico;
+	}
+
+	public void setMecanico(Mecanico mecanico) {
+		this.mecanico = mecanico;
+	}
+
+	public Envio(@NotEmpty LocalTime hora, Alquiler alquiler, Mecanico mecanico) {
+		super();
+		this.hora = hora;
+		this.alquiler = alquiler;
+		this.mecanico = mecanico;
+	}
+	
+	
 
 }

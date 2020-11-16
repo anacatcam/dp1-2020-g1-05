@@ -1,9 +1,13 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
@@ -13,24 +17,21 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "gestor")
 public class Gestor extends Trabajador{
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "concesionario_id", referencedColumnName = "gestor_id")
-	private Concesionario concesionario;
+	@ManyToMany(mappedBy = "gestores")
+	private Set<Concesionario> concesionarios;
 
-	public Concesionario getConcesionario() {
-		return concesionario;
+	public Set<Concesionario> getConcesionarios() {
+		return concesionarios;
 	}
 
-	public void setConcesionario(Concesionario concesionario) {
-		this.concesionario = concesionario;
+	public void setConcesionarios(Set<Concesionario> concesionarios) {
+		this.concesionarios = concesionarios;
 	}
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("concesionario", concesionario);
-		return builder.toString();
+	public Gestor(Set<Concesionario> concesionarios) {
+		super();
+		this.concesionarios = concesionarios;
 	}
-	
+
 	
 }

@@ -3,17 +3,14 @@ package com.springframework.samples.madaja.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Table(name = "localizacion")
-public class Localizacion {
-	
-	@Id
-	@Column(name = "id")
-	@NotEmpty
-	private Integer id;
+import org.springframework.core.style.ToStringCreator;
+
+@MappedSuperclass
+public class Localizacion extends BaseEntity{
 	
 	@Column(name = "provincia")
 	@NotEmpty
@@ -34,14 +31,6 @@ public class Localizacion {
 	@Column(name = "pais")
 	@NotEmpty
 	private String pais;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getProvincia() {
 		return provincia;
@@ -82,6 +71,8 @@ public class Localizacion {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
+
+
+
 
 }
