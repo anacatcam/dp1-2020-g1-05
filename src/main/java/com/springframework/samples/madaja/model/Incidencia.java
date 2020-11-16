@@ -1,5 +1,6 @@
 package com.springframework.samples.madaja.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,12 +28,19 @@ public class Incidencia extends BaseEntity {
 	@NotEmpty
 	private Boolean solucionada;
 	
-	@ManyToOne
-	@JoinColumn(name = "vehiculos_id")
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculos;
 	
-	@ManyToMany(mappedBy = "incidencias")
+	@JoinTable(name = "incidencias_mecanicos", joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "mecanico_id", nullable = false))
+	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Mecanico> mecanicos;
+
+	protected Set<Mecanico> getMecanicosInternal(){
+		if(this.mecanicos == null) {
+			this.mecanicos = new HashSet<Mecanico>();
+		}
+		return this.mecanicos;
+	}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -50,29 +58,32 @@ public class Incidencia extends BaseEntity {
 		this.solucionada = solucionada;
 	}
 
-	public Vehiculos getVehiculo() {
+	public Vehiculos getVehiculos() {
 		return vehiculos;
 	}
 
-	public void setVehiculo(Vehiculos vehiculo) {
-		this.vehiculos = vehiculo;
+	public void setVehiculos(Vehiculos vehiculos) {
+		this.vehiculos = vehiculos;
 	}
-	
-	
+
+	public Set<Mecanico> getMecanicos() {
+		return mecanicos;
+	}
+
 	public void setMecanicos(Set<Mecanico> mecanicos) {
 		this.mecanicos = mecanicos;
 	}
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("descripcion", descripcion);
-		builder.append("solucionada", solucionada);
-		builder.append("vehiculos", vehiculos);
-		builder.append("mecanicos", mecanicos);
-		return builder.toString();
+	public Incidencia(@NotEmpty String descripcion, @NotEmpty Boolean solucionada, Vehiculos vehiculos,
+			Set<Mecanico> mecanicos) {
+		super();
+		this.descripcion = descripcion;
+		this.solucionada = solucionada;
+		this.vehiculos = vehiculos;
+		this.mecanicos = mecanicos;
 	}
 
+	
 	
 	
 }

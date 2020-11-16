@@ -12,11 +12,9 @@ import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
-@Entity
-@Table(name = "seguro")
-public class Seguro{ //ASOCIADO A FRANQUICIA
+@MappedSuperclass
+public class Seguro extends BaseEntity{ 
 
-	@Id
 	@Column(name = "numeroPoliza")
 	@NotEmpty
 	protected String numeroPoliza;
@@ -30,9 +28,9 @@ public class Seguro{ //ASOCIADO A FRANQUICIA
 	@NotEmpty
 	protected String cobertura;
 	
-	@ManyToOne
-	@JoinColumn(name = "franquicia_id")
-	private Franquicia franquicia;
+	@Column(name = "franquicia")
+	@NotEmpty
+	private String franquicia;
 
 	public String getNumeroPoliza() {
 		return numeroPoliza;
@@ -58,25 +56,15 @@ public class Seguro{ //ASOCIADO A FRANQUICIA
 		this.cobertura = cobertura;
 	}
 
-	public Franquicia getFranquicia() {
+	public String getFranquicia() {
 		return franquicia;
 	}
 
-	public void setFranquicia(Franquicia franquicia) {
+	public void setFranquicia(String franquicia) {
 		this.franquicia = franquicia;
 	}
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("numeroPoliza", numeroPoliza);
-		builder.append("precio", precio);
-		builder.append("cobertura", cobertura);
-		builder.append("franquicia", franquicia);
-		return builder.toString();
-	}
 
-	
 	
 	
 	

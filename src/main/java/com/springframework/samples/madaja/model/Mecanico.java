@@ -18,9 +18,7 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "mecanico")
 public class Mecanico extends Trabajador{
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "mecanico_incidencia", joinColumns = @JoinColumn(name = "mecanico_id"),
-			inverseJoinColumns = @JoinColumn(name = "incidencia_id"))
+	@ManyToMany(mappedBy = "mecanicos")
 	private Set<Incidencia> incidencias;
 
 	public Set<Incidencia> getIncidencias() {
@@ -37,6 +35,6 @@ public class Mecanico extends Trabajador{
 		builder.append("incidencias", incidencias);
 		return builder.toString();
 	}
-	
+
 	
 }
