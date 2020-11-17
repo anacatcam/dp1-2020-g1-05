@@ -13,12 +13,11 @@ import org.springframework.core.style.ToStringCreator;
 @Entity(name = "venta")
 public class Venta extends BaseEntity { 
 	
-	@OneToOne(mappedBy = "venta", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 	
-	@OneToOne(mappedBy = "venta", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@OneToOne
+	@JoinColumn(name = "reserva_id", nullable = false)
 	private Reserva reserva;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -54,9 +53,13 @@ public class Venta extends BaseEntity {
 		builder.append("cliente", cliente);
 		builder.append("reserva", reserva);
 		builder.append("vehiculo", vehiculo);
+		builder.append("id", id);
+		builder.append("getCliente()", getCliente());
+		builder.append("getReserva()", getReserva());
+		builder.append("getVehiculo()", getVehiculo());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-	
-	
 
 }

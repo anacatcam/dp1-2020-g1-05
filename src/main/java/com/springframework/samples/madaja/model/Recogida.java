@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,7 +21,8 @@ public class Recogida extends Localizacion {
 	@NotEmpty
 	private LocalTime hora;
 
-	@OneToOne(mappedBy = "recogida", cascade = CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name = "alquiler_id")
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

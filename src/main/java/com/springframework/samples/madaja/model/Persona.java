@@ -1,6 +1,8 @@
 package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Digits;
@@ -14,9 +16,9 @@ import org.hibernate.validator.constraints.Length;
 public class Persona {
 	
 	@Id
-	@Column(name = "dni")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotEmpty
-	protected String dni;
+	protected Integer dni;
 	
 	@Column(name = "nombre")
 	@NotEmpty
@@ -36,11 +38,11 @@ public class Persona {
 	@Email
 	protected  String email;
 
-	public String getDni() {
+	public Integer getDni() {
 		return dni;
 	}
 
-	public void setDni(String dni) {
+	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
 
