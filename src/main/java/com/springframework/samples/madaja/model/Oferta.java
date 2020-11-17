@@ -29,8 +29,8 @@ public class Oferta extends NamedEntity {
 	@DateTimeFormat(pattern = "hh:mm:ss")
 	private LocalTime horaLimite;
 	
-	@OneToOne(mappedBy = "oferta", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@OneToOne
+	@JoinColumn(name = "vehiculo_id")
 	private Vehiculos vehiculo;
 
 	public Double getDescuento() {

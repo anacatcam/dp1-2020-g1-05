@@ -15,19 +15,19 @@ import org.springframework.core.style.ToStringCreator;
 public class Alquiler extends BaseEntity{ 
 		
 	@OneToOne
-	@JoinColumn(name = "id_seguro_liente", nullable = false)
+	@JoinColumn(name = "seguro_liente_id", nullable = false)
 	private SeguroCliente seguro_cliente;
 	
 	@OneToOne
-	@JoinColumn(name = "id_reserva", nullable = false)
+	@JoinColumn(name = "reserva_id", nullable = false)
 	private Reserva reserva;
 	
 	@OneToOne
-	@JoinColumn(name = "id_envio", nullable = true)
+	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;
 	
 	@OneToOne
-	@JoinColumn(name = "id_recogida", nullable = true)
+	@JoinColumn(name = "recogida_id", nullable = true)
 	private Recogida recogida;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

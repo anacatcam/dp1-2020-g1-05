@@ -16,12 +16,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "reserva")
-public class Reserva {
-	
-	@Id
-	@Column(name = "id")
-	@NotEmpty
-	private Integer id;
+public class Reserva extends BaseEntity {
 	
 	@Column(name = "fianza")
 	@NotEmpty
@@ -31,7 +26,7 @@ public class Reserva {
 	@NotEmpty
 	private LocalDate fechaGastos;
 	
-	@OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(nullable = false)
 	private Alquiler alquiler;
 	

@@ -76,7 +76,16 @@ public class Vehiculos extends BaseEntity{
 	
 	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = false)
-	private SeguroVehiculo seguroVehiculo;
+	private SeguroVehiculo seguro_vehiculo;
+	
+	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	private Set<Incidencia> incidencias;
+
+	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	private Set<Venta> ventas;
+	
+	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	private Set<Alquiler> alquileres;
 
 	public String getMatricula() {
 		return matricula;
@@ -191,12 +200,91 @@ public class Vehiculos extends BaseEntity{
 	}
 
 	public SeguroVehiculo getSeguroVehiculo() {
-		return seguroVehiculo;
+		return seguro_vehiculo;
 	}
 
 	public void setSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
-		this.seguroVehiculo = seguroVehiculo;
+		this.seguro_vehiculo = seguroVehiculo;
 	}
+	
+	protected Set<Incidencia> getIncidenciasInternal() {
+		if (this.incidencias == null) {
+			this.incidencias = new HashSet<>();
+		}
+		return this.incidencias;
+	}
+
+	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
+
+	public List<Incidencia> getIncidencias() {
+		List<Incidencia> sortedIncidencias = new ArrayList<>(getIncidenciasInternal());
+		PropertyComparator.sort(sortedIncidencias, new MutableSortDefinition("descripcion", true, true));
+		return Collections.unmodifiableList(sortedIncidencias);
+	}
+
+	public void addIncidencia(Incidencia incidencia) {
+		getIncidenciasInternal().add(incidencia);
+		incidencia.setVehiculos(this);
+	}
+	
+	public boolean removeIncidencia(Incidencia incidencia) {
+		return getIncidenciasInternal().remove(incidencia);
+	}
+	
+	protected Set<Venta> getVentasInternal() {
+		if (this.ventas == null) {
+			this.ventas = new HashSet<>();
+		}
+		return this.ventas;
+	}
+
+	protected void setVentasInternal(Set<Venta> ventas) {
+		this.ventas = ventas;
+	}
+
+	public List<Venta> getVentas() {
+		List<Venta> sortedVentas = new ArrayList<>(getVentasInternal());
+		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("id", true, true));
+		return Collections.unmodifiableList(sortedVentas);
+	}
+
+	public void addVenta(Venta venta) {
+		getVentasInternal().add(venta);
+		venta.setVehiculo(this);
+	}
+	
+	public boolean removeVenta(Venta venta) {
+		return getVentasInternal().remove(venta);
+	}
+	
+	protected Set<Alquiler> getAlquileresInternal() {
+		if (this.alquileres == null) {
+			this.alquileres = new HashSet<>();
+		}
+		return this.alquileres;
+	}
+
+	protected void setAlquileresInternal(Set<Alquiler> alquiler) {
+		this.alquileres = alquiler;
+	}
+
+	public List<Alquiler> getAlquileres() {
+		List<Alquiler> sortedAlquileres = new ArrayList<>(getAlquileresInternal());
+		PropertyComparator.sort(sortedAlquileres, new MutableSortDefinition("id", true, true));
+		return Collections.unmodifiableList(sortedAlquileres);
+	}
+
+	public void addAlquiler(Alquiler alquiler) {
+		getAlquileresInternal().add(alquiler);
+		alquiler.setVehiculo(this);
+	}
+	
+	public boolean removeAlquiler(Alquiler alquiler) {
+		return getAlquileresInternal().remove(alquiler);
+	}
+	
 
 	@Override
 	public String toString() {
@@ -215,7 +303,7 @@ public class Vehiculos extends BaseEntity{
 		builder.append("vendido", vendido);
 		builder.append("concesionario", concesionario);
 		builder.append("oferta", oferta);
-		builder.append("seguroVehiculo", seguroVehiculo);
+		builder.append("seguro_vehiculo", seguro_vehiculo);
 		builder.append("id", id);
 		builder.append("getMatricula()", getMatricula());
 		builder.append("getPrecioAlquiler()", getPrecioAlquiler());

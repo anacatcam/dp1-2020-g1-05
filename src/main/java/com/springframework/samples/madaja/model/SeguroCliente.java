@@ -10,11 +10,11 @@ import javax.persistence.Table;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
-@Table(name = "SeguroCliente")
+@Table(name = "seguro_cliente")
 public class SeguroCliente extends Seguro { 
 	
-	@OneToOne(mappedBy = "seguro_cliente", cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false)
+	@OneToOne
+	@JoinColumn(name = "alquiler_id", nullable = false)
 	private Alquiler alquiler;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -42,9 +42,19 @@ public class SeguroCliente extends Seguro {
 		ToStringCreator builder = new ToStringCreator(this);
 		builder.append("alquiler", alquiler);
 		builder.append("compania", compania);
+		builder.append("numeroPoliza", numeroPoliza);
+		builder.append("precio", precio);
+		builder.append("cobertura", cobertura);
+		builder.append("id", id);
+		builder.append("getAlquiler()", getAlquiler());
+		builder.append("getCompania()", getCompania());
+		builder.append("getNumeroPoliza()", getNumeroPoliza());
+		builder.append("getPrecio()", getPrecio());
+		builder.append("getCobertura()", getCobertura());
+		builder.append("getFranquicia()", getFranquicia());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-	
-	
 	
 }
