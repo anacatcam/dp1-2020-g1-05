@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -42,6 +43,9 @@ public class Vehiculos extends BaseEntity{
 	@NotEmpty
 	private String modelo;
 	
+	@Column(name = "puertas")
+	private Integer puertas;
+	
 	@Column(name = "plazas")
 	private Integer plazas;
 	
@@ -49,32 +53,36 @@ public class Vehiculos extends BaseEntity{
 	@JoinColumn(name = "cambio_id")
 	private Cambio cambio;
 	
-	@ManyToOne
-	@JoinColumn(name = "maletero_id")
-	private Maletero maletero;
+	@Column(name = "maletero")
+	private Integer maletero;
+	
+	@Column(name = "km_actuales")
+	private Integer kmActuales;
 	
 	@Column(name = "caracteristicas")
 	@NotEmpty
 	private String caracteristicas;
 	
-	@Column(name = "disponible")
-	private Boolean disponible;
+	@Column(name = "estado")
+	@NotEmpty
+	private String estado;
 	
-	@Column(name = "alquilado")
-	private Boolean alquilado;
+	@ManyToOne
+	@JoinColumn(name = "disponible_id")
+	private Disponible disponible;
 	
-	@Column(name = "vendido")
-	private Boolean vendido;
+	@ManyToOne
+	@JoinColumn(name = "combustible_id")
+	private Combustible combustible;
 	
 	@ManyToOne
 	@JoinColumn(nullable = true)
 	private Concesionario concesionario;	
 	
-	@OneToOne
-	@JoinColumn(name = "oferta_id")
+	@OneToOne(mappedBy = "vehiculo", cascade = CascadeType.ALL)
 	private Oferta oferta;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = false)
 	private SeguroVehiculo seguro_vehiculo;
 	
@@ -127,6 +135,14 @@ public class Vehiculos extends BaseEntity{
 		this.modelo = modelo;
 	}
 
+	public Integer getPuertas() {
+		return puertas;
+	}
+
+	public void setPuertas(Integer puertas) {
+		this.puertas = puertas;
+	}
+	
 	public Integer getPlazas() {
 		return plazas;
 	}
@@ -143,14 +159,22 @@ public class Vehiculos extends BaseEntity{
 		this.cambio = cambio;
 	}
 
-	public Maletero getMaletero() {
+	public Integer getMaletero() {
 		return maletero;
 	}
 
-	public void setMaletero(Maletero maletero) {
+	public void setMaletero(Integer maletero) {
 		this.maletero = maletero;
 	}
+	
+	public Integer getKmActuales() {
+		return kmActuales;
+	}
 
+	public void setKmActuales(Integer kmActuales) {
+		this.kmActuales = kmActuales;
+	}
+	
 	public String getCaracteristicas() {
 		return caracteristicas;
 	}
@@ -158,29 +182,29 @@ public class Vehiculos extends BaseEntity{
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
+	
+	public String getEstado() {
+		return estado;
+	}
 
-	public Boolean getDisponible() {
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Disponible getDisponible() {
 		return disponible;
 	}
 
-	public void setDisponible(Boolean disponible) {
+	public void setDisponible(Disponible disponible) {
 		this.disponible = disponible;
 	}
-
-	public Boolean getAlquilado() {
-		return alquilado;
+	
+	public Combustible getCombustible() {
+		return combustible;
 	}
 
-	public void setAlquilado(Boolean alquilado) {
-		this.alquilado = alquilado;
-	}
-
-	public Boolean getVendido() {
-		return vendido;
-	}
-
-	public void setVendido(Boolean vendido) {
-		this.vendido = vendido;
+	public void setCombustible(Combustible combustible) {
+		this.combustible = combustible;
 	}
 
 	public Concesionario getConcesionario() {
@@ -297,10 +321,11 @@ public class Vehiculos extends BaseEntity{
 		builder.append("plazas", plazas);
 		builder.append("cambio", cambio);
 		builder.append("maletero", maletero);
+		builder.append("kmActuales", kmActuales);
 		builder.append("caracteristicas", caracteristicas);
+		builder.append("estado", estado);
 		builder.append("disponible", disponible);
-		builder.append("alquilado", alquilado);
-		builder.append("vendido", vendido);
+		builder.append("combustible", combustible);
 		builder.append("concesionario", concesionario);
 		builder.append("oferta", oferta);
 		builder.append("seguro_vehiculo", seguro_vehiculo);
@@ -313,18 +338,16 @@ public class Vehiculos extends BaseEntity{
 		builder.append("getPlazas()", getPlazas());
 		builder.append("getCambio()", getCambio());
 		builder.append("getMaletero()", getMaletero());
+		builder.append("getKmActuales()", getKmActuales());
 		builder.append("getCaracteristicas()", getCaracteristicas());
+		builder.append("getEstado()", getEstado());
 		builder.append("getDisponible()", getDisponible());
-		builder.append("getAlquilado()", getAlquilado());
-		builder.append("getVendido()", getVendido());
+		builder.append("getCombustible()", getCombustible());
 		builder.append("getConcesionario()", getConcesionario());
 		builder.append("getOferta()", getOferta());
 		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
 		builder.append("getId()", getId());
 		builder.append("isNew()", isNew());
-		builder.append("getClass()", getClass());
-		builder.append("hashCode()", hashCode());
-		builder.append("toString()", super.toString());
 		return builder.toString();
 	}
 	
