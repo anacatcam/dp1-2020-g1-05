@@ -21,8 +21,7 @@ public class Envio extends Localizacion {
 	@NotEmpty
 	private LocalTime hora;
 	
-	@OneToOne
-	@JoinColumn(name = "alquiler_id")
+	@OneToOne(mappedBy = "envio", optional = false)
 	private Alquiler alquiler;
 
 	@ManyToOne(cascade = CascadeType.ALL)

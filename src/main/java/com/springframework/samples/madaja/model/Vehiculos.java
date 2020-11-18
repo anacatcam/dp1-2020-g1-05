@@ -82,7 +82,7 @@ public class Vehiculos extends BaseEntity{
 	@OneToOne(mappedBy = "vehiculo", cascade = CascadeType.ALL)
 	private Oferta oferta;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = false)
 	private SeguroVehiculo seguro_vehiculo;
 	

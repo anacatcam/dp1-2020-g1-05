@@ -26,8 +26,7 @@ public class Reserva extends BaseEntity {
 	@NotEmpty
 	private LocalDate fechaGastos;
 	
-	@OneToOne
-	@JoinColumn(nullable = false)
+	@OneToOne(mappedBy = "reserva", optional = false)
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
