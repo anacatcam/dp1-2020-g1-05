@@ -31,7 +31,7 @@ public class Oferta extends NamedEntity {
 	private LocalTime horaLimite;
 	
 	@OneToOne
-	@JoinColumn(name = "vehiculo_id")
+	@JoinColumn(name = "vehiculo_id", nullable = false)
 	private Vehiculos vehiculo;
 
 	public Double getDescuento() {
