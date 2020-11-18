@@ -49,20 +49,7 @@
         <tr>
         	<th>Disponibilidad</th>
         	<td>
-        		<c:choose>
-                	<c:when test="${vehiculos.disponible}">
-                   		<span>Disponible</span>
-               		</c:when>
-               		<c:when test="${vehiculos.alquilado}">
-                   		<span>Alquilado</span>
-               		</c:when>
-               		<c:when test="${vehiculos.vendido}">
-                   		<span>Vendido</span>
-               		</c:when>
-               		<c:otherwise>
-               			<span>No especificado</span>
-               		</c:otherwise>
-           		</c:choose>
+        		<c:out value="${vehiculos.disponible}"/>
            	</td>
 		</tr>
 		<tr>
@@ -71,18 +58,18 @@
 				<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
 			        <spring:param name="concesionarioId" value="${vehiculos.concesionario.id}"/>
 			    </spring:url>
-			    <a href="${fn:escapeXml(concesionarioUrl)}">Dirección</a>
+			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.direccion}"/></a>
 			</td>
 		</tr>
-			<c:forEach var="oferta" items="${vehiculos.ofertas}">
-				<th>Oferta</th>
-				<td>
-					<spring:url value="/oferta/{ofertaId}" var="ofertaUrl">
-	        			<spring:param name="ofertaId" value="${oferta.id}"/>
-	    			</spring:url>
-					<a href="${fn:escapeXml(ofertaUrl)}"><c:out value="${oferta.name}"/></a>
-				</td>
-    		</c:forEach>
+		<tr>
+			<th>Oferta</th>
+			<td>
+				<spring:url value="/oferta/{ofertaId}" var="ofertaUrl">
+        			<spring:param name="ofertaId" value="${vehiculos.oferta.id}"/>
+    			</spring:url>
+				<a href="${fn:escapeXml(ofertaUrl)}"><c:out value="${vehiculos.oferta.name}"/></a>
+			</td>
+		</tr>
     </table>
     
 	<sec:authorize access="hasAuthority('admin')">

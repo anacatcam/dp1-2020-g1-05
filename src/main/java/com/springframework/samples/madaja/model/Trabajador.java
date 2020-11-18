@@ -19,5 +19,8 @@ public class Trabajador extends Persona{
 
 	public void setSueldo(Double sueldo) {
 		this.sueldo = sueldo;
-	}	
+	}
+
+
+	
 }

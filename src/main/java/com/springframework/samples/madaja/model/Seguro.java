@@ -1,22 +1,16 @@
 package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
-@Entity
-@Table(name = "seguro")
-public class Seguro{ //ASOCIADO A FRANQUICIA
 
-	@Id
+@MappedSuperclass
+public class Seguro extends BaseEntity{ 
+
 	@Column(name = "numeroPoliza")
 	@NotEmpty
 	protected String numeroPoliza;
@@ -26,13 +20,9 @@ public class Seguro{ //ASOCIADO A FRANQUICIA
 	@Positive
 	protected Double precio;
 	
-	@Column(name = "cobertura")
+	@Column(name = "franquicia")
 	@NotEmpty
-	protected String cobertura;
-	
-	@ManyToOne
-	@JoinColumn(name = "franquicia_id")
-	private Franquicia franquicia;
+	protected String franquicia;
 
 	public String getNumeroPoliza() {
 		return numeroPoliza;
@@ -50,19 +40,11 @@ public class Seguro{ //ASOCIADO A FRANQUICIA
 		this.precio = precio;
 	}
 
-	public String getCobertura() {
-		return cobertura;
-	}
-
-	public void setCobertura(String cobertura) {
-		this.cobertura = cobertura;
-	}
-
-	public Franquicia getFranquicia() {
+	public String getFranquicia() {
 		return franquicia;
 	}
 
-	public void setFranquicia(Franquicia franquicia) {
+	public void setFranquicia(String franquicia) {
 		this.franquicia = franquicia;
 	}
 
@@ -71,13 +53,14 @@ public class Seguro{ //ASOCIADO A FRANQUICIA
 		ToStringCreator builder = new ToStringCreator(this);
 		builder.append("numeroPoliza", numeroPoliza);
 		builder.append("precio", precio);
-		builder.append("cobertura", cobertura);
 		builder.append("franquicia", franquicia);
+		builder.append("id", id);
+		builder.append("getNumeroPoliza()", getNumeroPoliza());
+		builder.append("getPrecio()", getPrecio());
+		builder.append("getFranquicia()", getFranquicia());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-
-	
-	
-	
 	
 }

@@ -47,20 +47,7 @@
 						<c:out value="${vehiculo.plazas}"/> pasajeros
 					</td>
 					<td>
-						<c:choose>
-                    		<c:when test="${vehiculo.disponible}">
-                        		<span>Disponible</span>
-                    		</c:when>
-                    		<c:when test="${vehiculo.alquilado}">
-                        		<span>Alquilado</span>
-                    		</c:when>
-                    		<c:when test="${vehiculo.vendido}">
-                        		<span>Vendido</span>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<span>No especificado</span>
-                    		</c:otherwise>
-                		</c:choose>
+						<c:out value="${vehiculo.disponible}"/>
 					</td>
 				</tr>
 			</c:forEach>

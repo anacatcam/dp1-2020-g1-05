@@ -11,27 +11,27 @@
 	<table class="table table-striped">
         <tr>
             <th>Provincia</th>
-            <td></td>
+            <td><c:out value="${concesionario.provincia}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Localidad</th>
-            <td></td>
+            <td><c:out value="${concesionario.localidad}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Dirección</th>
-            <td></td>
+            <td><c:out value="${concesionario.direccion}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Código Postal</th>
-            <td></td>
+            <td><c:out value="${concesionario.codigoPostal}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>País</th>
-            <td></td>
+            <td><c:out value="${concesionario.pais}"/></td>
             <td></td>
         </tr>
         <tr>
@@ -59,8 +59,8 @@
                     	<dd>
                         <dt>Matrícula</dt>
                         <dd>
-                        	<spring:url value="/concesionario/{concesionarioId}/vehiculos/{vehiculoId}" var="vehiculoUrl">
-	                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+                        	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+	                            <spring:param name="vehiculoId" value="${vehiculo.id}"/>
                             </spring:url>
                         	<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
                         </dd>
@@ -75,22 +75,7 @@
                         <dt>Precio de venta</dt>
                         <dd><c:out value="${vehiculo.precioVenta}"/></dd>
                         <dt>Disponibilidad</dt>
-			        	<dd>
-			        		<c:choose>
-			                	<c:when test="${vehiculos.disponible}">
-			                   		<span>Disponible</span>
-			               		</c:when>
-			               		<c:when test="${vehiculos.alquilado}">
-			                   		<span>Alquilado</span>
-			               		</c:when>
-			               		<c:when test="${vehiculos.vendido}">
-			                   		<span>Vendido</span>
-			               		</c:when>
-			               		<c:otherwise>
-			               			<span>No especificado</span>
-			               		</c:otherwise>
-			           		</c:choose>
-			           	</dd>
+			        	<dd><c:out value="${vehiculo.disponible}"/></dd>
                     </dl>
                 </td>
     	</c:forEach>

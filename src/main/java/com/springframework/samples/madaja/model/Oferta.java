@@ -3,10 +3,13 @@ package com.springframework.samples.madaja.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
@@ -27,10 +30,9 @@ public class Oferta extends NamedEntity {
 	@DateTimeFormat(pattern = "hh:mm:ss")
 	private LocalTime horaLimite;
 	
-	@ManyToOne
-	@JoinColumn(name = "vehiculos_id")
-	private Vehiculos vehiculos;
-	
+	@OneToOne
+	@JoinColumn(name = "vehiculo_id")
+	private Vehiculos vehiculo;
 
 	public Double getDescuento() {
 		return descuento;
@@ -55,22 +57,25 @@ public class Oferta extends NamedEntity {
 	public void setHoraLimite(LocalTime horaLimite) {
 		this.horaLimite = horaLimite;
 	}
-	
+
 	public Vehiculos getVehiculo() {
-		return vehiculos;
+		return vehiculo;
 	}
 
 	public void setVehiculo(Vehiculos vehiculo) {
-		this.vehiculos = vehiculo;
+		this.vehiculo = vehiculo;
+	}
+
+	@Override
+	public String toString() {
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("descuento", descuento);
+		builder.append("fechaLimite", fechaLimite);
+		builder.append("horaLimite", horaLimite);
+		builder.append("vehiculo", vehiculo);
+		return builder.toString();
 	}
 	
-	public String toString() {
-		return new ToStringCreator(this)
-				
-				.append("id", this.getId()).append("new", this.isNew()).append("name", this.getName())
-				.append(descuento.toString(), this.descuento).append(fechaLimite.toString(), this.fechaLimite)
-				.append(horaLimite.toString(), this.horaLimite)
-				.toString();
-	}
+	
 
 }

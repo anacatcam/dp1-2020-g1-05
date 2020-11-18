@@ -23,25 +23,54 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
 
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442601, 'Juan José', 'Pérez Plata', '608960166', 'juan@gmail.com', 1500);
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442609, 'Paco', 'Pérez Rodríguez', '608960162', 'paco@gmail.com', 1500);
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442608, 'Pepe', 'Reina López', '608960161', 'pepe@gmail.com', 1500);
+
+INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442602, 'Álvaro', 'Echegoyán Delgado', '608960167', 'alvaro@gmail.com', 1500);
+INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442603, 'Antonio', 'Pérez Vázquez', '608960168', 'antonio@gmail.com', 1500);
+
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442604, 'Manuel', 'Pérez Carrillo', '608960169', 'manuel@gmail.com', false);
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442605, 'Daniel', 'Toro Valle', '608960170', 'daniel@gmail.com', false);
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442606, 'Alejandro', 'Piury Pinzón', '608960171', 'alejandro@gmail.com', false);
+
 INSERT INTO cambio VALUES (1, 'automático');
 INSERT INTO cambio VALUES (2, 'manual');
 
-INSERT INTO maletero VALUES (1, 'pequeño');
-INSERT INTO maletero VALUES (2, 'mediano');
-INSERT INTO maletero VALUES (3, 'grande');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '6085551023', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '6085551749', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '6085553198', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
 
-/*INSERT INTO concesionario VALUES (1, 'concesionario1@gmail.com', '6085551023');
-INSERT INTO concesionario VALUES (2, 'concesionario2@gmail.com', '6085551749');
-INSERT INTO concesionario VALUES (3, 'concesionario3@gmail.com', '6085553198');
+INSERT INTO concesionarios_gestores VALUES (1, 15442601);
+INSERT INTO concesionarios_gestores VALUES (2, 15442609);
+INSERT INTO concesionarios_gestores VALUES (3, 15442608);
 
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (1, false, false, '200km recorridos', true, 'Opel', '2484 MPW', 'Corsa', 5, 432, 13000, 1, 1, 2);
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (2, true, false, 'ninguna', false, 'NISSAN', '2341 EXH', 'Qascai', 4, 432, 13000, 2, 2, 3);
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (3, false, true, 'color a elegir', false, 'Renault', '6832 HDS', 'Megane', 3, 432, 13000, 2, 2, 1);
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (4, false, false, 'asientos abatibles', true, 'Citroen', '4685 ADT', 'Sara', 5, 432, 13000, 1, 3, 2);
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (5, true, false, 'ventana en el techo', false, 'Lamborgini', '6874 KJU', 'Bicharraco', 2, 432, 13000, 1, 1, 3);
-INSERT INTO vehiculos(id,alquilado,vendido,caracteristicas,disponible,marca,matricula,modelo,plazas,precio_alquiler,precio_venta,cambio_id,maletero_id,concesionario_id) VALUES (6, false, false, 'dos ruea como mi nabo', false, 'El trastó', '6548 SED', 'de tuawela', 1, 432, 13000, 1, 1, 1);
+INSERT INTO disponible(id,name) VALUES (1, 'alquiler');
+INSERT INTO disponible(id,name) VALUES (2, 'venta');
+INSERT INTO disponible(id,name) VALUES (3, 'alquiler o venta');
 
-INSERT INTO oferta VALUES (1, 'ahorarse los dineros', 300.50, '2020-12-07', '00:00:00', 3);
+INSERT INTO combustible(id,name) VALUES (1, 'gasolina');
+INSERT INTO combustible(id,name) VALUES (2, 'diesel');
+INSERT INTO combustible(id,name) VALUES (3, 'eléctrico');
+
+INSERT INTO compania(id,nombre,telefono,email) VALUES (1, 'Seguros Pakito', '621832854', 'pakitoElMejor@gmail.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (2, 'Better Call Saúl', '684525318', 'saul@gmail.com');
+
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (1, '65215', 60.35, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (2, '86452', 100.67, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 2);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (3, '35418', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (4, '32151', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (5, '96843', 200.32, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (6, '65482', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 432, 13000, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'pekeñito pero matón', 'perfe pero le falta un espejillo', 1, 1, 2, 2);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 432, 13000, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'está guapo pero pa aparcar te jarta de reí', 'tu me dirás', 1, 2, 3, 1);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (3, '6832 HDS', 432, 13000, 'Renault', 'Megane', 2, 2, 2, 600, 20000, 'puedes meter cadáveres dentro si quiere', 'igual hay que lavarlo una mijita', 3, 1, 1, 3);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (4, '4685 ADT', 432, 13000, 'Citroen', 'Sara', 2, 5, 1, 90, 3000, 'aunque parezca mentira corre que flipas', 'el otro día llovió y se le jodió la pintura pero eso se pinta', 3, 3, 2, 6);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (5, '6874 KJU', 432, 13000, 'Lamborgini', 'Wapísimo', 2, 4, 1, 100, 1000, 'pa vacila y eso bien pero ve ahorrando pa gasolina jaja', 'nuevo porque no se lo pilla ni dios', 2, 2, 1, 4);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (6, '6548 SED', 432, 13000, 'BMW', 'Serie 1', 4, 5, 2, 150, 15000, 'es mi coche pero te lo vendo si quieres', 'yo que se illo ven y lo ves tú cojone', 3, 1, 3, 5);
+
+INSERT INTO oferta VALUES (1, 'ahorrarse los dineros', 300.50, '2020-12-07', '00:00:00', 3);
 INSERT INTO oferta VALUES (2, 'encogíos de mierda', 600.50, '2021-05-30', '00:00:00', 1);
 INSERT INTO oferta VALUES (3, 'bugas guapos pa los tiesos', 700.00, '2021-01-24', '00:00:00', 2);
 INSERT INTO oferta VALUES (4, 'mi abuela en bragas', 500.00, '2021-03-16', '00:00:00', 4);
@@ -53,4 +82,12 @@ INSERT INTO incidencia VALUES (3, 'lan reventao el cristal', true, 5);
 INSERT INTO incidencia VALUES (4, 'una ruea pinxa', true, 2);
 INSERT INTO incidencia VALUES (5, 'el asiento de atrás esta lleno de pota', true, 4);
 INSERT INTO incidencia VALUES (6, 'faltan 20 céntimos en el salpicaero', true, 2);
-*/
+
+INSERT INTO incidencias_mecanicos VALUES (1, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (2, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (3, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (3, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (4, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (5, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (6, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (6, 15442602);
