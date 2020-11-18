@@ -44,7 +44,6 @@ public class VehiculosController {
 	@GetMapping(value = "/vehiculos/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Vehiculos vehiculo = new Vehiculos();
-		vehiculo.setDisponible(true); //el coche nuevo está disponible por defecto
 		model.put("vehiculos", vehiculo);
 		return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
 	}

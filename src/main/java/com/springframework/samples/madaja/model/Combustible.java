@@ -9,21 +9,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "maletero")
-public class Maletero extends NamedEntity{
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "maletero")
+@Table(name = "combustible")
+public class Combustible extends NamedEntity {
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "disponible")
 	private Set<Vehiculos> vehiculos;
 	
-	protected Set<Vehiculos> getPetsInternal() {
+	protected Set<Vehiculos> getVehiculosInternal() {
 		if (this.vehiculos == null) {
 			this.vehiculos = new HashSet<>();
 		}
 		return this.vehiculos;
 	}
 
-	protected void setPetsInternal(Set<Vehiculos> pets) {
-		this.vehiculos = pets;
+	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
+		this.vehiculos = vehiculos;
 	}
-	
+
 }

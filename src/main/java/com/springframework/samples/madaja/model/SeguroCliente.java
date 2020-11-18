@@ -1,17 +1,33 @@
 package com.springframework.samples.madaja.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "seguro_cliente")
-public class SeguroCliente extends Seguro { 
+public class SeguroCliente extends Seguro {
+	
+	@Column(name = "cobertura")
+	@NotEmpty
+	private String cobertura;
+	
+	@Column(name = "fecha_inicio")
+	@NotEmpty
+	private LocalDate fechaInicio;
+	
+	@Column(name = "fecha_fin")
+	@NotEmpty
+	private LocalDate fechaFin;
 	
 	@OneToOne
 	@JoinColumn(name = "alquiler_id", nullable = false)
@@ -20,6 +36,30 @@ public class SeguroCliente extends Seguro {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Compania compania;
+	
+	public String getCobertura() {
+		return cobertura;
+	}
+
+	public void setCobertura(String cobertura) {
+		this.cobertura = cobertura;
+	}
+	
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
 
 	public Alquiler getAlquiler() {
 		return alquiler;
