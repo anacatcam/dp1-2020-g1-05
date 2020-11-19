@@ -48,19 +48,4 @@ public class Seguro extends BaseEntity{
 		this.franquicia = franquicia;
 	}
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("numeroPoliza", numeroPoliza);
-		builder.append("precio", precio);
-		builder.append("franquicia", franquicia);
-		builder.append("id", id);
-		builder.append("getNumeroPoliza()", getNumeroPoliza());
-		builder.append("getPrecio()", getPrecio());
-		builder.append("getFranquicia()", getFranquicia());
-		builder.append("getId()", getId());
-		builder.append("isNew()", isNew());
-		return builder.toString();
-	}
-	
 }

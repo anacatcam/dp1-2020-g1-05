@@ -14,12 +14,11 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "alquiler")
 public class Alquiler extends BaseEntity{ 
 		
-	@OneToOne
-	@JoinColumn(name = "seguro_liente_id", nullable = false)
+	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
 	
 	@OneToOne
-	@JoinColumn(name = "reserva_id", nullable = false)
+	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 	
 	@OneToOne
