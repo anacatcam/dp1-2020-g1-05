@@ -19,66 +19,75 @@ INSERT INTO authorities(id,username,authority) VALUES (6,'antpervaz','owner');
 --owner user Manuel
 INSERT INTO users(username,password,enabled) VALUES ('manpercar1','pakito123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
+--owner user Daniel
+INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
 
-INSERT INTO vets VALUES (1, 'James', 'Carter');
-INSERT INTO vets VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins');
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442601, 'Juan José', 'Pérez Plata', '608960166', 'juan@gmail.com', 1500);
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442609, 'Paco', 'Pérez Rodríguez', '608960162', 'paco@gmail.com', 1500);
+INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442608, 'Pepe', 'Reina López', '608960161', 'pepe@gmail.com', 1500);
 
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
+INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442602, 'Álvaro', 'Echegoyán Delgado', '608960167', 'alvaro@gmail.com', 1500);
+INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442603, 'Antonio', 'Pérez Vázquez', '608960168', 'antonio@gmail.com', 1500);
 
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442604, 'Manuel', 'Pérez Carrillo', '608960169', 'manuel@gmail.com', 'hola');
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442605, 'Daniel', 'Toro Valle', '608960170', 'daniel@gmail.com', 'guapo');
+INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (15442606, 'Alejandro', 'Piury Pinzón', '608960171', 'alejandro@gmail.com', 's');
 
-INSERT INTO types VALUES (1, 'cat');
-INSERT INTO types VALUES (2, 'dog');
-INSERT INTO types VALUES (3, 'lizard');
-INSERT INTO types VALUES (4, 'snake');
-INSERT INTO types VALUES (5, 'bird');
-INSERT INTO types VALUES (6, 'hamster');
+INSERT INTO cambio VALUES (1, 'automático');
+INSERT INTO cambio VALUES (2, 'manual');
 
-INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner1');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner1');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner1');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner1');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
-INSERT INTO owners VALUES (11, 'Manuel', 'Pérez', 'Tremen Daverga 69', 'Ubrique', '608960165', 'manpercar1');
-INSERT INTO owners VALUES (12, 'Juan José', 'Pérez Plata', '50 Lombars St.', 'San Francisco', '648213789', 'juaperpla');
-INSERT INTO owners VALUES (13, 'Álvaro', 'Echegoyán Delgado', '3218 Lindberg', 'Germany', '606972325', 'alvechdel');
-INSERT INTO owners VALUES (14, 'Antonio', 'Pérez', 'Triana', 'Sevilla', '673469510', 'antpervaz');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '6085551023', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '6085551749', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '6085553198', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
 
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (4, 'Jewel', '2010-03-07', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (5, 'Iggy', '2010-11-30', 3, 4);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (6, 'George', '2010-01-20', 4, 5);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (7, 'Samantha', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (8, 'Max', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (9, 'Lucky', '2011-08-06', 5, 7);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'ElRubius', '1649-06-08', 1, 11);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Jaco', '2015-06-25', 2, 12);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Sinbad', '2017-08-12', 2, 13);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Lana', '2009-02-02', 2, 14);
+INSERT INTO concesionarios_gestores VALUES (1, 15442601);
+INSERT INTO concesionarios_gestores VALUES (2, 15442609);
+INSERT INTO concesionarios_gestores VALUES (3, 15442608);
 
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
+INSERT INTO disponible(id,name) VALUES (1, 'alquiler');
+INSERT INTO disponible(id,name) VALUES (2, 'venta');
+INSERT INTO disponible(id,name) VALUES (3, 'alquiler o venta');
 
+INSERT INTO combustible(id,name) VALUES (1, 'gasolina');
+INSERT INTO combustible(id,name) VALUES (2, 'diesel');
+INSERT INTO combustible(id,name) VALUES (3, 'eléctrico');
+
+INSERT INTO compania(id,nombre,telefono,email) VALUES (1, 'Seguros Pakito', '621832854', 'pakitoElMejor@gmail.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (2, 'Better Call Saúl', '684525318', 'saul@gmail.com');
+
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (1, '65215', 60.35, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (2, '86452', 100.67, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 2);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (3, '35418', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (4, '32151', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (5, '96843', 200.32, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (6, '65482', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 432, 13000, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'pekeñito pero matón', 'perfe pero le falta un espejillo', 1, 1, 2, 2);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 432, 13000, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'está guapo pero pa aparcar te jarta de reí', 'tu me dirás', 1, 2, 3, 1);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (3, '6832 HDS', 432, 13000, 'Renault', 'Megane', 2, 2, 2, 600, 20000, 'puedes meter cadáveres dentro si quiere', 'igual hay que lavarlo una mijita', 3, 1, 1, 3);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (4, '4685 ADT', 432, 13000, 'Citroen', 'Sara', 2, 5, 1, 90, 3000, 'aunque parezca mentira corre que flipas', 'el otro día llovió y se le jodió la pintura pero eso se pinta', 3, 3, 2, 6);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (5, '6874 KJU', 432, 13000, 'Lamborgini', 'Wapísimo', 2, 4, 1, 100, 1000, 'pa vacila y eso bien pero ve ahorrando pa gasolina jaja', 'nuevo porque no se lo pilla ni dios', 2, 2, 1, 4);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (6, '6548 SED', 432, 13000, 'BMW', 'Serie 1', 4, 5, 2, 150, 15000, 'es mi coche pero te lo vendo si quieres', 'yo que se illo ven y lo ves tú cojone', 3, 1, 3, 5);
+
+INSERT INTO oferta VALUES (1, 'ahorrarse los dineros', 300.50, '2020-12-07', '00:00:00', 3);
+INSERT INTO oferta VALUES (2, 'encogíos de mierda', 600.50, '2021-05-30', '00:00:00', 1);
+INSERT INTO oferta VALUES (3, 'bugas guapos pa los tiesos', 700.00, '2021-01-24', '00:00:00', 2);
+INSERT INTO oferta VALUES (4, 'mi abuela en bragas', 500.00, '2021-03-16', '00:00:00', 4);
+INSERT INTO oferta VALUES (5, 'primavera en el cortingles', 300.00, '2021-02-08', '00:00:00', 6);
+
+INSERT INTO incidencia VALUES (1, 'rozonaso en la ventana y to bollao por enfrente', false, 1);
+INSERT INTO incidencia VALUES (2, 'enverda no le pasa na', false, 3);
+INSERT INTO incidencia VALUES (3, 'lan reventao el cristal', true, 5);
+INSERT INTO incidencia VALUES (4, 'una ruea pinxa', true, 2);
+INSERT INTO incidencia VALUES (5, 'el asiento de atrás esta lleno de pota', true, 4);
+INSERT INTO incidencia VALUES (6, 'faltan 20 céntimos en el salpicaero', true, 2);
+
+INSERT INTO incidencias_mecanicos VALUES (1, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (2, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (3, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (3, 15442602);
+INSERT INTO incidencias_mecanicos VALUES (4, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (5, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (6, 15442603);
+INSERT INTO incidencias_mecanicos VALUES (6, 15442602);
