@@ -100,3 +100,21 @@ INSERT INTO incidencias_mecanicos VALUES (4, 15442603);
 INSERT INTO incidencias_mecanicos VALUES (5, 15442603);
 INSERT INTO incidencias_mecanicos VALUES (6, 15442603);
 INSERT INTO incidencias_mecanicos VALUES (6, 15442602);
+
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (1,'2010-09-07',100.0,15442604);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (2,'2010-09-08',122.0,15442605);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (3,'2010-09-09',120.0,15442606);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (4,'2010-09-09',120.0,15442604);
+
+INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (1,15442604,5,1);
+INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (2,15442605,5,2);
+INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (3,15442606,5,3);
+
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','10:00',15442602);
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','11:00',15442602);
+
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','11:00',15442602);
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00',15442602);
+
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id) VALUES (1,15442604,1,1,4,4);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,vehiculo_id) VALUES (2,15442605,2,2,1);

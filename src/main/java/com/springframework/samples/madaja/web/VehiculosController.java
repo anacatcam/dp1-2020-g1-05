@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,8 +115,7 @@ public class VehiculosController {
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
 	}  //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
-	
-	@GetMapping("/vehiculos/{vehiculoId}")
+	@GetMapping(value = "/vehiculos/{vehiculoId}")
 	public ModelAndView showVehiculo(@PathVariable("vehiculoId") int vehiculoId) {
 		ModelAndView mav = new ModelAndView("vehiculos/vehiculoDetails");
 		mav.addObject(this.vehiculosService.findVehiculoById(vehiculoId));

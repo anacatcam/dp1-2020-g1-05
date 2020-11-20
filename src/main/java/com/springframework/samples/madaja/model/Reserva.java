@@ -32,8 +32,7 @@ public class Reserva extends BaseEntity {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 
-	@OneToOne
-	@JoinColumn(name = "venta_id", nullable = true)
+	@OneToOne(mappedBy = "reserva", optional = true)
 	private Venta venta;
 
 	public Integer getId() {
