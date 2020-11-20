@@ -54,6 +54,11 @@ public class VehiculosService {
 	public void saveVehiculo(Vehiculos vehiculo) {
 		vehiculosRepository.save(vehiculo);
 	}
+	
+	@Transactional
+	public void deleteVehiculoById(int id) {
+		vehiculosRepository.delete(vehiculosRepository.findById(id));
+	}
 
 //	@Transactional(readOnly = true)
 //	public Collection<Vehiculos> findVehiculoByPlazas(int plazas) {

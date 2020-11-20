@@ -13,6 +13,8 @@ public interface IncidenciaRepository extends Repository<Incidencia, Integer> {
 	
 	void save(Incidencia incidencia) throws DataAccessException;
 	
+//	void deleteAll(Collection<Incidencia> incidencias) throws DataAccessException;
+	
 	@Query("SELECT incidencia FROM Incidencia incidencia WHERE incidencia.id =:id")
 	public Incidencia findById(@Param("id") int id);
 
