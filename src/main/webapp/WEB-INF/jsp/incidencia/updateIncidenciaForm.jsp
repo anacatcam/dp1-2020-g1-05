@@ -6,13 +6,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="incidencia">
+<madaja:layout pageName="vehiculos">
     <h2>
         <c:if test="${incidencia['new']}">Nueva</c:if> Incidencia
     </h2>
     <form:form modelAttribute="incidencia" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <madaja:inputField label="Descripcion" name="descripcion"/>
+            <label>Solucionada </label><input name="solucionada">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

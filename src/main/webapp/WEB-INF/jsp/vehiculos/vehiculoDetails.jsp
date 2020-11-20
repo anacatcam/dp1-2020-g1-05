@@ -93,6 +93,12 @@
 	    </spring:url>
 	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Editar vehículo</a>
     </sec:authorize>
+    <sec:authorize access="hasAuthority('admin')">
+	    <spring:url value="/vehiculos/{vehiculoId}/delete" var="deleteUrl">
+	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Eliminar vehículo</a>
+    </sec:authorize>
     <br/>
     <br/>
     <br/>

@@ -11,6 +11,8 @@ public interface SeguroVehiculoRepository extends Repository<SeguroVehiculo, Int
 	
 	void save(SeguroVehiculo seguroVehiculo) throws DataAccessException;
 	
+	void deleteAll() throws DataAccessException;
+	
 	Collection<SeguroVehiculo> findAll() throws DataAccessException;
 
 }

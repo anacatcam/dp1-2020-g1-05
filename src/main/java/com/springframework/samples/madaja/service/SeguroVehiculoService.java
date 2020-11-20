@@ -1,0 +1,23 @@
+package com.springframework.samples.madaja.service;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.springframework.samples.madaja.repository.SeguroVehiculoRepository;
+
+@Service
+public class SeguroVehiculoService {
+	
+	private SeguroVehiculoRepository seguroVehiculoRepository;
+	
+	public SeguroVehiculoService(SeguroVehiculoRepository seguroVehiculoRepository) {
+		this.seguroVehiculoRepository=seguroVehiculoRepository;
+	}
+	
+	@Transactional
+	public void deleteAllSeguros() throws DataAccessException {
+		this.seguroVehiculoRepository.deleteAll();
+	}
+
+}

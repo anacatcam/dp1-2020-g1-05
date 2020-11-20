@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.SeguroVehiculoService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 @Controller
@@ -26,10 +27,16 @@ public class VehiculosController {
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
 	
 	private final VehiculosService vehiculosService;
+//	private final IncidenciaService incidenciaService;
+//	private final SeguroVehiculoService seguroVehiculoService;
+
 		
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService) {
+	public VehiculosController(VehiculosService vehiculosService/*, IncidenciaService incidenciaService,
+			SeguroVehiculoService seguroVehiculoService*/) {
 		this.vehiculosService=vehiculosService;
+//		this.incidenciaService=incidenciaService;
+//		this.seguroVehiculoService=seguroVehiculoService;
 	}
 	
 	@InitBinder
@@ -114,12 +121,23 @@ public class VehiculosController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
-	}  //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
+	}
+	
 	@GetMapping(value = "/vehiculos/{vehiculoId}")
 	public ModelAndView showVehiculo(@PathVariable("vehiculoId") int vehiculoId) {
 		ModelAndView mav = new ModelAndView("vehiculos/vehiculoDetails");
 		mav.addObject(this.vehiculosService.findVehiculoById(vehiculoId));
 		return mav;
+	}
+	
+	@GetMapping(value = "/vehiculos/{vehiculoId}/delete")
+	public String deleteVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
+//		this.incidenciaService.deleteAllIncidencias();
+//		this.seguroVehiculoService.deleteAllSeguros();
+		this.vehiculosService.deleteVehiculoById(vehiculoId);
+		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
+		model.put("vehiculos", vehiculos);
+		return "vehiculos/mostrarVehiculos";
 	}
 
 }
