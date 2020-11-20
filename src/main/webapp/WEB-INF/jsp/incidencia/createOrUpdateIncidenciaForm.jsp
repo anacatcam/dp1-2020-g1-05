@@ -13,7 +13,6 @@
     <form:form modelAttribute="incidencia" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <madaja:inputField label="Descripcion" name="descripcion"/>
-            <madaja:inputField label="Solucionada" name="solucionada"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

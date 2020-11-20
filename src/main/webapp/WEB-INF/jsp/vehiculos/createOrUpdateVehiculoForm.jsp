@@ -17,10 +17,44 @@
             <madaja:inputField label="Precio de venta" name="precioVenta"/>
             <madaja:inputField label="Marca" name="marca"/>
             <madaja:inputField label="Modelo" name="modelo"/>
+            <madaja:inputField label="Puertas" name="puertas"/>
             <madaja:inputField label="Plazas" name="plazas"/>
-            <madaja:inputField label="Cambio" name="cambio"/>
-            <madaja:inputField label="Maletero" name="maletero"/>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Cambio </label>
+            	<div class="col-sm-10">
+	            	<form:select path="cambio">
+		            	<form:options itemValue="id" itemLabel="name" items="${cambios}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+            <madaja:inputField label="Capacidad del maletero" name="maletero"/>
+            <madaja:inputField label="KM actuales" name="kmActuales"/>
             <madaja:inputField label="Características" name="caracteristicas"/>
+            <madaja:inputField label="Estado" name="estado"/>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Disponible </label>
+            	<div class="col-sm-10">
+	            	<form:select path="disponible">
+		            	<form:options itemValue="id" itemLabel="name" items="${disponibles}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Combustible </label>
+            	<div class="col-sm-10">
+	            	<form:select path="combustible">
+		            	<form:options itemValue="id" itemLabel="name" items="${combustibles}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+			<div class="form-group">
+            	<label class="col-sm-2 control-label">Concesionario </label>
+            	<div class="col-sm-10">
+	            	<form:select path="concesionario">
+		            	<form:options itemValue="id" itemLabel="fullLugar" items="${concesionarios}" />
+	    	        </form:select>
+    	        </div>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
