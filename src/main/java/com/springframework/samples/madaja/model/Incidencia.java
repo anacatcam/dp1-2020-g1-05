@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -30,7 +31,7 @@ public class Incidencia extends BaseEntity {
 	private String descripcion;
 	
 	@Column(name = "solucionada")
-	@NotEmpty
+	@NotNull
 	private Boolean solucionada;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

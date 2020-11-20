@@ -14,23 +14,23 @@ public class Localizacion extends BaseEntity{
 	
 	@Column(name = "provincia")
 	@NotEmpty
-	private String provincia;
+	protected String provincia;
 	
 	@Column(name = "localidad")
 	@NotEmpty
-	private String localidad;
+	protected String localidad;
 	
 	@Column(name = "direccion")
 	@NotEmpty
-	private String direccion;
+	protected String direccion;
 	
 	@Column(name = "codigoPostal")
 	@NotEmpty
-	private String codigoPostal;
+	protected String codigoPostal;
 	
 	@Column(name = "pais")
 	@NotEmpty
-	private String pais;
+	protected String pais;
 
 	public String getProvincia() {
 		return provincia;

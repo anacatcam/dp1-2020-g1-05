@@ -18,7 +18,7 @@ public class Alquiler extends BaseEntity{
 	private SeguroCliente seguro_cliente;
 	
 	@OneToOne
-	@JoinColumn(name = "reserva_id", nullable = false)
+	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 	
 	@OneToOne
