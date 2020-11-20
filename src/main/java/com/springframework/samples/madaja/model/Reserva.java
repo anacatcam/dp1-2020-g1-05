@@ -26,14 +26,13 @@ public class Reserva extends BaseEntity {
 	@NotEmpty
 	private LocalDate fechaGastos;
 	
-	@OneToOne(mappedBy = "reserva", optional = false)
+	@OneToOne(mappedBy = "reserva", optional = true)
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 
-	@OneToOne
-	@JoinColumn(name = "venta_id")
+	@OneToOne(mappedBy = "reserva", optional = true)
 	private Venta venta;
 
 	public Integer getId() {

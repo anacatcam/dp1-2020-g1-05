@@ -9,15 +9,15 @@ import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
 
-@Table
-@Entity(name = "venta")
+@Entity
+@Table(name = "venta")
 public class Venta extends BaseEntity { 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 	
 	@OneToOne
-	@JoinColumn(name = "reserva_id", nullable = false)
+	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

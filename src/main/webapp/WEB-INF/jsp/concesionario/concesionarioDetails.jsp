@@ -78,6 +78,93 @@
 			        	<dd><c:out value="${vehiculo.disponible}"/></dd>
                     </dl>
                 </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                    	<tr>
+                                <td valign="top">
+                                	<dl class="dl-horizontal">
+                                		<dt>INCIDENCIAS</dt>
+                                	</dl>
+                                </td>
+						</tr>
+                        <c:forEach var="incidencia" items="${vehiculo.incidencias}">
+                        	<tr>
+                                <td valign="top">
+                                	<dl class="dl-horizontal">
+                                		<dd>
+                        				<dt>Descripción</dt>
+                        				<dd><c:out value="${incidencia.descripcion}"/></dd>
+                        				<dt>Solucionada</dt>
+                        				<dd>
+											<c:choose>
+				                        		<c:when test="${incidencia.solucionada}">
+				                        			Sí
+				                        		</c:when>
+				                        		<c:otherwise>
+				                        			No
+				                        		</c:otherwise>
+				                        	</c:choose>
+                        				</dd>
+                                	</dl>
+                                </td>
+                            </tr>
+                        </c:forEach>
+					</table>
+				</td>
+			</tr>
+    	</c:forEach>
+    </table>
+    
+    <br/>
+    <br/>
+    <br/>
+    <h2>Gestores</h2>
+    
+    <table class="table table-striped">
+    	<c:forEach var="gestor" items="${concesionario.gestores}">
+    		<tr>
+                <td valign="top">
+                    <dl class="dl-horizontal">
+                    	<dd>
+                        <dt>DNI</dt>
+                        <dd>
+                        	<spring:url value="/gestor/{gestorId}" var="gestorUrl">
+	                            <spring:param name="gestorId" value="${gestor.dni}"/>
+                            </spring:url>
+                        	<a href="${fn:escapeXml(gestorUrl)}"><c:out value="${gestor.dni}"/></a>
+                        </dd>
+                        <dt>Nombre</dt>
+                        <dd><c:out value="${gestor.nombre}"/></dd>
+                        <dt>Apellidos</dt>
+                        <dd><c:out value="${gestor.apellidos}"/></dd>
+                        <dt>Teléfono</dt>
+                        <dd><c:out value="${gestor.telefono}"/></dd>
+                        <dt>Email</dt>
+                        <dd><c:out value="${gestor.email}"/></dd>
+                    </dl>
+                </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Concesionario</th>
+                            <th>Localidad</th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="concesionario" items="${gestor.concesionarios}">
+                            <tr>
+                                <td>
+                                	<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
+                                    	<spring:param name="concesionarioId" value="${concesionario.id}"/>
+                                	</spring:url>
+                                	<a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${concesionario.provincia}"/></a>
+                                </td>
+                                <td><c:out value="${concesionario.localidad}"/></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </td>
+			</tr>
     	</c:forEach>
     </table>
 	

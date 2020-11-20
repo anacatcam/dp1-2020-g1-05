@@ -33,7 +33,12 @@
         </tr>
         <tr>
             <th>Vehículo</th>
-            <td><c:out value="${oferta.vehiculo.matricula}"/></td>
+            <td>
+            	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+			        <spring:param name="vehiculoId" value="${oferta.vehiculo.id}"/>
+			    </spring:url>
+			    <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${oferta.vehiculo.matricula}"/></a>
+            </td>
             <td></td>
         </tr>
     </table>

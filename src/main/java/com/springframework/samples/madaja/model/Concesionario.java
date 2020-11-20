@@ -13,8 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
@@ -110,6 +110,11 @@ public class Concesionario extends Localizacion {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	
+	@Transient
+	public String getFullLugar() {
+		return localidad + ", " + provincia;
 	}
 
 	@Override
