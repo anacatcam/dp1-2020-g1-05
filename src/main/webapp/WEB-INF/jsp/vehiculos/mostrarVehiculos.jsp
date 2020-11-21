@@ -8,7 +8,13 @@
 
 <madaja:layout pageName="vehiculos">
 	<h2>Vehículos</h2>
-
+	
+	<a class="btn btn-default"  href='<spring:url value="/vehiculos/EnAlquiler"  ></spring:url>' >En Alquiler</a>
+						
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/EnVenta" ></spring:url>'>En Venta</a>
+	
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/Ambos" ></spring:url>'>Ambos</a> 
+																
 	<table id="ownersTable" class="table table-striped">
 		<thead>
 		<tr>

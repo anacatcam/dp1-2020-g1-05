@@ -3,6 +3,7 @@ package com.springframework.samples.madaja.service;
 import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,5 +91,9 @@ public class VehiculosService {
 		return seguroVehiculoRepository.findAll();
 	}
 
+	@Transactional(readOnly = true)
+	public Collection<Vehiculos> findByDisponible(@Param("disponible") Disponible disp){
+		return vehiculosRepository.findByDisponible(disp);
+	}
 
 }
