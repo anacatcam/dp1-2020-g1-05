@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.service.SeguroVehiculoService;
@@ -140,4 +143,44 @@ public class VehiculosController {
 		return "vehiculos/mostrarVehiculos";
 	}
 
+	@GetMapping(value = "/vehiculos/EnAlquiler")
+	public String showVehiculosDisponibles(Map<String, Object> model) {
+//		String vista = null;
+		Disponible disp = new Disponible();
+		disp.setId(1);
+		disp.setName("alquiler");
+		Collection<Vehiculos> vehiculosD = this.vehiculosService.findByDisponible(disp);
+		model.put("vehiculosD", vehiculosD);
+//		if(id == 1) {
+//			vista = "vehiculos/mostrarVehiculosEnAlquiler";
+//		}else if(id == 2) {
+//			vista =  "vehiculos/mostrarVehiculosEnVenta";
+//		}else if(id == 3) {
+//			vista = "vehiculos/mostrarVehiculosAmbos";		
+//		}
+//		return vista;
+		return "vehiculos/mostrarVehiculosEnAlquiler";
+	}
+	@GetMapping(value = "/vehiculos/EnVenta")
+	public String showVehiculosDisponibles2(Map<String, Object> model) {
+
+		Disponible disp = new Disponible();
+		disp.setId(2);
+		disp.setName("venta");
+		Collection<Vehiculos> vehiculosD = this.vehiculosService.findByDisponible(disp);
+		model.put("vehiculosD", vehiculosD);
+
+		return "vehiculos/mostrarVehiculosEnVenta";
+	}
+	@GetMapping(value = "/vehiculos/Ambos")
+	public String showVehiculosDisponibles3(Map<String, Object> model) {
+
+		Disponible disp = new Disponible();
+		disp.setId(3);
+		disp.setName("alquiler o venta");
+		Collection<Vehiculos> vehiculosD = this.vehiculosService.findByDisponible(disp);
+		model.put("vehiculosD", vehiculosD);
+
+		return "vehiculos/mostrarVehiculosAmbos";
+	}
 }
