@@ -13,6 +13,8 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 	
 	void save(Vehiculos vehiculo) throws DataAccessException;
 	
+	void delete(Vehiculos vehiculo) throws DataAccessException;
+	
 	Collection<Vehiculos> findAll() throws DataAccessException;
 	
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.id =:id")

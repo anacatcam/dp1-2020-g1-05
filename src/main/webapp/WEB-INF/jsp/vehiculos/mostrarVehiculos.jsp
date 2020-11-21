@@ -18,6 +18,7 @@
 			<th style="width: 150px;">Precio de alquiler</th>
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
+			<th style="width: 150px;">Puertas</th>
 			<th style="width: 150px;">Disponibilidad</th>
 			
 		</tr>
@@ -38,13 +39,16 @@
 						<c:out value="${vehiculo.modelo}"/>
 					</td>
 					<td>
-						<c:out value="${vehiculo.precioAlquiler}"/>
-					</td>
+		           		<c:out value="${vehiculo.precioAlquiler}"/>
+		           	</td>
 					<td>
-						<c:out value="${vehiculo.precioVenta}"/>
-					</td>
+	           			<c:out value="${vehiculo.precioVenta}"/>
+	           		</td>
 					<td>
 						<c:out value="${vehiculo.plazas}"/> pasajeros
+					</td>
+					<td>
+						<c:out value="${vehiculo.puertas}"/> puertas
 					</td>
 					<td>
 						<c:out value="${vehiculo.disponible}"/>

@@ -8,33 +8,40 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.SeguroVehiculoService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 @Controller
 public class VehiculosController {
 	
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
-
-	private static final String VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM = "incidencia/createOrUpdateIncidenciaForm";
 	
 	private final VehiculosService vehiculosService;
-	
-	private final IncidenciaService incidenciaService;
-	
+//	private final IncidenciaService incidenciaService;
+//	private final SeguroVehiculoService seguroVehiculoService;
+
+		
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService, IncidenciaService incidenciaService) {
+	public VehiculosController(VehiculosService vehiculosService/*, IncidenciaService incidenciaService,
+			SeguroVehiculoService seguroVehiculoService*/) {
 		this.vehiculosService=vehiculosService;
-		this.incidenciaService=incidenciaService;
+//		this.incidenciaService=incidenciaService;
+//		this.seguroVehiculoService=seguroVehiculoService;
+	}
+	
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
 	}
 	
 	@GetMapping(value = { "/vehiculos" })
@@ -48,6 +55,11 @@ public class VehiculosController {
 	public String initCreationForm(Map<String, Object> model) {
 		Vehiculos vehiculo = new Vehiculos();
 		model.put("vehiculos", vehiculo);
+		model.put("cambios", this.vehiculosService.findAllCambios());
+		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("disponibles", this.vehiculosService.findAllDisponibles());
+		model.put("combustibles", this.vehiculosService.findAllCombustibles());
+		model.put("seguros", this.vehiculosService.findAllSeguros());
 		return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
 	}
 	
@@ -109,7 +121,8 @@ public class VehiculosController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
-	}  //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
+	}
+	
 	@GetMapping(value = "/vehiculos/{vehiculoId}")
 	public ModelAndView showVehiculo(@PathVariable("vehiculoId") int vehiculoId) {
 		ModelAndView mav = new ModelAndView("vehiculos/vehiculoDetails");
@@ -117,31 +130,14 @@ public class VehiculosController {
 		return mav;
 	}
 	
-	@GetMapping(value = "/vehiculos/{vehiculoId}/incidencia/{incidenciaId}/edit")
-	public String initUpdateIncidenciaForm(@PathVariable("vehiculoId") int vehiculoId, 
-			@PathVariable("incidenciaId") int incidenciaId, Model model) {
-		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		Incidencia incidencia = this.incidenciaService.findIncidenciaById(incidenciaId);
-		model.addAttribute(vehiculo);
-		model.addAttribute(incidencia);
-		return VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM;
+	@GetMapping(value = "/vehiculos/{vehiculoId}/delete")
+	public String deleteVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
+//		this.incidenciaService.deleteAllIncidencias();
+//		this.seguroVehiculoService.deleteAllSeguros();
+		this.vehiculosService.deleteVehiculoById(vehiculoId);
+		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
+		model.put("vehiculos", vehiculos);
+		return "vehiculos/mostrarVehiculos";
 	}
-	
-	@PostMapping(value = "/vehiculos/{vehiculoId}/incidencia/{incidenciaId}/edit")
-	public String processUpdateIncidenciaForm(@Valid Incidencia incidencia, /*@Valid Vehiculos vehiculo, */
-			BindingResult result, @PathVariable("vehiculoId") int vehiculoId, 
-			@PathVariable("incidenciaId") int incidenciaId) {
-		if (result.hasErrors()) {
-			return VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-			incidencia.setId(incidenciaId);
-			//vehiculo.addIncidencia(incidencia);
-			this.incidenciaService.saveIncidencia(incidencia);
-			return "redirect:/vehiculos/{vehiculoId}";
-		}
-	}  //ESTO DA UN FALLO QUE NO SE CUAL ES AL EDITAR LA INCIDENCIA
-	
-	//FALTA EL CONTROLADOR DE NUEVA INCIDENCIA
 
 }
