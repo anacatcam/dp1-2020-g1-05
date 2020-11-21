@@ -11,27 +11,27 @@
 	<table class="table table-striped">
         <tr>
             <th>Provincia</th>
-            <td></td>
+            <td><c:out value="${concesionario.provincia}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Localidad</th>
-            <td></td>
+            <td><c:out value="${concesionario.localidad}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Dirección</th>
-            <td></td>
+            <td><c:out value="${concesionario.direccion}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>Código Postal</th>
-            <td></td>
+            <td><c:out value="${concesionario.codigoPostal}"/></td>
             <td></td>
         </tr>
         <tr>
             <th>País</th>
-            <td></td>
+            <td><c:out value="${concesionario.pais}"/></td>
             <td></td>
         </tr>
         <tr>
@@ -59,8 +59,8 @@
                     	<dd>
                         <dt>Matrícula</dt>
                         <dd>
-                        	<spring:url value="/concesionario/{concesionarioId}/vehiculos/{vehiculoId}" var="vehiculoUrl">
-	                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+                        	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+	                            <spring:param name="vehiculoId" value="${vehiculo.id}"/>
                             </spring:url>
                         	<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
                         </dd>
@@ -75,24 +75,96 @@
                         <dt>Precio de venta</dt>
                         <dd><c:out value="${vehiculo.precioVenta}"/></dd>
                         <dt>Disponibilidad</dt>
-			        	<dd>
-			        		<c:choose>
-			                	<c:when test="${vehiculos.disponible}">
-			                   		<span>Disponible</span>
-			               		</c:when>
-			               		<c:when test="${vehiculos.alquilado}">
-			                   		<span>Alquilado</span>
-			               		</c:when>
-			               		<c:when test="${vehiculos.vendido}">
-			                   		<span>Vendido</span>
-			               		</c:when>
-			               		<c:otherwise>
-			               			<span>No especificado</span>
-			               		</c:otherwise>
-			           		</c:choose>
-			           	</dd>
+			        	<dd><c:out value="${vehiculo.disponible}"/></dd>
                     </dl>
                 </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                    	<tr>
+                                <td valign="top">
+                                	<dl class="dl-horizontal">
+                                		<dt>INCIDENCIAS</dt>
+                                	</dl>
+                                </td>
+						</tr>
+                        <c:forEach var="incidencia" items="${vehiculo.incidencias}">
+                        	<tr>
+                                <td valign="top">
+                                	<dl class="dl-horizontal">
+                                		<dd>
+                        				<dt>Descripción</dt>
+                        				<dd><c:out value="${incidencia.descripcion}"/></dd>
+                        				<dt>Solucionada</dt>
+                        				<dd>
+											<c:choose>
+				                        		<c:when test="${incidencia.solucionada}">
+				                        			Sí
+				                        		</c:when>
+				                        		<c:otherwise>
+				                        			No
+				                        		</c:otherwise>
+				                        	</c:choose>
+                        				</dd>
+                                	</dl>
+                                </td>
+                            </tr>
+                        </c:forEach>
+					</table>
+				</td>
+			</tr>
+    	</c:forEach>
+    </table>
+    
+    <br/>
+    <br/>
+    <br/>
+    <h2>Gestores</h2>
+    
+    <table class="table table-striped">
+    	<c:forEach var="gestor" items="${concesionario.gestores}">
+    		<tr>
+                <td valign="top">
+                    <dl class="dl-horizontal">
+                    	<dd>
+                        <dt>DNI</dt>
+                        <dd>
+                        	<spring:url value="/gestor/{gestorId}" var="gestorUrl">
+	                            <spring:param name="gestorId" value="${gestor.dni}"/>
+                            </spring:url>
+                        	<a href="${fn:escapeXml(gestorUrl)}"><c:out value="${gestor.dni}"/></a>
+                        </dd>
+                        <dt>Nombre</dt>
+                        <dd><c:out value="${gestor.nombre}"/></dd>
+                        <dt>Apellidos</dt>
+                        <dd><c:out value="${gestor.apellidos}"/></dd>
+                        <dt>Teléfono</dt>
+                        <dd><c:out value="${gestor.telefono}"/></dd>
+                        <dt>Email</dt>
+                        <dd><c:out value="${gestor.email}"/></dd>
+                    </dl>
+                </td>
+                <td valign="top">
+                    <table class="table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Concesionario</th>
+                            <th>Localidad</th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="concesionario" items="${gestor.concesionarios}">
+                            <tr>
+                                <td>
+                                	<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
+                                    	<spring:param name="concesionarioId" value="${concesionario.id}"/>
+                                	</spring:url>
+                                	<a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${concesionario.provincia}"/></a>
+                                </td>
+                                <td><c:out value="${concesionario.localidad}"/></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </td>
+			</tr>
     	</c:forEach>
     </table>
 	

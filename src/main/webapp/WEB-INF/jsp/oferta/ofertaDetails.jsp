@@ -5,7 +5,8 @@
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<madaja:layout pageName="ofertas">
+	
+<madaja:layout pageName="oferta">
 	
 	<h2>Información de la oferta</h2>
 	
@@ -32,7 +33,12 @@
         </tr>
         <tr>
             <th>Vehículo</th>
-            <td></td>
+            <td>
+            	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+			        <spring:param name="vehiculoId" value="${oferta.vehiculo.id}"/>
+			    </spring:url>
+			    <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${oferta.vehiculo.matricula}"/></a>
+            </td>
             <td></td>
         </tr>
     </table>

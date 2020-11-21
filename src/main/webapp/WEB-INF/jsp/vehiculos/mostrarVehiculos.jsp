@@ -18,6 +18,7 @@
 			<th style="width: 150px;">Precio de alquiler</th>
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
+			<th style="width: 150px;">Puertas</th>
 			<th style="width: 150px;">Disponibilidad</th>
 			
 		</tr>
@@ -38,29 +39,19 @@
 						<c:out value="${vehiculo.modelo}"/>
 					</td>
 					<td>
-						<c:out value="${vehiculo.precioAlquiler}"/>
-					</td>
+		           		<c:out value="${vehiculo.precioAlquiler}"/>
+		           	</td>
 					<td>
-						<c:out value="${vehiculo.precioVenta}"/>
-					</td>
+	           			<c:out value="${vehiculo.precioVenta}"/>
+	           		</td>
 					<td>
 						<c:out value="${vehiculo.plazas}"/> pasajeros
 					</td>
 					<td>
-						<c:choose>
-                    		<c:when test="${vehiculo.disponible}">
-                        		<span>Disponible</span>
-                    		</c:when>
-                    		<c:when test="${vehiculo.alquilado}">
-                        		<span>Alquilado</span>
-                    		</c:when>
-                    		<c:when test="${vehiculo.vendido}">
-                        		<span>Vendido</span>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<span>No especificado</span>
-                    		</c:otherwise>
-                		</c:choose>
+						<c:out value="${vehiculo.puertas}"/> puertas
+					</td>
+					<td>
+						<c:out value="${vehiculo.disponible}"/>
 					</td>
 				</tr>
 			</c:forEach>

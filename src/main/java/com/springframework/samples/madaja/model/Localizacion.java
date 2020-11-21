@@ -4,42 +4,30 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
+import org.springframework.core.style.ToStringCreator;
 
 @MappedSuperclass
-public class Localizacion {
-	
-	@Id
-	@Column(name = "id")
-	@NotEmpty
-	private Integer id;
+public class Localizacion extends BaseEntity{
 	
 	@Column(name = "provincia")
 	@NotEmpty
-	private String provincia;
+	protected String provincia;
 	
 	@Column(name = "localidad")
 	@NotEmpty
-	private String localidad;
+	protected String localidad;
 	
 	@Column(name = "direccion")
 	@NotEmpty
-	private String direccion;
+	protected String direccion;
 	
 	@Column(name = "codigoPostal")
 	@NotEmpty
-	private String codigoPostal;
+	protected String codigoPostal;
 	
 	@Column(name = "pais")
 	@NotEmpty
-	private String pais;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	protected String pais;
 
 	public String getProvincia() {
 		return provincia;
@@ -80,6 +68,8 @@ public class Localizacion {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
+
+
+
 
 }

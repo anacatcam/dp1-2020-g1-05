@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -42,6 +43,9 @@ public class Vehiculos extends BaseEntity{
 	@NotEmpty
 	private String modelo;
 	
+	@Column(name = "puertas")
+	private Integer puertas;
+	
 	@Column(name = "plazas")
 	private Integer plazas;
 	
@@ -49,43 +53,48 @@ public class Vehiculos extends BaseEntity{
 	@JoinColumn(name = "cambio_id")
 	private Cambio cambio;
 	
-	@ManyToOne
-	@JoinColumn(name = "maletero_id")
-	private Maletero maletero;
+	@Column(name = "maletero")
+	private Integer maletero;
+	
+	@Column(name = "km_actuales")
+	private Integer kmActuales;
 	
 	@Column(name = "caracteristicas")
 	@NotEmpty
 	private String caracteristicas;
 	
-	@Column(name = "disponible")
-	private Boolean disponible;
-	
-	@Column(name = "alquilado")
-	private Boolean alquilado;
-	
-	@Column(name = "vendido")
-	private Boolean vendido;
+	@Column(name = "estado")
+	@NotEmpty
+	private String estado;
 	
 	@ManyToOne
-	@JoinColumn(name = "concesionario_id")
-	private Concesionario concesionario;
+	@JoinColumn(name = "disponible_id")
+	private Disponible disponible;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<Incidencia> incidencias;
+	@ManyToOne
+	@JoinColumn(name = "combustible_id")
+	private Combustible combustible;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<Oferta> ofertas;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private Set<ContratoAlquiler> contratos_alquileres;
+	@ManyToOne
+	@JoinColumn(nullable = true)
+	private Concesionario concesionario;	
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "vehiculos")
-	private ContratoVenta contratoVenta;
+	@OneToOne(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	private Oferta oferta;
 	
 	@OneToOne
-	@JoinColumn(name = "seguro_vehiculo_id", unique = true)
-	private SeguroVehiculo seguroVehiculo;
+	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = true)
+	private SeguroVehiculo seguro_vehiculo;
 	
+	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	private Set<Incidencia> incidencias;
+
+	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	private Set<Venta> ventas;
+	
+	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	private Set<Alquiler> alquileres;
+
 	public String getMatricula() {
 		return matricula;
 	}
@@ -126,6 +135,14 @@ public class Vehiculos extends BaseEntity{
 		this.modelo = modelo;
 	}
 
+	public Integer getPuertas() {
+		return puertas;
+	}
+
+	public void setPuertas(Integer puertas) {
+		this.puertas = puertas;
+	}
+	
 	public Integer getPlazas() {
 		return plazas;
 	}
@@ -138,20 +155,26 @@ public class Vehiculos extends BaseEntity{
 		return cambio;
 	}
 
-	public void setCambio(Cambio tipoCambio, String name) {
-		tipoCambio.setName(name);
-		this.cambio = tipoCambio;
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
 	}
 
-	public Maletero getMaletero() {
+	public Integer getMaletero() {
 		return maletero;
 	}
 
-	public void setMaletero(Maletero tipoMaletero, String name) {
-		tipoMaletero.setName(name);
-		this.maletero = tipoMaletero;
+	public void setMaletero(Integer maletero) {
+		this.maletero = maletero;
+	}
+	
+	public Integer getKmActuales() {
+		return kmActuales;
 	}
 
+	public void setKmActuales(Integer kmActuales) {
+		this.kmActuales = kmActuales;
+	}
+	
 	public String getCaracteristicas() {
 		return caracteristicas;
 	}
@@ -160,36 +183,52 @@ public class Vehiculos extends BaseEntity{
 		this.caracteristicas = caracteristicas;
 	}
 	
-	public Boolean getDisponible() {
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Disponible getDisponible() {
 		return disponible;
 	}
 
-	public void setDisponible(Boolean disponible) {
+	public void setDisponible(Disponible disponible) {
 		this.disponible = disponible;
 	}
 	
-	public Boolean getAlquilado() {
-		return alquilado;
+	public Combustible getCombustible() {
+		return combustible;
 	}
 
-	public void setAlquilado(Boolean alquilado) {
-		this.alquilado = alquilado;
-	}
-	
-	public Boolean getVendido() {
-		return vendido;
+	public void setCombustible(Combustible combustible) {
+		this.combustible = combustible;
 	}
 
-	public void setVendido(Boolean vendido) {
-		this.vendido = vendido;
-	}
-	
 	public Concesionario getConcesionario() {
 		return concesionario;
 	}
 
 	public void setConcesionario(Concesionario concesionario) {
 		this.concesionario = concesionario;
+	}
+
+	public Oferta getOferta() {
+		return oferta;
+	}
+
+	public void setOferta(Oferta oferta) {
+		this.oferta = oferta;
+	}
+
+	public SeguroVehiculo getSeguroVehiculo() {
+		return seguro_vehiculo;
+	}
+
+	public void setSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
+		this.seguro_vehiculo = seguroVehiculo;
 	}
 	
 	protected Set<Incidencia> getIncidenciasInternal() {
@@ -202,70 +241,116 @@ public class Vehiculos extends BaseEntity{
 	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
 		this.incidencias = incidencias;
 	}
-	
+
 	public List<Incidencia> getIncidencias() {
 		List<Incidencia> sortedIncidencias = new ArrayList<>(getIncidenciasInternal());
 		PropertyComparator.sort(sortedIncidencias, new MutableSortDefinition("descripcion", true, true));
 		return Collections.unmodifiableList(sortedIncidencias);
 	}
-	
+
 	public void addIncidencia(Incidencia incidencia) {
 		getIncidenciasInternal().add(incidencia);
-		incidencia.setVehiculo(this);
+		incidencia.setVehiculos(this);
 	}
 	
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
 	
-	protected Set<Oferta> getOfertasInternal() {
-		if (this.ofertas == null) {
-			this.ofertas = new HashSet<>();
+	protected Set<Venta> getVentasInternal() {
+		if (this.ventas == null) {
+			this.ventas = new HashSet<>();
 		}
-		return this.ofertas;
+		return this.ventas;
 	}
 
-	protected void setOfertasInternal(Set<Oferta> ofertas) {
-		this.ofertas = ofertas;
+	protected void setVentasInternal(Set<Venta> ventas) {
+		this.ventas = ventas;
+	}
+
+	public List<Venta> getVentas() {
+		List<Venta> sortedVentas = new ArrayList<>(getVentasInternal());
+		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("id", true, true));
+		return Collections.unmodifiableList(sortedVentas);
+	}
+
+	public void addVenta(Venta venta) {
+		getVentasInternal().add(venta);
+		venta.setVehiculo(this);
 	}
 	
-	public List<Oferta> getOfertas() {
-		List<Oferta> sortedOfertas = new ArrayList<>(getOfertasInternal());
-		PropertyComparator.sort(sortedOfertas, new MutableSortDefinition("name", true, true));
-		return Collections.unmodifiableList(sortedOfertas);
+	public boolean removeVenta(Venta venta) {
+		return getVentasInternal().remove(venta);
+	}
+	
+	protected Set<Alquiler> getAlquileresInternal() {
+		if (this.alquileres == null) {
+			this.alquileres = new HashSet<>();
+		}
+		return this.alquileres;
 	}
 
-	public Set<ContratoAlquiler> getContratos_alquileres() {
-		return contratos_alquileres;
+	protected void setAlquileresInternal(Set<Alquiler> alquiler) {
+		this.alquileres = alquiler;
 	}
 
-	public void setContratos_alquileres(Set<ContratoAlquiler> contratos_alquileres) {
-		this.contratos_alquileres = contratos_alquileres;
+	public List<Alquiler> getAlquileres() {
+		List<Alquiler> sortedAlquileres = new ArrayList<>(getAlquileresInternal());
+		PropertyComparator.sort(sortedAlquileres, new MutableSortDefinition("id", true, true));
+		return Collections.unmodifiableList(sortedAlquileres);
 	}
 
-	public ContratoVenta getContratos_ventas() {
-		return contratoVenta;
+	public void addAlquiler(Alquiler alquiler) {
+		getAlquileresInternal().add(alquiler);
+		alquiler.setVehiculo(this);
 	}
-
-	public void setContratos_ventas(ContratoVenta contratos_ventas) {
-		this.contratoVenta = contratos_ventas;
+	
+	public boolean removeAlquiler(Alquiler alquiler) {
+		return getAlquileresInternal().remove(alquiler);
 	}
+	
 
 	@Override
 	public String toString() {
-		return new ToStringCreator(this)
-				
-				.append("id", this.getId()).append("new", this.isNew()).append(matricula, this.matricula)
-				.append(precioAlquiler.toString(), this.precioAlquiler).append(precioVenta.toString(), this.precioVenta)
-				.append(marca, this.marca).append(modelo, this.modelo).append(plazas.toString(), this.plazas)
-				.append(cambio.toString(), this.cambio).append(maletero.toString(), this.maletero)
-				.append(caracteristicas, this.caracteristicas).append(disponible.toString(), this.disponible)
-				.append(alquilado.toString(), this.alquilado).append(vendido.toString(), this.vendido)
-				.append(concesionario.toString(), this.concesionario)
-				.append(contratoVenta.toString(), this.contratoVenta)
-				.append(contratos_alquileres.toString(), this.contratos_alquileres)
-				.toString();
-	
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("matricula", matricula);
+		builder.append("precioAlquiler", precioAlquiler);
+		builder.append("precioVenta", precioVenta);
+		builder.append("marca", marca);
+		builder.append("modelo", modelo);
+		builder.append("plazas", plazas);
+		builder.append("cambio", cambio);
+		builder.append("maletero", maletero);
+		builder.append("kmActuales", kmActuales);
+		builder.append("caracteristicas", caracteristicas);
+		builder.append("estado", estado);
+		builder.append("disponible", disponible);
+		builder.append("combustible", combustible);
+		builder.append("concesionario", concesionario);
+		builder.append("oferta", oferta);
+		builder.append("seguro_vehiculo", seguro_vehiculo);
+		builder.append("id", id);
+		builder.append("getMatricula()", getMatricula());
+		builder.append("getPrecioAlquiler()", getPrecioAlquiler());
+		builder.append("getPrecioVenta()", getPrecioVenta());
+		builder.append("getMarca()", getMarca());
+		builder.append("getModelo()", getModelo());
+		builder.append("getPlazas()", getPlazas());
+		builder.append("getCambio()", getCambio());
+		builder.append("getMaletero()", getMaletero());
+		builder.append("getKmActuales()", getKmActuales());
+		builder.append("getCaracteristicas()", getCaracteristicas());
+		builder.append("getEstado()", getEstado());
+		builder.append("getDisponible()", getDisponible());
+		builder.append("getCombustible()", getCombustible());
+		builder.append("getConcesionario()", getConcesionario());
+		builder.append("getOferta()", getOferta());
+		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
+		return builder.toString();
 	}
+	
+	
 
 }

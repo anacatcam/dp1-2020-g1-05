@@ -10,9 +10,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
@@ -23,7 +25,7 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "concesionario")
-public class Concesionario extends BaseEntity/* esto se borra luego y se pone extends Localizacion*/ {
+public class Concesionario extends Localizacion {
 	
 	@Column(name = "email")
 	@NotEmpty
@@ -34,28 +36,64 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	@Digits(fraction = 0, integer = 10)
 	private String telefono;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "concesionario")
+	@JoinTable(name = "concesionarios_gestores", 
+			joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), 
+			inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<Gestor> gestores;
+	
+	@OneToMany(mappedBy = "concesionario", cascade = CascadeType.ALL)
 	private Set<Vehiculos> vehiculos;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gestor")
-	private Gestor gestor;
-	
-	protected Set<Vehiculos> getVehiculosInternal() {
-		if (this.vehiculos == null) {
+	protected Set<Vehiculos> getVehiculosInternal(){
+		if(this.vehiculos == null) {
 			this.vehiculos = new HashSet<>();
 		}
 		return this.vehiculos;
 	}
 	
+	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
 	public List<Vehiculos> getVehiculos() {
 		List<Vehiculos> sortedVehiculos = new ArrayList<>(getVehiculosInternal());
-		PropertyComparator.sort(sortedVehiculos, new MutableSortDefinition("matricula", true, true));
+		PropertyComparator.sort(sortedVehiculos, new MutableSortDefinition("id", true, true));
 		return Collections.unmodifiableList(sortedVehiculos);
 	}
 
-	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
-		this.vehiculos = vehiculos;
+	public void addVehiculo(Vehiculos vehiculos) {
+		getVehiculosInternal().add(vehiculos);
+		vehiculos.setConcesionario(this);
+	}
+	
+	public boolean removeVehiculo(Vehiculos vehiculos) {
+		return getVehiculosInternal().remove(vehiculos);
+	}
+
+	protected Set<Gestor> getGestoresInternal(){
+		if(this.gestores == null) {
+			this.gestores = new HashSet<>();
+		}
+		return this.gestores;
+	}
+	
+	protected void setGestoresInternal(Set<Gestor> gestores) {
+		this.gestores = gestores;
+	}
+
+	public List<Gestor> getGestores() {
+		List<Gestor> sortedGestores = new ArrayList<>(getGestoresInternal());
+		PropertyComparator.sort(sortedGestores, new MutableSortDefinition("nombre", true, true));
+		return Collections.unmodifiableList(sortedGestores);
+	}
+
+	public void addGestor(Gestor gestor) {
+		getGestoresInternal().add(gestor);
+	}
+	
+	public boolean removeGestor(Gestor gestor) {
+		return getGestoresInternal().remove(gestor);
 	}
 
 	public String getEmail() {
@@ -73,23 +111,26 @@ public class Concesionario extends BaseEntity/* esto se borra luego y se pone ex
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	public Gestor getGestor() {
-		return gestor;
+	
+	@Transient
+	public String getFullLugar() {
+		return localidad + ", " + provincia;
 	}
 
-	public void setGestor(Gestor gestor) {
-		this.gestor = gestor;
-	}
-	//AÑADIR COSAS
 	@Override
 	public String toString() {
 		ToStringCreator builder = new ToStringCreator(this);
 		builder.append("email", email);
 		builder.append("telefono", telefono);
 		builder.append("vehiculos", vehiculos);
-		builder.append("gestor", gestor);
+		builder.append("id", id);
+		builder.append("getEmail()", getEmail());
+		builder.append("getTelefono()", getTelefono());
+		builder.append("getId()", getId());
+		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
 	
+	
+
 }
