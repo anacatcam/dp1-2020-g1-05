@@ -1,13 +1,11 @@
 package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Table(name = "localizacion")
+@MappedSuperclass
 public class Localizacion {
 	
 	@Id
