@@ -22,6 +22,11 @@ public class IncidenciaService {
 	public void saveIncidencia(Incidencia incidencia)  throws DataAccessException{
 		incidenciaRepository.save(incidencia);
 	}
+	
+//	@Transactional
+//	public void deleteAllIncidencias(Collection<Incidencia> incidencias) throws DataAccessException{
+//		incidenciaRepository.deleteAll(Collection<Incidencia> incidencias);
+//	}
 
 	@Transactional(readOnly = true)
 	public Incidencia findIncidenciaById(int id) throws DataAccessException {

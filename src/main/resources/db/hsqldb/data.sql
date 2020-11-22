@@ -22,6 +22,8 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 --owner user Daniel
 INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
+INSERT INTO users(username,password,enabled) VALUES ('daniuser','dtv123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (9,'daniuser','user');
 
 INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442601, 'Juan José', 'Pérez Plata', '608960166', 'juan@gmail.com', 1500);
 INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442609, 'Paco', 'Pérez Rodríguez', '608960162', 'paco@gmail.com', 1500);
@@ -68,9 +70,10 @@ INSERT INTO compania(id,nombre,telefono,email) VALUES (2, 'Better Call Saúl', '
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (1, '65215', 60.35, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (2, '86452', 100.67, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 2);
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (3, '35418', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
-INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (4, '32151', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 1);
-INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (5, '96843', 200.32, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (4, '32151', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 2);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (5, '96843', 200.32, 'Mapfre', 'Terceros ampliado', '2020-09-07', '2021-09-07', 2);
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (6, '65482', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
+INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (7, '84358', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 2);
 
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 432, 13000, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'Seguridad en caso de accidente', 'Bien a pesar de los kilómetros recorridos', 1, 1, 2, 2);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 432, 13000, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'Ahorro de combustible', 'Nuevo', 1, 2, 3, 1);
@@ -78,6 +81,7 @@ INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,pue
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (4, '4685 ADT', 432, 13000, 'Citroen', 'Sara', 2, 5, 1, 90, 3000, 'Bajo coste de mantenimiento', 'Nuevo', 3, 3, 2, 6);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (5, '6874 KJU', 432, 13000, 'Lamborgini', 'Wapísimo', 2, 4, 1, 100, 1000, 'Espacioso / Amplio', 'Nuevo', 2, 2, 1, 4);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (6, '6548 SED', 432, 13000, 'BMW', 'Serie 1', 4, 5, 2, 150, 15000, 'Respetuoso con el medio ambiente', 'Antigüo', 3, 1, 3, 5);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (7, '8352 DTR', 432, 13000, 'Mercedes', 'Benz', 4, 6, 1, 500, 6000, 'Espacioso / Amplio', 'Nuevo', 3, 1, 3, 7);
 
 INSERT INTO oferta VALUES (1, 'Oferta 1', 300.50, '2020-12-07', '00:00:00', 3);
 INSERT INTO oferta VALUES (2, 'Oferta 2', 600.50, '2021-05-30', '00:00:00', 1);
@@ -105,9 +109,11 @@ INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (1,'2010-09-07',1
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (2,'2010-09-08',122.0,15442605);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (3,'2010-09-09',120.0,15442606);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (4,'2010-09-09',120.0,15442604);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (5,'2020-09-07',120.0,15442606);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (6,'2020-09-09',100.0,15442604);
 
-INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (1,15442604,5,1);
-INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (2,15442605,5,2);
+INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (1,15442604,7,1);
+INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (2,15442605,6,2);
 INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (3,15442606,5,3);
 
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','10:00',15442602);

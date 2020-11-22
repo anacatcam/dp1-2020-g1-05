@@ -93,6 +93,12 @@
 	    </spring:url>
 	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Editar vehículo</a>
     </sec:authorize>
+    <sec:authorize access="hasAuthority('admin')">
+	    <spring:url value="/vehiculos/{vehiculoId}/delete" var="deleteUrl">
+	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Eliminar vehículo</a>
+    </sec:authorize>
     <br/>
     <br/>
     <br/>
@@ -105,6 +111,12 @@
                     <dl class="dl-horizontal">
                         <dt>Descripción</dt>
                         <dd><c:out value="${incidencia.descripcion}"/></dd>
+                        <dt>Mecánico</dt>
+                        <dd>
+             				<c:forEach var="mecanico" items="${incidencia.mecanicos}">
+                        		<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
+                        	</c:forEach>
+                        </dd>
                         <dt>Solucionada</dt>
                         <dd>
                         	<c:choose>

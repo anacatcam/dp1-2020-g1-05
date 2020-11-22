@@ -1,10 +1,10 @@
 package com.springframework.samples.madaja.web;
 
 
-import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +27,8 @@ import com.zaxxer.hikari.util.SuspendResumeLock;
 @RequestMapping("/vehiculos/{vehiculoId}")
 public class IncidenciaController {
 	
-	private static final String VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM = "incidencia/createOrUpdateIncidenciaForm";
+	private static final String VIEWS_INCIDENCIA_CREATE_FORM = "incidencia/createIncidenciaForm";
+	private static final String VIEWS_INCIDENCIA_UPDATE_FORM = "incidencia/updateIncidenciaForm";
 
 	private final IncidenciaService incidenciaService;
 	private final VehiculosService vehiculosService;
@@ -52,18 +53,9 @@ public class IncidenciaController {
 	@GetMapping(value = "/incidencia/new")
 	public String initCreationForm(Vehiculos vehiculo, ModelMap model) {
 		Incidencia incidencia = new Incidencia();
-		incidencia.setSolucionada(false); //la incidencia no está solucionada por defecto
 		vehiculo.addIncidencia(incidencia);
-		System.out.println(vehiculo.getId());
-		System.out.println(incidencia.getSolucionada());
-		System.out.println("id del vehiculo dentro de la incidencia" + incidencia.getVehiculos().getId());
-		List<Incidencia> incidencias = vehiculo.getIncidencias();
-		for(int i = 0; i<incidencias.size(); i++) {
-			System.out.println(incidencias.get(i).getDescripcion());
-		}
-		System.out.println("creación");
 		model.put("incidencia", incidencia);
-		return VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM;
+		return VIEWS_INCIDENCIA_CREATE_FORM;
 	}
 
 	@PostMapping(value = "/incidencia/new")
@@ -71,17 +63,34 @@ public class IncidenciaController {
 			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
-			System.out.println("g");
-			return VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM;
+			return VIEWS_INCIDENCIA_UPDATE_FORM;
 		}
 		else {
+    		incidencia.setSolucionada(false); //la incidencia no está solucionada por defecto
 			vehiculo.addIncidencia(incidencia);
         	this.incidenciaService.saveIncidencia(incidencia);
-        	List<Incidencia> incidencias = vehiculo.getIncidencias();
-    		for(int i = 0; i<incidencias.size(); i++) {
-    			System.out.println(incidencias.get(i).getDescripcion());
-    		}
-    		System.out.println("post");
+			return "redirect:/vehiculos/{vehiculoId}";
+		}
+	}
+	
+	@GetMapping(value = "/incidencia/{incidenciaId}/edit")
+	public String initUpdateForm(@PathVariable("incidenciaId") int incidenciaId, ModelMap model) {
+		Incidencia incidencia = this.incidenciaService.findIncidenciaById(incidenciaId);
+		model.put("incidencia", incidencia);
+		return VIEWS_INCIDENCIA_UPDATE_FORM;
+	}
+	
+    @PostMapping(value = "/incidencia/{incidenciaId}/edit")
+	public String processUpdateForm(@Valid Incidencia incidencia, BindingResult result,
+			Vehiculos vehiculo,@PathVariable("incidenciaId") int incidenciaId, ModelMap model) {
+		if (result.hasErrors()) {
+			model.put("incidencia", incidencia);
+			return VIEWS_INCIDENCIA_UPDATE_FORM;
+		}
+		else {
+			Incidencia incidenciaToUpdate = this.incidenciaService.findIncidenciaById(incidenciaId);
+			BeanUtils.copyProperties(incidencia, incidenciaToUpdate, "id","vehiculos","mecanicos");                                                                                  
+			this.incidenciaService.saveIncidencia(incidenciaToUpdate);                    
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
 	}
