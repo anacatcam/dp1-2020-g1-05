@@ -29,7 +29,7 @@ public class ConcesionarioController {
 	
 	@GetMapping("/concesionario/{concesionarioId}")
 	public ModelAndView showConcesionario(@PathVariable("concesionarioId") int concesionarioId) {
-		ModelAndView mav = new ModelAndView("concesionario/concesionarioDetailsCliente");
+		ModelAndView mav = new ModelAndView("concesionario/concesionarioDetails");
 		mav.addObject(this.concesionarioService.findConcesionarioById(concesionarioId));
 		return mav;
 	}
