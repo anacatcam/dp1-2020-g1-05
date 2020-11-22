@@ -24,6 +24,6 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 //	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.plazas =:plazas")
 //	Collection<Vehiculos> findByPlazas(@Param("plazas") int plazas);
 
-	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible =:disponible")
-	public Collection<Vehiculos> findByDisponible(@Param("disponible") Disponible disp);
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id =:id")
+	public Collection<Vehiculos> findByDisponible(@Param("id") int id);
 }
