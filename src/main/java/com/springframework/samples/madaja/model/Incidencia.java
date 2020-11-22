@@ -34,7 +34,7 @@ public class Incidencia extends BaseEntity {
 	@NotNull
 	private Boolean solucionada;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private Vehiculos vehiculos;
 	
 	@JoinTable(name = "incidencias_mecanicos", 

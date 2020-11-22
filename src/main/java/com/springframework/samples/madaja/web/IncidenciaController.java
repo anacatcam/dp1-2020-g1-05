@@ -21,6 +21,7 @@ import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.zaxxer.hikari.util.SuspendResumeLock;
 
 @Controller
 @RequestMapping("/vehiculos/{vehiculoId}")
@@ -68,12 +69,9 @@ public class IncidenciaController {
 	@PostMapping(value = "/incidencia/new")
 	public String processCreationForm(Vehiculos vehiculo, @Valid Incidencia incidencia,
 			BindingResult result, ModelMap model) {
-		System.out.println(incidencia.getDescripcion());
-		System.out.println(incidencia.getVehiculos().getId());
-		System.out.println(incidencia.getSolucionada());
-		System.out.println("casi post");
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
+			System.out.println("g");
 			return VIEWS_INCIDENCIA_CREATE_OR_UPDATE_FORM;
 		}
 		else {
