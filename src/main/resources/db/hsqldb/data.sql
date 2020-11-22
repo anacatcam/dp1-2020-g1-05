@@ -22,6 +22,8 @@ INSERT INTO authorities(id,username,authority) VALUES (7,'manpercar1','owner');
 --owner user Daniel
 INSERT INTO users(username,password,enabled) VALUES ('dantorval','dtv123',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'dantorval','owner');
+INSERT INTO users(username,password,enabled) VALUES ('daniuser','dtv123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (9,'daniuser','user');
 
 INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442601, 'Juan José', 'Pérez Plata', '608960166', 'juan@gmail.com', 1500);
 INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES (15442609, 'Paco', 'Pérez Rodríguez', '608960162', 'paco@gmail.com', 1500);
@@ -107,6 +109,8 @@ INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (1,'2010-09-07',1
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (2,'2010-09-08',122.0,15442605);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (3,'2010-09-09',120.0,15442606);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (4,'2010-09-09',120.0,15442604);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (5,'2020-09-07',120.0,15442606);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_dni) VALUES (6,'2020-09-09',100.0,15442604);
 
 INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (1,15442604,7,1);
 INSERT INTO venta(id,cliente_dni,vehiculo_id,reserva_id) VALUES (2,15442605,6,2);
