@@ -21,6 +21,7 @@ import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.zaxxer.hikari.util.SuspendResumeLock;
 
 @Controller
 @RequestMapping("/vehiculos/{vehiculoId}")
@@ -62,8 +63,7 @@ public class IncidenciaController {
 			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
-			System.out.println("error");
-			return VIEWS_INCIDENCIA_CREATE_FORM;
+			return VIEWS_INCIDENCIA_UPDATE_FORM;
 		}
 		else {
     		incidencia.setSolucionada(false); //la incidencia no está solucionada por defecto
