@@ -23,7 +23,7 @@ public class Oferta extends NamedEntity {
 	private Double descuento;
 	
 	@Column(name = "fecha_limite")        
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "dd/mm/yyyy")
 	private LocalDate fechaLimite;
 
 	@Column(name = "hora_limite")        
