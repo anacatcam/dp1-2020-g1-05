@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
 
 public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
@@ -23,4 +24,6 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 //	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.plazas =:plazas")
 //	Collection<Vehiculos> findByPlazas(@Param("plazas") int plazas);
 
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible =:disponible")
+	public Collection<Vehiculos> findByDisponible(@Param("disponible") Disponible disp);
 }
