@@ -51,6 +51,12 @@
 					<span>Clientes</span>
 				</madaja:menuItem>
 				
+				<madaja:menuItem active="${name eq 'clientes'}" url="/mis-reservas"
+					title="mis reservas">
+					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+					<span>Mis Reservas</span>
+				</madaja:menuItem>
+				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
