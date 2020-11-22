@@ -92,8 +92,8 @@ public class VehiculosService {
 	}
 
 	@Transactional(readOnly = true)
-	public Collection<Vehiculos> findByDisponible(@Param("disponible") Disponible disp){
-		return vehiculosRepository.findByDisponible(disp);
+	public Collection<Vehiculos> findByDisponible(@Param("id") int id){
+		return vehiculosRepository.findByDisponible(id);
 	}
 
 }
