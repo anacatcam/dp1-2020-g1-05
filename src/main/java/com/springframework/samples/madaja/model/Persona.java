@@ -39,7 +39,7 @@ public class Persona {
 	protected  String email;
 
 	public Integer getDni() {
-		return dni;
+		return this.dni;
 	}
 
 	public void setDni(Integer dni) {
@@ -47,7 +47,7 @@ public class Persona {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -55,7 +55,7 @@ public class Persona {
 	}
 
 	public String getApellidos() {
-		return apellidos;
+		return this.apellidos;
 	}
 
 	public void setApellidos(String apellidos) {
@@ -63,7 +63,7 @@ public class Persona {
 	}
 
 	public String getTelefono() {
-		return telefono;
+		return this.telefono;
 	}
 
 	public void setTelefono(String telefono) {
@@ -71,7 +71,7 @@ public class Persona {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
