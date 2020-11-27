@@ -122,5 +122,7 @@ INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecan
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','11:00',15442602);
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00',15442602);
 
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id) VALUES (1,15442604,1,1,4,4);
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,vehiculo_id) VALUES (2,15442605,2,2,1);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,limite_KM) 
+	VALUES (1,15442604,1,1,4,4,'2010-09-07',1000);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,vehiculo_id,fecha_inicio,limite_KM) 
+	VALUES (2,15442605,2,2,1,'2010-09-07',800);
