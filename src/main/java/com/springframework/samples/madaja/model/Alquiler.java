@@ -1,18 +1,32 @@
 package com.springframework.samples.madaja.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.websocket.OnError;
 
 import org.springframework.core.style.ToStringCreator;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "alquiler")
-public class Alquiler extends BaseEntity{ 
+public class Alquiler extends BaseEntity{
+	
+	@Column(name = "fecha_inicio")
+	@NotEmpty
+	private LocalDate fechaInicio;
+	
+	@Column(name = "limite_KM")
+	@NotEmpty
+	private Integer limiteKM;
 		
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
@@ -34,6 +48,14 @@ public class Alquiler extends BaseEntity{
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
+	
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
 
 	public SeguroCliente getSeguro_cliente() {
 		return seguro_cliente;
