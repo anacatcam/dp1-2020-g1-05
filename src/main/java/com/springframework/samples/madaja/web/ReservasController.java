@@ -29,7 +29,7 @@ public class ReservasController {
 	
 	/** Reservas de un cliente **/
 	@GetMapping(path="/{dniCliente}")
-	public String reservasCliente(@PathVariable("dniCliente") int dniCliente, ModelMap modelMap) {
+	public String reservasCliente(@PathVariable("dniCliente") String dniCliente, ModelMap modelMap) {
 		String view = "reservas/mostrarReservas";
 		Iterable<Reserva> reservas = reservaService.findByDNI(dniCliente);
 		modelMap.addAttribute("reservas", reservas);

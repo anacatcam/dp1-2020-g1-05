@@ -13,9 +13,10 @@ import com.springframework.samples.madaja.model.Venta;
 public interface AlquilerRepository extends Repository<Alquiler, Integer>{
 	Iterable<Alquiler> findAll() throws DataAccessException; //TODOS los alquileres
 	
-	Alquiler findById(int id) throws DataAccessException; //Alquiler por id
+	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.id =:id")
+	public Alquiler findById(@Param("id") int id); //Alquiler por id
 	
-	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.dni =:dni") //Encontrar ventas por DNI del cliente
+	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.dni =:dni") //Encontrar alquileres por DNI del cliente
 	public List<Alquiler> findByDniCliente(@Param("dni") String dni);
 	
 	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id =:id") //(H7) Encontrar todos los alquileres de un cliente

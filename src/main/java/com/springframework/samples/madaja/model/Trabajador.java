@@ -6,11 +6,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
+import com.sun.istack.NotNull;
+
 @MappedSuperclass
 public class Trabajador extends Persona{
 	
 	@Column(name = "sueldo")
-	@NotEmpty
+	@NotNull
 	protected Double sueldo;
 
 	public Double getSueldo() {

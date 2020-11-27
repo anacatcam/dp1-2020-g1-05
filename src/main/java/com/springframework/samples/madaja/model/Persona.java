@@ -9,6 +9,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -28,6 +29,7 @@ public class Persona {
 	
 	@Column(name = "telefono")
 	@NotEmpty
+	@Length(min = 9,max=9)
 	@Digits(fraction = 0, integer = 10)
 	protected String telefono;
 	
