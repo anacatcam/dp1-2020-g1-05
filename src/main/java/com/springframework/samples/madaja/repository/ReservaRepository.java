@@ -16,5 +16,5 @@ public interface ReservaRepository extends Repository<Reserva, Integer>{
 	Reserva findById(int id) throws DataAccessException; //Reserva por ID
 	
 	@Query("SELECT reserva FROM Reserva reserva WHERE reserva.cliente.dni =:dni") //Encontrar reservas por DNI del cliente
-	public List<Reserva> findByDniReserva(@Param("dni") int dni);
+	public List<Reserva> findByDniReserva(@Param("dni") String dni);
 }

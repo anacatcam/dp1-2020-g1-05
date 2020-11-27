@@ -31,7 +31,7 @@ public class ReservaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Reserva> findByDNI(int dni) throws DataAccessException{
+	public List<Reserva> findByDNI(String dni) throws DataAccessException{
 		return reservaRepository.findByDniReserva(dni);
 	}
 }

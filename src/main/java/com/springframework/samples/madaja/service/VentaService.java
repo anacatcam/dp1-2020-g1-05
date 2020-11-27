@@ -31,7 +31,7 @@ public class VentaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Venta> findVentasByDni(int dni) throws DataAccessException{
+	public List<Venta> findVentasByDni(String dni) throws DataAccessException{
 		return ventaRepository.findByDniCliente(dni);
 	} 
 }
