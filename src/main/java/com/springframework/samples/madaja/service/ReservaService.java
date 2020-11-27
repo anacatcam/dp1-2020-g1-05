@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,7 +22,7 @@ public class ReservaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Reserva findReservaById(int id) throws DataAccessException{
+	public Optional<Reserva> findReservaById(int id) throws DataAccessException{
 		return reservaRepository.findById(id);
 	}
 	
@@ -34,4 +35,15 @@ public class ReservaService {
 	public List<Reserva> findByDNI(String dni) throws DataAccessException{
 		return reservaRepository.findByDniReserva(dni);
 	}
+
+	public void delete(Reserva reserva) {
+		reservaRepository.delete(reserva);	
+	}
+	/*
+	@Transactional(readOnly = true)
+	public List<Reserva> findResAlq() throws DataAccessException{
+		return reservaRepository.findResAlq();
+	}
+	*/
+	
 }
