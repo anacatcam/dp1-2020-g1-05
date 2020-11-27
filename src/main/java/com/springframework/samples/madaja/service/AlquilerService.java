@@ -32,17 +32,17 @@ public class AlquilerService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Alquiler> findAlquilerByDni(int dni) throws DataAccessException{
+	public List<Alquiler> findAlquilerByDni(String dni) throws DataAccessException{
 		return alquilerRepository.findByDniCliente(dni);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Alquiler> findAlquileresCliente(int id){
+	public List<Alquiler> findAlquileresCliente(String id){
 		return alquilerRepository.findAlquileresCliente(id);
 	}
 	
 	@Transactional(readOnly = true)
-	public Alquiler findAlquilerConcretoCliente(int id,String matricula) {
+	public Alquiler findAlquilerConcretoCliente(String id,String matricula) {
 		return alquilerRepository.findAlquilerConcretoCliente(id, matricula);
 	}
 }

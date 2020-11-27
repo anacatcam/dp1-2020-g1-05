@@ -30,9 +30,9 @@ public class AlquilerController {
 	}
 	
 	@GetMapping(value = {"/MisAlquileres/{clienteId}"})
-	public String showMisAlquileres(@PathVariable("clienteId") int id,Map<String, Object> model){
+	public String showMisAlquileres(@PathVariable("clienteId") String id,Map<String, Object> model){
 		List<Alquiler> alqList = new ArrayList<>();
-		Cliente cliente = this.clienteService.findClienteById(id);
+		Cliente cliente = this.clienteService.findClienteByDni(id);
 		alqList.addAll(this.alquilerService.findAlquileresCliente(id));
 		model.put("alquileres", alqList);
 		

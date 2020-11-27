@@ -17,6 +17,8 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 	Optional<Reserva> findById(int id) throws DataAccessException; //Reserva por ID
 	
 	@Query("SELECT reserva FROM Reserva reserva WHERE reserva.cliente.dni =:dni") //Encontrar reservas por DNI del cliente
+	public List<Reserva> findByDniReserva(@Param("dni") String dni);
+
 	public List<Reserva> findByDniReserva(@Param("dni") int dni);
 	
 

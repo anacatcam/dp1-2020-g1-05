@@ -16,9 +16,7 @@ import org.hibernate.validator.constraints.Length;
 public class Persona {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotEmpty
-	protected Integer dni;
+	protected String dni;
 	
 	@Column(name = "nombre")
 	@NotEmpty
@@ -38,11 +36,11 @@ public class Persona {
 	@Email
 	protected  String email;
 
-	public Integer getDni() {
+	public String getDni() {
 		return this.dni;
 	}
 
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

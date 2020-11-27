@@ -20,8 +20,8 @@ public class ClienteService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Cliente findClienteById(int id) throws DataAccessException {
-		return clienteRepository.findById(id);
+	public Cliente findClienteByDni(String id) throws DataAccessException {
+		return clienteRepository.findByDni(id);
 	}
 	
 	@Transactional(readOnly = true)
