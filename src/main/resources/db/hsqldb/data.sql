@@ -41,12 +41,12 @@ INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (
 INSERT INTO cambio VALUES (1, 'automático');
 INSERT INTO cambio VALUES (2, 'manual');
 
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '6085551023', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '6085551749', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '6085553198', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (4, 'concesionario4@gmail.com', '6085553684', 'Sevilla', 'Marchena', 'Calle Amor de Dios', '41009', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (5, 'concesionario5@gmail.com', '6085553231', 'Cádiz', 'Olvera', 'Calle Avenida España', '83282', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (6, 'concesionario6@gmail.com', '6085568421', 'Sevilla', 'Utrera', 'Calle José Antonio', '16852', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '608555102', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '608555174', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '608555319', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (4, 'concesionario4@gmail.com', '608555368', 'Sevilla', 'Marchena', 'Calle Amor de Dios', '41009', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (5, 'concesionario5@gmail.com', '608555323', 'Cádiz', 'Olvera', 'Calle Avenida España', '83282', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (6, 'concesionario6@gmail.com', '608556842', 'Sevilla', 'Utrera', 'Calle José Antonio', '16852', 'España');
 
 INSERT INTO concesionarios_gestores VALUES (1, '15442601');
 INSERT INTO concesionarios_gestores VALUES (2, '15442609');
