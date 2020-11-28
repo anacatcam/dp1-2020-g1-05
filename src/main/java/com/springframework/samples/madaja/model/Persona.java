@@ -9,6 +9,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -16,9 +17,7 @@ import org.hibernate.validator.constraints.Length;
 public class Persona {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotEmpty
-	protected Integer dni;
+	protected String dni;
 	
 	@Column(name = "nombre")
 	@NotEmpty
@@ -30,6 +29,7 @@ public class Persona {
 	
 	@Column(name = "telefono")
 	@NotEmpty
+	@Length(min = 9,max=9)
 	@Digits(fraction = 0, integer = 10)
 	protected String telefono;
 	
@@ -38,11 +38,11 @@ public class Persona {
 	@Email
 	protected  String email;
 
-	public Integer getDni() {
+	public String getDni() {
 		return this.dni;
 	}
 
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

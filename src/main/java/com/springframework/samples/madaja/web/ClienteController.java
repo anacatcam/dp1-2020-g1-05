@@ -48,16 +48,16 @@ public class ClienteController {
 	}
 	
 	@GetMapping(value = {"/clientes/ventas/{clienteId}"})
-	public String showVentasCliente(@PathVariable("clienteId") int id,ModelMap model) {
-		Cliente cliente = this.clienteService.findClienteById(id);
+	public String showVentasCliente(@PathVariable("clienteId") String id,ModelMap model) {
+		Cliente cliente = this.clienteService.findClienteByDni(id);
 		List<Venta> ventas = this.ventaService.findVentasByDni(cliente.getDni());
 		model.put("cliente", cliente);
 		model.put("ventas", ventas);
 		return "cliente/ventaDetails";
 	}
 	@GetMapping(value = {"/clientes/alquileres/{clienteId}"})
-	public String showAlquilerCliente(@PathVariable("clienteId") int id,ModelMap model) {
-		Cliente cliente = this.clienteService.findClienteById(id);
+	public String showAlquilerCliente(@PathVariable("clienteId") String id,ModelMap model) {
+		Cliente cliente = this.clienteService.findClienteByDni(id);
 		List<Alquiler> alquileres = this.alquilerService.findAlquilerByDni(cliente.getDni());
 		model.put("cliente", cliente);
 		model.put("alquileres", alquileres);
