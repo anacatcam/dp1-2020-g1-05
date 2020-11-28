@@ -22,9 +22,17 @@ public class Alquiler extends BaseEntity{
 	@NotEmpty
 	private LocalDate fechaInicio;
 	
+	@Column(name = "fecha_fin")
+	@NotEmpty
+	private LocalDate fechaFin;
+	
 	@Column(name = "limite_KM")
 	@NotEmpty
 	private Integer limiteKM;
+	
+	@Column(name = "dep_lleno")
+	@NotEmpty
+	private Boolean depLleno;
 		
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
@@ -55,12 +63,28 @@ public class Alquiler extends BaseEntity{
 		this.fechaInicio = fechaInicio;
 	}
 	
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	
 	public Integer getLimiteKM() {
 		return limiteKM;
 	}
 
 	public void setLimiteKM(Integer limiteKM) {
 		this.limiteKM = limiteKM;
+	}
+	
+	public Boolean getDepLleno() {
+		return depLleno;
+	}
+
+	public void setDepLleno(Boolean depLleno) {
+		this.depLleno = depLleno;
 	}
 
 	public SeguroCliente getSeguro_cliente() {
