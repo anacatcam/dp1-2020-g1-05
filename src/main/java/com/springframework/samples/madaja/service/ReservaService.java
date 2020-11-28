@@ -20,7 +20,7 @@ public class ReservaService {
 	public ReservaService(ReservaRepository reservaRepository) {
 		this.reservaRepository = reservaRepository;
 	}
-	
+		
 	@Transactional(readOnly = true)
 	public Optional<Reserva> findReservaById(int id) throws DataAccessException{
 		return reservaRepository.findById(id);
@@ -39,11 +39,19 @@ public class ReservaService {
 	public void delete(Reserva reserva) {
 		reservaRepository.delete(reserva);	
 	}
-	/*
-	@Transactional(readOnly = true)
-	public List<Reserva> findResAlq() throws DataAccessException{
-		return reservaRepository.findResAlq();
+		
+	@Transactional
+	public void deleteRes(int id) {
+//		reservaRepository.actVenta(id);
+//		reservaRepository.actAlquiler(id);
+//		reservaRepository.eliminarReserva(id);	
+		reservaRepository.eliminarVentaReserva(id);
+		reservaRepository.eliminarAlquilerReserva(id);
+		reservaRepository.eliminarReserva(id);
 	}
-	*/
 	
+	
+	
+	
+		
 }

@@ -10,11 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.websocket.OnError;
 
 import org.springframework.core.style.ToStringCreator;
 
-import lombok.Data;
 
 @Entity
 @Table(name = "alquiler")
@@ -55,6 +53,14 @@ public class Alquiler extends BaseEntity{
 
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+	
+	public Integer getLimiteKM() {
+		return limiteKM;
+	}
+
+	public void setLimiteKM(Integer limiteKM) {
+		this.limiteKM = limiteKM;
 	}
 
 	public SeguroCliente getSeguro_cliente() {
