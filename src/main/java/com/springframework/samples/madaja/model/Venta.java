@@ -1,17 +1,25 @@
 package com.springframework.samples.madaja.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "venta")
 public class Venta extends BaseEntity { 
+	
+	@Column(name = "fecha")
+	@NotEmpty
+	private LocalDate fecha;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
@@ -22,6 +30,14 @@ public class Venta extends BaseEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
+	
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
 	public Cliente getCliente() {
 		return cliente;
