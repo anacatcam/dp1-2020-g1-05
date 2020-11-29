@@ -75,12 +75,7 @@
 		
 		<!--  
 			<c:forEach items="${reservas}" var="reserva">
-			
 				<tr>
-				
-	
-				
-				
 					<td>
 						<c:out value="${reserva.venta.vehiculo.marca} "/>
 						<c:out value="${reserva.venta.vehiculo.modelo} "/>
@@ -101,13 +96,7 @@
 															<spring:param name="reservaId" value="${reserva.id}"/>
 														</spring:url>'>Anular</a>
 					</td>
-					
 				</tr>
-				
-				
-				
-	
-				 
 			</c:forEach>	
 		-->	
 				

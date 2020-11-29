@@ -9,20 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
-import com.sun.istack.NotNull;
 
 
 @Entity
 @Table(name = "alquiler")
-public class Alquiler extends BaseEntity{
-	
+public class Alquiler extends BaseEntity {
+
 	@Column(name = "fecha_inicio")
 	@DateConstraint
 	private LocalDate fechaInicio;
@@ -30,37 +27,36 @@ public class Alquiler extends BaseEntity{
 	@Column(name = "fecha_fin")
 	@DateConstraint
 	private LocalDate fechaFin;
-	
+
 	@Column(name = "limite_KM")
-//	@NotNull
 	@Positive
+	@Min(value = 1)
 	private Integer limiteKM;
-	
+
 	@Column(name = "dep_lleno")
-	@NotNull
 	private Boolean depLleno;
-	
+
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
-	
+
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
-	
+
 	@OneToOne
 	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;
-	
+
 	@OneToOne
 	@JoinColumn(name = "recogida_id", nullable = true)
 	private Recogida recogida;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
-	
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -68,15 +64,15 @@ public class Alquiler extends BaseEntity{
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+
 	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
-	
+
 	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
+
 	public Integer getLimiteKM() {
 		return limiteKM;
 	}
@@ -85,11 +81,11 @@ public class Alquiler extends BaseEntity{
 		this.limiteKM = limiteKM;
 	}
 
-	public Boolean getDepositoLLeno() {
+	public Boolean getDepLleno() {
 		return depLleno;
 	}
 
-	public void setDepositoLLeno(Boolean depLleno) {
+	public void setDepLleno(Boolean depLleno) {
 		this.depLleno = depLleno;
 	}
 
@@ -152,6 +148,5 @@ public class Alquiler extends BaseEntity{
 		builder.append("cliente", cliente);
 		return builder.toString();
 	}
-	
-	
+
 }
