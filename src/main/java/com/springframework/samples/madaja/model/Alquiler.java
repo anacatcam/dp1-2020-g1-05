@@ -10,21 +10,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
+
+
 
 @Entity
 @Table(name = "alquiler")
 public class Alquiler extends BaseEntity {
 
 	@Column(name = "fecha_inicio")
-	// @Temporal(TemporalType.DATE)
+	@DateConstraint
 	private LocalDate fechaInicio;
-
+	
 	@Column(name = "fecha_fin")
-	// @Temporal(TemporalType.DATE)
+	@DateConstraint
 	private LocalDate fechaFin;
 
 	@Column(name = "limite_KM")
@@ -33,7 +34,6 @@ public class Alquiler extends BaseEntity {
 	private Integer limiteKM;
 
 	@Column(name = "dep_lleno")
-	@NotNull
 	private Boolean depLleno;
 
 	@OneToOne(mappedBy = "alquiler", optional = false)
