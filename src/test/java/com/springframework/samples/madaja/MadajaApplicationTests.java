@@ -1,10 +1,10 @@
-package com.springframework.samples.majada;
+package com.springframework.samples.madaja;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MajadaApplicationTests {
+class MadajaApplicationTests {
 
 	@Test
 	void contextLoads() {
