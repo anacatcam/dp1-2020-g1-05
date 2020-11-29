@@ -24,23 +24,21 @@ import com.sun.istack.NotNull;
 public class Alquiler extends BaseEntity{
 	
 	@Column(name = "fecha_inicio")
-	@NotNull
 	@DateConstraint
 	private LocalDate fechaInicio;
 	
-/*	@Column(name = "fecha_fin")
-	@NotNull
+	@Column(name = "fecha_fin")
 	@DateConstraint
-	private LocalDate fechaFin; Añadir despues del domingo*/ 
+	private LocalDate fechaFin;
 	
 	@Column(name = "limite_KM")
-	@NotNull
+//	@NotNull
 	@Positive
 	private Integer limiteKM;
 	
-	@Column(name = "deposito_LLeno")
+	@Column(name = "dep_lleno")
 	@NotNull
-	private Boolean depositoLLeno;
+	private Boolean depLleno;
 	
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
@@ -71,14 +69,14 @@ public class Alquiler extends BaseEntity{
 		this.fechaInicio = fechaInicio;
 	}
 	
-/*	public LocalDate getFechaFin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 	
 	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	*/
+	
 	public Integer getLimiteKM() {
 		return limiteKM;
 	}
@@ -88,11 +86,11 @@ public class Alquiler extends BaseEntity{
 	}
 
 	public Boolean getDepositoLLeno() {
-		return depositoLLeno;
+		return depLleno;
 	}
 
-	public void setDepositoLLeno(Boolean depositoLLeno) {
-		this.depositoLLeno = depositoLLeno;
+	public void setDepositoLLeno(Boolean depLleno) {
+		this.depLleno = depLleno;
 	}
 
 	public SeguroCliente getSeguro_cliente() {

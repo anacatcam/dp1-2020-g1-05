@@ -15,7 +15,7 @@ public class DateValidator implements ConstraintValidator<DateConstraint, Alquil
 	public boolean isValid(Alquiler value, ConstraintValidatorContext context) {
 		// TODO Auto-generated method stub
 		return (value.getFechaInicio().isEqual(LocalDate.now()) || value.getFechaInicio().isAfter(LocalDate.now()))
-			/*	&& (value.getFechaFin().isAfter(value.getFechaInicio()) || value.getFechaFin().isEqual(value.getFechaInicio()))*/;
+				&& (value.getFechaFin().isAfter(value.getFechaInicio()) || value.getFechaFin().isEqual(value.getFechaInicio()));
 	}
 
 

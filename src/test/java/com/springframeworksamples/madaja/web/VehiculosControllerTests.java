@@ -162,7 +162,7 @@ class VehiculosControllerTests {
 		alq.setReserva(res);
 		alq.setVehiculo(vehiculo);
 		alq.setFechaInicio(LocalDate.of(2020, 9, 07));
-	//	alq.setFechaFin(LocalDate.of(2020, 12, 16));
+		alq.setFechaFin(LocalDate.of(2020, 12, 16));
 		alq.setLimiteKM(800);
 		vehiculo.addAlquiler(alq);
 		given(this.vehiculosService.findAllVehiculos()).willReturn(Lists.newArrayList(vehiculo));

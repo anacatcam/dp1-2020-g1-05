@@ -122,9 +122,9 @@ INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecan
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','11:00','15442602');
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00','15442602');
 
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
-	VALUES (1,15442604,1,1,4,4,'2010-09-07',/*'2010-09-28',*/1000);
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
-	VALUES (2,15442605,2,2,5,5,'2020-09-07',/*'2020-12-16',*/800);
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
-	VALUES (3,15442605,null,null,6,6,'2020-09-07',/*'2020-11-05',*/1500);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
+	VALUES (1,15442604,1,1,4,4,'2010-09-07','2010-09-14',1000,true);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
+	VALUES (2,15442605,2,2,5,5,'2010-09-07','2010-09-12',800,true);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
+	VALUES (3,15442605,null,null,6,6,'2020-09-07','2020-09-10',1500,false);
