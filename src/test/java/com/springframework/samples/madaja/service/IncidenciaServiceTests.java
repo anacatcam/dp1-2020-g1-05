@@ -43,13 +43,6 @@ public class IncidenciaServiceTests {
 		vehiculo.setPrecioAlquiler(600);
 		vehiculo.setPrecioVenta(15000);
 		vehiculo.setPuertas(4);
-//		/Cambio cambio=new Cambio();   //REVISAR ENUMERADOS IMPORTANTE
-//		vehiculo.setCambio(cambio);
-//		vehiculo.setCombustible(combustible);
-//		vehiculo.setConcesionario(1);
-//		vehiculo.setDisponible(2);
-//		vehiculo.setSeguroVehiculo();
-		
 		incidencia.setDescripcion("Pinchazo en rueda frontal izquierda");
 		incidencia.setSolucionada(true);
 		incidencia.setVehiculos(vehiculo);
