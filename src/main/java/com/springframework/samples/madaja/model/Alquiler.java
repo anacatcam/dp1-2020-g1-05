@@ -9,9 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
+
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -19,13 +24,24 @@ import org.springframework.core.style.ToStringCreator;
 public class Alquiler extends BaseEntity{
 	
 	@Column(name = "fecha_inicio")
-	@NotEmpty
+	@NotNull
+	@DateConstraint
 	private LocalDate fechaInicio;
 	
+/*	@Column(name = "fecha_fin")
+	@NotNull
+	@DateConstraint
+	private LocalDate fechaFin; Añadir despues del domingo*/ 
+	
 	@Column(name = "limite_KM")
-	@NotEmpty
+	@NotNull
+	@Positive
 	private Integer limiteKM;
-		
+	
+	@Column(name = "deposito_LLeno")
+	@NotNull
+	private Boolean depositoLLeno;
+	
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
 	
@@ -55,12 +71,28 @@ public class Alquiler extends BaseEntity{
 		this.fechaInicio = fechaInicio;
 	}
 	
+/*	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+	
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	*/
 	public Integer getLimiteKM() {
 		return limiteKM;
 	}
 
 	public void setLimiteKM(Integer limiteKM) {
 		this.limiteKM = limiteKM;
+	}
+
+	public Boolean getDepositoLLeno() {
+		return depositoLLeno;
+	}
+
+	public void setDepositoLLeno(Boolean depositoLLeno) {
+		this.depositoLLeno = depositoLLeno;
 	}
 
 	public SeguroCliente getSeguro_cliente() {

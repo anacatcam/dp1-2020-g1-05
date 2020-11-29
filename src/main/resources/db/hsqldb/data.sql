@@ -41,12 +41,12 @@ INSERT INTO cliente(dni,nombre,apellidos,telefono,email,es_conflictivo) VALUES (
 INSERT INTO cambio VALUES (1, 'automático');
 INSERT INTO cambio VALUES (2, 'manual');
 
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '6085551023', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '6085551749', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '6085553198', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (4, 'concesionario4@gmail.com', '6085553684', 'Sevilla', 'Marchena', 'Calle Amor de Dios', '41009', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (5, 'concesionario5@gmail.com', '6085553231', 'Cádiz', 'Olvera', 'Calle Avenida España', '83282', 'España');
-INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (6, 'concesionario6@gmail.com', '6085568421', 'Sevilla', 'Utrera', 'Calle José Antonio', '16852', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'concesionario1@gmail.com', '608555102', 'Sevilla', 'Lora del Río', 'Calle Los Pacos', '41063', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'concesionario2@gmail.com', '608555174', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'concesionario3@gmail.com', '608555319', 'Huelva', 'Punta Umbría', 'Calle Huelva mismo', '23462', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (4, 'concesionario4@gmail.com', '608555368', 'Sevilla', 'Marchena', 'Calle Amor de Dios', '41009', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (5, 'concesionario5@gmail.com', '608555323', 'Cádiz', 'Olvera', 'Calle Avenida España', '83282', 'España');
+INSERT INTO concesionario(id,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (6, 'concesionario6@gmail.com', '608556842', 'Sevilla', 'Utrera', 'Calle José Antonio', '16852', 'España');
 
 INSERT INTO concesionarios_gestores VALUES (1, '15442601');
 INSERT INTO concesionarios_gestores VALUES (2, '15442609');
@@ -122,9 +122,9 @@ INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecan
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','11:00','15442602');
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00','15442602');
 
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,limite_KM) 
-	VALUES (1,15442604,1,1,4,4,'2010-09-07',1000);
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,limite_KM) 
-	VALUES (2,15442605,2,2,5,5,'2010-09-07',800);
-INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,limite_KM) 
-	VALUES (3,15442605,null,null,6,6,'2020-09-07',1500);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
+	VALUES (1,15442604,1,1,4,4,'2010-09-07',/*'2010-09-28',*/1000);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
+	VALUES (2,15442605,2,2,5,5,'2020-09-07',/*'2020-12-16',*/800);
+INSERT INTO alquiler(id,cliente_dni,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,/*fecha_fin,*/limite_KM) 
+	VALUES (3,15442605,null,null,6,6,'2020-09-07',/*'2020-11-05',*/1500);
