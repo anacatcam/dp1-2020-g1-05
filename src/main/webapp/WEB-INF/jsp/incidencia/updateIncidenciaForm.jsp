@@ -13,6 +13,14 @@
     <form:form modelAttribute="incidencia" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
             <madaja:inputField label="Descripcion" name="descripcion"/>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Mecánico </label>
+            	<div class="col-sm-10">
+	            	<form:select path="mecanicos">
+		            	<form:options itemValue="dni" itemLabel="nombre" items="${mecanicos}" />
+	    	        </form:select>
+    	        </div>
+            </div>
             <label>Solucionada </label><input name="solucionada">
         </div>
         <div class="form-group">

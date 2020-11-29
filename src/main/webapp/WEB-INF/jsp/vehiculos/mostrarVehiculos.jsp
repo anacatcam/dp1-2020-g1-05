@@ -5,6 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <madaja:layout pageName="vehiculos">
 	<h2>Vehículos</h2>
@@ -33,8 +35,10 @@
 			<th style="width: 150px;">Precio de alquiler</th>
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
-			<th style="width: 150px;">Puertas</th>
 			<th style="width: 150px;">Disponibilidad</th>
+			<sec:authorize access="hasAuthority('admin')">
+				<th></th>
+			</sec:authorize>
 			
 		</tr>
 		</thead>
@@ -63,15 +67,34 @@
 						<c:out value="${vehiculo.plazas}"/> pasajeros
 					</td>
 					<td>
-						<c:out value="${vehiculo.puertas}"/> puertas
-					</td>
-					<td>
 						<c:out value="${vehiculo.disponible}"/>
 					</td>
+					<sec:authorize access="hasAuthority('admin')">
+						<c:choose>
+                        	<c:when test="${vehiculo.disponible.id eq 4}">
+                        		<td>
+								    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
+								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
+								    </spring:url>
+								    <a href="${fn:escapeXml(altaUrl)}">Dar de alta</a>
+								</td>
+                        	</c:when>
+                        	<c:otherwise>
+								<td>
+								    <spring:url value="/vehiculos/{vehiculoId}/delete" var="deleteUrl">
+								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
+								    </spring:url>
+								    <a href="${fn:escapeXml(deleteUrl)}">Dar de baja</a>
+								</td>
+							</c:otherwise>
+						</c:choose>
+				    </sec:authorize>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<br/>
+	<sec:authorize access="hasAuthority('admin')">
 	<a class="btn btn-default" href='<spring:url value="/vehiculos/new" htmlEscape="true"/>'>Añadir vehículo</a>
+	</sec:authorize>
 </madaja:layout>

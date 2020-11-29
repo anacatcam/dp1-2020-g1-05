@@ -5,9 +5,9 @@
 <madaja:layout pageName="error">
 
     <spring:url value="/resources/images/clipo.png" var="clipo"/>
-    <img class="img-responsive" src="${clipo}"/>
-
-    <h2>Parece que ha habido un error...¿necesitas ayuda?</h2>
+    <img style="display:block; margin: auto;" src="${clipo}"/>
+	<br/>
+    <h2 style="text-align: center;">Parece que ha habido un error...¿necesitas ayuda?</h2>
 
     <p>${exception.message}</p>
 

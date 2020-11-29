@@ -94,7 +94,7 @@ public class Vehiculos extends BaseEntity{
 	
 	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = true)
-	private SeguroVehiculo seguro_vehiculo;
+	private SeguroVehiculo seguroVehiculo;
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
 	private Set<Incidencia> incidencias;
@@ -234,11 +234,11 @@ public class Vehiculos extends BaseEntity{
 	}
 
 	public SeguroVehiculo getSeguroVehiculo() {
-		return seguro_vehiculo;
+		return seguroVehiculo;
 	}
 
 	public void setSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
-		this.seguro_vehiculo = seguroVehiculo;
+		this.seguroVehiculo = seguroVehiculo;
 	}
 	
 	protected Set<Incidencia> getIncidenciasInternal() {
@@ -320,46 +320,46 @@ public class Vehiculos extends BaseEntity{
 	}
 	
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("matricula", matricula);
-		builder.append("precioAlquiler", precioAlquiler);
-		builder.append("precioVenta", precioVenta);
-		builder.append("marca", marca);
-		builder.append("modelo", modelo);
-		builder.append("plazas", plazas);
-		builder.append("cambio", cambio);
-		builder.append("maletero", maletero);
-		builder.append("kmActuales", kmActuales);
-		builder.append("caracteristicas", caracteristicas);
-		builder.append("estado", estado);
-		builder.append("disponible", disponible);
-		builder.append("combustible", combustible);
-		builder.append("concesionario", concesionario);
-		builder.append("oferta", oferta);
-		builder.append("seguro_vehiculo", seguro_vehiculo);
-		builder.append("id", id);
-		builder.append("getMatricula()", getMatricula());
-		builder.append("getPrecioAlquiler()", getPrecioAlquiler());
-		builder.append("getPrecioVenta()", getPrecioVenta());
-		builder.append("getMarca()", getMarca());
-		builder.append("getModelo()", getModelo());
-		builder.append("getPlazas()", getPlazas());
-		builder.append("getCambio()", getCambio());
-		builder.append("getMaletero()", getMaletero());
-		builder.append("getKmActuales()", getKmActuales());
-		builder.append("getCaracteristicas()", getCaracteristicas());
-		builder.append("getEstado()", getEstado());
-		builder.append("getDisponible()", getDisponible());
-		builder.append("getCombustible()", getCombustible());
-		builder.append("getConcesionario()", getConcesionario());
-		builder.append("getOferta()", getOferta());
-		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
-		builder.append("getId()", getId());
-		builder.append("isNew()", isNew());
-		return builder.toString();
-	}
+//	@Override
+//	public String toString() {
+//		ToStringCreator builder = new ToStringCreator(this);
+//		builder.append("matricula", matricula);
+//		builder.append("precioAlquiler", precioAlquiler);
+//		builder.append("precioVenta", precioVenta);
+//		builder.append("marca", marca);
+//		builder.append("modelo", modelo);
+//		builder.append("plazas", plazas);
+//		builder.append("cambio", cambio);
+//		builder.append("maletero", maletero);
+//		builder.append("kmActuales", kmActuales);
+//		builder.append("caracteristicas", caracteristicas);
+//		builder.append("estado", estado);
+//		builder.append("disponible", disponible);
+//		builder.append("combustible", combustible);
+//		builder.append("concesionario", concesionario);
+//		builder.append("oferta", oferta);
+//		builder.append("seguro_vehiculo", seguro_vehiculo);
+//		builder.append("id", id);
+//		builder.append("getMatricula()", getMatricula());
+//		builder.append("getPrecioAlquiler()", getPrecioAlquiler());
+//		builder.append("getPrecioVenta()", getPrecioVenta());
+//		builder.append("getMarca()", getMarca());
+//		builder.append("getModelo()", getModelo());
+//		builder.append("getPlazas()", getPlazas());
+//		builder.append("getCambio()", getCambio());
+//		builder.append("getMaletero()", getMaletero());
+//		builder.append("getKmActuales()", getKmActuales());
+//		builder.append("getCaracteristicas()", getCaracteristicas());
+//		builder.append("getEstado()", getEstado());
+//		builder.append("getDisponible()", getDisponible());
+//		builder.append("getCombustible()", getCombustible());
+//		builder.append("getConcesionario()", getConcesionario());
+//		builder.append("getOferta()", getOferta());
+//		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
+//		builder.append("getId()", getId());
+//		builder.append("isNew()", isNew());
+//		return builder.toString();
+//	}
 	
 	
 

@@ -4,22 +4,13 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
-<%@ attribute name="name" required="true" rtexprvalue="true"%>
+<%@ attribute name="name" required="true" rtexprvalue="true"
+	description="Name of the active menu: home, owners, vets or error"%>
 
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
-<!-- 	<div class="navbar-header">
-			<a class="navbar-brand"
-				href="<spring:url value="/" htmlEscape="true" />"><span>MADAJA</span></a>
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#main-navbar">
-				<span class="sr-only"><os-p>Toggle navigation</os-p></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-		</div>
--->		<div class="navbar-collapse collapse" id="main-navbar">
+		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 				<madaja:menuItem active="${name eq 'inicio'}" url="/"
 					title="home page">
@@ -36,7 +27,7 @@
 				<madaja:menuItem active="${name eq 'vehiculos'}" url="/vehiculos"
 					title="vehiculos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Vehículos</span>
+					<span>VehÃ­culos</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'oferta'}" url="/oferta"
@@ -75,7 +66,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>Â 
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
