@@ -5,30 +5,30 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "reserva")
 public class Reserva extends BaseEntity {
-	
+
 	@Column(name = "fianza")
-	@NotEmpty
+	@Positive
+	@Min(value = 1)
 	private Double fianza;
-	
+
 	@Column(name = "fechaGastos")
-	@NotEmpty
+	// @Temporal(TemporalType.DATE)
 	private LocalDate fechaGastos;
-	
+
 	@OneToOne(mappedBy = "reserva", optional = true)
 	private Alquiler alquiler;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 
@@ -94,7 +94,5 @@ public class Reserva extends BaseEntity {
 		builder.append("venta", venta);
 		return builder.toString();
 	}
-	
-	
-	
+
 }

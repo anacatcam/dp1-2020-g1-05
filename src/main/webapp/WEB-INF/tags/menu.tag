@@ -27,7 +27,7 @@
 				<madaja:menuItem active="${name eq 'vehiculos'}" url="/vehiculos"
 					title="vehiculos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Vehículos</span>
+					<span>VehÃ­culos</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'oferta'}" url="/oferta"
@@ -42,10 +42,10 @@
 					<span>Clientes</span>
 				</madaja:menuItem>
 				
-				<madaja:menuItem active="${name eq 'reservas'}" url="/mis-reservas"
+				<madaja:menuItem active="${name eq 'clientes'}" url="/reservas"
 					title="mis reservas">
 					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-					<span>Mis Reservas</span>
+					<span>Reservas</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
@@ -66,7 +66,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>Â 
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>

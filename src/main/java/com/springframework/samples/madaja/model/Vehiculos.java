@@ -16,10 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "vehiculos")
@@ -30,9 +34,11 @@ public class Vehiculos extends BaseEntity{
 	private String matricula;
 	
 	@Column(name = "precio_alquiler")
+	@Positive
 	private Integer precioAlquiler;
 	
 	@Column(name = "precio_venta")
+	@Positive
 	private Integer precioVenta;
 	
 	@Column(name = "marca")
@@ -44,19 +50,23 @@ public class Vehiculos extends BaseEntity{
 	private String modelo;
 	
 	@Column(name = "puertas")
+	@Positive
 	private Integer puertas;
 	
 	@Column(name = "plazas")
+	@Positive
 	private Integer plazas;
-	
+//===================================================================================	
 	@ManyToOne
 	@JoinColumn(name = "cambio_id")
 	private Cambio cambio;
 	
 	@Column(name = "maletero")
+	@PositiveOrZero
 	private Integer maletero;
 	
 	@Column(name = "km_actuales")
+	@PositiveOrZero
 	private Integer kmActuales;
 	
 	@Column(name = "caracteristicas")
@@ -66,7 +76,7 @@ public class Vehiculos extends BaseEntity{
 	@Column(name = "estado")
 	@NotEmpty
 	private String estado;
-	
+//====================================================
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
 	private Disponible disponible;

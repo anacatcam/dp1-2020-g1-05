@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
@@ -29,10 +31,12 @@ public class Concesionario extends Localizacion {
 	
 	@Column(name = "email")
 	@NotEmpty
+	@Email
 	private String email;
 	
 	@Column(name = "telefono")
 	@NotEmpty
+	@Length(min = 9,max=9)
 	@Digits(fraction = 0, integer = 10)
 	private String telefono;
 	
