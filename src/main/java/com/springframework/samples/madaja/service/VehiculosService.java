@@ -43,7 +43,7 @@ public class VehiculosService {
 	
 	@Transactional(readOnly = true)
 	public Collection<Vehiculos> findAllVehiculos() throws DataAccessException {
-		return vehiculosRepository.findAll();
+		return vehiculosRepository.findAllByDisponible();
 	}
 	
 	@Transactional(readOnly = true)
@@ -57,8 +57,8 @@ public class VehiculosService {
 	}
 	
 	@Transactional
-	public void deleteVehiculoById(int id) {
-		vehiculosRepository.delete(vehiculosRepository.findById(id));
+	public void deleteVehiculo(Vehiculos vehiculo) {
+		vehiculosRepository.delete(vehiculo);
 	}
 
 //	@Transactional(readOnly = true)
@@ -84,6 +84,11 @@ public class VehiculosService {
 	@Transactional(readOnly = true)
 	public Collection<Disponible> findAllDisponibles() {
 		return disponibleRepository.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public Disponible findDisponibleById(int id) {
+		return disponibleRepository.findById(id);
 	}
 	
 	@Transactional(readOnly = true)

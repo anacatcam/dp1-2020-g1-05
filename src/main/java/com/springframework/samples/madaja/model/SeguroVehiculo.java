@@ -33,10 +33,10 @@ public class SeguroVehiculo extends Seguro {
 	@NotEmpty
 	private LocalDate fechaFin;
 	
-	@OneToOne(mappedBy = "seguro_vehiculo", cascade = CascadeType.ALL, optional = true)
+	@OneToOne(mappedBy = "seguroVehiculo", cascade = CascadeType.ALL, optional = true)
 	private Vehiculos vehiculo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Compania compania;
 	
 	public String getCobertura() {

@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springframework.samples.madaja.model.Incidencia;
+import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.repository.IncidenciaRepository;
+import com.springframework.samples.madaja.repository.MecanicoRepository;
 
 @Service
 public class IncidenciaService {
 	
 	private IncidenciaRepository incidenciaRepository;
+	private MecanicoRepository mecanicoRepository;
 	
-	public IncidenciaService(IncidenciaRepository incidenciaRepository) {
+	public IncidenciaService(IncidenciaRepository incidenciaRepository, MecanicoRepository mecanicoRepository) {
 		this.incidenciaRepository=incidenciaRepository;
+		this.mecanicoRepository=mecanicoRepository;
 	}
 
 	@Transactional
@@ -33,8 +37,14 @@ public class IncidenciaService {
 		return incidenciaRepository.findById(id);
 	}
 
+	@Transactional(readOnly = true)
 	public Collection<Incidencia> findAllIncidencia() {
 		return incidenciaRepository.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public Collection<Mecanico> findAllMecanicos() {
+		return mecanicoRepository.findAll();
 	}
 
 }

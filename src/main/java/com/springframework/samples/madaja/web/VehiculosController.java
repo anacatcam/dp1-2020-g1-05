@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -109,14 +110,19 @@ public class VehiculosController {
 //	}
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/edit")
-	public String initUpdateVehiculoForm(@PathVariable("vehiculoId") int vehiculoId, Model model) {
+	public String initUpdateForm(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		model.addAttribute(vehiculo);
+		model.put("vehiculos", vehiculo);
+		model.put("cambios", this.vehiculosService.findAllCambios());
+		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("disponibles", this.vehiculosService.findAllDisponibles());
+		model.put("combustibles", this.vehiculosService.findAllCombustibles());
+		model.put("seguros", this.vehiculosService.findAllSeguros());
 		return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
 	}
 	
 	@PostMapping(value = "/vehiculos/{vehiculoId}/edit")
-	public String processUpdateVehiculoForm(@Valid Vehiculos vehiculo, BindingResult result,
+	public String processUpdateForm(@Valid Vehiculos vehiculo, BindingResult result,
 			@PathVariable("vehiculoId") int vehiculoId) {
 		if (result.hasErrors()) {
 			return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
@@ -137,12 +143,11 @@ public class VehiculosController {
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/delete")
 	public String deleteVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
-//		this.incidenciaService.deleteAllIncidencias();
-//		this.seguroVehiculoService.deleteAllSeguros();
-		this.vehiculosService.deleteVehiculoById(vehiculoId);
-		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
-		model.put("vehiculos", vehiculos);
-		return "vehiculos/mostrarVehiculos";
+		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+		Disponible disponible = this.vehiculosService.findDisponibleById(4);
+		vehiculo.setDisponible(disponible);
+		this.vehiculosService.saveVehiculo(vehiculo);
+		return "redirect:/vehiculos";
 	}
 	
 	@GetMapping(value="/vehiculos/disponible/{disponibleId}")

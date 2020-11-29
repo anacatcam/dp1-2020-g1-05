@@ -43,8 +43,16 @@
             <td><c:out value="${vehiculos.maletero}"/> L</td>
         </tr>
         <tr>
+            <th>Kilómetros recorridos</th>
+            <td><c:out value="${vehiculos.kmActuales}"/></td>
+        </tr>
+        <tr>
             <th>Tipo de cambio</th>
             <td><c:out value="${vehiculos.cambio}"/></td>
+        </tr>
+        <tr>
+            <th>Tipo de combustible</th>
+            <td><c:out value="${vehiculos.combustible}"/></td>
         </tr>
         <tr>
             <th>Características</th>
@@ -69,6 +77,10 @@
 			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.direccion}"/>, <c:out value="${vehiculos.concesionario.localidad}"/> (<c:out value="${vehiculos.concesionario.provincia}"/>)</a>
 			</td>
 		</tr>
+		<tr>
+            <th>Seguro</th>
+            <td><c:out value="${vehiculos.seguroVehiculo.cobertura}"/></td>
+        </tr>
 		<c:choose>
 			<c:when test="${vehiculos.oferta != null}">
 				<tr>
@@ -94,10 +106,24 @@
 	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Editar vehículo</a>
     </sec:authorize>
     <sec:authorize access="hasAuthority('admin')">
-	    <spring:url value="/vehiculos/{vehiculoId}/delete" var="deleteUrl">
-	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
-	    </spring:url>
-	    <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Eliminar vehículo</a>
+    	<c:choose>
+           	<c:when test="${vehiculos.disponible.id eq 4}">
+           		<td>
+				    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
+				        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+				    </spring:url>
+				    <a href="${fn:escapeXml(altaUrl)}"  class="btn btn-default">Dar de alta</a>
+				</td>
+           	</c:when>
+           	<c:otherwise>
+				<td>
+				    <spring:url value="/vehiculos/{vehiculoId}/delete" var="deleteUrl">
+				        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+				    </spring:url>
+				    <a href="${fn:escapeXml(deleteUrl)}"  class="btn btn-default">Dar de baja</a>
+				</td>
+			</c:otherwise>
+		</c:choose>
     </sec:authorize>
     <br/>
     <br/>

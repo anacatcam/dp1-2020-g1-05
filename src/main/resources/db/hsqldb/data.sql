@@ -59,6 +59,7 @@ INSERT INTO concesionarios_gestores VALUES (6, 15442612);
 INSERT INTO disponible(id,name) VALUES (1, 'alquiler');
 INSERT INTO disponible(id,name) VALUES (2, 'venta');
 INSERT INTO disponible(id,name) VALUES (3, 'alquiler o venta');
+INSERT INTO disponible(id,name) VALUES (4, 'No disponible');
 
 INSERT INTO combustible(id,name) VALUES (1, 'gasolina');
 INSERT INTO combustible(id,name) VALUES (2, 'diesel');
@@ -75,8 +76,8 @@ INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_i
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (6, '65482', 200.32, 'Mapfre', 'Seguros a terceros', '2020-09-07', '2021-09-07', 1);
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (7, '84358', 200.32, 'Mapfre', 'A todo riesgo', '2020-09-07', '2021-09-07', 2);
 
-INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 432, 13000, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'Seguridad en caso de accidente', 'Bien a pesar de los kilómetros recorridos', 1, 1, 2, 2);
-INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 432, 13000, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'Ahorro de combustible', 'Nuevo', 1, 2, 3, 1);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 432, 13000, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'Seguridad en caso de accidente', 'Bien a pesar de los kilómetros recorridos', 1, 1, 2, 1);
+INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 432, 13000, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'Ahorro de combustible', 'Nuevo', 1, 2, 3, 2);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (3, '6832 HDS', 432, 13000, 'Renault', 'Megane', 2, 2, 2, 600, 20000, 'Fiabilidad, comodidad', 'Desgastado. Pendiente de reemplazo de piezas', 3, 1, 1, 3);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (4, '4685 ADT', 432, 13000, 'Citroen', 'Sara', 2, 5, 1, 90, 3000, 'Bajo coste de mantenimiento', 'Nuevo', 3, 3, 2, 6);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (5, '6874 KJU', 432, 13000, 'Lamborgini', 'Wapísimo', 2, 4, 1, 100, 1000, 'Espacioso / Amplio', 'Nuevo', 2, 2, 1, 4);

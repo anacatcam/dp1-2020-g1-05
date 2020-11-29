@@ -117,20 +117,20 @@ public class Concesionario extends Localizacion {
 		return localidad + ", " + provincia;
 	}
 
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("email", email);
-		builder.append("telefono", telefono);
-		builder.append("vehiculos", vehiculos);
-		builder.append("id", id);
-		builder.append("getEmail()", getEmail());
-		builder.append("getTelefono()", getTelefono());
-		builder.append("getId()", getId());
-		builder.append("isNew()", isNew());
-		return builder.toString();
-	}
-	
+//	@Override
+//	public String toString() {
+//		ToStringCreator builder = new ToStringCreator(this);
+//		builder.append("email", email);
+//		builder.append("telefono", telefono);
+//		builder.append("vehiculos", vehiculos);
+//		builder.append("id", id);
+//		builder.append("getEmail()", getEmail());
+//		builder.append("getTelefono()", getTelefono());
+//		builder.append("getId()", getId());
+//		builder.append("isNew()", isNew());
+//		return builder.toString();
+//	}
+//	
 	
 
 }
