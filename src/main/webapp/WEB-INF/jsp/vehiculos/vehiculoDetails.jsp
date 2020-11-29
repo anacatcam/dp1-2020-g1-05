@@ -64,9 +64,7 @@
         </tr>
         <tr>
         	<th>Disponibilidad</th>
-        	<td>
-        		<c:out value="${vehiculos.disponible}"/>
-           	</td>
+        	<td><c:out value="${vehiculos.disponible}"/></td>
 		</tr>
 		<tr>
 			<th>Concesionario</th>
@@ -78,8 +76,17 @@
 			</td>
 		</tr>
 		<tr>
-            <th>Seguro</th>
-            <td><c:out value="${vehiculos.seguroVehiculo.cobertura}"/></td>
+		<c:choose>
+            <c:when test="${vehiculos.seguroVehiculo != null}">
+				<tr>
+					<th>Seguro</th>
+					<td><c:out value="${vehiculos.seguroVehiculo.cobertura}"/></td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr></tr>
+			</c:otherwise>
+		</c:choose>
         </tr>
 		<c:choose>
 			<c:when test="${vehiculos.oferta != null}">
