@@ -9,52 +9,54 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 
-
 @Entity
 @Table(name = "alquiler")
-public class Alquiler extends BaseEntity{
-	
+public class Alquiler extends BaseEntity {
+
 	@Column(name = "fecha_inicio")
-	@NotEmpty
+	// @Temporal(TemporalType.DATE)
 	private LocalDate fechaInicio;
-	
+
 	@Column(name = "fecha_fin")
-	@NotEmpty
+	// @Temporal(TemporalType.DATE)
 	private LocalDate fechaFin;
-	
+
 	@Column(name = "limite_KM")
-	@NotEmpty
+	@Positive
+	@Min(value = 1)
 	private Integer limiteKM;
-	
+
 	@Column(name = "dep_lleno")
-	@NotEmpty
+	@NotNull
 	private Boolean depLleno;
-		
+
 	@OneToOne(mappedBy = "alquiler", optional = false)
 	private SeguroCliente seguro_cliente;
-	
+
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
-	
+
 	@OneToOne
 	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;
-	
+
 	@OneToOne
 	@JoinColumn(name = "recogida_id", nullable = true)
 	private Recogida recogida;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
-	
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -62,7 +64,7 @@ public class Alquiler extends BaseEntity{
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+
 	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
@@ -70,7 +72,7 @@ public class Alquiler extends BaseEntity{
 	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
+
 	public Integer getLimiteKM() {
 		return limiteKM;
 	}
@@ -78,7 +80,7 @@ public class Alquiler extends BaseEntity{
 	public void setLimiteKM(Integer limiteKM) {
 		this.limiteKM = limiteKM;
 	}
-	
+
 	public Boolean getDepLleno() {
 		return depLleno;
 	}
@@ -146,6 +148,5 @@ public class Alquiler extends BaseEntity{
 		builder.append("cliente", cliente);
 		return builder.toString();
 	}
-	
-	
+
 }

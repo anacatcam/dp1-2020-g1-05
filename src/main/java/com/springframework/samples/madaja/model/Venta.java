@@ -9,28 +9,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "venta")
-public class Venta extends BaseEntity { 
-	
+public class Venta extends BaseEntity {
+
 	@Column(name = "fecha")
-	@NotEmpty
+	// @Temporal(TemporalType.DATE)
 	private LocalDate fecha;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
-	
+
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
-	
+
 	public LocalDate getFecha() {
 		return fecha;
 	}

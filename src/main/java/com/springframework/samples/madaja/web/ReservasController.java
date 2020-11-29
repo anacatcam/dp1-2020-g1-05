@@ -65,7 +65,6 @@ public class ReservasController {
 			modelMap.addAttribute("ventas", ventas);
 			Iterable<Alquiler> alquileres = alquilerService.findAllAlquiler();
 			modelMap.addAttribute("alquileres", alquileres);
-			
 			modelMap.addAttribute("message", "Reserva anulada correctamente");
 		} else {
 			modelMap.addAttribute("message", "Reserva no encontrada");
