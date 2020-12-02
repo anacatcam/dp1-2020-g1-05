@@ -10,6 +10,11 @@
 	
 	<table class="table table-striped">
         <tr>
+            <th>Nombre</th>
+            <td><c:out value="${concesionario.nombre}"/></td>
+            <td></td>
+        </tr>	
+        <tr>
             <th>Provincia</th>
             <td><c:out value="${concesionario.provincia}"/></td>
             <td></td>
@@ -94,6 +99,12 @@
                                 		<dd>
                         				<dt>Descripción</dt>
                         				<dd><c:out value="${incidencia.descripcion}"/></dd>
+                       				    <dt>Mecánico</dt>
+                        				<dd>
+             							<c:forEach var="mecanico" items="${incidencia.mecanicos}">
+                        					<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
+                        				</c:forEach>
+                       					</dd>                        				
                         				<dt>Solucionada</dt>
                         				<dd>
 											<c:choose>
@@ -148,7 +159,7 @@
                         <thead>
                         <tr>
                             <th>Concesionario</th>
-                            <th>Localidad</th>
+                            <th>Localización</th>
                         </tr>
                         </thead>
                         <c:forEach var="concesionario" items="${gestor.concesionarios}">
@@ -157,9 +168,9 @@
                                 	<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
                                     	<spring:param name="concesionarioId" value="${concesionario.id}"/>
                                 	</spring:url>
-                                	<a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${concesionario.provincia}"/></a>
+                                	<a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${concesionario.nombre}"/></a>
                                 </td>
-                                <td><c:out value="${concesionario.localidad}"/></td>
+                                <td><c:out value="${concesionario.provincia}"/><c:out value=" (${concesionario.localidad})"/></td>
                             </tr>
                         </c:forEach>
                     </table>
