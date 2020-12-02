@@ -13,7 +13,7 @@
 		<thead>
 		<tr>
 			<th style="width: 150px;">Descripción</th>
-			<th style="width: 150px;">Descuento</th>
+			<th style="width: 150px;">Descuento (%)</th>
 			<th style="width: 150px;"> </th>
 		</tr>
 		</thead>

@@ -29,6 +29,10 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "concesionario")
 public class Concesionario extends Localizacion {
 	
+	@Column(name = "nombre")
+	@NotEmpty
+	private String nombre;
+
 	@Column(name = "email")
 	@NotEmpty
 	@Email
@@ -100,6 +104,14 @@ public class Concesionario extends Localizacion {
 		return getGestoresInternal().remove(gestor);
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
