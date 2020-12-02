@@ -55,6 +55,7 @@ public class ConcesionarioServiceTests {
 		concesionario.setDireccion("Ctra. Su Eminencia, 2");
 		concesionario.setCodigoPostal("41006");
 		concesionario.setEmail("concesionarioPrueba@gmail.com");
+		concesionario.setNombre("Systasa");
 		concesionario.setTelefono("954933230");
 		
 		this.concesionarioService.saveConcesionario(concesionario);

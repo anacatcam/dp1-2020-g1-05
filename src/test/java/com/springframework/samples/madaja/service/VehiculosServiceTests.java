@@ -29,9 +29,9 @@ public class VehiculosServiceTests {
 		Disponible disp2 = EntityUtils.getById(disponibles, Disponible.class, 2);
 		Disponible disp3 = EntityUtils.getById(disponibles, Disponible.class, 3);
 	
-		assertThat(disp.getName()).isEqualTo("alquiler");
-		assertThat(disp2.getName()).isEqualTo("venta");
-		assertThat(disp3.getName()).isEqualTo("alquiler o venta");
+		assertThat(disp.getName()).isEqualTo("Alquiler");
+		assertThat(disp2.getName()).isEqualTo("Venta");
+		assertThat(disp3.getName()).isEqualTo("Alquiler o venta");
 	}
 	
 	@Test
