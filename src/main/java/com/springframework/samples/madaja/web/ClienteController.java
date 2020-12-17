@@ -23,13 +23,10 @@ public class ClienteController {
 	
 	private final ClienteService clienteService;
 	
-	@Autowired
 	private final VentaService ventaService;
 	
-	@Autowired
 	private final ReservaService reservaService;
 	
-	@Autowired
 	private final AlquilerService alquilerService;
 	
 	@Autowired
