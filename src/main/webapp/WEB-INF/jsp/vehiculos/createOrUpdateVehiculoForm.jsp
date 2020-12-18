@@ -4,25 +4,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="vehiculos">
+<madaja:layout pageName="vehiculos">
     <h2>
         <c:if test="${vehiculos['new']}">Nuevo</c:if> Vehículo
     </h2>
-    <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="vehiculos" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Matrícula" name="matricula"/>
-            <petclinic:inputField label="Precio de alquiler" name="precioAlquiler"/>
-            <petclinic:inputField label="Precio de venta" name="precioVenta"/>
-            <petclinic:inputField label="Marca" name="marca"/>
-            <petclinic:inputField label="Modelo" name="modelo"/>
-            <petclinic:inputField label="Plazas" name="plazas"/>
-            <petclinic:inputField label="Cambio" name="cambio"/>
-            <petclinic:inputField label="Maletero" name="maletero"/>
-            <petclinic:inputField label="Características" name="caracteristicas"/>
-            <petclinic:inputField label="Username" name="user.username"/>
-            <petclinic:inputField label="Password" name="user.password"/>
+            <madaja:inputField label="Matrícula" name="matricula"/>
+            <madaja:inputField label="Precio de alquiler" name="precioAlquiler"/>
+            <madaja:inputField label="Precio de venta" name="precioVenta"/>
+            <madaja:inputField label="Marca" name="marca"/>
+            <madaja:inputField label="Modelo" name="modelo"/>
+            <madaja:inputField label="Puertas" name="puertas"/>
+            <madaja:inputField label="Plazas" name="plazas"/>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Cambio </label>
+            	<div class="col-sm-10">
+	            	<form:select path="cambio">
+		            	<form:options itemValue="id" itemLabel="name" items="${cambios}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+            <madaja:inputField label="Capacidad del maletero" name="maletero"/>
+            <madaja:inputField label="KM actuales" name="kmActuales"/>
+            <madaja:inputField label="Características" name="caracteristicas"/>
+            <madaja:inputField label="Estado" name="estado"/>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Disponible </label>
+            	<div class="col-sm-10">
+	            	<form:select path="disponible">
+		            	<form:options itemValue="id" itemLabel="name" items="${disponibles}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Combustible </label>
+            	<div class="col-sm-10">
+	            	<form:select path="combustible">
+		            	<form:options itemValue="id" itemLabel="name" items="${combustibles}" />
+	    	        </form:select>
+    	        </div>
+            </div>
+			<div class="form-group">
+            	<label class="col-sm-2 control-label">Concesionario </label>
+            	<div class="col-sm-10">
+	            	<form:select path="concesionario">
+		            	<form:options itemValue="id" itemLabel="fullLugar" items="${concesionarios}" />
+	    	        </form:select>
+    	        </div>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -37,4 +69,4 @@
             </div>
         </div>
     </form:form>
-</petclinic:layout>
+</madaja:layout>

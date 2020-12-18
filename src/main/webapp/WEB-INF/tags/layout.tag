@@ -27,7 +27,7 @@
 
     </div>
 </div>
-
+<madaja:footer/>
 <jsp:invoke fragment="customScript" />
 
 </body>

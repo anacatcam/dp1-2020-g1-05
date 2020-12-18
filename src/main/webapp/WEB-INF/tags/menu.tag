@@ -4,33 +4,48 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
-<%@ attribute name="name" required="true" rtexprvalue="true"%>
+<%@ attribute name="name" required="true" rtexprvalue="true"
+	description="Name of the active menu: home, owners, vets or error"%>
 
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand"
-				href="<spring:url value="/" htmlEscape="true" />"><span>MADAJA</span></a>
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#main-navbar">
-				<span class="sr-only"><os-p>Toggle navigation</os-p></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-		</div>
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
-				<madaja:menuItem active="${name eq 'inicio'}" url="/"
+				<madaja:menuItem active="${name eq 'home'}" url="/"
 					title="home page">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
+				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'concesionarios'}" url="/concesionario"
+					title="concesionarios">
+					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+					<span>Concesionarios</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'vehiculos'}" url="/vehiculos"
 					title="vehiculos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Vehículos</span>
+				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'oferta'}" url="/oferta"
+					title="oferta">
+					<span class="glyphicon glyphicon-eur" aria-hidden="true"></span>
+					<span>Ofertas</span>
+				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'clientes'}" url="/clientes"
+					title="clientes">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					<span>Clientes</span>
+				</madaja:menuItem>
+				
+				<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
+					title="mis reservas">
+					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+					<span>Reservas</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
@@ -51,7 +66,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
@@ -77,24 +92,23 @@
 								</div>
 							</li>
 							<li class="divider"></li>
-<!-- 							
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
 										<div class="col-lg-12">
 											<p>
-												<a href="#" class="btn btn-primary btn-block">My Profile</a>
-												<a href="#" class="btn btn-danger btn-block">Change
-													Password</a>
+												<a href="<c:url value="/reservas"/>" class="btn btn-primary btn-block">Mi perfil</a>
 											</p>
 										</div>
 									</div>
 								</div>
 							</li>
--->
 						</ul></li>
 				</sec:authorize>
 			</ul>
 		</div>
+		
+		
+		
 	</div>
 </nav>
