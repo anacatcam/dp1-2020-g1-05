@@ -27,7 +27,7 @@ public class ClienteServiceTests {
 	@Test
 	void shouldFindClienteByDni() {
 		Cliente cliente = this.clienteService.findClienteByDni("15442604");
-		assertThat(cliente.getNombre()).isEqualTo("Manuel");
+		assertThat(cliente.getFirstName()).isEqualTo("Manuel");
 	}
 	
 	@Test

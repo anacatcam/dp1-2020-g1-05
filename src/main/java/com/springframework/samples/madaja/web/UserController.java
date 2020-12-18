@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.springframework.samples.madaja.model.User;
-import com.springframework.samples.madaja.service.UserService;
+import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.service.ClienteService;
 
 /**
  * @author Juergen Hoeller
@@ -39,35 +39,35 @@ import com.springframework.samples.madaja.service.UserService;
 @Controller
 public class UserController {
 
-	private static final String VIEWS_ENTRENADOR_CREATE_FORM = "users/createEntrenadorForm";
+	private static final String VIEWS_CLIENTE_CREATE_FORM = "users/createClienteForm";
 
-	private final UserService userService;
+	private final ClienteService clienteService;
 
 	@Autowired
-	public UserController(UserService clinicService) {
-		this.userService = clinicService;
+	public UserController(ClienteService clinicService) {
+		this.clienteService = clinicService;
 	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
+		dataBinder.setDisallowedFields("dni");
 	}
 
 	@GetMapping(value = "/users/new")
 	public String initCreationForm(Map<String, Object> model) {
-		User user = new User();
-		model.put("user", user);
-		return VIEWS_ENTRENADOR_CREATE_FORM;
+		Cliente cliente = new Cliente();
+		model.put("cliente", cliente);
+		return VIEWS_CLIENTE_CREATE_FORM;
 	}
 
 	@PostMapping(value = "/users/new")
-	public String processCreationForm(@Valid User user, BindingResult result) {
+	public String processCreationForm(@Valid Cliente cliente, BindingResult result) {
 		if (result.hasErrors()) {
-			return VIEWS_ENTRENADOR_CREATE_FORM;
+			return VIEWS_CLIENTE_CREATE_FORM;
 		}
 		else {
-			//creating owner, user, and authority
-			this.userService.saveUser(user);
+			//creando cliente, user, y authority
+			this.clienteService.saveCliente(cliente);
 			return "redirect:/";
 		}
 	}

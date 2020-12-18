@@ -21,7 +21,6 @@
 		<th style="width: 150px;">Marca</th>
 		<th style="width: 150px;">Modelo</th>
 		<th style="width: 150px;">Kilómetros Actuales</th>
-		<th style="width: 150px;">Disponible</th>
 		<th style="width: 150px;">Reserva asociada</th>
 	</tr>
 	</thead>
@@ -48,9 +47,6 @@
 						</td>
 						<td>
 							<c:out value="${venta.vehiculo.kmActuales}"/>
-						</td>
-						<td>
-							<c:out value="${venta.vehiculo.disponible.name}"/>
 						</td>
 						<td>
 							<c:if test ="${venta.reserva.id == null }"> 

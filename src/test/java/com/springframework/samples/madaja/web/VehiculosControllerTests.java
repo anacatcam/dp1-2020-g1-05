@@ -1,4 +1,4 @@
-package com.springframeworksamples.madaja.web;
+package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -120,8 +120,8 @@ class VehiculosControllerTests {
 		alq.setId(2);//
 		Cliente client = new Cliente();
 		client.setDni("15442605");
-		client.setNombre("Daniel");
-		client.setApellidos("Toro Valle");
+		client.setFirstName("Daniel");
+		client.setLastName("Toro Valle");
 		client.setTelefono("608960170");
 		client.setEmail("daniel@gmail.com");
 		client.setEsConflictivo("falso"); /////////////////////////////////////

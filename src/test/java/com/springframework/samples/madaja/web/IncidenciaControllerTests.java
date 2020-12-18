@@ -1,4 +1,4 @@
-package com.springframeworksamples.madaja.web;
+package com.springframework.samples.madaja.web;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

@@ -1,4 +1,4 @@
-package com.springframeworksamples.madaja.web;
+package com.springframework.samples.madaja.web;
 
 
 import org.assertj.core.util.Lists;
@@ -63,8 +63,8 @@ class ClienteControllerTests {
 	void setup() {
 		cliente = new Cliente();
 		cliente.setDni("49958021C");
-		cliente.setNombre("Alejandro");
-		cliente.setApellidos("Piury");
+		cliente.setFirstName("Alejandro");
+		cliente.setLastName("Piury");
 		cliente.setTelefono("640126156");
 		cliente.setEmail("alejandropiuryp@gmail.com");
 		cliente.setEsConflictivo("No lo es");

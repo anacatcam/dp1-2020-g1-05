@@ -72,7 +72,7 @@
 				<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
 			        <spring:param name="concesionarioId" value="${vehiculos.concesionario.id}"/>
 			    </spring:url>
-			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.direccion}"/>, <c:out value="${vehiculos.concesionario.localidad}"/> (<c:out value="${vehiculos.concesionario.provincia}"/>)</a>
+			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.nombre}"/></a>
 			</td>
 		</tr>
 		<tr>
