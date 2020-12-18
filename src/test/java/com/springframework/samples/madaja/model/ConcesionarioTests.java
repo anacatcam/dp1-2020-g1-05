@@ -24,6 +24,7 @@ public class ConcesionarioTests {
 	void validacionNotEmptyNegative() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("");
 		concesionario.setEmail("");
 		concesionario.setTelefono("");
 		concesionario.setCodigoPostal("");
@@ -34,7 +35,7 @@ public class ConcesionarioTests {
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Concesionario>> constraintViolations = validator.validate(concesionario);
-		assertEquals(constraintViolations.size(), 9);
+		assertEquals(constraintViolations.size(), 10);
 
 	}
 	
@@ -42,6 +43,7 @@ public class ConcesionarioTests {
 	void validacionNotEmptyPositive() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("Systasa");
 		concesionario.setEmail("aperezva32@gmail.com");
 		concesionario.setTelefono("673580611");
 		concesionario.setCodigoPostal("41010");
@@ -60,6 +62,7 @@ public class ConcesionarioTests {
 	void validacionTelefonoNegative() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("Systasa");
 		concesionario.setEmail("aperezva32@gmail.com");
 		concesionario.setTelefono("1");
 		concesionario.setCodigoPostal("41010");
@@ -80,6 +83,7 @@ public class ConcesionarioTests {
 	void validacionTelefonoPositive() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("Systasa");
 		concesionario.setEmail("aperezva32@gmail.com");
 		concesionario.setTelefono("673580611");
 		concesionario.setCodigoPostal("41010");
@@ -97,6 +101,7 @@ public class ConcesionarioTests {
 	void validacionEmailNegative() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("Systasa");
 		concesionario.setEmail("aperezva32");
 		concesionario.setTelefono("673580611");
 		concesionario.setCodigoPostal("41010");
@@ -117,6 +122,7 @@ public class ConcesionarioTests {
 	void validacionEmailPositive() {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Concesionario concesionario = new Concesionario();
+		concesionario.setNombre("Systasa");
 		concesionario.setEmail("aperezva32@gmail.com");
 		concesionario.setTelefono("673580611");
 		concesionario.setCodigoPostal("41010");

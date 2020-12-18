@@ -100,5 +100,20 @@ public class VehiculosService {
 	public Collection<Vehiculos> findByDisponible(@Param("id") int id){
 		return vehiculosRepository.findByDisponible(id);
 	}
+	
+	@Transactional(readOnly = true)
+	public Collection<Vehiculos> findAllVehiculosDisponiblesYsinOfertas(){
+		return vehiculosRepository.findAllVehiculosDisponiblesYsinOfertas();
+	}
+	
+	@Transactional(readOnly = true)
+	public Vehiculos findByMatricula(String matricula) {
+		return vehiculosRepository.findByMatricula(matricula);
+	}
+	
+	@Transactional(readOnly = true)
+	public Collection<Vehiculos> findByOferta(int id_oferta){
+		return vehiculosRepository.findByOferta(id_oferta);
+	}
 
 }

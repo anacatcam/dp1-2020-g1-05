@@ -99,7 +99,7 @@ class VehiculosControllerTests {
 		seg.setId(4);
 		seg.setNumeroPoliza("32151");
 		seg.setPrecio(200.32);
-		seg.setFranquicia("Mapfre");
+		seg.setFranquicia(0);
 		seg.setCobertura("A todo riesgo");
 		seg.setFechaInicio(LocalDate.of(2020, 9, 07));
 		seg.setFechaFin(LocalDate.of(2021, 9, 07));

@@ -27,10 +27,25 @@
 						<c:out value="${oferta.descuento}"/>
 					</td>
 					<td>
+						<dl>
+						
 						<spring:url value="/oferta/{ofertaId}" var="ofertaUrl">
 							<spring:param name="ofertaId" value="${oferta.id}"/>
 						</spring:url>
 						<a href="${fn:escapeXml(ofertaUrl)}">Detalles</a>
+						<dt>
+						<spring:url value="/oferta/{ofertaId}/edit" var="ofertaUrl">
+							<spring:param name="ofertaId" value="${oferta.id}"/>
+						</spring:url>
+						<a href="${fn:escapeXml(ofertaUrl)}">Editar oferta</a>
+						</dt>
+						<dt>
+						<spring:url value="/oferta/{ofertaId}/delete" var="ofertaUrl">
+							<spring:param name="ofertaId" value="${oferta.id}"/>
+						</spring:url>
+						<a href="${fn:escapeXml(ofertaUrl)}">Eliminar oferta</a>
+						</dt>
+						</dl>
 					</td>
 				</tr>
 			</c:forEach>

@@ -15,6 +15,7 @@ public class VentaService {
 
 	private VentaRepository ventaRepository;
 	
+	
 	@Autowired
 	public VentaService(VentaRepository ventaRepository) {
 		this.ventaRepository = ventaRepository;
