@@ -19,8 +19,8 @@ public interface AlquilerRepository extends Repository<Alquiler, Integer>{
 	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.dni =:dni") //Encontrar alquileres por DNI del cliente
 	public List<Alquiler> findByDniCliente(@Param("dni") String dni);
 	
-	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id =:id") //(H7) Encontrar todos los alquileres de un cliente
-	public List<Alquiler> findAlquileresCliente(@Param("id") String id);
+//	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id =:id") //(H7) Encontrar todos los alquileres de un cliente(BORRAR PQ AHORA VA POR DNI Y USAR EL DE ARRIBA)
+//	public List<Alquiler> findAlquileresCliente(@Param("id") String id);
 	
 	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id = :id AND alquiler.vehiculo.matricula = :matricula")//(H7) Encontrar un alquiler del cliente por matricula de vehiculo
 	public Alquiler findAlquilerConcretoCliente(@Param("id") String id, @Param("matricula") String matricula);
