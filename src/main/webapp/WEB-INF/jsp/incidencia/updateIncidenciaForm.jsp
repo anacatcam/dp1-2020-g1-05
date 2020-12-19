@@ -17,7 +17,7 @@
             	<label class="col-sm-2 control-label">Mecánico </label>
             	<div class="col-sm-10">
 	            	<form:select path="mecanicos">
-		            		<form:options itemValue="dni" itemLabel="nombre" items="${incidencia.mecanicos}" multiple="true"/>
+		            		<form:options itemValue="dni" itemLabel="nombre" items="${incidencia.mecanicos}"/>
 	    	        </form:select>
     	        </div>
             </div>
