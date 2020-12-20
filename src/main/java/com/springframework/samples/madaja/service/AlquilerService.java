@@ -35,10 +35,10 @@ public class AlquilerService {
 		return alquilerRepository.findByDniCliente(dni);
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Alquiler> findAlquileresCliente(String id){
-		return alquilerRepository.findAlquileresCliente(id);
-	}
+//	@Transactional(readOnly = true)
+//	public List<Alquiler> findAlquileresCliente(String id){
+//		return alquilerRepository.findAlquileresCliente(id);
+//	}
 	
 	@Transactional(readOnly = true)
 	public Alquiler findAlquilerConcretoCliente(String id,String matricula) {

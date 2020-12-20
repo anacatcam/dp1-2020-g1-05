@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
-				<madaja:menuItem active="${name eq 'inicio'}" url="/"
+				<madaja:menuItem active="${name eq 'home'}" url="/"
 					title="home page">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
@@ -42,7 +42,7 @@
 					<span>Clientes</span>
 				</madaja:menuItem>
 				
-				<madaja:menuItem active="${name eq 'clientes'}" url="/reservas"
+				<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
 					title="mis reservas">
 					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
 					<span>Reservas</span>
@@ -92,21 +92,29 @@
 								</div>
 							</li>
 							<li class="divider"></li>
-<!-- 							
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
 										<div class="col-lg-12">
 											<p>
-												<a href="#" class="btn btn-primary btn-block">My Profile</a>
-												<a href="#" class="btn btn-danger btn-block">Change
-													Password</a>
+												<a href="<c:url value="/reservas"/>" class="btn btn-primary btn-block">Mi perfil</a>
 											</p>
 										</div>
 									</div>
 								</div>
 							</li>
--->
+							<li class="divider"></li>
+                            <li> 
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>
+												<a href="<c:url value="/MisAlquileres"/>" class="btn btn-primary btn-block">Mis alquileres</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
 						</ul></li>
 				</sec:authorize>
 			</ul>

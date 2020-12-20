@@ -77,6 +77,10 @@ public class Persona {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public boolean isNew() {
+		return this.dni == null;
+	}
 
 	
 }

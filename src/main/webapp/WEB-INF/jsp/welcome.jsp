@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="inicio">
+<madaja:layout pageName="home">
     <h2>Bienvenido</h2>
     <div class="row">
     	<h2>Project: ${titulo}</h2>

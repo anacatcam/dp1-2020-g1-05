@@ -28,10 +28,10 @@
 							<c:out value="${cliente.dni}"/>							
 						</td>
 						<td>
-							<c:out value="${cliente.nombre}"/>
+							<c:out value="${cliente.firstName}"/>
 						</td>
 						<td>
-							<c:out value="${cliente.apellidos}"/>
+							<c:out value="${cliente.lastName}"/>
 						</td>
 						<td>
 							<c:out value="${cliente.telefono}"/>

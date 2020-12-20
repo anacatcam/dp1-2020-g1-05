@@ -28,7 +28,7 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id =:id")
 	public Collection<Vehiculos> findByDisponible(@Param("id") int id);
 	
-	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id < 4")
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id < 4 ORDER BY vehiculos.id")
 	public Collection<Vehiculos> findAllByDisponible();
 
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id != 4 AND vehiculos.oferta.id IS null")

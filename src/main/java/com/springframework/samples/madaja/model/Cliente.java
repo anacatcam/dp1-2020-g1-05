@@ -13,15 +13,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente extends Persona{
+public class Cliente extends Person {
 
+	@Column(name = "dni")
+	@NotEmpty
+	private String dni;
+	
+	@Column(name = "telefono")
+	@NotEmpty
+	@Length(min = 9,max=9)
+	@Digits(fraction = 0, integer = 10)
+	private String telefono;
+	
+	@Column(name = "email")
+	@NotEmpty
+	@Email
+	private  String email;
 	
 	@Column(name = "esConflictivo") 
 	private String esConflictivo;
@@ -34,7 +52,35 @@ public class Cliente extends Persona{
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Set<Reserva> reservas;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "username", referencedColumnName = "username")
+	private User user;
 
+	public String getDni() {
+		return this.dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	
+	public String getTelefono() {
+		return this.telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public String getEsConflictivo() {
 		return esConflictivo;
 	}
@@ -120,25 +166,33 @@ public class Cliente extends Persona{
 	public boolean removeReserva(Reserva reserva) {
 		return getReservasInternal().remove(reserva);
 	}
-
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("esConflictivo", esConflictivo);
-		builder.append("alquileres", alquileres);
-		builder.append("reservas", reservas);
-		builder.append("dni", dni);
-		builder.append("nombre", nombre);
-		builder.append("apellidos", apellidos);
-		builder.append("telefono", telefono);
-		builder.append("email", email);
-		builder.append("getEsConflictivo()", getEsConflictivo());
-		builder.append("getDni()", getDni());
-		builder.append("getNombre()", getNombre());
-		builder.append("getApellidos()", getApellidos());
-		builder.append("getTelefono()", getTelefono());
-		builder.append("getEmail()", getEmail());
-		return builder.toString();
+	
+	public User getUser() {
+		return user;
 	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+//	@Override
+//	public String toString() {
+//		ToStringCreator builder = new ToStringCreator(this);
+//		builder.append("esConflictivo", esConflictivo);
+//		builder.append("alquileres", alquileres);
+//		builder.append("reservas", reservas);
+//		builder.append("dni", dni);
+//		builder.append("nombre", nombre);
+//		builder.append("apellidos", apellidos);
+//		builder.append("telefono", telefono);
+//		builder.append("email", email);
+//		builder.append("getEsConflictivo()", getEsConflictivo());
+//		builder.append("getDni()", getDni());
+//		builder.append("getNombre()", getNombre());
+//		builder.append("getApellidos()", getApellidos());
+//		builder.append("getTelefono()", getTelefono());
+//		builder.append("getEmail()", getEmail());
+//		return builder.toString();
+//	}
 	
 }

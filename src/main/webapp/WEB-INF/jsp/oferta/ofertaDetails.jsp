@@ -17,7 +17,7 @@
             <td></td>
         </tr>
         <tr>
-            <th>Descuento</th>
+            <th>Descuento (%)</th>
             <td><c:out value="${oferta.descuento}"/></td>
             <td></td>
         </tr>

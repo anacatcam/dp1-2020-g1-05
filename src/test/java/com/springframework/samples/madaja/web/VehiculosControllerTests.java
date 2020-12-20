@@ -120,8 +120,8 @@ class VehiculosControllerTests {
 		alq.setId(2);//
 		Cliente client = new Cliente();
 		client.setDni("31998039W");
-		client.setNombre("Daniel");
-		client.setApellidos("Barranco Llanos");
+		client.setFirstName("Daniel");
+		client.setLastName("Barranco Llanos");
 		client.setTelefono("660257585");
 		client.setEmail("danBarll@gmail.com");
 		client.setEsConflictivo("falso"); /////////////////////////////////////

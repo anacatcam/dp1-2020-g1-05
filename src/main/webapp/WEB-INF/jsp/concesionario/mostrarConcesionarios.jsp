@@ -13,8 +13,8 @@
 		<thead>
 		<tr>
 			<th style="width: 150px;">Número de identificación</th>
-			<th style="width: 150px;">Localidad</th>
-			<th style="width: 150px;">Provincia</th>
+			<th style="width: 150px;">Nombre</th>
+			<th style="width: 150px;">Correo</th>
 			<th style="width: 150px;">Teléfono</th>
 		</tr>
 		</thead>
@@ -28,10 +28,10 @@
 						<a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${concesionario.id}"/></a>
 					</td>
 					<td>
-						<c:out value="${concesionario.localidad}"/>
+						<c:out value="${concesionario.nombre}"/>
 					</td>
 					<td>
-						<c:out value="${concesionario.provincia}"/>	
+						<c:out value="${concesionario.email}"/>	
 					</td>
 					<td>
 						<c:out value="${concesionario.telefono}"/>	

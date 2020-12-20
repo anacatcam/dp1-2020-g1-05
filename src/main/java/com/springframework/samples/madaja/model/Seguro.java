@@ -6,8 +6,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import org.springframework.core.style.ToStringCreator;
-
 
 @MappedSuperclass
 public class Seguro extends BaseEntity{ 

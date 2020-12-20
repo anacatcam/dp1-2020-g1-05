@@ -15,50 +15,50 @@
 	<table id="ownersTable" class="table table-striped">
 	<thead>
 	<tr>
-		<th style="width: 150px;">ID</th>
-		<th style="width: 150px;">DNI</th>
+		<th style="width: 150px;">DNI cliente</th>
 		<th style="width: 150px;">Matrícula</th>
-		<th style="width: 150px;">Precio</th>
+		<th style="width: 150px;">Precio del alquiler</th>
 		<th style="width: 150px;">Marca</th>
 		<th style="width: 150px;">Modelo</th>
 		<th style="width: 150px;">Kilómetros Actuales</th>
-		<th style="width: 150px;">Disponible</th>
+		<th style="width: 150px;">Desde</th>
+		<th style="width: 150px;">Hasta</th>
 		<th style="width: 150px;">Reserva asociada</th>
 	</tr>
 	</thead>
 	<tbody>
 			<c:forEach items="${alquileres}" var="alquiler">
 				<tr>
-						<td>
-							<c:out value="${alquiler.id}"/>							
-						</td>
-						<td>
-							<c:out value="${cliente.dni}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.matricula}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.precioVenta}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.marca}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.modelo}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.kmActuales}"/>
-						</td>
-						<td>
-							<c:out value="${alquiler.vehiculo.disponible.name}"/>
-						</td>
-						<td>
-							<c:if test ="${alquiler.reserva.id == null }"> 
-								No está asociada a ninguna reserva
-							</c:if>
-							<c:out value="${alquiler.reserva.id}"/>
-						</td>
+					<td>
+						<c:out value="${cliente.dni}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.vehiculo.matricula}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.vehiculo.precioAlquiler}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.vehiculo.marca}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.vehiculo.modelo}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.vehiculo.kmActuales}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.fechaInicio}"/>
+					</td>
+					<td>
+						<c:out value="${alquiler.fechaFin}"/>
+					</td>
+					<td>
+						<c:if test ="${alquiler.reserva.id == null }"> 
+							No está asociada a ninguna reserva
+						</c:if>
+						<c:out value="${alquiler.reserva.id}"/>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -72,7 +72,7 @@
 				<spring:url value="/concesionario/{concesionarioId}" var="concesionarioUrl">
 			        <spring:param name="concesionarioId" value="${vehiculos.concesionario.id}"/>
 			    </spring:url>
-			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.direccion}"/>, <c:out value="${vehiculos.concesionario.localidad}"/> (<c:out value="${vehiculos.concesionario.provincia}"/>)</a>
+			    <a href="${fn:escapeXml(concesionarioUrl)}"><c:out value="${vehiculos.concesionario.nombre}"/></a>
 			</td>
 		</tr>
 		<tr>
@@ -80,7 +80,13 @@
             <c:when test="${vehiculos.seguroVehiculo != null}">
 				<tr>
 					<th>Seguro</th>
-					<td><c:out value="${vehiculos.seguroVehiculo.cobertura}"/></td>
+					<td>
+						<spring:url value="/vehiculos/{vehiculoId}/seguro/{seguroVehiculoId}/view" var="seguroVehiculoUrl">
+							<spring:param name="vehiculoId" value="${vehiculos.id}"/>
+			        		<spring:param name="seguroVehiculoId" value="${vehiculos.seguroVehiculo.id}"/>
+			    		</spring:url>
+			    		<a href="${fn:escapeXml(seguroVehiculoUrl)}"><c:out value="${vehiculos.seguroVehiculo.cobertura}"/></a>
+			    	</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
