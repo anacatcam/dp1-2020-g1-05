@@ -1,4 +1,4 @@
-package com.springframeworksamples.madaja.web;
+package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

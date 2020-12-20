@@ -1,10 +1,10 @@
 package com.springframework.samples.madaja.web;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -27,6 +27,8 @@ import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.OfertaService;
 import com.springframework.samples.madaja.service.VehiculosService;
+
+
 
 @Controller
 public class OfertaController {
@@ -63,12 +65,16 @@ public class OfertaController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+	@InitBinder
+	public void setValidator(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new OfertaValidator());
+	}
 	
-	@ModelAttribute("matriculas")
-	public List<String> matriculasDisponible(){
-		Collection<Vehiculos> vehiculos = vehiculosService.findAllVehiculosDisponiblesYsinOfertas();
-		List<String> matriculas = vehiculos.stream().map(x -> x.getMatricula()).collect(Collectors.toList());
-		return matriculas;
+	
+	@ModelAttribute("vehiculosDisponibles")
+	public List<Vehiculos> matriculasDisponible(){
+		List<Vehiculos> vehiculos = vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
+		return vehiculos;
 	}
 	
 	@GetMapping(value = "/oferta/new")
@@ -79,23 +85,22 @@ public class OfertaController {
 	}
 	
 	@PostMapping(value = "/oferta/new")
-	public String processFormOferta(@Valid Oferta oferta, BindingResult result, ModelMap model, @RequestParam("matriculas") List<String> matriculas) {
+	public String processFormOferta(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
+			System.out.println("Hola");
+			System.out.println(oferta.getVehiculos());
 			model.put("oferta", oferta);
 			return VIEW_OFERTA_CREATE_FORM;
 		}
 		else {
-			if(matriculas.get(0).compareTo("none") == 0) {
 				this.ofertaService.saveOferta(oferta);
-			}else {
-				matriculas.remove("none");
-				this.ofertaService.saveOferta(oferta);
-				for(String matricula:matriculas) {
-					Vehiculos vehiculo = vehiculosService.findByMatricula(matricula);
+				Set<Vehiculos> vehiculos = oferta.getVehiculos();
+				Iterator<Vehiculos> it =  vehiculos.iterator();
+				while(it.hasNext()) {
+					Vehiculos vehiculo = it.next();
 					vehiculo.setOferta(oferta);
-					this.vehiculosService.saveVehiculo(vehiculo);
+					vehiculosService.saveVehiculo(vehiculo);
 				}
-			}
 			return "redirect:/oferta";
 		}
 	}
@@ -103,36 +108,37 @@ public class OfertaController {
 	@GetMapping(value = "/oferta/{ofertaId}/edit")
 	public String updateFormOferta(@PathVariable("ofertaId") int ofertaId, ModelMap model) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
-		List<Vehiculos> vehiculos = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
-		for(Vehiculos vehiculo:vehiculos) {
-			vehiculo.setOferta(null);
-			vehiculosService.saveVehiculo(vehiculo);
-		}
+		List<Vehiculos> vehiculos = oferta.getVehiculos().stream().collect(Collectors.toList());
+		List<Vehiculos> vehiculosDisponibles = vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
+		vehiculos.addAll(vehiculosDisponibles);
+		model.put("vehiculos",vehiculos);
 		model.put("oferta", oferta);
-		model.put("vehiculos", vehiculos);
 		return VIEW_OFERTA_UPDATE_FORM;
 	}
 	
 	@PostMapping(value = "/oferta/{ofertaId}/edit")
-	public String processUpdateFormOferta(@PathVariable("ofertaId") int ofertaId, ModelMap model, @Valid Oferta oferta, BindingResult result, @RequestParam("matriculas") List<String> matriculas) {
+	public String processUpdateFormOferta(@PathVariable("ofertaId") int ofertaId, ModelMap model, @Valid Oferta oferta, BindingResult result) {
 		if(result.hasErrors()) {
 			model.put("oferta", oferta);
 			List<Vehiculos> vehiculos = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+			List<Vehiculos> vehiculosDisponibles = vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
+			vehiculos.addAll(vehiculosDisponibles);
 			model.put("vehiculos", vehiculos);
 			return VIEW_OFERTA_UPDATE_FORM;
 		}else {
+			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+			for(Vehiculos vehiculo: vehiculosOld) {
+				vehiculo.setOferta(null);
+			}
 			Oferta ofertaUpdate = this.ofertaService.findOfertaById(ofertaId);
 			BeanUtils.copyProperties(oferta, ofertaUpdate,"id");
-			if(matriculas.get(0).compareTo("none") == 0) {
-				this.ofertaService.saveOferta(ofertaUpdate);
-			}else {
-				matriculas.remove("none");
-				this.ofertaService.saveOferta(ofertaUpdate);
-				for(String matricula:matriculas) {
-					Vehiculos vehiculo = vehiculosService.findByMatricula(matricula);
-					vehiculo.setOferta(ofertaUpdate);
-					this.vehiculosService.saveVehiculo(vehiculo);
-				}
+			this.ofertaService.saveOferta(ofertaUpdate);
+			Set<Vehiculos> vehiculos = ofertaUpdate.getVehiculos();
+			Iterator<Vehiculos> it =  vehiculos.iterator();
+			while(it.hasNext()) {
+				Vehiculos vehiculo = it.next();
+				vehiculo.setOferta(ofertaUpdate);
+				vehiculosService.saveVehiculo(vehiculo);
 			}
 			return "redirect:/oferta";
 		}

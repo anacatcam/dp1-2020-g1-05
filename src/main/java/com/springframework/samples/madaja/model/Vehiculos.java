@@ -106,6 +106,7 @@ public class Vehiculos extends BaseEntity{
 	@JoinColumn(nullable = true)
 	private Oferta oferta;
 	
+	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -320,7 +321,7 @@ public class Vehiculos extends BaseEntity{
 		return getAlquileresInternal().remove(alquiler);
 	}
 	
-
+	
 //	@Override
 //	public String toString() {
 //		ToStringCreator builder = new ToStringCreator(this);

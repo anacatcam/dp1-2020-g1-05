@@ -48,6 +48,7 @@ public class VehiculosController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
+
 	@GetMapping(value = { "/vehiculos" })
 	public String showVehiculosList(Map<String, Object> model) {
 		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();

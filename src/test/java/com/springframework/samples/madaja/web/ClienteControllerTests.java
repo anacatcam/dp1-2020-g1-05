@@ -1,4 +1,4 @@
-package com.springframeworksamples.madaja.web;
+package com.springframework.samples.madaja.web;
 
 
 import org.assertj.core.util.Lists;

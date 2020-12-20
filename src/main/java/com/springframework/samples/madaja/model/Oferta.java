@@ -42,6 +42,16 @@ public class Oferta extends NamedEntity {
 	@OneToMany(mappedBy = "oferta", cascade = CascadeType.ALL)
 	private Set<Vehiculos> vehiculos;
 
+	public void addVehiculo(Vehiculos vehiculo) {
+		vehiculos.add(vehiculo);
+		vehiculo.setOferta(this);
+	}
+	
+	public void removeVehiculo(Vehiculos vehiculo) {
+		vehiculos.remove(vehiculo);
+		vehiculo.setOferta(null);
+	}
+	
 	public Double getDescuento() {
 		return descuento;
 	}
@@ -75,6 +85,8 @@ public class Oferta extends NamedEntity {
 		this.vehiculos = vehiculos;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		ToStringCreator builder = new ToStringCreator(this);
