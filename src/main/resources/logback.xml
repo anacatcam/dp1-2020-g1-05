@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property name="LOGS_LOCATION" value="./logs"/>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+  </appender>
+  <appender name="FILE-ROLLING"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+  	<file>${LOGS_LOCATION}/madaja.log</file>
+  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+  		<fileNamePattern>${LOGS_LOCATION}/archived/madaja-log-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>10MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+  	</rollingPolicy>
+	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+		<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+	</encoder>  
+  </appender>
+  
+  
+
+  <root level="info">
+  		<appender-ref ref="CONSOLE"/>
+  </root>
+  <logger name="com.springframework" level="trace">
+  		<appender-ref ref="CONSOLE"/>
+  </logger>
+  
+</configuration>

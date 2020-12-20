@@ -2,7 +2,9 @@ package com.springframework.samples.madaja.service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ public class OfertaService {
 	
 	private OfertaRepository ofertaRepository;
 	
+	@Autowired
 	public OfertaService(OfertaRepository ofertaRepository) {
 		this.ofertaRepository=ofertaRepository;
 	}
@@ -31,6 +34,12 @@ public class OfertaService {
 	@Transactional
 	public void saveOferta(Oferta oferta) {
 		ofertaRepository.save(oferta);
+	}
+	
+	@Transactional
+	@Modifying
+	public void deleteById(int id) {
+		ofertaRepository.deleteById(id);
 	}
 
 }

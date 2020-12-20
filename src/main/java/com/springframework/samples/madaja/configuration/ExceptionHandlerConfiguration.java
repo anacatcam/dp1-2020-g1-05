@@ -1,5 +1,6 @@
 package com.springframework.samples.madaja.configuration;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.ErrorController;

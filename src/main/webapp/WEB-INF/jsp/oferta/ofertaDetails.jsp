@@ -17,7 +17,7 @@
             <td></td>
         </tr>
         <tr>
-            <th>Descuento</th>
+            <th>Descuento (%)</th>
             <td><c:out value="${oferta.descuento}"/></td>
             <td></td>
         </tr>
@@ -32,12 +32,18 @@
             <td></td>
         </tr>
         <tr>
-            <th>Vehículo</th>
-            <td>
-            	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
-			        <spring:param name="vehiculoId" value="${oferta.vehiculo.id}"/>
-			    </spring:url>
-			    <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${oferta.vehiculo.matricula}"/></a>
+            <th>Oferta aplicada a los siguientes vehículos:</th>
+           	 <td>
+           		 <ul>
+            		<c:forEach items="${vehiculos}" var="vehiculo">
+            			<li>
+            				<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+			       				<spring:param name="vehiculoId" value="${vehiculo.id}"/>
+			   				</spring:url>
+			   				 <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
+			   			</li>
+            		</c:forEach>
+            	</ul>
             </td>
             <td></td>
         </tr>

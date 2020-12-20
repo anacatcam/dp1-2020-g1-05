@@ -18,18 +18,17 @@ import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
 import com.springframework.samples.madaja.service.VentaService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 public class ClienteController {
 	
 	private final ClienteService clienteService;
 	
-	@Autowired
 	private final VentaService ventaService;
 	
-	@Autowired
 	private final ReservaService reservaService;
 	
-	@Autowired
 	private final AlquilerService alquilerService;
 	
 	@Autowired

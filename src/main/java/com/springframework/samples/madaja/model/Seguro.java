@@ -3,9 +3,8 @@ package com.springframework.samples.madaja.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
-import org.springframework.core.style.ToStringCreator;
 
 
 @MappedSuperclass
@@ -21,8 +20,8 @@ public class Seguro extends BaseEntity{
 	protected Double precio;
 	
 	@Column(name = "franquicia")
-	@NotEmpty
-	protected String franquicia;
+	@NotNull
+	protected Integer franquicia;
 
 	public String getNumeroPoliza() {
 		return numeroPoliza;
@@ -40,12 +39,14 @@ public class Seguro extends BaseEntity{
 		this.precio = precio;
 	}
 
-	public String getFranquicia() {
+	public Integer getFranquicia() {
 		return franquicia;
 	}
 
-	public void setFranquicia(String franquicia) {
+	public void setFranquicia(Integer franquicia) {
 		this.franquicia = franquicia;
 	}
+
+
 
 }
