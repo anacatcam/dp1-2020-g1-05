@@ -98,8 +98,8 @@ class VehiculosControllerTests {
 		SeguroVehiculo seg = new SeguroVehiculo();
 		seg.setId(4);
 		seg.setNumeroPoliza("32151");
-		seg.setPrecio(200.32);
-		seg.setFranquicia(0);
+		seg.setPrecio(450.32);
+		seg.setFranquicia(200);
 		seg.setCobertura("A todo riesgo");
 		seg.setFechaInicio(LocalDate.of(2020, 9, 07));
 		seg.setFechaFin(LocalDate.of(2021, 9, 07));
@@ -119,11 +119,11 @@ class VehiculosControllerTests {
 		Alquiler alq = new Alquiler();
 		alq.setId(2);//
 		Cliente client = new Cliente();
-		client.setDni("15442605");
+		client.setDni("31998039W");
 		client.setFirstName("Daniel");
-		client.setLastName("Toro Valle");
-		client.setTelefono("608960170");
-		client.setEmail("daniel@gmail.com");
+		client.setLastName("Barranco Llanos");
+		client.setTelefono("660257585");
+		client.setEmail("danBarll@gmail.com");
 		client.setEsConflictivo("falso"); /////////////////////////////////////
 		alq.setCliente(client);
 		Envio env = new Envio();
@@ -135,12 +135,12 @@ class VehiculosControllerTests {
 		env.setPais("España");
 		env.setHora(LocalTime.of(11, 00));
 		Mecanico mec = new Mecanico();
-		mec.setDni("15442602");
+		mec.setDni("47565973E");
 		mec.setNombre("Álvaro");
-		mec.setApellidos("Echegoyán Delgado");
-		mec.setTelefono("608960167");
-		mec.setEmail("alvaro@gmai.com");
-		mec.setSueldo(1500.);
+		mec.setApellidos("Molinas Trujillo");
+		mec.setTelefono("625496828");
+		mec.setEmail("alvmoltrujillo@gmail.com");
+		mec.setSueldo(1730.);
 		env.setMecanico(mec);
 		env.setAlquiler(alq);
 		alq.setEnvio(env);

@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,14 @@ import com.springframework.samples.madaja.repository.VehiculosRepository;
 
 @Service
 public class VehiculosService {
-	
 	private VehiculosRepository vehiculosRepository;	
 	private CambioRepository cambioRepository;
 	private ConcesionarioRepository concesionarioRepository;
 	private CombustibleRepository combustibleRepository;
 	private DisponibleRepository disponibleRepository;
 	private SeguroVehiculoRepository seguroVehiculoRepository;
-		
+	
+	@Autowired
 	public VehiculosService(VehiculosRepository vehiculosRepository, CambioRepository cambioRepository, 
 			ConcesionarioRepository concesionarioRepository, CombustibleRepository combustibleRepository,
 			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository) {

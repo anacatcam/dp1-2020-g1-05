@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class OfertaService {
 	
 	private OfertaRepository ofertaRepository;
 	
+	@Autowired
 	public OfertaService(OfertaRepository ofertaRepository) {
 		this.ofertaRepository=ofertaRepository;
 	}

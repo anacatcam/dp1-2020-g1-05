@@ -42,24 +42,12 @@
 			<madaja:inputField label="Descuento" name="descuento"/>
 			<madaja:inputField label="Fecha Límite" name="fechaLimite"/>
 			<madaja:inputField label="Hora Límite"  name="horaLimite"/>
-			<madaja:inputField label="Descripción"  name="horaLimite"/>
 			<label  for="matriculas">Vehículos para aplicar la oferta:</label>
-            <select   name="matriculas" multiple id ="matriculas">
-            	<c:forEach var="vehiculo" items="${vehiculos}">
-            		<option value="${vehiculo.matricula}" selected>${vehiculo.matricula}</option>
+            <form:select path="vehiculos">
+            	<c:forEach var = "vehiculo" items = "${vehiculos}">
+					<form:option value="${vehiculo.id }"><c:out value="${vehiculo.matricula }"></c:out></form:option>            	
             	</c:forEach>
-				<c:forEach var="matricula" items="${matriculas}">
-					<option value="${matricula}">${matricula}</option>
-				</c:forEach>
-            	<c:choose>
-            		<c:when test="${vehiculos.size() == 0 }">
-            			<option value="none" selected>Ninguno</option>
-            		</c:when>
-					<c:otherwise>
-						<option value="none">Ninguno</option>
-					</c:otherwise>
-            	</c:choose>
-			</select>
+            </form:select>
 			<div class="col-sm-offset-2 col-sm-10">
 			<button class="btn btn-default" type="submit">Aceptar</button>
 			</div>

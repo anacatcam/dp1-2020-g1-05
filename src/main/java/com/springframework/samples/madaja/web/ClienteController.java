@@ -18,6 +18,8 @@ import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
 import com.springframework.samples.madaja.service.VentaService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 public class ClienteController {
 	

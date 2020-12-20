@@ -4,14 +4,21 @@ package com.springframework.samples.madaja.web;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.repository.ClienteRepository;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
@@ -22,6 +29,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
@@ -37,22 +45,17 @@ import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
-@WebMvcTest(value = ClienteController.class)
+@WebMvcTest(controllers=ClienteController.class,
+	excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
+	excludeAutoConfiguration= SecurityConfiguration.class)
 class ClienteControllerTests {
+	
 	@Autowired
 	private ClienteController clienteController;
 	
 	@MockBean
 	private ClienteService clienteService;
 	
-	@MockBean
-	private VentaService ventaService;
-	
-	@MockBean
-	private ReservaService reservaService;
-	
-	@MockBean
-	private AlquilerService alquilerService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -68,16 +71,13 @@ class ClienteControllerTests {
 		cliente.setTelefono("640126156");
 		cliente.setEmail("alejandropiuryp@gmail.com");
 		cliente.setEsConflictivo("No lo es");
-		given(this.clienteService.findClienteByDni("49958021C")).willReturn(cliente);
-		given(this.ventaService.findVentasByDni("49958021C")).willReturn(null);
-		List<Cliente> lista = new ArrayList<Cliente>();
-		lista.add(cliente);
-	//	given(this.clienteService.findAllClientes()).willReturn(lista);
-		int r = 0;
 	}
-		@WithMockUser(value = "spring")
 		@Test
 	void testConsultClientes() throws Exception{
-		mockMvc.perform(get("/clientes/ventas/{clienteId}", "49958021C"));
+			List<Cliente> clientes = new ArrayList<>();
+			clientes.add(cliente);
+			Mockito.when(clienteService.findAllClientes()).thenReturn(clientes);
+			
+			mockMvc.perform(get("/clientes")).andExpect(status().isOk());
 	}
 }

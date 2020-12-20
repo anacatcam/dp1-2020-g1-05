@@ -1,0 +1,33 @@
+2020-12-19 02:13:53,831 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-19 02:15:05,083 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table alquiler if exists
+2020-12-19 02:15:05,089 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table cambio if exists
+2020-12-19 02:15:05,090 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table cliente if exists
+2020-12-19 02:15:05,093 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table combustible if exists
+2020-12-19 02:15:05,094 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table compania if exists
+2020-12-19 02:15:05,095 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table concesionario if exists
+2020-12-19 02:15:05,099 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table disponible if exists
+2020-12-19 02:15:05,100 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table envio if exists
+2020-12-19 02:15:05,101 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table incidencia if exists
+2020-12-19 02:15:05,103 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table mecanico if exists
+2020-12-19 02:15:05,104 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table oferta if exists
+2020-12-19 02:15:05,105 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table recogida if exists
+2020-12-19 02:15:05,105 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table reserva if exists
+2020-12-19 02:15:05,109 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table seguro_vehiculo if exists
+2020-12-19 02:15:05,111 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl [Thread-19] HHH000478: Unsuccessful: 
+    drop table vehiculos if exists
+2020-12-19 02:15:05,315 WARN org.springframework.beans.factory.support.DisposableBeanAdapter [Thread-19] Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ya esta cerrada (para des-habilitar el cerrado automatico durante el shutdown de la VM, agregue ";DB_CLOSE_ON_EXIT=FALSE" a la URL de conexión)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
