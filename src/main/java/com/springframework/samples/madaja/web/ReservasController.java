@@ -3,6 +3,8 @@ package com.springframework.samples.madaja.web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,14 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springframework.samples.madaja.model.Alquiler;
+import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Reserva;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
+import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
 import com.springframework.samples.madaja.service.VentaService;
 
 @Controller
-@RequestMapping("/reservas")
+@RequestMapping("/mis-reservas")
 public class ReservasController {
 	
 	@Autowired
@@ -28,9 +32,31 @@ public class ReservasController {
 	@Autowired
 	private AlquilerService alquilerService;
 	
+	
+	private final ClienteService clienteService;
+	
+	@Autowired
+	public ReservasController(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+	
+	
 	@GetMapping()
 	public String listadoMisReservas(ModelMap modelMap) {
 		String vista = ("/reservas/mostrarReservas");
+		
+		/** **/
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		String username;
+//		if(principal instanceof UserDetails) {
+//			 username = ((UserDetails)principal).getUsername();
+//		}else {
+//			 username = principal.toString();
+//		}
+//		Cliente cliente = this.clienteService.findClienteByUsername(username);
+		/** **/
+		
+		
 		Iterable<Reserva> reservas = reservaService.findAllReserva();
 		modelMap.addAttribute("reservas", reservas);
 		//

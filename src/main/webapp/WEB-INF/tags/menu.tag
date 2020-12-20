@@ -42,10 +42,10 @@
 					<span>Clientes</span>
 				</madaja:menuItem>
 				
-				<madaja:menuItem active="${name eq 'clientes'}" url="/reservas"
+				<madaja:menuItem active="${name eq 'reservas'}" url="/mis-reservas"
 					title="mis reservas">
 					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-					<span>Reservas</span>
+					<span>Mis reservas</span>
 				</madaja:menuItem>
 				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
