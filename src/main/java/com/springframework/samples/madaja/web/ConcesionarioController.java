@@ -3,7 +3,9 @@ package com.springframework.samples.madaja.web;
 import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,7 @@ public class ConcesionarioController {
 	
 	private final ConcesionarioService concesionarioService;
 	
+	@Autowired
 	public ConcesionarioController(ConcesionarioService concesionarioService) {
 		this.concesionarioService=concesionarioService;
 	}
@@ -28,10 +31,10 @@ public class ConcesionarioController {
 	}
 	
 	@GetMapping("/concesionario/{concesionarioId}")
-	public ModelAndView showConcesionario(@PathVariable("concesionarioId") int concesionarioId) {
-		ModelAndView mav = new ModelAndView("concesionario/concesionarioDetails");
-		mav.addObject(this.concesionarioService.findConcesionarioById(concesionarioId));
-		return mav;
+	public String showConcesionario(@PathVariable("concesionarioId") int concesionarioId, ModelMap model) {
+		Concesionario concesionario = this.concesionarioService.findConcesionarioById(concesionarioId);
+		model.put("concesionario", concesionario);
+		return "concesionario/concesionarioDetails";
 	}
 
 }

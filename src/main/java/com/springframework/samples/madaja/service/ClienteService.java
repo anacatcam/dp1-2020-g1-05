@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.repository.AuthoritiesRepository;
 import com.springframework.samples.madaja.repository.ClienteRepository;
 import com.springframework.samples.madaja.repository.UserRepository;
@@ -38,6 +39,7 @@ public class ClienteService {
 		//creating cliente
 		clienteRepository.save(cliente);		
 		//creating user
+		User sd = cliente.getUser();
 		userService.saveUser(cliente.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
