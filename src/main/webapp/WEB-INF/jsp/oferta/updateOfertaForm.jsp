@@ -23,7 +23,7 @@
 	<jsp:attribute name="customScript">        
 	<script>
             $(function () {
-                $("#fechaLimite").datepicker({format: 'yyyy-mm-dd'});
+                $("#fechaLimite").datepicker({dateFormat: 'yy-mm-dd'});
             });
             
             $(document).ready(function(){
@@ -43,7 +43,7 @@
 			<madaja:inputField label="Fecha Límite" name="fechaLimite"/>
 			<madaja:inputField label="Hora Límite"  name="horaLimite"/>
 			<label  for="matriculas">Vehículos para aplicar la oferta:</label>
-            <form:select path="vehiculos">
+            <form:select multiple="true" path="vehiculos" >
             	<c:forEach var = "vehiculo" items = "${vehiculos}">
 					<form:option value="${vehiculo.id }"><c:out value="${vehiculo.matricula }"></c:out></form:option>            	
             	</c:forEach>
