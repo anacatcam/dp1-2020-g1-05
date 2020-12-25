@@ -12,6 +12,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "reserva")
@@ -23,7 +25,7 @@ public class Reserva extends BaseEntity {
 	private Double fianza;
 
 	@Column(name = "fechaGastos")
-	// @Temporal(TemporalType.DATE)
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaGastos;
 
 	@OneToOne(mappedBy = "reserva", optional = true)
