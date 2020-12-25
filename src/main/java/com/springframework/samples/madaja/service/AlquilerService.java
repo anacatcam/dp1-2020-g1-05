@@ -44,4 +44,9 @@ public class AlquilerService {
 	public Alquiler findAlquilerConcretoCliente(String id,String matricula) {
 		return alquilerRepository.findAlquilerConcretoCliente(id, matricula);
 	}
+	
+	@Transactional
+	public void saveAlquiler(Alquiler alquiler) {
+		alquilerRepository.save(alquiler);
+	}
 }

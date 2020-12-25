@@ -24,4 +24,6 @@ public interface AlquilerRepository extends Repository<Alquiler, Integer>{
 	
 	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id = :id AND alquiler.vehiculo.matricula = :matricula")//(H7) Encontrar un alquiler del cliente por matricula de vehiculo
 	public Alquiler findAlquilerConcretoCliente(@Param("id") String id, @Param("matricula") String matricula);
+
+	void save(Alquiler alquiler) throws DataAccessException;
 }

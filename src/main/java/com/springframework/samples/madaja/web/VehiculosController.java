@@ -1,14 +1,15 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,14 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.service.IncidenciaService;
-import com.springframework.samples.madaja.service.SeguroVehiculoService;
+import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.springframework.samples.madaja.service.VentaService;
 
 @Controller
 public class VehiculosController {
@@ -31,16 +33,10 @@ public class VehiculosController {
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
 	
 	private final VehiculosService vehiculosService;
-//	private final IncidenciaService incidenciaService;
-//	private final SeguroVehiculoService seguroVehiculoService;
-
-		
+	
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService/*, IncidenciaService incidenciaService,
-			SeguroVehiculoService seguroVehiculoService*/) {
+	public VehiculosController(VehiculosService vehiculosService) {
 		this.vehiculosService=vehiculosService;
-//		this.incidenciaService=incidenciaService;
-//		this.seguroVehiculoService=seguroVehiculoService;
 	}
 	
 	@InitBinder
@@ -76,12 +72,11 @@ public class VehiculosController {
 			return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
 		}
 		else {
-			//creating owner, user and authorities
 			this.vehiculosService.saveVehiculo(vehiculo);
 			
 			return "redirect:/vehiculos/" + vehiculo.getId();
 		}
-	}   //ESTO AL FINAL NO ME RECOGE EL VALOR DE CAMBIO Y MALETERO
+	}
 	
 //	@GetMapping(value = "/vehiculos/buscar")
 //	public String processFindForm(Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
@@ -160,5 +155,5 @@ public class VehiculosController {
 		model.put("disponible", disponible);
 		return "vehiculos/mostrarVehiculos";
 	}
-
+	
 }

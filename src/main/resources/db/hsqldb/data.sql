@@ -68,6 +68,8 @@ INSERT INTO disponible(id,name) VALUES (3, 'Alquiler o venta');
 INSERT INTO disponible(id,name) VALUES (4, 'No disponible');
 INSERT INTO disponible(id,name) VALUES (5, 'Alquilado');
 INSERT INTO disponible(id,name) VALUES (6, 'Vendido');
+INSERT INTO disponible(id,name) VALUES (7, 'Reservado');
+
 
 INSERT INTO combustible(id,name) VALUES (1, 'Gasolina');
 INSERT INTO combustible(id,name) VALUES (2, 'Diesel');
