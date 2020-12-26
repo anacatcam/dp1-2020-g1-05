@@ -45,7 +45,7 @@ public class Alquiler extends BaseEntity {
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;
 
