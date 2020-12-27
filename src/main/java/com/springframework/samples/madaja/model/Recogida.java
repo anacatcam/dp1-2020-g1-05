@@ -21,7 +21,7 @@ public class Recogida extends Localizacion {
 	@NotEmpty
 	private LocalTime hora;
 
-	@OneToOne(mappedBy = "recogida", optional = false)
+	@OneToOne(mappedBy = "recogida", optional = true) // DANIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII hdp
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

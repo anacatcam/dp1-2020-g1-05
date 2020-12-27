@@ -1,4 +1,3 @@
-  
 package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
@@ -167,7 +166,7 @@ public class ReservasController {
 	}
 	
 	@PostMapping(value = "/{vehiculoId}/reservar{tipo}")
-	public String processReservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @PathVariable("tipo") String tipo,
+	public String processAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @PathVariable("tipo") String tipo,
 			@Valid Reserva reserva, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			return VIEWS_RESERVA_CREATE_FORM;
