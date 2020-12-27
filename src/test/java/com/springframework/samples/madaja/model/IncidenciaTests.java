@@ -21,7 +21,7 @@ public class IncidenciaTests{
 }
 	
 @Test
-void validacionNotEmptyNegative() {
+void validacionDescriptionNotEmptyNegative() {
 	LocaleContextHolder.setLocale(Locale.ENGLISH);
 	Incidencia incidencia= new Incidencia();
 	incidencia.setDescripcion("");
@@ -29,20 +29,42 @@ void validacionNotEmptyNegative() {
 	
 	Validator validator= createValidator();
 	Set<ConstraintViolation<Incidencia>> constraintViolations = validator.validate(incidencia);
-	System.out.println(constraintViolations.size());
 	assertThat(constraintViolations.size()).isEqualTo(1);
 	}
 
 @Test
-void validacionNotEmptyPositive() {
+void validacionDescriptionNotEmptyPositive() {
 	LocaleContextHolder.setLocale(Locale.ENGLISH);
 	Incidencia incidencia= new Incidencia();
 	incidencia.setDescripcion("Golpe en el capó");
+	incidencia.setSolucionada(false);
+	
+	Validator validator= createValidator();
+	Set<ConstraintViolation<Incidencia>> constraintViolations = validator.validate(incidencia);
+	assertThat(constraintViolations.size()).isEqualTo(0);
+	}
+
+@Test
+void validacionSolucionadaNotEmptyNegative() {
+	LocaleContextHolder.setLocale(Locale.ENGLISH);
+	Incidencia incidencia= new Incidencia();
+	incidencia.setDescripcion("Pinchazo en rueda posterior izquierda");
+	incidencia.setSolucionada(null);
+	
+	Validator validator= createValidator();
+	Set<ConstraintViolation<Incidencia>> constraintViolations = validator.validate(incidencia);
+	assertThat(constraintViolations.size()).isEqualTo(1);
+	}
+
+@Test
+void validacionSolucionadaNotEmptyPositive() {
+	LocaleContextHolder.setLocale(Locale.ENGLISH);
+	Incidencia incidencia= new Incidencia();
+	incidencia.setDescripcion("Pinchazo en rueda posterior izquierda");
 	incidencia.setSolucionada(true);
 	
 	Validator validator= createValidator();
 	Set<ConstraintViolation<Incidencia>> constraintViolations = validator.validate(incidencia);
-	System.out.println(constraintViolations.size());
 	assertThat(constraintViolations.size()).isEqualTo(0);
 	}
 }
