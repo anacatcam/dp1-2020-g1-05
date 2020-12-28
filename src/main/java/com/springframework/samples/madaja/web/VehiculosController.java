@@ -18,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 @Controller
