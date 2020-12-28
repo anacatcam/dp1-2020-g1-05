@@ -1,14 +1,11 @@
 package com.springframework.samples.madaja.web;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -19,14 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
-import com.springframework.samples.madaja.service.VentaService;
 
 @Controller
 public class VehiculosController {
@@ -157,4 +152,15 @@ public class VehiculosController {
 		return "vehiculos/mostrarVehiculos";
 	}
 	
+	/** Reservar vehiculo  **/
+	@GetMapping(value = "/reservar/{vehiculoId}")
+	public String reservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {		
+		String view = "reservas/createReservaForm";
+		
+			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+			model.put("vehiculos", vehiculo);
+				
+		return view;
+	}
+
 }

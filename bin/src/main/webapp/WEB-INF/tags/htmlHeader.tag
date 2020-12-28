@@ -11,10 +11,10 @@ PetClinic :: a Spring Framework demonstration
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags --%>
 
-    <spring:url value="/resources/images/favicon.png" var="favicon"/>
-    <link rel="shortcut icon" type="image/x-icon" href="${favicon}">
+    <spring:url value="/resources/images/logoPNG_3.png" var="logoPNG_3"/>
+    <link rel="shortcut icon" type="image/x-icon" href="${logoPNG_3}">
 
-    <title>PetClinic :: a Spring Framework demonstration</title>
+    <title>Madaja</title>
 
     <%-- CSS generated from LESS --%>
     <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
