@@ -42,11 +42,13 @@
 					<span>Clientes</span>
 				</madaja:menuItem>
 				
-				<madaja:menuItem active="${name eq 'reservas'}" url="/mis-reservas"
-					title="mis reservas">
-					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-					<span>Mis reservas</span>
-				</madaja:menuItem>
+				<sec:authorize access="hasAuthority('admin')">
+					<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
+						title="reservas">
+						<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+						<span>Reservas</span>
+					</madaja:menuItem>
+				</sec:authorize>
 				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
@@ -115,6 +117,21 @@
 									</div>
 								</div>
 							</li>
+							
+							<li class="divider"></li>
+							<sec:authorize access="hasAuthority('cliente')">
+							<li> 
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>
+												<a href="<c:url value="/reservas/mis-reservas"/>" class="btn btn-primary btn-block">Mis reservas</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							</sec:authorize>
 						</ul></li>
 				</sec:authorize>
 			</ul>

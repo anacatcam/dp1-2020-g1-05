@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 import com.springframework.samples.madaja.model.Reserva;
 
-public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
+public interface ReservaRepository extends Repository<Reserva, Integer>{
+	
+	void save(Reserva reserva) throws DataAccessException;
 	
 	Iterable<Reserva> findAll() throws DataAccessException; //TODAS las reservas
 	
@@ -20,7 +22,7 @@ public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
 	@Query("SELECT reserva FROM Reserva reserva WHERE reserva.cliente.dni =:dni") //Encontrar reservas por DNI del cliente
 	public List<Reserva> findByDniReserva(@Param("dni") String dni);	
 
-//	/** Eliminar reservas **/
+//	/** Eliminar reservas (obsoleto) **/
 //	@Modifying
 //	@Query(value ="UPDATE venta SET reserva_id = null WHERE reserva_id =:id", nativeQuery = true)
 //	void actVenta(@Param("id") int id);

@@ -164,7 +164,7 @@ public class VehiculosController {
 	/** Reservar vehiculo  **/
 	@GetMapping(value = "/reservar/{vehiculoId}")
 	public String reservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {		
-		String view = "vehiculos/reservarVehiculo";
+		String view = "reservas/createReservaForm";
 		
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 			model.put("vehiculos", vehiculo);
