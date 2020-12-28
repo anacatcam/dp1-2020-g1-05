@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +30,6 @@ import com.springframework.samples.madaja.service.OfertaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 
-
 @Controller
 public class OfertaController {
 	
@@ -39,6 +39,7 @@ public class OfertaController {
 	private final OfertaService ofertaService;
 	private final VehiculosService vehiculosService;
 	
+	@Autowired
 	public OfertaController(OfertaService ofertaService, VehiculosService vehiculosService) {
 		this.ofertaService=ofertaService;
 		this.vehiculosService =vehiculosService;
@@ -87,17 +88,13 @@ public class OfertaController {
 	@PostMapping(value = "/oferta/new")
 	public String processFormOferta(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
-			System.out.println("Hola");
-			System.out.println(oferta.getVehiculos());
 			model.put("oferta", oferta);
 			return VIEW_OFERTA_CREATE_FORM;
 		}
 		else {
 				this.ofertaService.saveOferta(oferta);
-				Set<Vehiculos> vehiculos = oferta.getVehiculos();
-				Iterator<Vehiculos> it =  vehiculos.iterator();
-				while(it.hasNext()) {
-					Vehiculos vehiculo = it.next();
+				List<Vehiculos> vehiculos = oferta.getVehiculos().stream().collect(Collectors.toList());
+				for(Vehiculos vehiculo: vehiculos) {
 					vehiculo.setOferta(oferta);
 					vehiculosService.saveVehiculo(vehiculo);
 				}
@@ -126,17 +123,17 @@ public class OfertaController {
 			model.put("vehiculos", vehiculos);
 			return VIEW_OFERTA_UPDATE_FORM;
 		}else {
+			//Quitar todos los vehiculos que han dejado de aplicarse la oferta
 			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
 			for(Vehiculos vehiculo: vehiculosOld) {
 				vehiculo.setOferta(null);
 			}
+			//Guardar la oferta actualizada
 			Oferta ofertaUpdate = this.ofertaService.findOfertaById(ofertaId);
 			BeanUtils.copyProperties(oferta, ofertaUpdate,"id");
 			this.ofertaService.saveOferta(ofertaUpdate);
-			Set<Vehiculos> vehiculos = ofertaUpdate.getVehiculos();
-			Iterator<Vehiculos> it =  vehiculos.iterator();
-			while(it.hasNext()) {
-				Vehiculos vehiculo = it.next();
+			List<Vehiculos> vehiculos = ofertaUpdate.getVehiculos().stream().collect(Collectors.toList());
+			for(Vehiculos vehiculo: vehiculos) {
 				vehiculo.setOferta(ofertaUpdate);
 				vehiculosService.saveVehiculo(vehiculo);
 			}

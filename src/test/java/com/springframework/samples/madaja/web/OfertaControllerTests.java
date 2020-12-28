@@ -4,12 +4,32 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.anyInt;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.springframework.samples.madaja.model.Oferta;
+import com.springframework.samples.madaja.repository.OfertaRepository;
 
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -62,6 +82,7 @@ class OfertaControllerTests {
 		oferta.setDescuento(22.0);
 		oferta.setFechaLimite(LocalDate.of(2020, 6, 12));
 		oferta.setHoraLimite(LocalTime.of(2, 3, 4));
+		oferta.setVehiculos(new HashSet<Vehiculos>());
 		
 		List<Vehiculos> matriculas = new ArrayList<Vehiculos>();
 		List<Vehiculos> vehiculos = new ArrayList<Vehiculos>();
@@ -103,11 +124,26 @@ class OfertaControllerTests {
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessFormOfertaSuccess() throws Exception {
+		Vehiculos vehiculo = new Vehiculos();
+		vehiculo.setId(1);
+		vehiculo.setMatricula("2484 MPW");
+		vehiculo.setPrecioAlquiler(300);
+		vehiculo.setPrecioVenta(2000);
+		vehiculo.setMarca("");
+		vehiculo.setModelo("");
+		vehiculo.setPuertas(4);
+		vehiculo.setPlazas(5);
+		vehiculo.setMaletero(1);
+		vehiculo.setKmActuales(1000);
+		vehiculo.setCaracteristicas("");
+		vehiculo.setEstado("");
+		vehiculo.setOferta(null);
+		String [] matriculas = {""};
 		mockMvc.perform(post("/oferta/new").param("name", "Oferta 1").param("descuento", "22.0")
 				.with(csrf())
 				.param("fechaLimite", "2020-06-12")
 				.param("horaLimite", "02:03:04")
-				.param("matriculas", "none"))
+				.param("vehiculos", ""))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/oferta"));;
 		
@@ -120,7 +156,7 @@ class OfertaControllerTests {
 				.with(csrf())
 				.param("fechaLimite", "2020/06/12")
 				.param("horaLimite", "02-03-04")
-				.param("matriculas", "none"))
+				.param("matriculas", ""))
 		.andExpect(model().attributeHasErrors("oferta"))
 		.andExpect(model().attributeHasFieldErrors("oferta", "horaLimite"))
 		.andExpect(status().isOk())
@@ -143,7 +179,7 @@ class OfertaControllerTests {
 				.with(csrf())
 				.param("fechaLimite", "2020-06-12")
 				.param("horaLimite", "02:03:04")
-				.param("matriculas", "none"))
+				.param("vehiculos", ""))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/oferta"));
 	}
@@ -155,7 +191,7 @@ class OfertaControllerTests {
 				.with(csrf())
 				.param("fechaLimite", "2020/06/12")
 				.param("horaLimite", "02-03-04")
-				.param("matriculas", "none"))
+				.param("vehiculos", ""))
 		.andExpect(model().attributeHasErrors("oferta"))
 		.andExpect(model().attributeHasFieldErrors("oferta", "horaLimite"))
 		.andExpect(status().isOk())

@@ -20,4 +20,5 @@ public interface VentaRepository extends Repository<Venta, Integer>{
 	@Query("SELECT venta FROM Venta venta WHERE venta.cliente.dni =:dni") //Encontrar ventas por DNI del cliente
 	public List<Venta> findByDniCliente(@Param("dni") String dni);
 	
+	void save(Venta venta) throws DataAccessException;
 }

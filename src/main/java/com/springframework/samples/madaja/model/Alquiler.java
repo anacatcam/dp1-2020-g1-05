@@ -13,6 +13,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 
 
@@ -21,11 +23,11 @@ import org.springframework.core.style.ToStringCreator;
 public class Alquiler extends BaseEntity {
 
 	@Column(name = "fecha_inicio")
-	@DateConstraint
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaInicio;
 	
 	@Column(name = "fecha_fin")
-	@DateConstraint
+	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaFin;
 
 	@Column(name = "limite_KM")
@@ -43,7 +45,7 @@ public class Alquiler extends BaseEntity {
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;
 

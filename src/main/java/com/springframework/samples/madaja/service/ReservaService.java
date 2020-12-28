@@ -47,5 +47,10 @@ public class ReservaService {
 		reservaRepository.eliminarAlquilerReserva(id);
 		reservaRepository.eliminarReserva(id);
 	}
+	
+	@Transactional
+	public void saveReserva(Reserva reserva) {
+		reservaRepository.save(reserva);
+	}
 
 }

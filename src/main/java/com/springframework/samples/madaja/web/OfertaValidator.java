@@ -1,5 +1,7 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalTime;
+
 import javax.validation.Validation;
 
 import org.springframework.validation.Errors;

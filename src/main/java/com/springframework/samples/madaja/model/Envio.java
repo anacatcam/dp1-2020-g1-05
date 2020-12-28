@@ -5,13 +5,15 @@ import java.time.LocalTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
+
+import net.bytebuddy.asm.Advice.Local;
 
 @Entity
 @Table(name = "envio")
@@ -23,7 +25,7 @@ public class Envio extends Localizacion {
 	
 	@OneToOne(mappedBy = "envio", optional = true)
 	private Alquiler alquiler;
-
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Mecanico mecanico;
 

@@ -30,14 +30,28 @@
             <th>Plazas</th>
             <td><c:out value="${vehiculos.plazas}"/> pasajeros</td>
         </tr>
-        <tr>
-            <th>Precio de alquiler</th>
-            <td><c:out value="${vehiculos.precioAlquiler}"/></td>
-        </tr>
-        <tr>
-            <th>Precio de venta</th>
-            <td><c:out value="${vehiculos.precioVenta}"/></td>
-        </tr>
+        <c:if test="${vehiculos.disponible.id eq 1}"> 
+	        <tr>
+	            <th>Precio de alquiler</th>
+	            <td><c:out value="${vehiculos.precioAlquiler}"/></td>
+	        </tr>
+		</c:if>
+		<c:if test="${vehiculos.disponible.id eq 2}"> 
+        	<tr>
+            	<th>Precio de venta</th>
+            	<td><c:out value="${vehiculos.precioVenta}"/></td>
+        	</tr>
+        </c:if>
+        <c:if test="${vehiculos.disponible.id >= 3}"> 
+	        <tr>
+	            <th>Precio de alquiler</th>
+	            <td><c:out value="${vehiculos.precioAlquiler}"/></td>
+	        </tr>
+        	<tr>
+            	<th>Precio de venta</th>
+            	<td><c:out value="${vehiculos.precioVenta}"/></td>
+        	</tr>
+        </c:if>
         <tr>
             <th>Capacidad del maletero</th>
             <td><c:out value="${vehiculos.maletero}"/> L</td>
@@ -112,6 +126,7 @@
 		</c:choose>
     </table>
     
+    <!-- ACCIONES DE ADMINISTRADOR -->
 	<sec:authorize access="hasAuthority('admin')">
 	    <spring:url value="/vehiculos/{vehiculoId}/edit" var="editUrl">
 	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
@@ -137,6 +152,40 @@
 				</td>
 			</c:otherwise>
 		</c:choose>
+    </sec:authorize>
+    
+    
+    <!-- ACCIONES DE CLIENTE -->
+    <sec:authorize access="hasAuthority('cliente')">
+    	<c:if test="${vehiculos.disponible.id eq 1}"> 
+			<spring:url value="/vehiculos/{vehiculoId}/alquilar" var="reservarUrl">
+		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Alquilar</a>
+	    </c:if>
+	    
+	    <c:if test="${vehiculos.disponible.id eq 2}">
+		    <spring:url value="/vehiculos/{vehiculoId}/comprar" var="reservarUrl">
+		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Comprar</a>
+	    </c:if>
+	    
+	    <c:if test="${vehiculos.disponible.id eq 3}"> 
+			<spring:url value="/vehiculos/{vehiculoId}/alquilar" var="reservarUrl">
+		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Alquilar</a>
+		
+		    <spring:url value="/vehiculos/{vehiculoId}/comprar" var="reservarUrl">
+		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Comprar</a>
+	    </c:if>
+	    <spring:url value="/reservas/{vehiculoId}/nuevaReserva" var="reservarUrl">
+	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+	    </spring:url>
+	    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reservar</a>
     </sec:authorize>
     <br/>
     <br/>
