@@ -1,5 +1,6 @@
 package com.springframework.samples.madaja.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ public class SeguroVehiculoService {
 	
 	private SeguroVehiculoRepository seguroVehiculoRepository;
 	
+	@Autowired
 	public SeguroVehiculoService(SeguroVehiculoRepository seguroVehiculoRepository) {
 		this.seguroVehiculoRepository=seguroVehiculoRepository;
 	}

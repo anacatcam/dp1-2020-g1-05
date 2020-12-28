@@ -207,21 +207,18 @@ public class VehiculosServiceTests {
 		assertEquals(vehiculos, vehiculosService.findByDisponible(anyInt()));
 	}
 	
-//	@Test				//REVISAR 
-//	void testFindAll() throws Exception{
-//		List<Vehiculos> vehiculos= new ArrayList<Vehiculos>();
-//		vehiculos.add(vehiculo);
-//		when(vehiculosRepository.findAllByDisponible()).thenReturn(vehiculos);
-//		
-//	vehiculosService.findAllVehiculos();
-//		vehiculosService.findAllDisponibles();
-//		
-//		verify(vehiculosRepository).findAll();
-//		verify(vehiculosRepository).findAllByDisponible();
-//		assertEquals(vehiculos, vehiculosService.findAllVehiculos());
-//		assertEquals(vehiculos, vehiculosService.findAllDisponibles());
-//				
-//	}
+	@Test
+	void testFindAll() throws Exception{
+		List<Vehiculos> vehiculos= new ArrayList<Vehiculos>();
+		vehiculos.add(vehiculo);
+		when(vehiculosRepository.findAllByDisponible()).thenReturn(vehiculos);
+		
+		vehiculosService.findAllVehiculos();
+
+		verify(vehiculosRepository).findAllByDisponible();
+		assertEquals(vehiculos, vehiculosService.findAllVehiculos());
+				
+	}
 	
 	@Test
 	void testFindAllVehiculosDisponiblesYsinOfertas() throws Exception{

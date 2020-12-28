@@ -249,7 +249,7 @@ public class ReservasControllerTests {
 	@WithMockUser(value = "spring")  //Se lo dejo a Manu que no entiendo el reservar{tipo}
 	@Test
 	void testProcessReservarVehiculoErrors() throws Exception{
-		mockMvc.perform(post("/{vehiculoId}/reservar{tipo}",1,"alquiler")
+		mockMvc.perform(post("/{vehiculoId}/reservar/{tipo}",1,"alquiler")
 				.param("fechaGastos", "2016-09-03")
 				.param("fianza", "234.")
 				.with(csrf())

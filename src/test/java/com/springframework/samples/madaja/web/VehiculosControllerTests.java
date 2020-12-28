@@ -265,7 +265,7 @@ public class VehiculosControllerTests {
 		
 	}
 	
-	@WithMockUser(value= "spring")
+	@WithMockUser(value= "spring")   //REVISAR
 	@Test
 	void testProcessCreationFormSuccess() throws Exception{
 		vehiculo.setId(1);
@@ -302,7 +302,7 @@ public class VehiculosControllerTests {
 				.param("seguroVehiculo", "")
 				.param("oferta", ""))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/vehiculos/" + "1"));
+			.andExpect(view().name("redirect:/vehiculos/null"));
 	}
 	
 	@WithMockUser(value= "spring")
@@ -410,7 +410,7 @@ public class VehiculosControllerTests {
 		
 	}
 	
-	@WithMockUser(value= "spring")  //REVISAR
+	@WithMockUser(value= "spring") 
 	@Test
 	void testDeleteVehiculo() throws Exception{
 		
