@@ -6,9 +6,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misAlquileres">
+<madaja:layout pageName="misVentas">
 
-<h2>Mis Alquileres</h2>
+<h2>Mis Ventas</h2>
 
 <table id="ownersTable" class="table table-striped">
 		<thead>
@@ -17,38 +17,27 @@
 			<th style="width: 150px;">Vehículo</th>
 			<th style="width: 150px;">Matrícula</th>
 			<th style="width: 150px;">Precio</th>
-			<th style="width: 150px;">Fecha de inicio</th>
-			<th style="width: 150px;">Fecha de fin</th>
-			<th style="width: 150px;">Limite km</th>
 		</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${alquileres}" var="alquiler">
+			<c:forEach items="${ventas}" var="venta">
 				<tr>
 					<td>
-						<c:out value="${alquiler.id}"/>
+						<c:out value="${venta.id}"/>
 					</td>
 					<td>
-						<c:out value="${alquiler.vehiculo.marca} ${alquiler.vehiculo.modelo}"/>	
+						<c:out value="${venta.vehiculo.marca} ${venta.vehiculo.modelo}"/>	
 					</td>
 					<td>
 						<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
-	                            <spring:param name="vehiculoId" value="${alquiler.vehiculo.id}"/>
-						</spring:url>
-                        <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${alquiler.vehiculo.matricula}"/></a>
+	                            <spring:param name="vehiculoId" value="${venta.vehiculo.id}"/>
+                            </spring:url>
+                        	<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${venta.vehiculo.matricula}"/></a>
 					</td>
 					<td>
-						<c:out value="${alquiler.vehiculo.precioAlquiler}"/>
+						<c:out value="${venta.vehiculo.precioVenta}"/>
 					</td>
-					<td>
-						<c:out value="${alquiler.fechaInicio}"/>	
-					</td>
-					<td>
-						<c:out value="${alquiler.fechaFin}"/>	
-					</td>
-					<td>
-						<c:out value="${alquiler.limiteKM}"/>	
-					</td>
+					
 				</tr>
 			</c:forEach>
 		</tbody>

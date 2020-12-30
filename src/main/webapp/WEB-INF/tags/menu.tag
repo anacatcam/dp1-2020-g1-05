@@ -36,17 +36,21 @@
 					<span>Ofertas</span>
 				</madaja:menuItem>
 				
+				<sec:authorize access="hasAuthority('admin')">
 				<madaja:menuItem active="${name eq 'clientes'}" url="/clientes"
 					title="clientes">
 					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 					<span>Clientes</span>
 				</madaja:menuItem>
+				</sec:authorize>
 				
-				<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
-					title="mis reservas">
-					<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-					<span>Reservas</span>
-				</madaja:menuItem>
+				<sec:authorize access="hasAuthority('admin')">
+					<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
+						title="reservas">
+						<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+						<span>Reservas</span>
+					</madaja:menuItem>
+				</sec:authorize>
 				
 				<madaja:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
@@ -104,6 +108,7 @@
 								</div>
 							</li>
 							<li class="divider"></li>
+							<sec:authorize access="hasAuthority('cliente')">
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
@@ -115,6 +120,31 @@
 									</div>
 								</div>
 							</li>
+							<li class="divider"></li>
+                            <li> 
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>
+												<a href="<c:url value="/MisVentas"/>" class="btn btn-primary btn-block">Mis ventas</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="divider"></li>
+							<li> 
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-lg-12">
+											<p>
+												<a href="<c:url value="/reservas/mis-reservas"/>" class="btn btn-primary btn-block">Mis reservas</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							</sec:authorize>
 						</ul></li>
 				</sec:authorize>
 			</ul>

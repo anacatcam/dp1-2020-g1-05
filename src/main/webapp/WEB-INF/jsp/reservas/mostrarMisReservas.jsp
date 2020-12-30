@@ -6,25 +6,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="reservas">
-	<h2>Reservas</h2>	
-	
-	<!-- v -->
-	<c:out value="${msg}"/>
-	<!-- ^ -->
-				
-	<table id="ownersTable" class="table table-striped">
-		<thead>
+<madaja:layout pageName="misReservas">
+
+<h2>Mis Reservas</h2>
+
+<!-- -->
+<c:out value="${msg}"/>
+<!--  -->
+
+<table id="ownersTable" class="table table-striped">
+	<thead>
 		<tr>
 			<th style="width: 150px;">Vehículo</th>
 			<th style="width: 150px;">Fianza</th>
 			<th style="width: 150px;">Día que entra en gastos</th>
 			<th style="width: 150px;">Anular</th>
 		</tr>
-		</thead>
-		
-		<tbody>
-			
+	</thead>
+	<tbody>
 			<c:forEach items="${ventas}" var="venta">
 				<tr>
 					<td>
@@ -43,13 +42,13 @@
 						<c:out value="${venta.reserva.fechaGastos}"/>
 					</td>					
 					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/delete/{reservaId}" >
+						<a class="btn btn-default" href='<spring:url value="/reservas/deleteU/{reservaId}" >
 															<spring:param name="reservaId" value="${venta.reserva.id}"/>
 														</spring:url>'>Anular</a>
 					</td>		
 				</tr>
 			</c:forEach>
-		
+			
 			<c:forEach items="${alquileres}" var="alquiler">
 				<tr>
 					<td>
@@ -68,20 +67,14 @@
 						<c:out value="${alquiler.reserva.fechaGastos}"/>
 					</td>					
 					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/delete/{reservaId}" >
+						<a class="btn btn-default" href='<spring:url value="/reservas/deleteU/{reservaId}" >
 															<spring:param name="reservaId" value="${alquiler.reserva.id}"/>
 														</spring:url>'>Anular</a>
 					</td>		
 				</tr>
 			</c:forEach>
-		
-
+	</tbody>
+</table>
 			
-		</tbody>
-		
-	</table>
-	
-	
-
 
 </madaja:layout>

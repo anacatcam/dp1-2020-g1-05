@@ -8,7 +8,7 @@
 
 <madaja:layout pageName="misAlquileres">
 
-<h2>Mis Alquileres</h2>
+<h2>Envios</h2>
 
 <table id="ownersTable" class="table table-striped">
 		<thead>
@@ -16,41 +16,38 @@
 			<th style="width: 150px;">Número de identificación</th>
 			<th style="width: 150px;">Vehículo</th>
 			<th style="width: 150px;">Matrícula</th>
-			<th style="width: 150px;">Precio</th>
-			<th style="width: 150px;">Fecha de inicio</th>
-			<th style="width: 150px;">Fecha de fin</th>
-			<th style="width: 150px;">Limite km</th>
+			<th style="width: 150px;">Fecha</th>
+			<th style="width: 150px;">Hora</th>
+			<th style="width: 150px;">Dirección</th>
 		</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${alquileres}" var="alquiler">
+			<c:forEach items="${alquileres}" var="alquiler" varStatus="status">
 				<tr>
 					<td>
-						<c:out value="${alquiler.id}"/>
+						<c:out value="${alquiler.envio.id}"/>
 					</td>
 					<td>
 						<c:out value="${alquiler.vehiculo.marca} ${alquiler.vehiculo.modelo}"/>	
 					</td>
-					<td>
+				 	<td>
 						<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
 	                            <spring:param name="vehiculoId" value="${alquiler.vehiculo.id}"/>
 						</spring:url>
                         <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${alquiler.vehiculo.matricula}"/></a>
 					</td>
 					<td>
-						<c:out value="${alquiler.vehiculo.precioAlquiler}"/>
+						<c:out value="${alquiler.fechaInicio}"/>
 					</td>
 					<td>
-						<c:out value="${alquiler.fechaInicio}"/>	
+						<c:out value="${alquiler.envio.hora}"/>	
 					</td>
 					<td>
-						<c:out value="${alquiler.fechaFin}"/>	
-					</td>
-					<td>
-						<c:out value="${alquiler.limiteKM}"/>	
+						<c:out value="${alquiler.envio.direccion} ${alquiler.envio.localidad} ${alquiler.envio.provincia}"/>	
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
-	</table>
+	</table>		    
+	 <input type=button class="btn btn-default" value="Volver" onCLick="history.back()">
 </madaja:layout>
