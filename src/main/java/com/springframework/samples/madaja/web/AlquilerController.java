@@ -98,7 +98,6 @@ public class AlquilerController {
 		nuevoAlquiler.setEnvio(null);
 		nuevoAlquiler.setRecogida(null);
 		nuevoAlquiler.setEnvio(null);
-		nuevoAlquiler.setSeguro_cliente(null);
 		model.put("alquiler", nuevoAlquiler);
 		
 		return VIEWS_ALQUILER_CREATE_FORM;
