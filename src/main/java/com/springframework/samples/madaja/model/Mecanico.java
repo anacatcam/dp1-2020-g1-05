@@ -36,6 +36,8 @@ public class Mecanico extends Trabajador{
 		}
 		return this.incidencias;
 	}
+	
+
 
 	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
 		this.incidencias = incidencias;

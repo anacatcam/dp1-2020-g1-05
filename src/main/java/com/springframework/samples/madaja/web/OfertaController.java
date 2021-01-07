@@ -51,7 +51,12 @@ public class OfertaController {
 		model.put("ofertas", ofertas);
 		return "oferta/mostrarOfertas";
 	}
-	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/ofertaAPI"})
+	public String showOfertasListAPI() {
+		return "oferta/mostrarOfertasAPI";
+	}
+	//-------------------------------------API--------------------------------
 	@GetMapping(value = {"/oferta/{ofertaId}"})
 	public String showOferta(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
@@ -84,7 +89,12 @@ public class OfertaController {
 		model.put("oferta", oferta);
 		return VIEW_OFERTA_CREATE_FORM;
 	}
-	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/new")
+	public String creationFormOfertaAPI() {
+		return "oferta/createOfertaFormAPI";
+	}
+	//-------------------------------------API--------------------------------
 	@PostMapping(value = "/oferta/new")
 	public String processFormOferta(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {

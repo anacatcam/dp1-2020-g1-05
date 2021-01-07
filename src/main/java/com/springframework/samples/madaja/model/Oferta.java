@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
@@ -21,6 +22,7 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -28,10 +30,11 @@ import com.sun.istack.NotNull;
 public class Oferta extends NamedEntity {
 	
 	@Column(name = "descuento")
-	@NotNull
+	@Min(0)
 	private Double descuento;
 	
-	@Column(name = "fecha_limite")   
+	@Column(name = "fecha_limite")
+	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaLimite;
 
@@ -40,6 +43,7 @@ public class Oferta extends NamedEntity {
 	private LocalTime horaLimite;
 	
 	@OneToMany(mappedBy = "oferta", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
 
 	public void addVehiculo(Vehiculos vehiculo) {
