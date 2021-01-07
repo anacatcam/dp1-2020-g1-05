@@ -187,11 +187,14 @@
 	    </spring:url>
 	    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reservar</a>
     </sec:authorize>
+    
+    <sec:authorize access="hasAuthority('admin')">
     <br/>
     <br/>
     <br/>
     <h2>Incidencias</h2>
     
+  
     <table class="table table-striped">
     	<c:forEach var="incidencia" items="${vehiculos.incidencias}">
     		<tr>
@@ -216,19 +219,18 @@
                         		</c:otherwise>
                         	</c:choose>
                         </dd>
-                        <dt>
-                          <sec:authorize access="hasAuthority('admin')">
+                        <dt>         
                         	<spring:url value="/vehiculos/{vehiculoId}/incidencia/{incidenciaId}/edit" var="incidenciaUrl">
 	                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
 	                            <spring:param name="incidenciaId" value="${incidencia.id}"/>
                             </spring:url>
                             <a href="${fn:escapeXml(incidenciaUrl)}">Editar incidencia</a>
-                          </sec:authorize>
                         </dt>
                     </dl>
                 </td>
     	</c:forEach>
     </table>
+    </sec:authorize>
     
     <sec:authorize access="hasAuthority('admin')">
     <spring:url value="/vehiculos/{vehiculoId}/incidencia/new" var="editUrl">
