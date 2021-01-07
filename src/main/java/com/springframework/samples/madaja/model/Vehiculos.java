@@ -20,6 +20,10 @@ import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.core.style.ToStringCreator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "vehiculos")
@@ -55,6 +59,7 @@ public class Vehiculos extends BaseEntity{
 //===================================================================================	
 	@ManyToOne
 	@JoinColumn(name = "cambio_id")
+	@JsonIgnore
 	private Cambio cambio;
 	
 	@Column(name = "maletero")
@@ -75,21 +80,26 @@ public class Vehiculos extends BaseEntity{
 //====================================================
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
+	@JsonIgnore
 	private Disponible disponible;
 	
 	@ManyToOne
 	@JoinColumn(name = "combustible_id")
+	@JsonIgnore
 	private Combustible combustible;
 	
 	@ManyToOne
 	@JoinColumn(nullable = true)
+	@JsonIgnore
 	private Concesionario concesionario;	
 	
 	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = true)
+	@JsonIgnore
 	private SeguroVehiculo seguroVehiculo;
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Incidencia> incidencias;
 	
 	//ANTONIO
@@ -98,9 +108,11 @@ public class Vehiculos extends BaseEntity{
 	//
 	
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Venta> ventas;
 	
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Alquiler> alquileres;
 
 	@ManyToOne(cascade = CascadeType.ALL)

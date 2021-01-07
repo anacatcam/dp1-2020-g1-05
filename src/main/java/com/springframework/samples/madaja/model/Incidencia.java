@@ -1,4 +1,4 @@
-package com.springframework.samples.madaja.model;
+	package com.springframework.samples.madaja.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

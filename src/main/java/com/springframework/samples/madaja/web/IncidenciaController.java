@@ -2,6 +2,9 @@ package com.springframework.samples.madaja.web;
 
 
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -16,10 +19,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Incidencia;
+import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.MecanicoService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.zaxxer.hikari.util.SuspendResumeLock;
 
@@ -32,17 +38,25 @@ public class IncidenciaController {
 
 	private final IncidenciaService incidenciaService;
 	private final VehiculosService vehiculosService;
+	private final MecanicoService mecanicoService;
 
 	
 	@Autowired
-	public IncidenciaController(IncidenciaService incidenciaService, VehiculosService vehiculosService) {
+	public IncidenciaController(IncidenciaService incidenciaService, VehiculosService vehiculosService,MecanicoService mecanicoService) {
 		this.incidenciaService=incidenciaService;
 		this.vehiculosService=vehiculosService;
+		this.mecanicoService=mecanicoService;
 	}
 	
 	@ModelAttribute("vehiculos")
 	public Vehiculos findVehiculo(@PathVariable("vehiculoId") int vehiculoId) {
 		return this.vehiculosService.findVehiculoById(vehiculoId);
+	}
+	
+	@ModelAttribute("mecanicos")
+	public List<Mecanico> mecanicosDisponibles(){
+		List<Mecanico> mecanicos = mecanicoService.findAll();
+		return mecanicos;
 	}
 	
 	@InitBinder("vehiculos")
@@ -60,7 +74,7 @@ public class IncidenciaController {
 
 	@PostMapping(value = "/incidencia/new")
 	public String processCreationForm(Vehiculos vehiculo, @Valid Incidencia incidencia,
-			BindingResult result, ModelMap model) {
+			BindingResult result, ModelMap model,@RequestParam(name="mecanicos") Optional<String[]> mecanicos) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
 			return VIEWS_INCIDENCIA_UPDATE_FORM;
@@ -68,6 +82,14 @@ public class IncidenciaController {
 		else {
     		incidencia.setSolucionada(false); //la incidencia no está solucionada por defecto
 			vehiculo.addIncidencia(incidencia);
+			if(!mecanicos.isEmpty()) {
+				for(String mecanicoDni : mecanicos.get()) {
+					Mecanico mecanico = mecanicoService.findById(mecanicoDni);
+					mecanico.addIncidencia(incidencia);
+					incidencia.addMecanico(mecanico);
+					mecanicoService.saveMecanico(mecanico);
+				}
+			}
         	this.incidenciaService.saveIncidencia(incidencia);
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
@@ -82,7 +104,7 @@ public class IncidenciaController {
 	
     @PostMapping(value = "/incidencia/{incidenciaId}/edit")
 	public String processUpdateForm(@Valid Incidencia incidencia, BindingResult result,
-			Vehiculos vehiculo,@PathVariable("incidenciaId") int incidenciaId, ModelMap model) {
+			Vehiculos vehiculo,@PathVariable("incidenciaId") int incidenciaId, ModelMap model,@RequestParam(name="mecanicos") Optional<String[]> mecanicos) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
 			return VIEWS_INCIDENCIA_UPDATE_FORM;
@@ -90,7 +112,21 @@ public class IncidenciaController {
 		else {
 			Incidencia incidenciaToUpdate = this.incidenciaService.findIncidenciaById(incidenciaId);
 			BeanUtils.copyProperties(incidencia, incidenciaToUpdate, "id","vehiculos","mecanicos");                                                                                  
-			this.incidenciaService.saveIncidencia(incidenciaToUpdate);                    
+			this.incidenciaService.saveIncidencia(incidenciaToUpdate);
+			List<Mecanico> mecanicosRemove = mecanicoService.findMecanicosByIncidencia(incidenciaToUpdate.getId());
+			if(!mecanicos.isEmpty()) {
+				for(Mecanico mecanico : mecanicosRemove) {
+					incidenciaToUpdate.removeMecanicos(mecanico);
+					mecanico.removeIncidencia(incidenciaToUpdate);
+					mecanicoService.saveMecanico(mecanico);
+				}
+				for(String mecanicoDni : mecanicos.get()) {
+					Mecanico mecanico = mecanicoService.findById(mecanicoDni);
+					mecanico.addIncidencia(incidenciaToUpdate);
+					incidenciaToUpdate.addMecanico(mecanico);
+					mecanicoService.saveMecanico(mecanico);
+				}
+			}
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
 	}
