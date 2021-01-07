@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,9 +20,6 @@ import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
-
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "vehiculos")
@@ -95,7 +91,12 @@ public class Vehiculos extends BaseEntity{
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
 	private Set<Incidencia> incidencias;
-
+	
+	//ANTONIO
+	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	private Set<SeguroCliente> segurosCliente;
+	//
+	
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
 	private Set<Venta> ventas;
 	
@@ -268,6 +269,35 @@ public class Vehiculos extends BaseEntity{
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
+	
+	//PARTE ANTONIO
+	protected Set<SeguroCliente> getSegurosClienteInternal() {
+		if (this.segurosCliente == null) {
+			this.segurosCliente = new HashSet<>();
+		}
+		return this.segurosCliente;
+	}
+
+	protected void setSegurosClienteInternal(Set<SeguroCliente> segurosCliente) {
+		this.segurosCliente = segurosCliente;
+	}
+
+	public List<SeguroCliente> getSegurosCliente() {
+		List<SeguroCliente> sortedSegurosCliente = new ArrayList<>(getSegurosClienteInternal());
+		PropertyComparator.sort(sortedSegurosCliente, new MutableSortDefinition("descripcion", true, true));
+		return Collections.unmodifiableList(sortedSegurosCliente);
+	}
+
+	public void addSeguroCliente(SeguroCliente seguroCliente) {
+		getSegurosClienteInternal().add(seguroCliente);
+		seguroCliente.setVehiculos(this);
+	}
+	
+	public boolean removeSeguroCliente(SeguroCliente seguroCliente) {
+		return getSegurosClienteInternal().remove(seguroCliente);
+	}
+	
+	//TERMINA PARTE ANTONIO
 	
 	protected Set<Venta> getVentasInternal() {
 		if (this.ventas == null) {
