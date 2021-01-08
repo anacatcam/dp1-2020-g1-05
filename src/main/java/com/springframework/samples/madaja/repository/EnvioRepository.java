@@ -11,8 +11,14 @@ import com.springframework.samples.madaja.model.Envio;
 
 public interface EnvioRepository extends Repository<Envio, Integer> {
 
-	Iterable<Envio> findAll() throws DataAccessException; // Todos los envios
+	void save(Envio envio) throws DataAccessException;
+		
+	@Query("SELECT envio FROM Envio envio WHERE envio.id = :id")
+	Envio findById(@Param("id") int id);
 	
-	@Query("SELECT envio FROM Envio envio WHERE envio.alquiler.vehiculo.concesionario.id = :id") // Envios de un concesionario
-	List<Envio> findByConcesionario(@Param("id") int id);
+	@Query("SELECT envio FROM Envio envio WHERE envio.alquiler.vehiculo.concesionario.id = :id") // Envios de alquiler de un concesionario
+	List<Envio> findByConcesionarioAlq(@Param("id") int id);
+	//nuevo
+	@Query("SELECT envio FROM Envio envio WHERE envio.venta.vehiculo.concesionario.id = :id") // Envios de venta de un concesionario
+	List<Envio> findByConcesionarioVent(@Param("id") int id);
 }
