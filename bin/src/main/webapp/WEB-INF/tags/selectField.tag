@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="madaja" uri="http://www.springframework.org/tags" %>
 <%@ attribute name="name" required="true" rtexprvalue="true"
               description="Name of corresponding property in bean object" %>
 <%@ attribute name="label" required="true" rtexprvalue="true"
@@ -10,7 +10,7 @@
 <%@ attribute name="size" required="true" rtexprvalue="true"
               description="Size of Select" %>
 
-<spring:bind path="${name}">
+<madaja:bind path="${name}">
     <c:set var="cssGroup" value="form-group ${status.error ? 'error' : '' }"/>
     <c:set var="valid" value="${not status.error and not empty status.actualValue}"/>
     <div class="${cssGroup}">
@@ -27,4 +27,4 @@
             </c:if>
         </div>
     </div>
-</spring:bind>
+</madaja:bind>

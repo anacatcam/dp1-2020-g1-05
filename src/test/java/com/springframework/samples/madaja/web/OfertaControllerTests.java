@@ -145,7 +145,7 @@ class OfertaControllerTests {
 				.param("horaLimite", "02:03:04")
 				.param("vehiculos", ""))
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/oferta"));;
+		.andExpect(view().name("redirect:/oferta"));
 		
 	}
 	

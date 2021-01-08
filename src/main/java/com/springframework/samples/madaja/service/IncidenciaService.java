@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class IncidenciaService {
 	private IncidenciaRepository incidenciaRepository;
 	private MecanicoRepository mecanicoRepository;
 	
+	@Autowired
 	public IncidenciaService(IncidenciaRepository incidenciaRepository, MecanicoRepository mecanicoRepository) {
 		this.incidenciaRepository=incidenciaRepository;
 		this.mecanicoRepository=mecanicoRepository;

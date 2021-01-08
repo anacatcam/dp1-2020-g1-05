@@ -35,9 +35,6 @@ public class Compania extends BaseEntity{
 	private String email;
 	
 	@OneToMany(mappedBy = "compania", cascade = CascadeType.ALL)
-	private Set<SeguroCliente> segurosCliente; 
-	
-	@OneToMany(mappedBy = "compania", cascade = CascadeType.ALL)
 	private Set<SeguroVehiculo> segurosVehiculo;
 
 	public String getNombre() {
@@ -62,32 +59,6 @@ public class Compania extends BaseEntity{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	protected Set<SeguroCliente> getSegurosClienteInternal() {
-		if (this.segurosCliente == null) {
-			this.segurosCliente = new HashSet<>();
-		}
-		return this.segurosCliente;
-	}
-
-	protected void setSegurosClienteInternal(Set<SeguroCliente> segurosCliente) {
-		this.segurosCliente = segurosCliente;
-	}
-
-	public List<SeguroCliente> getSegurosCliente() {
-		List<SeguroCliente> sortedSegurosCliente = new ArrayList<>(getSegurosClienteInternal());
-		PropertyComparator.sort(sortedSegurosCliente, new MutableSortDefinition("id", true, true));
-		return Collections.unmodifiableList(sortedSegurosCliente);
-	}
-
-	public void addSeguroCliente(SeguroCliente segurosCliente) {
-		getSegurosClienteInternal().add(segurosCliente);
-		segurosCliente.setCompania(this);
-	}
-	
-	public boolean removeSeguroCliente(SeguroCliente seguroCliente) {
-		return getSegurosClienteInternal().remove(seguroCliente);
 	}
 	
 	protected Set<SeguroVehiculo> getSegurosVehiculoInternal() {

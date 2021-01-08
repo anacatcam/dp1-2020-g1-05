@@ -9,6 +9,9 @@
 <madaja:layout pageName="reservas">
 	<h2>Reservas</h2>	
 	
+	<!-- v -->
+	<c:out value="${msg}"/>
+	<!-- ^ -->
 				
 	<table id="ownersTable" class="table table-striped">
 		<thead>
@@ -72,34 +75,7 @@
 				</tr>
 			</c:forEach>
 		
-		
-		<!--  
-			<c:forEach items="${reservas}" var="reserva">
-				<tr>
-					<td>
-						<c:out value="${reserva.venta.vehiculo.marca} "/>
-						<c:out value="${reserva.venta.vehiculo.modelo} "/>
-						<br/>
-						<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
-							<spring:param name="vehiculoId" value="${reserva.venta.vehiculo.id}"/>
-						</spring:url>
-						<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="(más info)"/></a>
-					</td>
-					<td>
-						<c:out value="${reserva.fianza}"/>
-					</td>
-					<td>
-						<c:out value="${reserva.fechaGastos}"/>
-					</td>					
-					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/delete/{reservaId}" >
-															<spring:param name="reservaId" value="${reserva.id}"/>
-														</spring:url>'>Anular</a>
-					</td>
-				</tr>
-			</c:forEach>	
-		-->	
-				
+
 			
 		</tbody>
 		
