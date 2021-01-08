@@ -56,7 +56,7 @@ public class Vehiculos extends BaseEntity{
 	@Column(name = "plazas")
 	@Positive
 	private Integer plazas;
-//===================================================================================	
+	
 	@ManyToOne
 	@JoinColumn(name = "cambio_id")
 	private Cambio cambio;
@@ -76,7 +76,7 @@ public class Vehiculos extends BaseEntity{
 	@Column(name = "estado")
 	@NotEmpty
 	private String estado;
-//====================================================
+
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
 	private Disponible disponible;
