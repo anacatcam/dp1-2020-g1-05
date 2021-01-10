@@ -6,7 +6,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-
 <madaja:layout pageName="ofertas">
 	<jsp:attribute name="customScript">     
 		<script>
@@ -37,7 +36,7 @@
             	</c:forEach>
             </form:select>
 			<div class="col-sm-offset-2 col-sm-10">
-			<button class="btn btn-default" type="submit">Añadir Oferta</button>
+			<button class="btn btn-default"  type="submit">Añadir Oferta</button>
 			</div>
 		</div>
 	</form:form>

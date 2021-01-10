@@ -38,9 +38,6 @@ public class Alquiler extends BaseEntity {
 	@Column(name = "dep_lleno")
 	private Boolean depLleno;
 
-	@OneToOne(mappedBy = "alquiler", optional = false)
-	private SeguroCliente seguro_cliente;
-
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
@@ -91,14 +88,6 @@ public class Alquiler extends BaseEntity {
 		this.depLleno = depLleno;
 	}
 
-	public SeguroCliente getSeguro_cliente() {
-		return seguro_cliente;
-	}
-
-	public void setSeguro_cliente(SeguroCliente seguro_cliente) {
-		this.seguro_cliente = seguro_cliente;
-	}
-
 	public Reserva getReserva() {
 		return reserva;
 	}
@@ -142,7 +131,6 @@ public class Alquiler extends BaseEntity {
 	@Override
 	public String toString() {
 		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("seguro_cliente", seguro_cliente);
 		builder.append("reserva", reserva);
 		builder.append("envio", envio);
 		builder.append("recogida", recogida);

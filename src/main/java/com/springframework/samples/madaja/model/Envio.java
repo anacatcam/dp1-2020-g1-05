@@ -1,26 +1,31 @@
 package com.springframework.samples.madaja.model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
-
-import net.bytebuddy.asm.Advice.Local;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "envio")
 public class Envio extends Localizacion {
 	
+	@Column(name = "fecha")
+	@DateTimeFormat(iso=ISO.DATE)
+	private LocalDate fecha;
+	
 	@Column(name = "hora")
-	@NotEmpty
+//	@NotEmpty
+	@DateTimeFormat(iso=ISO.TIME)
 	private LocalTime hora;
 	
 	@OneToOne(mappedBy = "envio", optional = true)
@@ -28,6 +33,22 @@ public class Envio extends Localizacion {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Mecanico mecanico;
+	
+	@OneToOne(mappedBy = "envio", optional = true)
+	private Venta venta;
+	
+	@ManyToOne
+	@JoinColumn(name = "estado_id")
+	private EstadoEnvio estadoEnvio;
+
+	
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
 	public LocalTime getHora() {
 		return hora;
@@ -51,6 +72,22 @@ public class Envio extends Localizacion {
 
 	public void setMecanico(Mecanico mecanico) {
 		this.mecanico = mecanico;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
+	}
+
+	public EstadoEnvio getEstadoEnvio() {
+		return estadoEnvio;
+	}
+
+	public void setEstadoEnvio(EstadoEnvio estadoEnvio) {
+		this.estadoEnvio = estadoEnvio;
 	}
 
 	@Override
