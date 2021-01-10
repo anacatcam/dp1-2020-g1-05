@@ -198,10 +198,10 @@ public class ReservaServiceTests {
 	void testFindReservaById() throws Exception{
 		when(reservaRepository.findById(anyInt())).thenReturn(Optional.of(reserva));
 		
-		reservaService.findReservaById(1);
+		reservaService.findReservaById(anyInt());
 		
 		verify(reservaRepository).findById(anyInt());
-		assertEquals(reserva, reservaService.findReservaById(anyInt()));
+		assertEquals(Optional.of(reserva), reservaService.findReservaById(anyInt()));
 	}
 	
 	@Test
@@ -234,6 +234,12 @@ public class ReservaServiceTests {
 		verify(reservaRepository).eliminarAlquilerReserva(anyInt());
 		verify(reservaRepository).eliminarReserva(anyInt());
 		verify(reservaRepository).eliminarVentaReserva(anyInt());
+	}
+	
+	@Test
+	void testSaveReserva() throws Exception{
+		this.reservaService.saveReserva(reserva);
+		verify(reservaRepository).save(reserva);
 	}
 
 }

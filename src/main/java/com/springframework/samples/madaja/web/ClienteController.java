@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,5 +63,22 @@ public class ClienteController {
 		model.put("cliente", cliente);
 		model.put("alquileres", alquileres);
 		return "cliente/alquilerDetails";
+	}
+	
+	@GetMapping(value = {"/miPerfil"})
+	public String miPerfil(ModelMap model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if(principal instanceof UserDetails) {
+			 username = ((UserDetails)principal).getUsername();
+		}else {
+			 username = principal.toString();
+		}
+		
+		Cliente cliente = this.clienteService.findClienteByUsername(username);
+		
+		model.put("cliente", cliente);
+		
+		return "cliente/miPerfil";
 	}
 }

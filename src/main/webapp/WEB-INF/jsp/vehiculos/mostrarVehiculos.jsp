@@ -77,7 +77,7 @@
 					</td>	
 					<sec:authorize access="hasAuthority('admin')">
 						<c:choose>
-                        	<c:when test="${vehiculo.disponible.id eq 4}">
+                        	<c:when test="${vehiculo.disponible.id > 3}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
 								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>

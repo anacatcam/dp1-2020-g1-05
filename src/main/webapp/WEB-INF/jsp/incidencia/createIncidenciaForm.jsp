@@ -21,6 +21,14 @@
 	    	        </form:select>
     	        </div>
             </div>
+            <%-- <div class="form-group">
+            	<label class="col-sm-2 control-label">Cliente responsable </label>
+            	<div class="col-sm-10">
+	            	<form:select path="clientes">
+		            	<form:options itemValue="dni" itemLabel="firstName" items="${clientes}" />
+	    	        </form:select>
+    	        </div>
+            </div> --%>
             <input name="solucionada" type="hidden" value="false">
         </div>
         <div class="form-group">

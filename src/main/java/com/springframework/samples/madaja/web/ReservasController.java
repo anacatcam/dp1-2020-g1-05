@@ -198,6 +198,10 @@ public class ReservasController {
 		}
 		
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
+		if(cliente.getEsConflictivo().equals("Si")) {
+			model.put("esConflictivo", true);
+			return "operacionImposible";
+		}
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		model.put("cliente", cliente);
 		model.put("vehiculo", vehiculo);
@@ -205,7 +209,7 @@ public class ReservasController {
 		return "reservas/seleccionarReserva";
 	}
 	
-	@GetMapping(value = "/{vehiculoId}/reservar{tipo}")
+	@GetMapping(value = "/{vehiculoId}/reservar/{tipo}")
 	public String reservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @PathVariable("tipo") String tipo,
 			Map<String, Object> model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -219,8 +223,6 @@ public class ReservasController {
 		//Obtener cliente logueado y vehiculo
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		vehiculo.setDisponible(this.vehiculosService.findDisponibleById(7));
-		this.vehiculosService.saveVehiculo(vehiculo);
 		
 		//Crear venta
 		Reserva nuevaReserva = new Reserva();
@@ -249,6 +251,9 @@ public class ReservasController {
 			return VIEWS_RESERVA_CREATE_FORM;
 		}else {
 			
+			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(7));
+			this.vehiculosService.saveVehiculo(vehiculo);
 			reservaService.saveReserva(reserva);
 		
 			return "redirect:/reservas";

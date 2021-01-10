@@ -188,4 +188,11 @@ public class VentaServiceTests {
 		verify(ventaRepository).findByDniCliente(anyString());
 		assertEquals(ventas, ventaService.findVentasByDni(anyString()));
 	}
+	
+	@Test
+	void testSaveVenta() throws Exception{
+		this.ventaService.saveVenta(venta);
+		
+		verify(ventaRepository).save(venta);
+	}
 }

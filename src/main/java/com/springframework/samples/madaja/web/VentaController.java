@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
@@ -57,30 +60,65 @@ public class VentaController {
 	}
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/comprar")
-	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId,
-			Map<String, Object> model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		
-		//Obtener cliente logueado y vehiculo
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
+	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
+		//comprobación de que el vehiculo no está vendido ya
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		vehiculo.setDisponible(this.vehiculosService.findDisponibleById(6));
-		
-		//Crear venta
-		Venta nuevaVenta = new Venta();
-		nuevaVenta.setFecha(LocalDate.now());
-		nuevaVenta.setCliente(cliente);
-		nuevaVenta.setVehiculo(vehiculo);
-		nuevaVenta.setReserva(null);
-		ventaService.saveVenta(nuevaVenta);
-		
-		return "redirect:/MisVentas";
+		Boolean vendido  = estaVendido(vehiculo);
+		if(vendido) {
+			model.put("esVenta", vendido);
+			return "operacionImposible";
+		}else if(estaEnRevision(vehiculo)){
+			model.put("enRevision", estaEnRevision(vehiculo));
+			model.put("esRevisionVenta", true);
+			return "operacionImposible";
+		}else {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username;
+			if(principal instanceof UserDetails) {
+				 username = ((UserDetails)principal).getUsername();
+			}else {
+				 username = principal.toString();
+			}
+			
+			//Obtener cliente logueado y vehiculo
+			Cliente cliente = this.clienteService.findClienteByUsername(username);
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(6));
+			this.vehiculosService.saveVehiculo(vehiculo);
+			
+			//Crear venta
+			Venta nuevaVenta = new Venta();
+			nuevaVenta.setFecha(LocalDate.now());
+			nuevaVenta.setCliente(cliente);
+			nuevaVenta.setVehiculo(vehiculo);
+			nuevaVenta.setReserva(null);
+			ventaService.saveVenta(nuevaVenta);
+			
+			return "redirect:/MisVentas";
+		}
+	}
+	
+	public boolean estaVendido(Vehiculos vehiculo) {
+		Boolean res = false;
+		Iterable<Venta> ventas = this.ventaService.findAllVentas();
+		for(Venta v:ventas) {
+			if(vehiculo.equals(v.getVehiculo())) {
+				res = true;
+				return res;
+			}
+		}
+		return res;
+	}
+	
+	public boolean estaEnRevision(Vehiculos vehiculo) {
+		Boolean res = false;
+		List<Incidencia> incidencias = vehiculo.getIncidencias();
+		for(Incidencia i:incidencias) {
+			if(i.getSolucionada() == false) {
+				res = true;
+				break;
+			}
+		}
+		return res;
 	}
 
 }
