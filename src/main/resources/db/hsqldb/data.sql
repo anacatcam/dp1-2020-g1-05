@@ -34,15 +34,15 @@ INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('664931
 --Clientes (con sus cuentas de usuario)
 INSERT INTO users(username,password,enabled) VALUES ('manuel','contraseña1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'manuel','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', false, 'manuel');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', 'No', 'manuel');
 
 INSERT INTO users(username,password,enabled) VALUES ('daniel','contraseña2',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (9,'daniel','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (2,'31998039W', 'Daniel', 'Barranco Llanos', '660257585', 'danBarll@gmail.com', false, 'daniel');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (2,'31998039W', 'Daniel', 'Barranco Llanos', '660257585', 'danBarll@gmail.com', 'No', 'daniel');
 
 INSERT INTO users(username,password,enabled) VALUES ('alejandro','contraseña3',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10,'alejandro','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (3,'31004225H', 'Alejandro', 'Castellano Sanz', '637666517', 'alejcastz@gmail.com', false, 'alejandro');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (3,'31004225H', 'Alejandro', 'Castellano Sanz', '637666517', 'alejcastz@gmail.com', 'No', 'alejandro');
 
 INSERT INTO cambio VALUES (1, 'Automático');
 INSERT INTO cambio VALUES (2, 'Manual');
@@ -70,10 +70,10 @@ INSERT INTO concesionarios_gestores VALUES (6, '88682022W');
 INSERT INTO disponible(id,name) VALUES (1, 'Alquiler');
 INSERT INTO disponible(id,name) VALUES (2, 'Venta');
 INSERT INTO disponible(id,name) VALUES (3, 'Alquiler o venta');
-INSERT INTO disponible(id,name) VALUES (4, 'No disponible');
-INSERT INTO disponible(id,name) VALUES (5, 'Alquilado');
-INSERT INTO disponible(id,name) VALUES (6, 'Vendido');
-INSERT INTO disponible(id,name) VALUES (7, 'Reservado');
+INSERT INTO disponible(id,name) VALUES (4, 'Alquilado');
+INSERT INTO disponible(id,name) VALUES (5, 'Vendido');
+INSERT INTO disponible(id,name) VALUES (6, 'Reservado');
+INSERT INTO disponible(id,name) VALUES (7, 'No disponible');
 
 
 INSERT INTO combustible(id,name) VALUES (1, 'Gasolina');
@@ -105,12 +105,12 @@ INSERT INTO vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,
 INSERT INTO vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (6,1, '9553 GCL', 726, 24371, 'BMW', 'Serie 1', 4, 5, 2, 150, 15000, 'Respetuoso con el medio ambiente', 'Antigüo', 3, 1, 3, 5);
 INSERT INTO vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (7,1, '8352 DTR', 798, 27638, 'Mercedes', 'Benz', 4, 6, 1, 500, 6000, 'Espacioso / Amplio', 'Nuevo', 3, 1, 3, 7);
 
-INSERT INTO incidencia VALUES (1, 'Golpe en la parte frontal', false, 1);
-INSERT INTO incidencia VALUES (2, 'Luna trasera rota', false, 3);
-INSERT INTO incidencia VALUES (3, 'Espejillo derecho arrancado', true, 5);
-INSERT INTO incidencia VALUES (4, 'Rueda derecha anterior pinchada', true, 2);
-INSERT INTO incidencia VALUES (5, 'Raíl del asiento delantero roto', true, 4);
-INSERT INTO incidencia VALUES (6, 'Rueda izquierda posterior pinchada', true, 2);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (1, 'Golpe en la parte frontal', false, 1, 1);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (2, 'Luna trasera rota', false, 3, 1);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (3, 'Espejillo derecho arrancado', true, 5, 3);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (4, 'Rueda derecha anterior pinchada', true, 2, 2);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (5, 'Raíl del asiento delantero roto', true, 4, 3);
+INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (6, 'Rueda izquierda posterior pinchada', true, 2, 2);
 
 INSERT INTO incidencias_mecanicos VALUES (1, '47565973E');
 INSERT INTO incidencias_mecanicos VALUES (2, '47565973E');

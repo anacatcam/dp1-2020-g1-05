@@ -23,6 +23,16 @@
             		</select>
     	        </div>
             </div>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Cliente responsable </label>
+            	<div class="col-sm-10">
+	            	<select id="clientes" name="clientes" multiple="false">
+	            		<c:forEach var = "cliente" items = "${clientes}">
+	            			<option value="${cliente.id}"><c:out value="${cliente.firstName} "></c:out></option>
+	            		</c:forEach>
+	            	</select>
+    	        </div>
+            </div>
             <label>Solucionada </label><input name="solucionada">
 
         </div>
