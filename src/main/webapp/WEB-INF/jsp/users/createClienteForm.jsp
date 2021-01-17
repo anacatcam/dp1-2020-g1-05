@@ -17,6 +17,7 @@
             <madaja:inputField label="Apellidos" name="lastName"/>
             <madaja:inputField label="Teléfono" name="telefono"/>
             <madaja:inputField label="Correo" name="email"/>
+            <input name="esConflictivo" type="hidden" value="No">
             <madaja:inputField label="Username" name="user.username"/>
             <madaja:inputField label="Password" name="user.password"/>
         </div>

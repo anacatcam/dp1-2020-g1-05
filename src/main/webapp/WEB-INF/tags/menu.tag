@@ -89,7 +89,7 @@
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm">Logout</a>
+													class="btn btn-danger btn-block btn-sm">Logout</a>
 											</p>
 										</div>
 									</div>
@@ -101,7 +101,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<p>
-												<a href="<c:url value="/reservas"/>" class="btn btn-primary btn-block">Mi perfil</a>
+												<a href="<c:url value="/miPerfil"/>" class="btn btn-primary btn-block">Mi perfil</a>
 											</p>
 										</div>
 									</div>

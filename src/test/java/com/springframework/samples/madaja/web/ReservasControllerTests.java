@@ -250,7 +250,7 @@ public class ReservasControllerTests {
 //		
 //	}
 	
-	
+
 	@WithMockUser(value = "spring")  //Se lo dejo a Manu que no entiendo el reservar{tipo} //NOTA DE MANU: no tengo cojones de sacarlo xdd
 	@Test
 	void testProcessReservarVehiculoErrors() throws Exception{

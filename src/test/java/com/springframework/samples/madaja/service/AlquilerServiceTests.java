@@ -169,6 +169,7 @@ public class AlquilerServiceTests {
 		envio.setPais("España");
 		envio.setProvincia("Sevilla");
 		envio.setHora(LocalTime.of(10, 0, 0));
+		envio.setFecha(LocalDate.of(2010, 9, 3));
 		envio.setMecanico(mecanico);
 		
 		
@@ -251,6 +252,23 @@ public class AlquilerServiceTests {
 		verify(alquilerRepository).findAll();
 		assertEquals(alquileresIt, alquilerService.findAllAlquiler());
 		
+	}
+	
+	@Test
+	void testSaveAlquiler() throws Exception{
+		this.alquilerService.saveAlquiler(alquiler);
+		
+		verify(alquilerRepository).save(alquiler);
+	}
+	
+	@Test
+	void findAlquilerByEnvio() throws Exception{
+		when(alquilerRepository.findByEnvio(anyInt())).thenReturn(alquiler);
+		
+		alquilerService.findAlquilerByEnvio(anyInt());
+		
+		verify(alquilerRepository).findByEnvio(anyInt());
+		assertEquals(alquiler,alquilerService.findAlquilerByEnvio(anyInt()));
 	}
 	
 }
