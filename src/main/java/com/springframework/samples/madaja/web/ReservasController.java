@@ -252,7 +252,7 @@ public class ReservasController {
 		}else {
 			
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(7));
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(6));
 			this.vehiculosService.saveVehiculo(vehiculo);
 			reservaService.saveReserva(reserva);
 		

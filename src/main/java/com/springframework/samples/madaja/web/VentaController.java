@@ -82,7 +82,7 @@ public class VentaController {
 			
 			//Obtener cliente logueado y vehiculo
 			Cliente cliente = this.clienteService.findClienteByUsername(username);
-			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(6));
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(5));
 			this.vehiculosService.saveVehiculo(vehiculo);
 			
 			//Crear venta

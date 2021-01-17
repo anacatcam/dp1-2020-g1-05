@@ -34,7 +34,7 @@ INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('664931
 --Clientes (con sus cuentas de usuario)
 INSERT INTO users(username,password,enabled) VALUES ('manuel','contraseña1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'manuel','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', 'Si', 'manuel');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', 'No', 'manuel');
 
 INSERT INTO users(username,password,enabled) VALUES ('daniel','contraseña2',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (9,'daniel','cliente');
@@ -70,10 +70,10 @@ INSERT INTO concesionarios_gestores VALUES (6, '88682022W');
 INSERT INTO disponible(id,name) VALUES (1, 'Alquiler');
 INSERT INTO disponible(id,name) VALUES (2, 'Venta');
 INSERT INTO disponible(id,name) VALUES (3, 'Alquiler o venta');
-INSERT INTO disponible(id,name) VALUES (4, 'No disponible');
-INSERT INTO disponible(id,name) VALUES (5, 'Alquilado');
-INSERT INTO disponible(id,name) VALUES (6, 'Vendido');
-INSERT INTO disponible(id,name) VALUES (7, 'Reservado');
+INSERT INTO disponible(id,name) VALUES (4, 'Alquilado');
+INSERT INTO disponible(id,name) VALUES (5, 'Vendido');
+INSERT INTO disponible(id,name) VALUES (6, 'Reservado');
+INSERT INTO disponible(id,name) VALUES (7, 'No disponible');
 
 
 INSERT INTO combustible(id,name) VALUES (1, 'Gasolina');

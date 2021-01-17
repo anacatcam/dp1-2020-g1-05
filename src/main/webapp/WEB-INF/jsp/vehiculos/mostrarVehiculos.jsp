@@ -77,7 +77,15 @@
 					</td>	
 					<sec:authorize access="hasAuthority('admin')">
 						<c:choose>
-                        	<c:when test="${vehiculo.disponible.id > 3}">
+							<c:when test="${vehiculo.disponible.id == 4}">
+                        		<td>
+								    <spring:url value="/vehiculos/{vehiculoId}/devolucion" var="altaUrl">
+								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
+								    </spring:url>
+								    <a href="${fn:escapeXml(altaUrl)}">Devuelto</a>
+								</td>
+                        	</c:when>
+                        	<c:when test="${vehiculo.disponible.id > 4}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
 								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>

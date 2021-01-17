@@ -49,4 +49,8 @@ public class ClienteService {
 	public Cliente findClienteByUsername(String username) {
 		return clienteRepository.findByUsername(username);
 	}
+
+	public Cliente findClienteById(Integer clienteId) {
+		return clienteRepository.findById(clienteId);
+	}
  }

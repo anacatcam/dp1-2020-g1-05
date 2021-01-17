@@ -128,7 +128,7 @@ public class AlquilerController {
 		}
 		else {
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(5));
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(4));
 			this.vehiculosService.saveVehiculo(vehiculo);
 			alquilerService.saveAlquiler(alquiler);
 

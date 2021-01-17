@@ -65,6 +65,12 @@ public class IncidenciaController {
 		return mecanicos;
 	}
 	
+	@ModelAttribute("clientes")
+	public Iterable<Cliente> clientes(){
+		Iterable<Cliente> clientes = clienteService.findAllClientes();
+		return clientes;
+	}
+	
 	@InitBinder("vehiculos")
 	public void initVehiculoBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -80,7 +86,8 @@ public class IncidenciaController {
 
 	@PostMapping(value = "/incidencia/new")
 	public String processCreationForm(Vehiculos vehiculo, @Valid Incidencia incidencia,
-			BindingResult result, ModelMap model,@RequestParam(name="mecanicos") Optional<String[]> mecanicos) {
+			BindingResult result, ModelMap model, @RequestParam(name="mecanicos") Optional<String[]> mecanicos,
+				@RequestParam(name="clientes") Optional<String[]> clientes) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
 			return VIEWS_INCIDENCIA_UPDATE_FORM;
@@ -89,21 +96,15 @@ public class IncidenciaController {
     		incidencia.setSolucionada(false); //la incidencia no está solucionada por defecto
 			vehiculo.addIncidencia(incidencia);
 			
-			//Obtener cliente para sumarle la incidencia
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String username;
-			
-			if(principal instanceof UserDetails) {
-				 username = ((UserDetails)principal).getUsername();
-			}else {
-				 username = principal.toString();
-			}
-			Cliente cliente = this.clienteService.findClienteByUsername(username);
-			cliente.addIncidencia(incidencia);
-			
-			//comprobación de si el cliente pasa a ser conflictivo
-			if(cliente.getIncidencias().size() == 5) {
-				cliente.setEsConflictivo("Si");
+			if(!clientes.isEmpty()) {
+				for(String clienteId : clientes.get()) {
+					Cliente cliente = clienteService.findClienteById(Integer.parseInt(clienteId));
+					cliente.addIncidencia(incidencia);
+					//comprobación de si el cliente pasa a ser conflictivo
+					if(cliente.getIncidencias().size() == 5) {
+						cliente.setEsConflictivo("Si");
+					}
+				}
 			}
 			
 			if(!mecanicos.isEmpty()) {
@@ -129,14 +130,16 @@ public class IncidenciaController {
 	
     @PostMapping(value = "/incidencia/{incidenciaId}/edit")
 	public String processUpdateForm(@Valid Incidencia incidencia, BindingResult result,
-			Vehiculos vehiculo,@PathVariable("incidenciaId") int incidenciaId, ModelMap model,@RequestParam(name="mecanicos") Optional<String[]> mecanicos) {
+			Vehiculos vehiculo,@PathVariable("incidenciaId") int incidenciaId, ModelMap model, 
+				@RequestParam(name="mecanicos") Optional<String[]> mecanicos, 
+				@RequestParam(name="clientes") Optional<String[]> clientes) {
 		if (result.hasErrors()) {
 			model.put("incidencia", incidencia);
 			return VIEWS_INCIDENCIA_UPDATE_FORM;
 		}
 		else {
 			Incidencia incidenciaToUpdate = this.incidenciaService.findIncidenciaById(incidenciaId);
-			BeanUtils.copyProperties(incidencia, incidenciaToUpdate, "id","vehiculos","mecanicos");                                                                                  
+			BeanUtils.copyProperties(incidencia, incidenciaToUpdate, "id","vehiculos","mecanicos", "cliente");                                                                                  
 			this.incidenciaService.saveIncidencia(incidenciaToUpdate);
 			List<Mecanico> mecanicosRemove = mecanicoService.findMecanicosByIncidencia(incidenciaToUpdate.getId());
 			if(!mecanicos.isEmpty()) {
@@ -152,6 +155,14 @@ public class IncidenciaController {
 					mecanicoService.saveMecanico(mecanico);
 				}
 			}
+			
+			if(!clientes.isEmpty()) {
+				for(String clienteId : clientes.get()) {
+					Cliente cliente = clienteService.findClienteById(Integer.parseInt(clienteId));
+					cliente.addIncidencia(incidencia);
+				}
+			}
+			
 			return "redirect:/vehiculos/{vehiculoId}";
 		}
 	}
