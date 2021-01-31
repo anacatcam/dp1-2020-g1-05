@@ -51,7 +51,7 @@
 	</table>
 	
 	<c:if test="${vehiculo.disponible.id eq 1}"> 
-		<spring:url value="/reservas/{vehiculoId}/reservar{tipo}" var="reservarUrl">
+		<spring:url value="/reservas/{vehiculoId}/reservar/{tipo}" var="reservarUrl">
 	        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 	        <spring:param name="tipo" value="Alquiler"/>
 	    </spring:url>
@@ -59,7 +59,7 @@
     </c:if>
     
     <c:if test="${vehiculo.disponible.id eq 2}">
-	    <spring:url value="/reservas/{vehiculoId}/reservar{tipo}" var="reservarUrl">
+	    <spring:url value="/reservas/{vehiculoId}/reservar/{tipo}" var="reservarUrl">
 	        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 	        <spring:param name="tipo" value="Compra"/>
 	    </spring:url>
@@ -67,12 +67,12 @@
     </c:if>
     
     <c:if test="${vehiculo.disponible.id eq 3}"> 
-		<spring:url value="/reservas/{vehiculoId}/reservar{tipo}" var="reservarUrl">
+		<spring:url value="/reservas/{vehiculoId}/reservar/{tipo}" var="reservarUrl">
 	        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 	        <spring:param name="tipo" value="Alquiler"/>
 	    </spring:url>
 	    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reserva de alquiler</a>
-	    <spring:url value="/reservas/{vehiculoId}/reservar{tipo}" var="reservarUrl">
+	    <spring:url value="/reservas/{vehiculoId}/reservar/{tipo}" var="reservarUrl">
 	        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 	        <spring:param name="tipo" value="Compra"/>
 	    </spring:url>

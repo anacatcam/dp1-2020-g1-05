@@ -190,7 +190,14 @@ public class VentaServiceTests {
 	}
 	
 	@Test
-	void testFindVentaByEnvio() throws Exception{
+	void testSaveVenta() throws Exception{
+		this.ventaService.saveVenta(venta);
+		
+		verify(ventaRepository).save(venta);
+  }
+  
+  @Test
+  void testFindVentaByEnvio() throws Exception{
 		when(ventaRepository.findByEnvio(anyInt())).thenReturn(venta);
 		
 		ventaService.findVentaByEnvio(anyInt());

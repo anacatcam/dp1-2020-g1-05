@@ -16,19 +16,21 @@
             <div class="form-group">
             	<label class="col-sm-2 control-label">Mecánico </label>
             	<div class="col-sm-10">
-            	<select id="mecanicos" name="mecanicos" multiple="true">
-            		<c:forEach var = "mecanico" items = "${mecanicos}">
-            			<option value="${mecanico.dni}"><c:out value="${mecanico.nombre} "></c:out></option>
-            		</c:forEach>
-            	
-            	</select>
-	            	<form:select multiple="true" path="mecanicos">
+	            	<select id="mecanicos" name="mecanicos" multiple="true">
 	            		<c:forEach var = "mecanico" items = "${mecanicos}">
-							<form:option value="${mecanico}"><c:out value="${mecanico.nombre} "></c:out><c:out value="${mecanico.apellidos}"></c:out></form:option>  
-            			</c:forEach>
-            			<form:options items="${mecanicos}"></form:options>
-	    	        </form:select>
-	    	        <form:select path="mecanicos" items="${mecanicos }"></form:select>
+	            			<option value="${mecanico.dni}"><c:out value="${mecanico.nombre} "></c:out></option>
+	            		</c:forEach>
+	            	</select>
+    	        </div>
+            </div>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Cliente responsable </label>
+            	<div class="col-sm-10">
+	            	<select id="clientes" name="clientes" multiple="false">
+	            		<c:forEach var = "cliente" items = "${clientes}">
+	            			<option value="${cliente.id}"><c:out value="${cliente.firstName} "></c:out></option>
+	            		</c:forEach>
+	            	</select>
     	        </div>
             </div>
             <input name="solucionada" type="hidden" value="false">

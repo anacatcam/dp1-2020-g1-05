@@ -1,15 +1,17 @@
 package com.springframework.samples.madaja.web;
 
+
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,10 +43,11 @@ import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
 
 @WebMvcTest(controllers=VentaController.class,
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,  classes = WebSecurityConfigurer.class),
+
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 public class VentaControllerTests {
-
+  
 	@Autowired
 	private VentaController ventaController;
 	
@@ -59,23 +62,36 @@ public class VentaControllerTests {
 	
 	@Autowired
 	private MockMvc mockMvc;
-	
+	 
 	private Venta venta;
+		
 	private Cliente cliente;
+		
 	private User usuario;
-	private Envio envio;
+		
 	private Mecanico mecanico;
+		
 	private Reserva reserva;
+		
 	private Vehiculos vehiculo;
+		
 	private Cambio cambio;
+		
 	private Combustible combustible;
+		
 	private Concesionario concesionario;
+		
 	private Disponible disponible;
+		
 	private Oferta oferta;
+		
 	private SeguroVehiculo seguroVehiculo;
+  
+  private Envio envio;
 	
 	@BeforeEach
-	void setUp() {		
+	 void setUp() {
+     
 		seguroVehiculo = new SeguroVehiculo();
 		seguroVehiculo.setId(1);
 		seguroVehiculo.setNumeroPoliza("32151");
@@ -84,18 +100,18 @@ public class VentaControllerTests {
 		seguroVehiculo.setCobertura("A todo riesgo");
 		seguroVehiculo.setFechaInicio(LocalDate.of(2020, 9, 07));
 		seguroVehiculo.setFechaFin(LocalDate.of(2021, 9, 07));
-		
+     
 		oferta = new Oferta();
 		oferta.setId(1);
 		oferta.setName("Oferta 1");
 		oferta.setDescuento(22.0);
 		oferta.setFechaLimite(LocalDate.of(2020, 6, 12));
 		oferta.setHoraLimite(LocalTime.of(2, 3, 4));
-		
+
 		disponible = new Disponible();
 		disponible.setId(1);
 		disponible.setName("venta");
-		
+
 		concesionario = new Concesionario();
 		concesionario.setId(1);
 		concesionario.setCodigoPostal("41063");
@@ -105,15 +121,15 @@ public class VentaControllerTests {
 		concesionario.setProvincia("Sevilla");
 		concesionario.setPais("España");
 		concesionario.setTelefono("608555102");
-		
+
 		combustible = new Combustible();
 		combustible.setId(1);
 		combustible.setName("diesel");
-		
+			
 		cambio = new Cambio();
 		cambio.setId(1);
 		cambio.setName("automático");
-		
+
 		vehiculo = new Vehiculos();
 		vehiculo.setId(1);
 		vehiculo.setCaracteristicas("Espacioso / Amplio");
@@ -133,14 +149,14 @@ public class VentaControllerTests {
 		vehiculo.setDisponible(disponible);
 		vehiculo.setOferta(oferta);
 		vehiculo.setSeguroVehiculo(seguroVehiculo);
-		
+
 		mecanico = new Mecanico();
 		mecanico.setDni("47565973E");
 		mecanico.setApellidos("Molinas Trujillo");
 		mecanico.setEmail("alvmoltrujillo@gmail.com");
 		mecanico.setNombre("Álvaro");
 		mecanico.setTelefono("625496828");
-		mecanico.setSueldo(1730.0);	
+		mecanico.setSueldo(1730.0);
 
 		envio = new Envio();
 		envio.setId(1);
@@ -152,12 +168,12 @@ public class VentaControllerTests {
 		envio.setHora(LocalTime.of(10, 0, 0));
 		envio.setFecha(LocalDate.of(2010, 9, 3));
 		envio.setMecanico(mecanico);
-		
+     
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);
 		usuario.setPassword("contraseña3");
-		
+     
 		cliente = new Cliente();
 		cliente.setId(1);
 		cliente.setFirstName("Alejandro");
@@ -167,7 +183,7 @@ public class VentaControllerTests {
 		cliente.setEsConflictivo("No lo es");
 		cliente.setTelefono("637666517");
 		cliente.setUser(usuario);
-		
+     
 		reserva = new Reserva();
 		reserva.setId(1);
 		reserva.setFechaGastos(LocalDate.of(2016, 9, 3));
@@ -176,10 +192,11 @@ public class VentaControllerTests {
 		
 		venta = new Venta();
 		venta.setId(1);
-		venta.setCliente(cliente);
 		venta.setEnvio(envio);
-		venta.setReserva(reserva);
+		venta.setFecha(LocalDate.of(2020, 12, 21));
 		venta.setVehiculo(vehiculo);
+		venta.setCliente(cliente);
+		venta.setReserva(reserva);
 	}
 	
 	@WithMockUser(value = "Spring")
@@ -191,8 +208,7 @@ public class VentaControllerTests {
 		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
 		
 		mockMvc.perform(get("/MisVentas")).andExpect(status().isOk()).andExpect(model().attributeExists("ventas"))
-		.andExpect(model().attribute("ventas", ventas))
+		.andExpect(model().attribute("ventas",ventas))
 		.andExpect(view().name("/venta/mostrarMisVentas"));
 	}
-
 }

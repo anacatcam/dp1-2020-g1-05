@@ -58,7 +58,7 @@ public class AlquilerControllerTests {
 	private ClienteService clienteService;
 	
 	@MockBean
-	private VehiculosService vehiculoService;
+	private VehiculosService vehiculosService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -215,7 +215,7 @@ public class AlquilerControllerTests {
 		alquiler.setVehiculo(vehiculo);
 	 }
 	 
-	 @WithMockUser(value = "Spring")
+	 @WithMockUser(value = "spring")
 	 @Test
 	 void testShowMisAlquileres() throws Exception{
 		 List<Alquiler> alquileres = new ArrayList<Alquiler>();

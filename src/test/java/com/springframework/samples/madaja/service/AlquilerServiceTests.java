@@ -255,6 +255,13 @@ public class AlquilerServiceTests {
 	}
 	
 	@Test
+	void testSaveAlquiler() throws Exception{
+		this.alquilerService.saveAlquiler(alquiler);
+		
+		verify(alquilerRepository).save(alquiler);
+	}
+	
+	@Test
 	void findAlquilerByEnvio() throws Exception{
 		when(alquilerRepository.findByEnvio(anyInt())).thenReturn(alquiler);
 		
