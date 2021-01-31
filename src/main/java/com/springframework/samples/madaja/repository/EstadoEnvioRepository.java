@@ -7,6 +7,5 @@ import com.springframework.samples.madaja.model.EstadoEnvio;
 
 public interface EstadoEnvioRepository extends Repository<EstadoEnvio,Integer>{
 
-	void save(EstadoEnvio estado) throws DataAccessException;
 	Iterable<EstadoEnvio> findAll() throws DataAccessException;
 }

@@ -188,4 +188,14 @@ public class VentaServiceTests {
 		verify(ventaRepository).findByDniCliente(anyString());
 		assertEquals(ventas, ventaService.findVentasByDni(anyString()));
 	}
+	
+	@Test
+	void testFindVentaByEnvio() throws Exception{
+		when(ventaRepository.findByEnvio(anyInt())).thenReturn(venta);
+		
+		ventaService.findVentaByEnvio(anyInt());
+		
+		verify(ventaRepository).findByEnvio(anyInt());
+		assertEquals(venta,ventaService.findVentaByEnvio(anyInt()));
+	}
 }

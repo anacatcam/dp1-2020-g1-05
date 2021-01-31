@@ -7,10 +7,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +23,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
-import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Combustible;
@@ -34,65 +31,51 @@ import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Envio;
 import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.model.Oferta;
-import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.Reserva;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.service.AlquilerService;
+import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.springframework.samples.madaja.service.VentaService;
 
-@WebMvcTest(controllers=AlquilerController.class,
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
+@WebMvcTest(controllers=VentaController.class,
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,  classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
-public class AlquilerControllerTests {
+public class VentaControllerTests {
 
-    @Autowired
-	private AlquilerController alquilerController;
-	 
+	@Autowired
+	private VentaController ventaController;
+	
 	@MockBean
-	private AlquilerService alquilerService;
-	 
+	private VentaService ventaService;
+	
 	@MockBean
 	private ClienteService clienteService;
 	
 	@MockBean
-	private VehiculosService vehiculoService;
+	private VehiculosService vehiculosService;
 	
 	@Autowired
 	private MockMvc mockMvc;
-	 
-	private Alquiler alquiler;
-		
+	
+	private Venta venta;
 	private Cliente cliente;
-		
 	private User usuario;
-		
 	private Envio envio;
-		
 	private Mecanico mecanico;
-		
-	private Recogida recogida;
-		
 	private Reserva reserva;
-		
 	private Vehiculos vehiculo;
-		
 	private Cambio cambio;
-		
 	private Combustible combustible;
-		
 	private Concesionario concesionario;
-		
 	private Disponible disponible;
-		
 	private Oferta oferta;
-		
 	private SeguroVehiculo seguroVehiculo;
-	 
-	 @BeforeEach
-	 void setUp() {
+	
+	@BeforeEach
+	void setUp() {		
 		seguroVehiculo = new SeguroVehiculo();
 		seguroVehiculo.setId(1);
 		seguroVehiculo.setNumeroPoliza("32151");
@@ -101,18 +84,18 @@ public class AlquilerControllerTests {
 		seguroVehiculo.setCobertura("A todo riesgo");
 		seguroVehiculo.setFechaInicio(LocalDate.of(2020, 9, 07));
 		seguroVehiculo.setFechaFin(LocalDate.of(2021, 9, 07));
-			
+		
 		oferta = new Oferta();
 		oferta.setId(1);
 		oferta.setName("Oferta 1");
 		oferta.setDescuento(22.0);
 		oferta.setFechaLimite(LocalDate.of(2020, 6, 12));
 		oferta.setHoraLimite(LocalTime.of(2, 3, 4));
-			
+		
 		disponible = new Disponible();
 		disponible.setId(1);
 		disponible.setName("venta");
-			
+		
 		concesionario = new Concesionario();
 		concesionario.setId(1);
 		concesionario.setCodigoPostal("41063");
@@ -122,15 +105,15 @@ public class AlquilerControllerTests {
 		concesionario.setProvincia("Sevilla");
 		concesionario.setPais("España");
 		concesionario.setTelefono("608555102");
-			
+		
 		combustible = new Combustible();
 		combustible.setId(1);
 		combustible.setName("diesel");
-			
+		
 		cambio = new Cambio();
 		cambio.setId(1);
 		cambio.setName("automático");
-			
+		
 		vehiculo = new Vehiculos();
 		vehiculo.setId(1);
 		vehiculo.setCaracteristicas("Espacioso / Amplio");
@@ -150,26 +133,15 @@ public class AlquilerControllerTests {
 		vehiculo.setDisponible(disponible);
 		vehiculo.setOferta(oferta);
 		vehiculo.setSeguroVehiculo(seguroVehiculo);
-			
-			
+		
 		mecanico = new Mecanico();
 		mecanico.setDni("47565973E");
 		mecanico.setApellidos("Molinas Trujillo");
 		mecanico.setEmail("alvmoltrujillo@gmail.com");
 		mecanico.setNombre("Álvaro");
 		mecanico.setTelefono("625496828");
-		mecanico.setSueldo(1730.0);		
-			
-		recogida = new Recogida();
-		recogida.setId(1);
-		recogida.setCodigoPostal("41005");
-		recogida.setDireccion("C/Aznalcazar");
-		recogida.setLocalidad("Sevilla");
-		recogida.setPais("España");
-		recogida.setProvincia("Sevilla");
-		recogida.setHora(LocalTime.of(12, 0, 0));
-		recogida.setMecanico(mecanico);
-			
+		mecanico.setSueldo(1730.0);	
+
 		envio = new Envio();
 		envio.setId(1);
 		envio.setCodigoPostal("41005");
@@ -178,14 +150,14 @@ public class AlquilerControllerTests {
 		envio.setPais("España");
 		envio.setProvincia("Sevilla");
 		envio.setHora(LocalTime.of(10, 0, 0));
+		envio.setFecha(LocalDate.of(2010, 9, 3));
 		envio.setMecanico(mecanico);
-			
-			
+		
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);
 		usuario.setPassword("contraseña3");
-			
+		
 		cliente = new Cliente();
 		cliente.setId(1);
 		cliente.setFirstName("Alejandro");
@@ -195,36 +167,32 @@ public class AlquilerControllerTests {
 		cliente.setEsConflictivo("No lo es");
 		cliente.setTelefono("637666517");
 		cliente.setUser(usuario);
-			
+		
 		reserva = new Reserva();
 		reserva.setId(1);
 		reserva.setFechaGastos(LocalDate.of(2016, 9, 3));
 		reserva.setFianza(317.8);
 		reserva.setCliente(cliente);
-			
-		alquiler = new Alquiler();
-		alquiler.setId(1);
-		alquiler.setFechaInicio(LocalDate.of(2020, 12, 21));
-		alquiler.setFechaFin(LocalDate.of(2021, 3, 2));
-		alquiler.setLimiteKM(20000);
-		alquiler.setDepLleno(false);
-		alquiler.setCliente(cliente);
-		alquiler.setEnvio(envio);
-		alquiler.setRecogida(recogida);
-		alquiler.setReserva(reserva);
-		alquiler.setVehiculo(vehiculo);
-	 }
-	 
-	 @WithMockUser(value = "Spring")
-	 @Test
-	 void testShowMisAlquileres() throws Exception{
-		 List<Alquiler> alquileres = new ArrayList<Alquiler>();
-		 alquileres.add(alquiler);
-		 given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
-		 given(alquilerService.findAlquilerByDni(anyString())).willReturn(alquileres);
-		 
-		 mockMvc.perform(get("/MisAlquileres")).andExpect(status().isOk()).andExpect(model().attributeExists("alquileres"))
-		 .andExpect(model().attribute("alquileres", alquileres))
-		 .andExpect(view().name("/alquiler/mostrarMisAlquileres"));
-	 }
+		
+		venta = new Venta();
+		venta.setId(1);
+		venta.setCliente(cliente);
+		venta.setEnvio(envio);
+		venta.setReserva(reserva);
+		venta.setVehiculo(vehiculo);
+	}
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testShowMisVentas() throws Exception{
+		List<Venta> ventas = new ArrayList<Venta>();
+		ventas.add(venta);
+		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
+		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
+		
+		mockMvc.perform(get("/MisVentas")).andExpect(status().isOk()).andExpect(model().attributeExists("ventas"))
+		.andExpect(model().attribute("ventas", ventas))
+		.andExpect(view().name("/venta/mostrarMisVentas"));
+	}
+
 }
