@@ -107,7 +107,8 @@ public class EnvioController {
 		}
 		else {
 			Envio envioUpdate = this.envioService.findEnvioById(id);
-			BeanUtils.copyProperties(envio, envioUpdate, "id");
+			envioUpdate.setEstadoEnvio(envio.getEstadoEnvio());
+
 			this.envioService.saveEnvio(envioUpdate);
 			if(alq != null) {
 				return "redirect:/concesionario/{concesionarioId}/EnviosAlquileres";
