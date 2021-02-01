@@ -52,6 +52,7 @@ INSERT INTO estados_envio VALUES (2,'Enviado');
 INSERT INTO estados_envio VALUES (3,'Cancelado');
 INSERT INTO estados_envio VALUES (4,'Entregado');
 
+
 INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (1, 'Systasa','systasaAuto@gmail.com', '953551391', 'Sevilla', 'Lora del Río', 'Calle Guadaldora', '41440', 'España');
 INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (2, 'Iberica Formula','iberformula@gmail.com', '956959672', 'Cádiz', 'Ubrique', 'Calle Alameda del Cura', '11600', 'España');
 INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (3, 'Veyser auto','veyserauto@gmail.com', '959203528', 'Huelva', 'Punta Umbría', 'Calle Amura', '21100', 'España');
@@ -91,11 +92,12 @@ INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_i
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (6, '7953871640149', 388.70, 0, 'Seguros a terceros', '2020-09-07', '2021-11-07', 1);
 INSERT INTO seguro_vehiculo(id,numero_poliza,precio,franquicia,cobertura,fecha_inicio,fecha_fin,compania_id) VALUES (7, '6791402232262', 420.00, 300, 'A todo riesgo con franquicia', '2020-08-07', '2021-10-07', 2);
 
-INSERT INTO oferta VALUES (1, 'Oferta 1', 32.5, '2020-12-07', '00:00:00');
-INSERT INTO oferta VALUES (2, 'Oferta 2', 61.0, '2021-05-30', '00:00:00');
-INSERT INTO oferta VALUES (3, 'Oferta 3', 70.0, '2021-01-24', '00:00:00');
-INSERT INTO oferta VALUES (4, 'Oferta 4', 55.0, '2021-03-16', '00:00:00');
-INSERT INTO oferta VALUES (5, 'Oferta 5', 48.85, '2021-02-08', '00:00:00');
+INSERT INTO oferta(id,name,descuento,fecha_limite,hora_limite)VALUES (1, 'Oferta 1', 32.5, '2020-12-07', '00:00:00');
+INSERT INTO oferta(id,name,descuento,fecha_limite,hora_limite)VALUES (2, 'Oferta 2', 61.0, '2021-05-30', '00:00:00');
+INSERT INTO oferta(id,name,descuento,fecha_limite,hora_limite)VALUES (3, 'Oferta 3', 70.0, '2021-01-24', '00:00:00');
+INSERT INTO oferta(id,name,descuento,fecha_limite,hora_limite)VALUES (4, 'Oferta 4', 55.0, '2021-03-16', '00:00:00');
+INSERT INTO oferta(id,name,descuento,fecha_limite,hora_limite)VALUES (5, 'Oferta 5', 48.85, '2021-02-08', '00:00:00');
+
 
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (1, '2484 MPW', 332, 11364, 'Opel', 'Corsa', 4, 5, 2, 100, 10000, 'Seguridad en caso de accidente', 'Bien a pesar de los kilómetros recorridos', 1, 1, 2, 1);
 INSERT INTO vehiculos(id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (2, '2341 EXH', 483, 21120, 'NISSAN', 'Qascai', 4, 5, 2, 300, 5000, 'Ahorro de combustible', 'Nuevo', 1, 2, 3, 2);

@@ -87,7 +87,87 @@ public class OfertaControllerAPI {
 				}
 			}
 			return new ResponseEntity<Oferta>(HttpStatus.OK);
-		}
-		 
+		} 
 	}
+	@GetMapping(value = "/oferta/{id}")
+	public ResponseEntity<Oferta> detailsOferta(@PathVariable int id) {
+		Oferta oferta = ofertaService.findOfertaById(id);
+		if(oferta == null) {
+			return new ResponseEntity<Oferta>(oferta,HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<Oferta>(oferta,HttpStatus.OK);
+		}
+	}
+	@RequestMapping(method = RequestMethod.PUT, value= {"/oferta/{id}", "/oferta/{id}/{ids}"})
+	public ResponseEntity<?> updateOferta(@Valid @RequestBody Oferta oferta,Errors errors, @PathVariable("id") int id, @PathVariable(name = "ids", required = false)  Optional<List<Integer>> ids) {
+		List<APIerror> errores = new ArrayList<APIerror>();
+		System.out.println("AQUI");
+		System.out.println(oferta.getDescuento());
+		if(errors.hasErrors()) {
+			if(oferta.getName() == null || oferta.getName().isEmpty()) {
+				APIerror error = new APIerror();
+				error.setField("name");
+				error.setMsg("El nombre no puede estar vacío");
+				errores.add(error);
+			}
+			if(oferta.getDescuento() == null) {
+				APIerror error = new APIerror();
+				error.setField("descuento");
+				error.setMsg("El descuento no puede estar vacío");
+				errores.add(error);
+			}
+			if(oferta.getFechaLimite() == null) {
+				APIerror error = new APIerror();
+				error.setField("fechaLimite");
+				error.setMsg("La fecha límite no puede estar vacía");
+				errores.add(error);
+			}
+			if(oferta.getHoraLimite() == null) {
+				APIerror error = new APIerror();
+				error.setField("horaLimite");
+				error.setMsg("La hora límite no puede estar vacía");
+				errores.add(error);
+			}
+			return ResponseEntity.badRequest().body(errores);
+		}else {
+			if(!ids.isEmpty()) {
+				List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(id).stream().collect(Collectors.toList());
+				for(Vehiculos vehiculo: vehiculosOld) {
+					vehiculo.setOferta(null);
+				}
+				Oferta ofertaUpdate = this.ofertaService.findOfertaById(id);
+				BeanUtils.copyProperties(oferta, ofertaUpdate,"id");
+				this.ofertaService.saveOferta(ofertaUpdate);
+				for(int id2 : ids.get()) {
+					Vehiculos vehiculo = vehiculosService.findVehiculoById(id2);
+					vehiculo.setOferta(ofertaUpdate);
+					vehiculosService.saveVehiculo(vehiculo);
+				}
+			}else {
+				Oferta ofertaUpdate = this.ofertaService.findOfertaById(id);
+				BeanUtils.copyProperties(oferta, ofertaUpdate,"id");
+				this.ofertaService.saveOferta(ofertaUpdate);
+			}
+			return new ResponseEntity<Oferta>(HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "/delete/{id}")
+	public ResponseEntity<Oferta> delete(@PathVariable Integer id){
+		Oferta oferta = this.ofertaService.findOfertaById(id);
+		if(oferta != null) {
+			if(!oferta.getVehiculos().isEmpty()) {
+				List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(id).stream().collect(Collectors.toList());
+				for(Vehiculos vehiculo: vehiculosOld) {
+					vehiculo.setOferta(null);
+				}
+			}
+			this.ofertaService.deleteById(id);
+			return new ResponseEntity<Oferta>(oferta,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Oferta>(oferta,HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+	}
+
+	
 }
