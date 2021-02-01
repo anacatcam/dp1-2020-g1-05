@@ -10,8 +10,11 @@ $(function(){
 			buildTable(response)
 		},
 		error : function(){
+			alert("Se ha producido un error")
 		}
 	});
+		
+
 });
 
 function buildTable(data){
@@ -25,21 +28,37 @@ function buildTable(data){
 								<dl>
 						
 
-						<a href="/oferta/${data[i].id}">Detalles</a>
+						<a href="/ofertaAPI/${data[i].id}">Detalles</a>
 						<dt>
 						
-						<a href="/oferta/${data[i].id}/edit">Editar oferta</a>
+						<a href="/ofertaAPI/${data[i].id}/edit">Editar oferta</a>
 						</dt>
 						<dt>
-						<a href="/oferta/${data[i].id}/delete">Eliminar oferta</a>
+						<button onclick="deleteOferta('${data[i].id}')">Eliminar oferta</a>
 						</dt>
 						</dl>
 							</td>
 					  </tr>`
 			table.innerHTML += row
 
-
 		}
-	}
+}
 
+function deleteOferta(id){
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost:8090/api/v1/ofertas/delete/' + id,
+		dataType : "json",
+		contentType: "application/json",
+		success: function(data){
+		
+			location.reload();
+		},
+		error: function(){
+			alert("Se ha producido un eror")
+		}
+	});
+}
+	
+	
 
