@@ -1,20 +1,15 @@
 package com.springframework.samples.madaja.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,9 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Service;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cambio;
@@ -33,56 +25,49 @@ import com.springframework.samples.madaja.model.Combustible;
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Envio;
+import com.springframework.samples.madaja.model.EstadoEnvio;
 import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.Reserva;
-import com.springframework.samples.madaja.model.Seguro;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.repository.AlquilerRepository;
+import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.repository.EnvioRepository;
+import com.springframework.samples.madaja.repository.EstadoEnvioRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class AlquilerServiceTests {
-
+public class EnvioServiceTests {
+	
 	@Mock
-	private AlquilerRepository alquilerRepository;
+	private EnvioRepository envioRepository;
+	@Mock
+	private EstadoEnvioRepository estadoEnvioRepository;
 	
 	@Autowired
-	protected AlquilerService alquilerService;
-	
-	private Alquiler alquiler;
-	
-	private Cliente cliente;
-	
-	private User usuario;
+	protected EnvioService envioService;
 	
 	private Envio envio;
-	
 	private Mecanico mecanico;
-	
-	private Recogida recogida;
-	
+	private Alquiler alquiler;
+	private Cliente cliente;
+	private User usuario;
 	private Reserva reserva;
-	
+	private Recogida recogida;
 	private Vehiculos vehiculo;
-	
 	private Cambio cambio;
-	
 	private Combustible combustible;
-	
-	private Concesionario concesionario;
-	
+	private Concesionario concesionario;	
 	private Disponible disponible;
-	
 	private Oferta oferta;
-	
+	private Venta venta;
+	private EstadoEnvio estadoEnvio;
 	private SeguroVehiculo seguroVehiculo;
 	
 	@BeforeEach
 	void setUp() {
-		alquilerService = new AlquilerService(alquilerRepository);
+		envioService = new EnvioService(envioRepository, estadoEnvioRepository);
 		
 		seguroVehiculo = new SeguroVehiculo();
 		seguroVehiculo.setId(1);
@@ -141,15 +126,13 @@ public class AlquilerServiceTests {
 		vehiculo.setDisponible(disponible);
 		vehiculo.setOferta(oferta);
 		vehiculo.setSeguroVehiculo(seguroVehiculo);
-		
-		
 		mecanico = new Mecanico();
 		mecanico.setDni("47565973E");
 		mecanico.setApellidos("Molinas Trujillo");
 		mecanico.setEmail("alvmoltrujillo@gmail.com");
 		mecanico.setNombre("Álvaro");
 		mecanico.setTelefono("625496828");
-		mecanico.setSueldo(1730.0);		
+		mecanico.setSueldo(1730.0);
 		
 		recogida = new Recogida();
 		recogida.setId(1);
@@ -160,18 +143,6 @@ public class AlquilerServiceTests {
 		recogida.setProvincia("Sevilla");
 		recogida.setHora(LocalTime.of(12, 0, 0));
 		recogida.setMecanico(mecanico);
-		
-		envio = new Envio();
-		envio.setId(1);
-		envio.setCodigoPostal("41005");
-		envio.setDireccion("C/Aznalcazar");
-		envio.setLocalidad("Sevilla");
-		envio.setPais("España");
-		envio.setProvincia("Sevilla");
-		envio.setHora(LocalTime.of(10, 0, 0));
-		envio.setFecha(LocalDate.of(2010, 9, 3));
-		envio.setMecanico(mecanico);
-		
 		
 		usuario = new User();
 		usuario.setUsername("alejandro");
@@ -201,74 +172,89 @@ public class AlquilerServiceTests {
 		alquiler.setLimiteKM(20000);
 		alquiler.setDepLleno(false);
 		alquiler.setCliente(cliente);
-		alquiler.setEnvio(envio);
+//		alquiler.setEnvio(envio);
 		alquiler.setRecogida(recogida);
 		alquiler.setReserva(reserva);
 		alquiler.setVehiculo(vehiculo);
+		
+		venta = new Venta();
+		venta.setId(1);
+		venta.setCliente(cliente);
+//		venta.setEnvio(envio);
+		venta.setReserva(reserva);
+		venta.setVehiculo(vehiculo);
+		
+		estadoEnvio = new EstadoEnvio();
+		estadoEnvio.setId(1);
+		estadoEnvio.setName("Pendiente");
+		
+		envio = new Envio();
+		envio.setId(1);
+		envio.setCodigoPostal("41005");
+		envio.setDireccion("C/Aznalcazar");
+		envio.setLocalidad("Sevilla");
+		envio.setPais("España");
+		envio.setProvincia("Sevilla");
+		envio.setHora(LocalTime.of(10, 0, 0));
+		envio.setFecha(LocalDate.of(2010, 9, 3));
+		envio.setMecanico(mecanico);
+		envio.setAlquiler(alquiler);
+		envio.setVenta(venta);
+		envio.setEstadoEnvio(estadoEnvio);
+	}
+	
+	@Test
+	void testFindEnvioById() throws Exception{
+		when(envioRepository.findById(anyInt())).thenReturn(envio);
+		
+		envioService.findEnvioById(anyInt());
+		
+		verify(envioRepository).findById(anyInt());
+		assertEquals(envio,envioService.findEnvioById(anyInt()));
+	}
+	
+	@Test
+	void testFindEnvioAlqByConcesionario() throws Exception{
+		List<Envio> envios = new ArrayList<>();
+		envios.add(envio);
+		when(envioRepository.findByConcesionarioAlq(anyInt())).thenReturn(envios);
+		
+		envioService.findEnvioAlqByConcesionario(anyInt());
+		
+		verify(envioRepository).findByConcesionarioAlq(anyInt());
+		assertEquals(envios,envioService.findEnvioAlqByConcesionario(anyInt()));
+	}
+	
+	@Test
+	void testFindEnvioVentByConcesionario() throws Exception{
+		List<Envio> envios = new ArrayList<>();
+		envios.add(envio);
+		when(envioRepository.findByConcesionarioVent(anyInt())).thenReturn(envios);
+
+		envioService.findEnvioVentByConcesionario(anyInt());
+		
+		verify(envioRepository).findByConcesionarioVent(anyInt());
+		assertEquals(envios,envioService.findEnvioVentByConcesionario(anyInt()));
+	}
+	
+	@Test
+	void testFindAllEstados() throws Exception{
+		List<EstadoEnvio> estados = new ArrayList<>();
+		estados.add(estadoEnvio);
+		Iterable<EstadoEnvio> estadosIt = estados;
+		when(estadoEnvioRepository.findAll()).thenReturn(estadosIt);
+		
+		envioService.findAllEstados();
+		
+		verify(estadoEnvioRepository).findAll();
+		assertEquals(estadosIt,envioService.findAllEstados());
 	}
 	
 	
 	@Test
-	void testFindAlquilerById() throws Exception{
-		when(alquilerRepository.findById(anyInt())).thenReturn(alquiler);
+	void testSaveEnvio() throws Exception{ 
 		
-		alquilerService.findAlquilerById(anyInt());
-		
-		verify(alquilerRepository).findById(anyInt());
-		assertEquals(alquiler, alquilerService.findAlquilerById(anyInt()));
+		envioService.saveEnvio(envio);
+		verify(envioRepository).save(envio);
 	}
-	
-	@Test
-	void testFindAlquilerByDni() throws Exception{
-		List<Alquiler> alquileres = new ArrayList<Alquiler>();
-		alquileres.add(alquiler);
-		when(alquilerRepository.findByDniCliente(anyString())).thenReturn(alquileres);
-		
-		alquilerService.findAlquilerByDni(anyString());
-		
-		verify(alquilerRepository).findByDniCliente(anyString());
-		assertEquals(alquileres, alquilerService.findAlquilerByDni(anyString()));
-	} 
-	
-	@Test
-	void testFindAlquilerConcretoCliente() throws Exception{
-		when(alquilerRepository.findAlquilerConcretoCliente(anyString(), anyString())).thenReturn(alquiler);
-		
-		alquilerService.findAlquilerConcretoCliente(anyString(), anyString());
-		
-		verify(alquilerRepository).findAlquilerConcretoCliente(anyString(), anyString());
-		assertEquals(alquiler, alquilerService.findAlquilerConcretoCliente(anyString(), anyString()));
-	}
-	
-	@Test
-	void testFindAllAlquiler() throws Exception{
-		List<Alquiler> alquileres = new ArrayList<Alquiler>();
-		alquileres.add(alquiler);
-		Iterable<Alquiler> alquileresIt = alquileres;
-		when(alquilerRepository.findAll()).thenReturn(alquileresIt);
-		
-		alquilerService.findAllAlquiler();
-		
-		verify(alquilerRepository).findAll();
-		assertEquals(alquileresIt, alquilerService.findAllAlquiler());
-		
-	}
-	
-	@Test
-	void testSaveAlquiler() throws Exception{
-		this.alquilerService.saveAlquiler(alquiler);
-		
-		verify(alquilerRepository).save(alquiler);
-	}
-	
-	@Test
-	void findAlquilerByEnvio() throws Exception{
-		when(alquilerRepository.findByEnvio(anyInt())).thenReturn(alquiler);
-		
-		alquilerService.findAlquilerByEnvio(anyInt());
-		
-		verify(alquilerRepository).findByEnvio(anyInt());
-		assertEquals(alquiler,alquilerService.findAlquilerByEnvio(anyInt()));
-	}
-	
 }

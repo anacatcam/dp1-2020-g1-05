@@ -182,61 +182,61 @@
 		    </spring:url>
 		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Comprar</a>
 	    </c:if>
-	    <spring:url value="/reservas/{vehiculoId}/nuevaReserva" var="reservarUrl">
+	    <c:if test="${vehiculos.disponible.id < 4}"> 
+		    <spring:url value="/reservas/{vehiculoId}/nuevaReserva" var="reservarUrl">
+		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reservar</a>
+		</c:if>
+    </sec:authorize>
+    <sec:authorize access="hasAuthority('admin')">
+	    <br/>
+	    <br/>
+	    <br/>
+	    <h2>Incidencias</h2>
+	    
+	    <table class="table table-striped">
+	    	<c:forEach var="incidencia" items="${vehiculos.incidencias}">
+	    		<tr>
+	                <td valign="top">
+	                    <dl class="dl-horizontal">
+	                        <dt>Descripción</dt>
+	                        <dd><c:out value="${incidencia.descripcion}"/></dd>
+	                        <dt>Mecánico</dt>
+	                        <dd>
+	             				<c:forEach var="mecanico" items="${incidencia.mecanicos}">
+	                        		<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
+	                        	</c:forEach>
+	                        </dd>
+	                        <dt>Solucionada</dt>
+	                        <dd>
+	                        	<c:choose>
+	                        		<c:when test="${incidencia.solucionada}">
+	                        			Sí
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			No
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </dd>
+	                        <dt>Cliente responsable</dt>
+	                        <dd><c:out value="${incidencia.cliente.firstName}"/>&nbsp;<c:out value="${incidencia.cliente.lastName}"/>, <c:out value="${incidencia.cliente.dni}"/></dd>
+	                        <dt>
+	                        	<spring:url value="/vehiculos/{vehiculoId}/incidencia/{incidenciaId}/edit" var="incidenciaUrl">
+		                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		                            <spring:param name="incidenciaId" value="${incidencia.id}"/>
+	                            </spring:url>
+	                            <a href="${fn:escapeXml(incidenciaUrl)}">Editar incidencia</a>
+	                        </dt>
+	                    </dl>
+	                </td>
+	    	</c:forEach>
+	    </table>
+	    
+	    <spring:url value="/vehiculos/{vehiculoId}/incidencia/new" var="editUrl">
 	        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
 	    </spring:url>
-	    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reservar</a>
-    </sec:authorize>
-    
-    <sec:authorize access="hasAuthority('admin')">
-    <br/>
-    <br/>
-    <br/>
-    <h2>Incidencias</h2>
-    
-  
-    <table class="table table-striped">
-    	<c:forEach var="incidencia" items="${vehiculos.incidencias}">
-    		<tr>
-                <td valign="top">
-                    <dl class="dl-horizontal">
-                        <dt>Descripción</dt>
-                        <dd><c:out value="${incidencia.descripcion}"/></dd>
-                        <dt>Mecánico</dt>
-                        <dd>
-             				<c:forEach var="mecanico" items="${incidencia.mecanicos}">
-                        		<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
-                        	</c:forEach>
-                        </dd>
-                        <dt>Solucionada</dt>
-                        <dd>
-                        	<c:choose>
-                        		<c:when test="${incidencia.solucionada}">
-                        			Sí
-                        		</c:when>
-                        		<c:otherwise>
-                        			No
-                        		</c:otherwise>
-                        	</c:choose>
-                        </dd>
-                        <dt>         
-                        	<spring:url value="/vehiculos/{vehiculoId}/incidencia/{incidenciaId}/edit" var="incidenciaUrl">
-	                            <spring:param name="vehiculoId" value="${vehiculos.id}"/>
-	                            <spring:param name="incidenciaId" value="${incidencia.id}"/>
-                            </spring:url>
-                            <a href="${fn:escapeXml(incidenciaUrl)}">Editar incidencia</a>
-                        </dt>
-                    </dl>
-                </td>
-    	</c:forEach>
-    </table>
-    </sec:authorize>
-    
-    <sec:authorize access="hasAuthority('admin')">
-    <spring:url value="/vehiculos/{vehiculoId}/incidencia/new" var="editUrl">
-        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Añadir incidencia</a>
+	    <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Añadir incidencia</a>
     </sec:authorize>
        
     

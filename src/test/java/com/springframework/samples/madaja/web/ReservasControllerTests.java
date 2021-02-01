@@ -203,17 +203,21 @@ public class ReservasControllerTests {
 		given(reservaService.findReservaById(anyInt())).willReturn(Optional.of(reserva));
 		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+		given(alquilerService.findAlquilerByDni(anyString())).willReturn(alquileres);
+		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
 	}
 	
 	@WithMockUser(value = "spring")
 	@Test
-	void testListadoMisReservas() throws Exception{
+	void testMostrarMisReservas() throws Exception{
 
-		mockMvc.perform(get("/reservas"))
+		mockMvc.perform(get("/reservas/mis-reservas"))
 		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("reservas"))
-		.andExpect(view().name("/reservas/mostrarReservas"))
-		.andExpect(model().attribute("reservas", reservas));
+		.andExpect(model().attributeExists("alquileres"))
+		.andExpect(model().attributeExists("ventas"))
+		.andExpect(model().attribute("alquileres", alquileres))
+		.andExpect(model().attribute("ventas", ventas))
+		.andExpect(view().name("/reservas/mostrarMisReservas"));
 	}
 	
 	@WithMockUser(value = "spring") //ESTÁ BIEN SIN /? RESERVAS EN VEZ DE /RESERVAS y EN LOS OTROS LOS LLEVA??
@@ -227,7 +231,7 @@ public class ReservasControllerTests {
 		.andExpect(view().name("reservas/mostrarReservas"));
 	}
 	
-	@WithMockUser(value = "spring") //REVISAR
+	@WithMockUser(value = "spring")
 	@Test
 	void testBorrarReserva() throws Exception{
 		
@@ -246,10 +250,10 @@ public class ReservasControllerTests {
 //		
 //	}
 	
-	@WithMockUser(value = "spring")  //Se lo dejo a Manu que no entiendo el reservar{tipo}
+	@WithMockUser(value = "spring")  //Se lo dejo a Manu que no entiendo el reservar{tipo} //NOTA DE MANU: no tengo cojones de sacarlo xdd
 	@Test
 	void testProcessReservarVehiculoErrors() throws Exception{
-		mockMvc.perform(post("/{vehiculoId}/reservar/{tipo}",1,"alquiler")
+		mockMvc.perform(post("reservas/{vehiculoId}/reservar/{tipo}",1,"Alquiler")
 				.param("fechaGastos", "2016-09-03")
 				.param("fianza", "234.")
 				.with(csrf())

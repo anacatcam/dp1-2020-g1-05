@@ -56,6 +56,12 @@ public class Cliente extends Person {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private Set<Incidencia> numIncidencias;
+	
+	@Column(name = "dias_retraso")
+	private Integer diasRetraso;
 
 	public String getDni() {
 		return this.dni;
@@ -167,12 +173,46 @@ public class Cliente extends Person {
 		return getReservasInternal().remove(reserva);
 	}
 	
+	protected Set<Incidencia> getIncidenciasInternal() {
+		if (this.numIncidencias == null) {
+			this.numIncidencias = new HashSet<>();
+		}
+		return this.numIncidencias;
+	}
+
+	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
+		this.numIncidencias = incidencias;
+	}
+
+	public List<Incidencia> getIncidencias() {
+		List<Incidencia> sortedIncidencias = new ArrayList<>(getIncidenciasInternal());
+		PropertyComparator.sort(sortedIncidencias, new MutableSortDefinition("id", true, true));
+		return Collections.unmodifiableList(sortedIncidencias);
+	}
+
+	public void addIncidencia(Incidencia incidencia) {
+		getIncidenciasInternal().add(incidencia);
+		incidencia.setCliente(this);
+	}
+	
+	public boolean removeIncidencia(Incidencia incidencia) {
+		return getIncidenciasInternal().remove(incidencia);
+	}
+	
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public Integer getDiasRetraso() {
+		return this.diasRetraso;
+	}
+	
+	public void setDiasRetraso(Integer dias) {
+		this.diasRetraso = dias;
 	}
 
 //	@Override

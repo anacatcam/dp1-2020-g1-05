@@ -1,5 +1,7 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalDate;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -38,6 +40,10 @@ public class AlquilerValidator implements Validator{
 		if(alquiler.getFechaInicio().isAfter(alquiler.getFechaFin())) {
 			errors.rejectValue("fechaInicio", "fecha incorrecta: yyyy-mm-dd", 
 					"La fecha de inicio no puede ser posterior a la fecha de finalización");
+		}
+		if(alquiler.getFechaInicio().isBefore(LocalDate.now())) {
+			errors.rejectValue("fechaInicio", "fecha incorrecta: yyyy-mm-dd", 
+					"La fecha de inicio no puede ser anterior a la fecha de hoy");
 		}
 	}
 	
