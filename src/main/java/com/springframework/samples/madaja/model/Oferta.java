@@ -25,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springframework.samples.madaja.util.FechaLimiteConstraint;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -37,7 +38,7 @@ public class Oferta extends NamedEntity {
 	private Double descuento;
 	
 	@Column(name = "fecha_limite")
-	@javax.validation.constraints.NotNull
+	@FechaLimiteConstraint
 	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaLimite;
 

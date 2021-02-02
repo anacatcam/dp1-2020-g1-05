@@ -46,7 +46,7 @@ function buildTable(data){
 
 function deleteOferta(id){
 	$.ajax({
-		type: 'GET',
+		type: 'DELETE',
 		url: 'http://localhost:8090/api/v1/ofertas/delete/' + id,
 		dataType : "json",
 		contentType: "application/json",
@@ -55,7 +55,7 @@ function deleteOferta(id){
 			location.reload();
 		},
 		error: function(){
-			alert("Se ha producido un eror")
+			alert("Se ha producido un error")
 		}
 	});
 }
