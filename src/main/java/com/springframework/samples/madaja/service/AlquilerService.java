@@ -35,11 +35,6 @@ public class AlquilerService {
 		return alquilerRepository.findByDniCliente(dni);
 	}
 	
-	@Transactional(readOnly = true)
-	public Alquiler findAlquilerConcretoCliente(String id,String matricula) {
-		return alquilerRepository.findAlquilerConcretoCliente(id, matricula);
-	}
-	
 	@Transactional
 	public void saveAlquiler(Alquiler alquiler) {
 		alquilerRepository.save(alquiler);

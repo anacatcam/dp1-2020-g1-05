@@ -76,7 +76,7 @@ public class AlquilerController {
 	}
 	
 	@GetMapping(value = {"/MisAlquileres"})
-	public String showMisAlquileres(/*@PathVariable("clienteDni") String dni,*/ModelMap model){
+	public String showMisAlquileres(ModelMap model){
 		List<Alquiler> alqList = new ArrayList<>();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
@@ -87,7 +87,6 @@ public class AlquilerController {
 		}
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
 		
-	//	Cliente cliente = this.clienteService.findClienteByDni(dni);
 		alqList.addAll(this.alquilerService.findAlquilerByDni(cliente.getDni()));
 		model.put("alquileres", alqList);
 		

@@ -16,11 +16,11 @@ public interface ConcesionarioRepository extends Repository<Concesionario, Integ
 	
 void save(Concesionario concesionario) throws DataAccessException;
 
-	/////////
-	Page<Concesionario> findAll(Pageable pageable);
-	/////////
 	
-	/** anterior a la paginacion **/
+	Page<Concesionario> findAll(Pageable pageable);
+
+	
+	
 	Collection<Concesionario> findAll() throws DataAccessException;
 	
 	@Query("SELECT concesionario FROM Concesionario concesionario WHERE concesionario.id =:id")

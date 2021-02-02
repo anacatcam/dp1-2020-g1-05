@@ -231,16 +231,6 @@ public class AlquilerServiceTests {
 	} 
 	
 	@Test
-	void testFindAlquilerConcretoCliente() throws Exception{
-		when(alquilerRepository.findAlquilerConcretoCliente(anyString(), anyString())).thenReturn(alquiler);
-		
-		alquilerService.findAlquilerConcretoCliente(anyString(), anyString());
-		
-		verify(alquilerRepository).findAlquilerConcretoCliente(anyString(), anyString());
-		assertEquals(alquiler, alquilerService.findAlquilerConcretoCliente(anyString(), anyString()));
-	}
-	
-	@Test
 	void testFindAllAlquiler() throws Exception{
 		List<Alquiler> alquileres = new ArrayList<Alquiler>();
 		alquileres.add(alquiler);
