@@ -435,4 +435,14 @@ public class VehiculosControllerTests {
 		.andExpect(model().attribute("disponible", disponibles))
 		.andExpect(view().name("vehiculos/mostrarVehiculos"));
 	}
+	
+	@WithMockUser(value= "spring")
+	@Test
+	void testReservarVehiculos() throws Exception{
+		mockMvc.perform(get("/reservar/{vehiculoId}", 1))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("vehiculos"))
+		.andExpect(model().attribute("vehiculos", vehiculo))
+		.andExpect(view().name("reservas/createReservaForm"));
+	}
 }
