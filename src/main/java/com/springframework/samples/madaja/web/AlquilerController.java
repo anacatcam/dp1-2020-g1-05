@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -76,6 +77,13 @@ public class AlquilerController {
 		
 		return "/alquiler/mostrarMisAlquileres";
 	}
+	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/alquileresAPI"})
+	public String showMisAlquileresListAPI() {
+		return "alquiler/mostrarMisAlquileresAPI";
+	}
+	//-------------------------------------API--------------------------------
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/alquilar")
 	public String initAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
@@ -153,7 +161,7 @@ public class AlquilerController {
 		Boolean res = false;
 		List<Incidencia> incidencias = vehiculo.getIncidencias();
 		for(Incidencia i:incidencias) {
-			if(i.getSolucionada() == false) {
+			if(Boolean.FALSE.equals(i.getSolucionada())) {
 				res = true;
 				break;
 			}

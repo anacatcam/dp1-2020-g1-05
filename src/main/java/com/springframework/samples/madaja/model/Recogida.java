@@ -13,6 +13,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "recogida")
 public class Recogida extends Localizacion {
@@ -21,10 +23,12 @@ public class Recogida extends Localizacion {
 	@NotEmpty
 	private LocalTime hora;
 
-	@OneToOne(mappedBy = "recogida", optional = true) // DANIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII hdp
+	@OneToOne(mappedBy = "recogida", optional = true)
+	@JsonIgnore
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Mecanico mecanico;
 
 	public LocalTime getHora() {

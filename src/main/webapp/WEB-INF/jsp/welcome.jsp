@@ -19,6 +19,8 @@
     	<p><h2>Servicios API REST:</h2>
     	<p>
     		<ul> <a href ="/ofertaAPI">Ofertas API</a></ul>
+    		<ul> <a href ="/alquileresAPI">Alquileres API</a></ul>
+    		<ul> <a href ="/concesionariosAPI">Concesionarios API</a></ul>
     		
     	</p>
     </div>
