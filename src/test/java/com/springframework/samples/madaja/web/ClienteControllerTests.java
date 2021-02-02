@@ -245,18 +245,6 @@ class ClienteControllerTests {
 		alquiler.setVehiculo(vehiculo);
 	}
 	
-	@WithMockUser(value = "spring")
-	@Test
-	void testConsultClientes() throws Exception{
-			List<Cliente> clientes = new ArrayList<>();
-			clientes.add(cliente);
-			Iterable<Cliente> clientesIt = clientes;
-			given(clienteService.findAllClientes()).willReturn(clientesIt);
-			
-			mockMvc.perform(get("/clientes")).andExpect(status().isOk())
-			.andExpect(model().attributeExists("clientes")).andExpect(model().attribute("clientes", clientesIt))
-			.andExpect(view().name("cliente/mostrarClientes"));
-	}
 	
 	@WithMockUser(value = "spring")
 	@Test

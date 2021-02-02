@@ -57,19 +57,7 @@ public class ConcesionarioControllerTests {
 		concesionario.setTelefono("608555102");
 	}
 	
-	@WithMockUser(value = "spring")
-	@Test
-	void testShowConcesionariosList() throws Exception{
-		List<Concesionario> concesionarios = new ArrayList<Concesionario>();
-		concesionarios.add(concesionario);
-		given(concesionarioService.findAllConcesionarios()).willReturn(concesionarios);
-		
-		mockMvc.perform(get("/concesionario"))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("concesionarios"))
-		.andExpect(model().attribute("concesionarios", concesionarios))
-		.andExpect(view().name("concesionario/mostrarConcesionarios"));
-	}
+
 	
 	@WithMockUser(value = "spring")
 	@Test

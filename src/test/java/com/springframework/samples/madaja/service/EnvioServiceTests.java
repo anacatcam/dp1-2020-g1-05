@@ -172,7 +172,6 @@ public class EnvioServiceTests {
 		alquiler.setLimiteKM(20000);
 		alquiler.setDepLleno(false);
 		alquiler.setCliente(cliente);
-//		alquiler.setEnvio(envio);
 		alquiler.setRecogida(recogida);
 		alquiler.setReserva(reserva);
 		alquiler.setVehiculo(vehiculo);
@@ -180,7 +179,6 @@ public class EnvioServiceTests {
 		venta = new Venta();
 		venta.setId(1);
 		venta.setCliente(cliente);
-//		venta.setEnvio(envio);
 		venta.setReserva(reserva);
 		venta.setVehiculo(vehiculo);
 		

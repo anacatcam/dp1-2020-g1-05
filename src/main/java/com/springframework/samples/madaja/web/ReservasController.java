@@ -59,19 +59,9 @@ public class ReservasController {
 	}
 
 	@InitBinder("reserva")
-	public void initVehiculoBinder(WebDataBinder dataBinder) {
+	public void initReservaBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-	
-//	@InitBinder
-//	public void setValidator(WebDataBinder dataBinder) {
-//		dataBinder.setValidator(new ReservasValidator());
-//	}
-	
-//	@Autowired
-//	public ReservasController(ClienteService clienteService) {
-//		this.clienteService = clienteService;
-//	}
 	
 	@GetMapping(path="/new")
 	public String crearReserva(ModelMap modelMap) {
@@ -81,7 +71,7 @@ public class ReservasController {
 	}
 	
 	@PostMapping(path="/new")
-	public String guardarReserva(@Valid Reserva reserva, BindingResult result, ModelMap modelMap) {
+	public String processCrearReserva(@Valid Reserva reserva, BindingResult result, ModelMap modelMap) {
 		if(result.hasErrors()) {
 			modelMap.put("reserva", reserva);
 			return "reservas/editReservaForm";
@@ -91,7 +81,6 @@ public class ReservasController {
 			return "reservas/mostrarReservas";
 		}
 		
-		//return "redirect:/reservas";
 	}
 	
 	/** Todas las reservas (vista del administrador) **/
@@ -110,21 +99,6 @@ public class ReservasController {
 	@GetMapping(value = {"/mis-reservas"})
 	public String mostrarMisReservas(ModelMap modelMap) {
 		String vista = ("/reservas/mostrarMisReservas");
-		
-		/** Para pasar las reservas en vez de alquileres y ventas
-		List<Reserva> resList = new ArrayList<>();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
-						
-		resList.addAll(this.reservaService.findByDNI(cliente.getDni()));
-		modelMap.put("reservas", resList);
-		**/
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		
@@ -145,15 +119,6 @@ public class ReservasController {
 		return vista;
 	}
 	
-	/** OBSOLETO **/
-	/** Reservas de un cliente **/
-	@GetMapping(path="/{dniCliente}")
-	public String reservasCliente(@PathVariable("dniCliente") String dniCliente, ModelMap modelMap) {
-		String view = "reservas/mostrarReservas";
-		Iterable<Reserva> reservas = reservaService.findByDNI(dniCliente);
-		modelMap.addAttribute("reservas", reservas);
-		return view;
-	}
 	
 	@GetMapping(path = "/{reservaId}/delete")
 	public String borrarReservas(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
@@ -240,11 +205,9 @@ public class ReservasController {
 		Reserva nuevaReserva = new Reserva();
 		Double fianza;
 		
-		if(tipo.equals("Alquiler")) {
-			//creo que deberia crear un nuevo alquiler vacío aquí
+		if(tipo.equals("Alquiler")) { 
 			fianza = vehiculo.getPrecioAlquiler().doubleValue(); //En el caso de un alquiler, la finaza es un mes del propio alquiler
 		}else {
-			//creo que debería crear una nueva venta vacía aquí
 			fianza = 0.2*vehiculo.getPrecioAlquiler(); //En el caso de una venta, la finaza es un 20% del precio
 		}
 		

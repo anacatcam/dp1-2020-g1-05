@@ -142,19 +142,7 @@ public class SeguroClienteServiceTests {
 		verify(seguroClienteRepository).findById(anyInt());
 		assertEquals(seguroCliente, seguroClienteService.findSeguroClienteById(anyInt()));
 	}
-	/*
-	@Test
-	void testFindAllSegurosCliente() throws Exception{
-		List<SeguroCliente> segurosCliente = new ArrayList<SeguroCliente>();
-		segurosCliente.add(seguroCliente);
-		when(seguroClienteRepository.findAll()).thenReturn(segurosCliente);
-		
-		seguroClienteService.findAllSeguroCliente();
-		
-		verify(seguroClienteRepository).findAll();
-		assertEquals(segurosCliente, seguroClienteService.findAllSeguroCliente());
-	}*/
-	
+
 	@Test
 	public void testDeleteById() throws Exception {
 		seguroClienteService.deleteById(anyInt());
