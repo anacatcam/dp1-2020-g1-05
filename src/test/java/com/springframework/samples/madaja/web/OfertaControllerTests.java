@@ -198,5 +198,10 @@ class OfertaControllerTests {
 		.andExpect(view().name("oferta/updateOfertaForm"));
 	}
 	
-	//BORRAR OFERTA?
+	@WithMockUser(value = "spring")
+	@Test
+	void testDeleteOferta() throws Exception {
+		mockMvc.perform(get("/oferta/{ofertaId}/delete",1)).andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/oferta"));
+	}
 }

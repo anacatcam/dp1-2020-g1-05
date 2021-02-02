@@ -2,6 +2,7 @@ package com.springframework.samples.madaja.web;
 
 
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,6 +32,7 @@ import com.springframework.samples.madaja.model.Combustible;
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Envio;
+import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.Reserva;
@@ -210,5 +212,64 @@ public class VentaControllerTests {
 		mockMvc.perform(get("/MisVentas")).andExpect(status().isOk()).andExpect(model().attributeExists("ventas"))
 		.andExpect(model().attribute("ventas",ventas))
 		.andExpect(view().name("/venta/mostrarMisVentas"));
+	}
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testComprarVehiculoIF() throws Exception{		
+		//Rama del if: está vendido
+		List<Venta> ventas = new ArrayList<Venta>();
+		ventas.add(venta);
+		
+		given(ventaService.findAllVentas()).willReturn(ventas);
+		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+		
+		
+		mockMvc.perform(get("/vehiculos/{vehiculoId}/comprar",1)).andExpect(status().isOk())
+		.andExpect(model().attribute("esVenta", true))
+		.andExpect(view().name("operacionImposible"));
+		
+		
+	}
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testComprarVehiculoElseIf() throws Exception{
+		
+		//Rama del else if: está en revisión
+		List<Venta> ventas = new ArrayList<Venta>();
+		
+		given(ventaService.findAllVentas()).willReturn(ventas);
+		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+
+		
+		Incidencia incidencia = new Incidencia();
+		incidencia.setId(1);
+		incidencia.setDescripcion("Golpe en la parte frontal");
+		incidencia.setSolucionada(Boolean.FALSE);
+		incidencia.setVehiculos(vehiculo);
+		
+		vehiculo.addIncidencia(incidencia);
+		
+		mockMvc.perform(get("/vehiculos/{vehiculoId}/comprar",1)).andExpect(status().isOk())
+		.andExpect(model().attribute("enRevision", true))
+		.andExpect(model().attribute("esRevisionVenta", true))
+		.andExpect(view().name("operacionImposible"));
+	}
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testComprarVehiculoElse() throws Exception{
+		
+		//Rama del else if: está en revisión
+		List<Venta> ventas = new ArrayList<Venta>();
+		
+		given(ventaService.findAllVentas()).willReturn(ventas);
+		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+
+		
+		
+		mockMvc.perform(get("/vehiculos/{vehiculoId}/comprar",1)).andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/MisVentas"));
 	}
 }
