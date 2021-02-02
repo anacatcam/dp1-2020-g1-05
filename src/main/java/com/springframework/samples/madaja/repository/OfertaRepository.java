@@ -19,6 +19,8 @@ public interface OfertaRepository extends Repository<Oferta, Integer>{
 	@Query("SELECT oferta FROM Oferta oferta WHERE oferta.id =:id")	
 	public Oferta findById(@Param("id") int id);
 	
-	@Query("DELETE FROM Oferta oferta WHERE oferta.id =:id")
+	@Modifying
+	@Query(value="DELETE FROM Oferta oferta WHERE oferta.id =:id", nativeQuery = true)
 	public void deleteById(int id) throws DataAccessException;
+	
 }

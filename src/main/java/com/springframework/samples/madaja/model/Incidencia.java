@@ -1,4 +1,4 @@
-package com.springframework.samples.madaja.model;
+	package com.springframework.samples.madaja.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +36,9 @@ public class Incidencia extends BaseEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	private Vehiculos vehiculos;
+	
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	private Cliente cliente;
 	
 	@JoinTable(name = "incidencias_mecanicos", 
 			joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), 
@@ -90,6 +93,14 @@ public class Incidencia extends BaseEntity {
 
 	public void setVehiculos(Vehiculos vehiculos) {
 		this.vehiculos = vehiculos;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.springframework.samples.madaja.repository;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -8,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
-import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
 
 public interface VentaRepository extends Repository<Venta, Integer>{
@@ -21,4 +19,7 @@ public interface VentaRepository extends Repository<Venta, Integer>{
 	public List<Venta> findByDniCliente(@Param("dni") String dni);
 	
 	void save(Venta venta) throws DataAccessException;
+	
+	@Query("SELECT venta FROM Venta venta WHERE venta.envio.id = :id")
+	public Venta findByEnvio(@Param("id") int id);
 }

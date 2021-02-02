@@ -26,6 +26,10 @@ public class Venta extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "envio_id", nullable = true)
+	private Envio envio;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
@@ -52,6 +56,14 @@ public class Venta extends BaseEntity {
 
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
+	}
+
+	public Envio getEnvio() {
+		return envio;
+	}
+
+	public void setEnvio(Envio envio) {
+		this.envio = envio;
 	}
 
 	public Vehiculos getVehiculo() {

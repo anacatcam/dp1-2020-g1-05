@@ -40,4 +40,9 @@ public class VentaService {
 	public void saveVenta(Venta venta) {
 		ventaRepository.save(venta);
 	}
+
+	@Transactional
+	public Venta findVentaByEnvio(int id) throws DataAccessException { //test
+		return ventaRepository.findByEnvio(id);
+	}
 }

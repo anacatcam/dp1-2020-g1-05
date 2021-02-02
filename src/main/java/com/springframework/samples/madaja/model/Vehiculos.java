@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,6 +22,7 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -56,9 +56,10 @@ public class Vehiculos extends BaseEntity{
 	@Column(name = "plazas")
 	@Positive
 	private Integer plazas;
-//===================================================================================	
+
 	@ManyToOne
 	@JoinColumn(name = "cambio_id")
+	@JsonIgnore
 	private Cambio cambio;
 	
 	@Column(name = "maletero")
@@ -76,30 +77,42 @@ public class Vehiculos extends BaseEntity{
 	@Column(name = "estado")
 	@NotEmpty
 	private String estado;
-//====================================================
+
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
+	@JsonIgnore
 	private Disponible disponible;
 	
 	@ManyToOne
 	@JoinColumn(name = "combustible_id")
+	@JsonIgnore
 	private Combustible combustible;
 	
 	@ManyToOne
 	@JoinColumn(nullable = true)
+	@JsonIgnore
 	private Concesionario concesionario;	
 	
 	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = true)
+	@JsonIgnore
 	private SeguroVehiculo seguroVehiculo;
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Incidencia> incidencias;
-
+	
+	//ANTONIO
+	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	private Set<SeguroCliente> segurosCliente;
+	//
+	
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Venta> ventas;
 	
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Alquiler> alquileres;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -268,6 +281,35 @@ public class Vehiculos extends BaseEntity{
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
+	
+	//PARTE ANTONIO
+	protected Set<SeguroCliente> getSegurosClienteInternal() {
+		if (this.segurosCliente == null) {
+			this.segurosCliente = new HashSet<>();
+		}
+		return this.segurosCliente;
+	}
+
+	protected void setSegurosClienteInternal(Set<SeguroCliente> segurosCliente) {
+		this.segurosCliente = segurosCliente;
+	}
+
+	public List<SeguroCliente> getSegurosCliente() {
+		List<SeguroCliente> sortedSegurosCliente = new ArrayList<>(getSegurosClienteInternal());
+		PropertyComparator.sort(sortedSegurosCliente, new MutableSortDefinition("descripcion", true, true));
+		return Collections.unmodifiableList(sortedSegurosCliente);
+	}
+
+	public void addSeguroCliente(SeguroCliente seguroCliente) {
+		getSegurosClienteInternal().add(seguroCliente);
+		seguroCliente.setVehiculos(this);
+	}
+	
+	public boolean removeSeguroCliente(SeguroCliente seguroCliente) {
+		return getSegurosClienteInternal().remove(seguroCliente);
+	}
+	
+	//TERMINA PARTE ANTONIO
 	
 	protected Set<Venta> getVentasInternal() {
 		if (this.ventas == null) {

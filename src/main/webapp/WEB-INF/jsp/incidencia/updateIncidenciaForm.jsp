@@ -16,12 +16,25 @@
             <div class="form-group">
             	<label class="col-sm-2 control-label">Mecánico </label>
             	<div class="col-sm-10">
-	            	<form:select path="mecanicos">
-		            		<form:options itemValue="dni" itemLabel="nombre" items="${incidencia.mecanicos}"/>
-	    	        </form:select>
+	     	        <select id="mecanicos" name="mecanicos" multiple="true">
+            			<c:forEach var = "mecanico" items = "${mecanicos}">
+            				<option value="${mecanico.dni}"><c:out value="${mecanico.nombre} "></c:out></option>
+           				</c:forEach>
+            		</select>
+    	        </div>
+            </div>
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">Cliente responsable </label>
+            	<div class="col-sm-10">
+	            	<select id="clientes" name="clientes" multiple="false">
+	            		<c:forEach var = "cliente" items = "${clientes}">
+	            			<option value="${cliente.id}"><c:out value="${cliente.firstName} "></c:out></option>
+	            		</c:forEach>
+	            	</select>
     	        </div>
             </div>
             <label>Solucionada </label><input name="solucionada">
+
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

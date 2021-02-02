@@ -19,7 +19,7 @@ public interface AlquilerRepository extends Repository<Alquiler, Integer>{
 	public List<Alquiler> findByDniCliente(@Param("dni") String dni);
 		
 	@Query("SELECT alquiler FROM Alquiler alquiler WHERE alquiler.cliente.id = :id AND alquiler.vehiculo.matricula = :matricula")//(H7) Encontrar un alquiler del cliente por matricula de vehiculo
-	public Alquiler findAlquilerConcretoCliente(@Param("id") String id, @Param("matricula") String matricula);
+	public Alquiler findAlquilerConcretoCliente(@Param("id") String id, @Param("matricula") String matricula); // se puede borrar pq no se usa
 
 	void save(Alquiler alquiler) throws DataAccessException;
 	

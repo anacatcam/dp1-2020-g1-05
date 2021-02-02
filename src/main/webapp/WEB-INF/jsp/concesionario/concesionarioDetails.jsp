@@ -179,8 +179,13 @@
     	</c:forEach>
     </table>
 	
-	<spring:url value="/concesionario/{concesionarioId}/Envios" var="enviosUrl">
+	<spring:url value="/concesionario/{concesionarioId}/EnviosAlquileres" var="enviosUrl">
 		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
 		    </spring:url>
-		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios</a>
+		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Alquileres</a>
+		    
+	<spring:url value="/concesionario/{concesionarioId}/EnviosVentas" var="enviosUrl">
+		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
+		    </spring:url>
+		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Ventas</a>
 </madaja:layout>

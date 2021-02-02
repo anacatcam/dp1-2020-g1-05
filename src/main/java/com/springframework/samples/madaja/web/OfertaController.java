@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Oferta;
@@ -51,7 +52,12 @@ public class OfertaController {
 		model.put("ofertas", ofertas);
 		return "oferta/mostrarOfertas";
 	}
-	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/ofertaAPI"})
+	public String showOfertasListAPI() {
+		return "oferta/mostrarOfertasAPI";
+	}
+	//-------------------------------------API--------------------------------
 	@GetMapping(value = {"/oferta/{ofertaId}"})
 	public String showOferta(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
@@ -60,7 +66,15 @@ public class OfertaController {
 		map.put("vehiculos", vehiculos);
 		return "oferta/ofertaDetails";
 	}
-	
+
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/ofertaAPI/{ofertaId}"})
+	public String showOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/ofertaDetailsAPI";
+	}
+	//-------------------------------------API--------------------------------
+
 	@InitBinder("oferta")
 	public void initVehiculoBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -84,7 +98,12 @@ public class OfertaController {
 		model.put("oferta", oferta);
 		return VIEW_OFERTA_CREATE_FORM;
 	}
-	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/new")
+	public String creationFormOfertaAPI() {
+		return "oferta/createOfertaFormAPI";
+	}
+	//-------------------------------------API--------------------------------
 	@PostMapping(value = "/oferta/new")
 	public String processFormOferta(@Valid Oferta oferta,BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
@@ -124,9 +143,11 @@ public class OfertaController {
 			return VIEW_OFERTA_UPDATE_FORM;
 		}else {
 			//Quitar todos los vehiculos que han dejado de aplicarse la oferta
-			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
-			for(Vehiculos vehiculo: vehiculosOld) {
-				vehiculo.setOferta(null);
+			if(!oferta.getVehiculos().isEmpty()) {
+				List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+				for(Vehiculos vehiculo: vehiculosOld) {
+					vehiculo.setOferta(null);
+				}
 			}
 			//Guardar la oferta actualizada
 			Oferta ofertaUpdate = this.ofertaService.findOfertaById(ofertaId);
@@ -140,10 +161,33 @@ public class OfertaController {
 			return "redirect:/oferta";
 		}
 	}
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/{ofertaId}/edit")
+	public String updateOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/updateOfertaAPI";
+	}
+	
+	//-------------------------------------API--------------------------------
 	
 	@GetMapping(value = "/oferta/{ofertaId}/delete")
 	public String deleteOferta(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+		if(!oferta.getVehiculos().isEmpty()) {
+			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+			for(Vehiculos vehiculo: vehiculosOld) {
+				vehiculo.setOferta(null);
+			}
+		}
 		this.ofertaService.deleteById(ofertaId);
 		return "redirect:/oferta";
 	}
+	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/{ofertaId}/delete")
+	public String deleteOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/mostrarOfertasAPI";
+	}
+	//-------------------------------------API--------------------------------
 }

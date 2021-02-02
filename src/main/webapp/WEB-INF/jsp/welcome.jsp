@@ -16,6 +16,11 @@
     			</c:forEach>
     		</ul>
     	</p>
+    	<p><h2>Servicios API REST:</h2>
+    	<p>
+    		<ul> <a href ="/ofertaAPI">Ofertas API</a></ul>
+    		
+    	</p>
     </div>
     <div>
     	<img alt="Logo Universidad de Sevilla" src="/resources/images/logoPNG_3.png" width="220" height="100">

@@ -17,7 +17,10 @@ public interface IncidenciaRepository extends Repository<Incidencia, Integer> {
 	
 	@Query("SELECT incidencia FROM Incidencia incidencia WHERE incidencia.id =:id")
 	public Incidencia findById(@Param("id") int id);
+	
+//	@Query("SELECT mecaninco_id FROM incidencias_mecanicos incidencia WHERE incidencia.id =: id")
 
 	Collection<Incidencia> findAll();
+	
 
 }

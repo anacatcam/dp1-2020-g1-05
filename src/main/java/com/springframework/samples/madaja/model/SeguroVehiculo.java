@@ -17,6 +17,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "seguro_vehiculo")
 public class SeguroVehiculo extends Seguro {
 	
+	@Column(name = "numeroPoliza")
+	@NotEmpty
+	protected String numeroPoliza;
+	
 	@Column(name = "cobertura")
 	@NotEmpty
 	private String cobertura;
@@ -36,6 +40,14 @@ public class SeguroVehiculo extends Seguro {
 	
 	@ManyToOne
 	private Compania compania;
+	
+	public String getNumeroPoliza() {
+		return numeroPoliza;
+	}
+
+	public void setNumeroPoliza(String numeroPoliza) {
+		this.numeroPoliza = numeroPoliza;
+	}
 	
 	public String getCobertura() {
 		return cobertura;
@@ -80,6 +92,7 @@ public class SeguroVehiculo extends Seguro {
 	@Override
 	public String toString() {
 		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("numeroPoliza", numeroPoliza);
 		builder.append("vehiculo", vehiculo);
 		builder.append("compania", compania);
 		builder.append("numeroPoliza", numeroPoliza);
@@ -89,6 +102,7 @@ public class SeguroVehiculo extends Seguro {
 		builder.append("fechaInicio", fechaInicio);
 		builder.append("fechaFin", fechaFin);
 		builder.append("id", id);
+		builder.append("getNumeroPoliza()", getNumeroPoliza());
 		builder.append("getVehiculo()", getVehiculo());
 		builder.append("getCompania()", getCompania());
 		builder.append("getNumeroPoliza()", getNumeroPoliza());

@@ -1,7 +1,9 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Disponible;
+import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.model.Venta;
@@ -63,8 +67,13 @@ public class VehiculosController {
 	}
 	
 	@PostMapping(value = "/vehiculos/new")
-	public String processCreationForm(@Valid Vehiculos vehiculo, BindingResult result) {
+	public String processCreationForm(@Valid Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
 		if (result.hasErrors()) {
+			model.put("cambios", this.vehiculosService.findAllCambios());
+			model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+			model.put("disponibles", this.vehiculosService.findAllDisponibles());
+			model.put("combustibles", this.vehiculosService.findAllCombustibles());
+			model.put("seguros", this.vehiculosService.findAllSeguros());
 			return VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM;
 		}
 		else {
@@ -150,6 +159,28 @@ public class VehiculosController {
 		model.put("vehiculos", vehiculos);
 		model.put("disponible", disponible);
 		return "vehiculos/mostrarVehiculos";
+	}
+	
+	@GetMapping(value = "/vehiculos/{vehiculoId}/devolucion")
+	public String initDevolverVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
+		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+		model.put("vehiculos", vehiculo);
+		model.put("disponibles", this.vehiculosService.findAllDisponibles());
+		return "vehiculos/devolverVehiculo";
+	}
+	
+	@PostMapping(value = "/vehiculos/{vehiculoId}/devolucion")
+	public String processDevolverVehiculo(@Valid Vehiculos vehiculo, BindingResult result, ModelMap model, 
+				@RequestParam(name="Fecha de devolución") Optional<LocalDate> fechaDevolucion) {
+		if (result.hasErrors()) {
+			model.put("vehiculos", vehiculo);
+			model.put("disponibles", this.vehiculosService.findAllDisponibles());
+			return "vehiculos/devolverVehiculo";
+		}
+		else {
+			
+		}
+		return "redirect:/vehiculos";
 	}
 	
 	/** Reservar vehiculo  **/

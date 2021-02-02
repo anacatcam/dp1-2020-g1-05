@@ -23,4 +23,7 @@ public interface ClienteRepository extends Repository<Cliente, Integer>{
 	/////////
 	Page<Cliente> findAll(Pageable pageable);
 	/////////
+
+	@Query("SELECT cliente FROM Cliente cliente WHERE cliente.id =:id")
+	public Cliente findById(@Param("id") int id);
 }

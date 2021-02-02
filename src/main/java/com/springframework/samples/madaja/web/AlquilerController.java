@@ -1,6 +1,8 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
@@ -76,33 +79,45 @@ public class AlquilerController {
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/alquilar")
 	public String initAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		
-		//Obtener cliente logueado y vehiculo
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
+		//comprobación de que el vehiculo no está alquilado ya
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		vehiculo.setDisponible(this.vehiculosService.findDisponibleById(5));
-		
-		//Crear alquiler
-		Alquiler nuevoAlquiler = new Alquiler();
-		nuevoAlquiler.setCliente(cliente);
-		nuevoAlquiler.setVehiculo(vehiculo);
-		nuevoAlquiler.setReserva(null);
-		nuevoAlquiler.setDepLleno(true);
-		nuevoAlquiler.setEnvio(null);
-		nuevoAlquiler.setRecogida(null);
-		nuevoAlquiler.setEnvio(null);
-		nuevoAlquiler.setSeguro_cliente(null);
-		model.put("alquiler", nuevoAlquiler);
-		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
-		
-		return VIEWS_ALQUILER_CREATE_FORM;
+		Map<Boolean, LocalDate> alquilado = estaAlquilado(vehiculo);
+		if(alquilado.containsKey(true)) {
+			model.put("esAlquiler", true);
+			model.put("fecha", alquilado.get(true));
+			return "operacionImposible";
+		}else if(estaEnRevision(vehiculo)){
+			model.put("enRevision", estaEnRevision(vehiculo));
+			model.put("esRevisionAlquiler", true);
+			return "operacionImposible";
+		}else {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username;
+			if(principal instanceof UserDetails) {
+				 username = ((UserDetails)principal).getUsername();
+			}else {
+				 username = principal.toString();
+			}
+			
+			//Obtener cliente logueado y cambiar disponibilidad vehiculo
+			Cliente cliente = this.clienteService.findClienteByUsername(username);
+			if(cliente.getEsConflictivo().equals("Si")) {
+				model.put("esConflictivo", true);
+				return "operacionImposible";
+			}
+			//Crear alquiler
+			Alquiler nuevoAlquiler = new Alquiler();
+			nuevoAlquiler.setCliente(cliente);
+			nuevoAlquiler.setVehiculo(vehiculo);
+			nuevoAlquiler.setReserva(null);
+			nuevoAlquiler.setDepLleno(true);
+			nuevoAlquiler.setRecogida(null);
+			nuevoAlquiler.setEnvio(null);
+			model.put("alquiler", nuevoAlquiler);
+			
+			return VIEWS_ALQUILER_CREATE_FORM;
+		}
+
 	}
 	
 	@PostMapping(value = "/vehiculos/{vehiculoId}/alquilar")
@@ -112,10 +127,38 @@ public class AlquilerController {
 			return VIEWS_ALQUILER_CREATE_FORM;
 		}
 		else {
+			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(4));
+			this.vehiculosService.saveVehiculo(vehiculo);
 			alquilerService.saveAlquiler(alquiler);
 
 			return "redirect:/MisAlquileres";
 		}
+	}
+	
+	public Map<Boolean, LocalDate> estaAlquilado(Vehiculos vehiculo) {
+		Map<Boolean, LocalDate> res = new HashMap<>();
+		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
+		for(Alquiler a:alquileres) {
+			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now())) {
+				res.put(true, a.getFechaFin());
+				return res;
+			}
+		}
+		res.put(false, null);
+		return res;
+	}
+	
+	public boolean estaEnRevision(Vehiculos vehiculo) {
+		Boolean res = false;
+		List<Incidencia> incidencias = vehiculo.getIncidencias();
+		for(Incidencia i:incidencias) {
+			if(i.getSolucionada() == false) {
+				res = true;
+				break;
+			}
+		}
+		return res;
 	}
 	
 }

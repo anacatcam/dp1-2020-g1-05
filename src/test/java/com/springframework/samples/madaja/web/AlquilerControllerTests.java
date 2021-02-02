@@ -41,6 +41,7 @@ import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.VehiculosService;
 
 @WebMvcTest(controllers=AlquilerController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -55,6 +56,9 @@ public class AlquilerControllerTests {
 	 
 	@MockBean
 	private ClienteService clienteService;
+	
+	@MockBean
+	private VehiculosService vehiculosService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -211,7 +215,7 @@ public class AlquilerControllerTests {
 		alquiler.setVehiculo(vehiculo);
 	 }
 	 
-	 @WithMockUser(value = "Spring")
+	 @WithMockUser(value = "spring")
 	 @Test
 	 void testShowMisAlquileres() throws Exception{
 		 List<Alquiler> alquileres = new ArrayList<Alquiler>();
