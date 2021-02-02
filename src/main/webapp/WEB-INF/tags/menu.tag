@@ -7,8 +7,8 @@
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
 
-
 <nav class="navbar navbar-default" role="navigation">
+<!--<span style="float:left; font-size: 30px; color:white;">MADAJA</span>-->
 	<div class="container">
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
@@ -66,7 +66,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
 					<li><a href="<c:url value="/login" />">Login</a></li>
-					<li><a href="<c:url value="/users/new" />">Register</a></li>
+					<li><a href="<c:url value="/users/new" />">Sign up</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -80,7 +80,7 @@
 									<div class="row">
 										<div class="col-lg-4">
 											<p class="text-center">
-												<span class="glyphicon glyphicon-user icon-size"></span>
+												<span class="glyphicon glyphicon-user icon-size" style=" font-size: 55px;"></span>
 											</p>
 										</div>
 										<div class="col-lg-8">
@@ -95,7 +95,6 @@
 									</div>
 								</div>
 							</li>
-							<li class="divider"></li>
                             <li> 
 								<div class="navbar-login navbar-login-session">
 									<div class="row">
@@ -126,7 +125,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<p>
-												<a href="<c:url value="/MisVentas"/>" class="btn btn-primary btn-block">Mis ventas</a>
+												<a href="<c:url value="/MisVentas"/>" class="btn btn-primary btn-block">Mis compras</a>
 											</p>
 										</div>
 									</div>

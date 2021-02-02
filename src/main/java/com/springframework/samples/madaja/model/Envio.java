@@ -15,6 +15,8 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "envio")
 public class Envio extends Localizacion {
@@ -29,16 +31,20 @@ public class Envio extends Localizacion {
 	private LocalTime hora;
 	
 	@OneToOne(mappedBy = "envio", optional = true)
+	@JsonIgnore
 	private Alquiler alquiler;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Mecanico mecanico;
 	
 	@OneToOne(mappedBy = "envio", optional = true)
+	@JsonIgnore
 	private Venta venta;
 	
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
+	@JsonIgnore
 	private EstadoEnvio estadoEnvio;
 
 	

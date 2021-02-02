@@ -11,6 +11,7 @@ public class Seguro extends BaseEntity{
 	
 	@Column(name = "precio")
 	@PositiveOrZero
+	@NotNull
 	protected Double precio;
 	
 	@Column(name = "franquicia")

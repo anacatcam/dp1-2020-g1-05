@@ -14,14 +14,14 @@
 	<spring:url value="/concesionario/{concesionarioId}/EnviosAlquileres" var="enviosUrl">
 		        <spring:param name="concesionarioId" value="${concesionario}"/>
 		    </spring:url>
-		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Alquileres</a>
+		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios alquileres</a>
 		    
 	<spring:url value="/concesionario/{concesionarioId}/EnviosVentas" var="enviosUrl">
 		        <spring:param name="concesionarioId" value="${concesionario}"/>
 		    </spring:url>
-		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Ventas</a>
+		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios ventas</a>
 	     
-<table id="ownersTable" class="table table-striped">
+<table id="enviosTable" class="table table-striped">
 		<thead>
 		<tr>
 			<th style="width: 150px;">Número de identificación</th>

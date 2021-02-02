@@ -99,7 +99,6 @@ public class Vehiculos extends BaseEntity{
 	private SeguroVehiculo seguroVehiculo;
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
-	@JsonIgnore
 	private Set<Incidencia> incidencias;
 	
 	//ANTONIO

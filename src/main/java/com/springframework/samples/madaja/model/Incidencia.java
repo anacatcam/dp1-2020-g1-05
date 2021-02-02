@@ -22,6 +22,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "incidencia")
 public class Incidencia extends BaseEntity {
@@ -35,15 +37,18 @@ public class Incidencia extends BaseEntity {
 	private Boolean solucionada;
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JsonIgnore
 	private Vehiculos vehiculos;
 	
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JsonIgnore
 	private Cliente cliente;
 	
 	@JoinTable(name = "incidencias_mecanicos", 
 			joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), 
 			inverseJoinColumns = @JoinColumn(name = "mecanico_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Mecanico> mecanicos;
 
 	protected Set<Mecanico> getMecanicosInternal(){
