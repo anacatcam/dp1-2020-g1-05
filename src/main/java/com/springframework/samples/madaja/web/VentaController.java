@@ -41,7 +41,7 @@ public class VentaController {
 	}
 	
 	@GetMapping(value = {"/MisVentas"})
-	public String showMisVentas(/*@PathVariable("clienteDni") String dni,*/ModelMap model){
+	public String showMisVentas(ModelMap model){
 		List<Venta> venVist = new ArrayList<>();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
@@ -52,7 +52,6 @@ public class VentaController {
 		}
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
 		
-	//	Cliente cliente = this.clienteService.findClienteByDni(dni);
 		venVist.addAll(this.ventaService.findVentasByDni(cliente.getDni()));
 		model.put("ventas", venVist);
 		
@@ -61,7 +60,6 @@ public class VentaController {
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/comprar")
 	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
-		//comprobación de que el vehiculo no está vendido ya
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		Boolean vendido  = estaVendido(vehiculo);
 		if(vendido) {

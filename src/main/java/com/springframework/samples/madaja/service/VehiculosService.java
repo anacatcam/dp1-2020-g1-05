@@ -55,7 +55,6 @@ public class VehiculosService {
 	@Transactional(readOnly = true)
 	public Collection<Vehiculos> findAllVehiculos() throws DataAccessException {
 		return vehiculosRepository.findAllByDisponible();
-//		return vehiculosRepository.findAll();
 	}
 	
 	@Transactional(readOnly = true)
@@ -81,11 +80,6 @@ public class VehiculosService {
 	@Transactional(readOnly = true)
 	public Collection<Cambio> findAllCambios() {
 		return cambioRepository.findAll();
-	}
-	
-	@Transactional(readOnly = true)
-	public Collection<Concesionario> findAllConcesionarios() {
-		return concesionarioRepository.findAll();
 	}
 	
 	@Transactional(readOnly = true)
