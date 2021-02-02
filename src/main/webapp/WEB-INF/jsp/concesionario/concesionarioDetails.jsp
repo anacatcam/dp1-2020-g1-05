@@ -3,7 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <madaja:layout pageName="concesionarios">
 	
 	<h2>Información del concesionario</h2>
@@ -178,7 +179,7 @@
 			</tr>
     	</c:forEach>
     </table>
-	
+	<sec:authorize access="hasAuthority('admin')">
 	<spring:url value="/concesionario/{concesionarioId}/EnviosAlquileres" var="enviosUrl">
 		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
 		    </spring:url>
@@ -188,4 +189,5 @@
 		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
 		    </spring:url>
 		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Ventas</a>
+	</sec:authorize>
 </madaja:layout>
