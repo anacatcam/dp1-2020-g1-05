@@ -12,7 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.service.ConcesionarioService;
@@ -68,6 +74,23 @@ public class ConcesionarioController {
 		Concesionario concesionario = this.concesionarioService.findConcesionarioById(concesionarioId);
 		model.put("concesionario", concesionario);
 		return "concesionario/concesionarioDetails";
+	}
+
+	@GetMapping(value= {"/searchConcesionarios"})
+	public String initFindForm(ModelMap model) {
+		model.put("concesionario", new Concesionario());
+		return "concesionario/mostrarConcesionarios";
+	}
+	
+	@PostMapping(value = {"/doSearchConcesionarios"})
+	public String searchConcesionarios(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
+		
+		if(searchText == "") {
+			return "redirect:/concesionario";
+		}
+		model.put("concesionarios", concesionarioService.searchConcesionarios(searchText));
+		
+		return "concesionario/mostrarConcesionarios";
 	}
 	
 	//-------------------------------------API--------------------------------

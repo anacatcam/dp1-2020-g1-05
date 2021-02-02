@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
@@ -113,5 +115,22 @@ public class ClienteController {
 		model.put("cliente", cliente);
 		
 		return "cliente/miPerfil";
+	}
+	
+	@GetMapping(value= {"/searchClientes"})
+	public String initFindForm(ModelMap model) {
+		model.put("cliente", new Cliente());
+		return "cliente/mostrarClientes";
+	}
+	
+	@PostMapping(value = {"/doSearchClientes"})
+	public String searchClientes(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
+		
+		if(searchText == "") {
+			return "redirect:/clientes";
+		}
+		model.put("clientes", clienteService.searchClientes(searchText));
+		
+		return "cliente/mostrarClientes";
 	}
 }

@@ -17,6 +17,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -26,10 +27,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
+@Indexed
 public class Cliente extends Person {
 
 	@Column(name = "dni")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String dni;
 	
 	@Column(name = "telefono")

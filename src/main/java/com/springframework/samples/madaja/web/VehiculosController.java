@@ -194,4 +194,20 @@ public class VehiculosController {
 		return view;
 	}
 
+	@GetMapping(value= {"/searchVehiculos"})
+	public String initFindForm(ModelMap model) {
+		model.put("vehiculo",new Vehiculos());
+		return "vehiculos/mostrarVehiculos";
+	}
+	
+	@PostMapping(value = {"/doSearchVehiculos"})
+	public String searchVehiculos(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
+		if(searchText == "") {
+			return "redirect:/vehiculos";
+		}
+		model.put("vehiculos", this.vehiculosService.searchVehiculos(searchText));
+	//	model.put("disponible", this.vehiculosService.findAllDisponibles());
+		
+		return "vehiculos/mostrarVehiculos";
+	}
 }

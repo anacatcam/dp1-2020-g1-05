@@ -11,6 +11,18 @@
 <madaja:layout pageName="vehiculos">
 	<h2>Vehículos</h2>
 	
+	<div>
+		<form:form action ="/doSearchVehiculos" method="POST" role="form">
+			<label for="inputSearch">Encuentra tu vehículo</label>
+			<div class="form-group">
+				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
+				<span class="col-sm-offset-2 col-sm-10">
+					<button type="submit">Buscar</button>
+				</span>
+			</div>
+		</form:form>
+	</div>
+	
 	<spring:url value="/vehiculos" var="todosUrl"></spring:url><a class="btn btn-default" href="${fn:escapeXml(todosUrl)}">Todos</a>
 	
 	<c:forEach items="${disponible}" var="disponible">

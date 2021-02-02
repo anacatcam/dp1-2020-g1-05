@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,12 +36,15 @@ public class ConcesionarioServiceTests {
 	@Mock
 	private ConcesionarioRepository concesionarioRepository;
 	
+	@Mock
+	private EntityManager entityManager;
+	
 	private Concesionario concesionario;
 	
 	
 	@BeforeEach
 	void setUp() {
-		concesionarioService = new ConcesionarioService(concesionarioRepository);
+		concesionarioService = new ConcesionarioService(concesionarioRepository,entityManager);
 		
 		concesionario = new Concesionario();
 		concesionario.setId(1);

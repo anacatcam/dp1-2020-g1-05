@@ -9,6 +9,18 @@
 <madaja:layout pageName="clientes">
 	<h2>Clientes</h2>
 	
+	<div>
+		<form:form action ="/doSearchClientes" method="POST" role="form">
+			<label for="inputSearch">Buscar clientes</label>
+			<div class="form-group">
+				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
+				<span class="col-sm-offset-2 col-sm-10">
+					<button type="submit">Buscar</button>
+				</span>
+			</div>
+		</form:form>
+	</div>
+	
 	<table id="ownersTable" class="table table-striped">
 	<thead>
 	<tr>
