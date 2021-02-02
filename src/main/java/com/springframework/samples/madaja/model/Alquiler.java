@@ -37,6 +37,9 @@ public class Alquiler extends BaseEntity {
 
 	@Column(name = "dep_lleno")
 	private Boolean depLleno;
+	
+	@Column(name = "devuelto")
+	private Boolean devuelto;
 
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
@@ -86,6 +89,14 @@ public class Alquiler extends BaseEntity {
 
 	public void setDepLleno(Boolean depLleno) {
 		this.depLleno = depLleno;
+	}
+	
+	public Boolean getDevuelto() {
+		return devuelto;
+	}
+
+	public void setDevuelto(Boolean devuelto) {
+		this.devuelto = devuelto;
 	}
 
 	public Reserva getReserva() {

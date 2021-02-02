@@ -48,6 +48,7 @@
 		 	<input type="hidden" name="pais" value="${envio.pais}"/>
 			<input type="time" style="visibility:hidden;" name="Hora" value="${envio.hora}"/>
 			<input type="date" style="visibility:hidden;" name="Fecha" value="${envio.fecha}"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div>
 				<label  for="estados">Estado:</label>
 				<form:select path="estadoEnvio">

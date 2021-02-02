@@ -35,6 +35,7 @@
 					<form:option value="${vehiculo.id}"><c:out value="${vehiculo.matricula}"></c:out></form:option>            	
             	</c:forEach>
             </form:select>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="col-sm-offset-2 col-sm-10">
 			<button class="btn btn-default"  type="submit">Añadir Oferta</button>
 			</div>

@@ -18,7 +18,7 @@
         	<input type="hidden" name="fianza" value="${reserva.fianza}"/>
         	<madaja:inputField label="Fecha en la que entra en gastos" name="fechaGastos"/>
         	<input type="hidden" name="cliente" value="${reserva.cliente.id}"/>
-        	
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

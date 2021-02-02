@@ -142,9 +142,9 @@ INSERT INTO venta(id,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (1,1,3,7
 INSERT INTO venta(id,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (2,2,4,6,2);
 INSERT INTO venta(id,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (3,3,5,5,3);
 
+INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
+	VALUES (1,1,1,1,4,4,'2010-09-03','2010-09-22',20000,true, true);
 INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
-	VALUES (1,1,1,1,4,4,'2010-09-03','2010-09-22',20000,true);
+	VALUES (2,2,2,2,5,1,'2010-08-07','2010-09-01',38000,true, false);
 INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
-	VALUES (2,2,2,2,5,1,'2010-08-07','2010-09-01',38000,true);
-INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno) 
-	VALUES (3,2,null,null,6,3,'2020-09-05','2020-09-10',16500,false);
+	VALUES (3,2,null,null,6,3,'2020-09-05','2020-09-10',16500,false, true);

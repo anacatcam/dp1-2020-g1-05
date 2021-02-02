@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,16 +21,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class AlquilerController {
 	
 	private static final String VIEWS_ALQUILER_CREATE_FORM = "alquiler/createAlquilerForm";
@@ -55,6 +61,15 @@ public class AlquilerController {
 	@InitBinder
 	public void setValidator(WebDataBinder dataBinder) {
 		dataBinder.setValidator(new AlquilerValidator());
+	}
+	
+	@GetMapping(value = {"/alquileres"})
+	public String mostrarAlquileres(ModelMap modelMap) {
+		String vista = ("/alquiler/mostrarAlquileres");
+		Iterable<Alquiler> alquileres = alquilerService.findAllAlquiler();
+		modelMap.addAttribute("alquileres", alquileres);
+		
+		return vista;
 	}
 	
 	@GetMapping(value = {"/MisAlquileres"})
@@ -111,6 +126,7 @@ public class AlquilerController {
 			nuevoAlquiler.setVehiculo(vehiculo);
 			nuevoAlquiler.setReserva(null);
 			nuevoAlquiler.setDepLleno(true);
+			nuevoAlquiler.setDevuelto(false);
 			nuevoAlquiler.setRecogida(null);
 			nuevoAlquiler.setEnvio(null);
 			model.put("alquiler", nuevoAlquiler);
@@ -136,6 +152,38 @@ public class AlquilerController {
 		}
 	}
 	
+	@GetMapping(value = "/alquileres/{alquilerId}/devolucion")
+	public String initDevolverVehiculo(@PathVariable("alquilerId") int alquilerId, Map<String, Object> model) {
+		model.put("alquiler_id", alquilerId);
+		model.put("disponibles", this.vehiculosService.findAllDisponibles());
+		return "vehiculos/devolverVehiculo";
+	}
+	
+	@PostMapping(value = "/alquileres/{alquilerId}/devolucion")
+	public String processDevolverVehiculo(ModelMap model, @RequestParam(name="AlquilerId") Optional<Integer> alquilerId,
+				@RequestParam(name="disponible") Optional<String> disponible, 
+				@RequestParam(name="FechaDevolucion") Optional<String> fechaDevolucion) {
+		if (alquilerId.isPresent() == false || fechaDevolucion.isPresent() == false || disponible.isPresent() == false ) {
+			model.put("alquiler_id", alquilerId);
+			model.put("disponibles", this.vehiculosService.findAllDisponibles());
+			return "vehiculos/devolverVehiculo";
+		}
+		else {
+			System.out.println("okei todo");
+			Alquiler alquiler = this.alquilerService.findAlquilerById(alquilerId.get());
+			alquiler.setDevuelto(true);
+			Integer vehiculoId = alquiler.getVehiculo().getId();
+			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+			Disponible disponibilidad = this.vehiculosService.findDisponibleById(Integer.parseInt(disponible.get()));
+			vehiculo.setDisponible(disponibilidad);
+			//Comprobamos si hay retraso en la fecha de devolución
+			String devolucion = fechaDevolucion.get();
+			LocalDate fechaFin = alquiler.getFechaFin();
+			Integer retraso = esRetraso(devolucion, fechaFin);
+		}
+		return "redirect:/vehiculos";
+	}
+	
 	public Map<Boolean, LocalDate> estaAlquilado(Vehiculos vehiculo) {
 		Map<Boolean, LocalDate> res = new HashMap<>();
 		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
@@ -159,6 +207,13 @@ public class AlquilerController {
 			}
 		}
 		return res;
+	}
+	
+	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
+		Integer retraso = 0;
+		String[] devolucion = fechaDevolucion.split("-"); //el elemento cero es el año, el uno el mes y el dos el día
+		
+		return retraso;
 	}
 	
 }

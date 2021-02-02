@@ -34,6 +34,7 @@
     	        </div>
             </div>
             <input name="solucionada" type="hidden" value="false">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

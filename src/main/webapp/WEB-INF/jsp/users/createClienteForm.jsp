@@ -20,6 +20,7 @@
             <input name="esConflictivo" type="hidden" value="No">
             <madaja:inputField label="Username" name="user.username"/>
             <madaja:inputField label="Password" name="user.password"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
