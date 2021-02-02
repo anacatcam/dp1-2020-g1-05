@@ -100,6 +100,7 @@ public class AlquilerController {
 		nuevoAlquiler.setEnvio(null);
 		nuevoAlquiler.setSeguro_cliente(null);
 		model.put("alquiler", nuevoAlquiler);
+		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
 		
 		return VIEWS_ALQUILER_CREATE_FORM;
 	}
