@@ -243,43 +243,49 @@
     <br/>
     <br/>
     <br/>
-    <h2>Seguro de cliente</h2>
-    <table class="table table-striped">
-    	<c:forEach var="seguroCliente" items="${vehiculos.segurosCliente}">
-    		<td valign="top">
-    			<dl class="dl-horizontal">
-    				<dt>Cobertura</dt>
-    				<dd><c:out value="${seguroCliente.cobertura}"/></dd>
-    				<dt>Franquicia</dt>
-    				<dd>
-    					<c:choose>
-        		       	<c:when test="${seguroCliente.franquicia eq 0}">
-       		           	<dt>Sin franquicia</dt>
-       		        	</c:when>
-       		        	<c:otherwise>
-       		     		<c:out value="${seguroCliente.franquicia}"/>
-       		        	</c:otherwise>
-        		    	</c:choose>
-      		      	</dd>
-      		      	<dt>Fecha inicio</dt>
-      		      	<dd><c:out value="${seguroCliente.fechaInicio}"/></dd>
-       		     	<dt>Fecha fin</dt>
-       		   		<dd><c:out value="${seguroCliente.fechaFin}"/></dd>
-        		    <dt>Precio final</dt>
-       		   		<dd><c:out value="${seguroCliente.precio}"/></dd>
-            		<dt>
-            		  <sec:authorize access="hasAuthority('admin')">	
-        				<spring:url value="/vehiculos/{vehiculoId}/seguroCliente/{seguroClienteId}/edit" var="seguroClienteUrl">
-						<spring:param name="vehiculoId" value="${vehiculos.id}"/>
-     				   	<spring:param name="seguroClienteId" value="${seguroCliente.id}"/>
-    					</spring:url>
-    					<a href="${fn:escapeXml(seguroClienteUrl)}">Editar seguro cliente</a>
-    				  </sec:authorize>
-           			</dt>
-    			</dl>
-    		</td>
-    	</c:forEach>
-    </table>
+    <c:choose>
+    	<c:when test="${vehiculos.segurosCliente.size() > 0}">
+		    <h2>Seguro de cliente</h2>
+		    <table class="table table-striped">
+		    	<c:forEach var="seguroCliente" items="${vehiculos.segurosCliente}">
+		    		<td valign="top">
+		    			<dl class="dl-horizontal">
+		    				<dt>Cobertura</dt>
+		    				<dd><c:out value="${seguroCliente.cobertura}"/></dd>
+		    				<dt>Franquicia</dt>
+		    				<dd>
+		    					<c:choose>
+		        		       	<c:when test="${seguroCliente.franquicia eq 0}">
+		       		           	<dt>Sin franquicia</dt>
+		       		        	</c:when>
+		       		        	<c:otherwise>
+		       		     		<c:out value="${seguroCliente.franquicia}"/>
+		       		        	</c:otherwise>
+		        		    	</c:choose>
+		      		      	</dd>
+		      		      	<dt>Fecha inicio</dt>
+		      		      	<dd><c:out value="${seguroCliente.fechaInicio}"/></dd>
+		       		     	<dt>Fecha fin</dt>
+		       		   		<dd><c:out value="${seguroCliente.fechaFin}"/></dd>
+		        		    <dt>Precio final</dt>
+		       		   		<dd><c:out value="${seguroCliente.precio}"/></dd>
+		            		<dt>
+		            		  <sec:authorize access="hasAuthority('admin')">	
+		        				<spring:url value="/vehiculos/{vehiculoId}/seguroCliente/{seguroClienteId}/edit" var="seguroClienteUrl">
+								<spring:param name="vehiculoId" value="${vehiculos.id}"/>
+		     				   	<spring:param name="seguroClienteId" value="${seguroCliente.id}"/>
+		    					</spring:url>
+		    					<a href="${fn:escapeXml(seguroClienteUrl)}">Editar seguro cliente</a>
+		    				  </sec:authorize>
+		           			</dt>
+		    			</dl>
+		    		</td>
+		    	</c:forEach>
+		    </table>
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+    </c:choose>
    
    <sec:authorize access="hasAuthority('admin')">
    		<c:if test="${vehiculos.segurosCliente.size()==0}">

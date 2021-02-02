@@ -45,10 +45,33 @@
 				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('admin')">
-					<madaja:menuItem active="${name eq 'reservas'}" url="/reservas"
-						title="reservas">
-						<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-						<span>Reservas</span>
+					<madaja:menuItem active="${name eq 'gestion'}" url=""
+						title="gestion" dropdown="${true}">
+						<ul class="dropdown-menu">
+							<li>								
+								<div class="row">
+									<div class="text-center">																					
+											<a href="<c:url value="/reservas" />">Reservas</a>
+									</div>																					
+								</div>						
+							</li>
+							<li class="divider"></li>
+							<li>								
+								<div class="row">
+									<div class="text-center">																					
+											<a href="<c:url value="/alquileres" />">Alquileres</a>
+									</div>																					
+								</div>						
+							</li>
+							<li class="divider"></li>
+							<li>								
+								<div class="row">
+									<div class="text-center">																					
+											<a href="<c:url value="/ventas" />">Ventas</a>
+									</div>																					
+								</div>						
+							</li>													
+						</ul>	
 					</madaja:menuItem>
 				</sec:authorize>
 				

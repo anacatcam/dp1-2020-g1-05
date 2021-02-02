@@ -145,7 +145,7 @@ public class VehiculosController {
 	@GetMapping(value = "/vehiculos/{vehiculoId}/delete")
 	public String deleteVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		Disponible disponible = this.vehiculosService.findDisponibleById(4);
+		Disponible disponible = this.vehiculosService.findDisponibleById(7);
 		vehiculo.setDisponible(disponible);
 		this.vehiculosService.saveVehiculo(vehiculo);
 		return "redirect:/vehiculos";
@@ -159,28 +159,6 @@ public class VehiculosController {
 		model.put("vehiculos", vehiculos);
 		model.put("disponible", disponible);
 		return "vehiculos/mostrarVehiculos";
-	}
-	
-	@GetMapping(value = "/vehiculos/{vehiculoId}/devolucion")
-	public String initDevolverVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
-		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		model.put("vehiculos", vehiculo);
-		model.put("disponibles", this.vehiculosService.findAllDisponibles());
-		return "vehiculos/devolverVehiculo";
-	}
-	
-	@PostMapping(value = "/vehiculos/{vehiculoId}/devolucion")
-	public String processDevolverVehiculo(@Valid Vehiculos vehiculo, BindingResult result, ModelMap model, 
-				@RequestParam(name="Fecha de devolución") Optional<LocalDate> fechaDevolucion) {
-		if (result.hasErrors()) {
-			model.put("vehiculos", vehiculo);
-			model.put("disponibles", this.vehiculosService.findAllDisponibles());
-			return "vehiculos/devolverVehiculo";
-		}
-		else {
-			
-		}
-		return "redirect:/vehiculos";
 	}
 	
 	/** Reservar vehiculo  **/

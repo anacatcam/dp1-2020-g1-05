@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -154,40 +155,51 @@ public class ReservasController {
 		return view;
 	}
 	
-	/** Anular reservas admin **/
-	@GetMapping(path = "/delete/{reservaId}")
-	public String borrarReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
+	@GetMapping(path = "/{reservaId}/delete")
+	public String borrarReservas(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String autoridad;
+		String username = "";
 		String view = "";
-		Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
-		if (reserva.isPresent()) {
-			reservaService.deleteRes(reservaId);
-			view = "reservas/mostrarReservas";
-			mostrarReservas(modelMap);
-			modelMap.addAttribute("message", "Reserva anulada correctamente");
-		} else {
-			modelMap.addAttribute("message", "Reserva no encontrada");
+		List<Reserva> reservas = new ArrayList<>();
+		
+		if(principal instanceof UserDetails) {
+			 autoridad = ((UserDetails)principal).getAuthorities().iterator().next().toString();
+			 username = ((UserDetails)principal).getUsername();
+		}else {
+			 autoridad = principal.toString();
+		}
+		
+		if(autoridad.equals("admin")) {
+			Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
+			if (reserva.isPresent()) {
+				reservaService.deleteRes(reservaId);
+				view = "reservas/mostrarReservas";
+				mostrarReservas(modelMap);
+				modelMap.addAttribute("message", "Reserva anulada correctamente");
+			} else {
+				modelMap.addAttribute("message", "Reserva no encontrada");
+			}
+		} else if (autoridad.equals("cliente")) {
+			Cliente cliente = this.clienteService.findClienteByUsername(username);
+			String dni = cliente.getDni();
+			reservas = this.reservaService.findByDNI(dni);
+			for (Reserva r : reservas) {
+				if(r.getId().equals(reservaId)) {
+					this.reservaService.deleteRes(reservaId);
+					view = "reservas/mostrarMisReservas";
+					mostrarMisReservas(modelMap);
+					modelMap.addAttribute("message", "Reserva anulada correctamente");
+					break;
+				}else {
+					return "redirect:/oups";
+				}
+			}
 		}
 		return view;
 	}
 	
-	/** Anular reserva usuario **/
-	@GetMapping(path = "/deleteU/{reservaId}")
-	public String borrarMiReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
-		String view = "";
-
-		Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
-		if (reserva.isPresent()) {
-			reservaService.deleteRes(reservaId);
-			view = "reservas/mostrarMisReservas";
-			mostrarMisReservas(modelMap);
-			modelMap.addAttribute("message", "Reserva anulada correctamente");
-		} else {
-			modelMap.addAttribute("message", "Reserva no encontrada");
-		}
-		return view;
-	}
-	
-	@GetMapping(value = "/{vehiculoId}/nuevaReserva")
+	@GetMapping(value = "/nuevaReserva/{vehiculoId}")
 	public String nuevaReserva(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;

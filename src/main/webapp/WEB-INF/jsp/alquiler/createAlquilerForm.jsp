@@ -17,6 +17,7 @@
             <madaja:inputField label="Limite de kilometros" name="limiteKM"/>
         	<input type="hidden" name="vehiculo" value="${alquiler.vehiculo.id}"/>
         	<input type="hidden" name="cliente" value="${alquiler.cliente.id}"/>
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">¿Dónde desea recoger el vehículo? </label>

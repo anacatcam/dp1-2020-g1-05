@@ -26,18 +26,24 @@
 	<spring:url value="/vehiculos" var="todosUrl"></spring:url><a class="btn btn-default" href="${fn:escapeXml(todosUrl)}">Todos</a>
 	
 	<c:forEach items="${disponible}" var="disponible">
-		<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
-	        <spring:param name="disponibleId" value="${disponible.id}"/>
-       </spring:url>
-       <a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+		<c:choose>
+			<c:when test="${disponible.id > 3}">
+				<sec:authorize access="hasAuthority('admin')">
+					<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
+		    			<spring:param name="disponibleId" value="${disponible.id}"/>
+	    			</spring:url>
+	    			<a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+	    		</sec:authorize>
+    		</c:when>
+    		<c:otherwise>
+				<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
+		    		<spring:param name="disponibleId" value="${disponible.id}"/>
+	    		</spring:url>
+	   			<a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+    		</c:otherwise>
+    	</c:choose>
 	</c:forEach>
-<!-- 	
-	<a class="btn btn-default"  href='<spring:url value="/vehiculos/EnAlquiler"  ></spring:url>' >En Alquiler</a>
-						
-	<a class="btn btn-default" href='<spring:url value="/vehiculos/EnVenta" ></spring:url>'>En Venta</a>
-	
-	<a class="btn btn-default" href='<spring:url value="/vehiculos/Ambos" ></spring:url>'>Ambos</a> 
--->																
+															
 	<table id="ownersTable" class="table table-striped">
 		<thead>
 		<tr>
@@ -83,14 +89,14 @@
 					</td>
 					<sec:authorize access="hasAuthority('admin')">
 						<c:choose>
-							<c:when test="${vehiculo.disponible.id == 4}">
+<%-- 							<c:when test="${vehiculo.disponible.id == 4}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/devolucion" var="altaUrl">
 								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 								    </spring:url>
 								    <a href="${fn:escapeXml(altaUrl)}">Devuelto</a>
 								</td>
-                        	</c:when>
+                        	</c:when> --%>
                         	<c:when test="${vehiculo.disponible.id > 4}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
