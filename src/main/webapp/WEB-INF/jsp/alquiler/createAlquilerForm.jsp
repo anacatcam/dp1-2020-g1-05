@@ -6,7 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misAlquileres">
+<madaja:layout pageName="createAlquiler">
     <h2>Nuevo alquiler</h2>
     <form:form modelAttribute="alquiler" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">

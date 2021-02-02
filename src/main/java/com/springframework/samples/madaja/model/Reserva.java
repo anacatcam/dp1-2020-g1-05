@@ -15,6 +15,8 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "reserva")
 public class Reserva extends BaseEntity {
@@ -29,12 +31,15 @@ public class Reserva extends BaseEntity {
 	private LocalDate fechaGastos;
 
 	@OneToOne(mappedBy = "reserva", optional = true)
+	@JsonIgnore
 	private Alquiler alquiler;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Cliente cliente;
 
 	@OneToOne(mappedBy = "reserva", optional = true)
+	@JsonIgnore
 	private Venta venta;
 
 	public Integer getId() {
