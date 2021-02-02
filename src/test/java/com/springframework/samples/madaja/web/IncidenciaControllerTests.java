@@ -32,7 +32,9 @@ import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.MecanicoService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.web.IncidenciaController;
 
@@ -49,6 +51,12 @@ public class IncidenciaControllerTests {
 	
 	@MockBean
 	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private ClienteService clienteService;
+	
+	@MockBean
+	private MecanicoService mecanicoService;
 
 	@Autowired
 	private MockMvc mockMvc;

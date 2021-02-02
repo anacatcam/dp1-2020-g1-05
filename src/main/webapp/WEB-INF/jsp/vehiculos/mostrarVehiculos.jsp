@@ -48,7 +48,6 @@
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
 			<th style="width: 150px;">Disponibilidad</th>
-			<th style="width: 150px;">Reservar</th>
 			<sec:authorize access="hasAuthority('admin')">
 				<th></th>
 			</sec:authorize>
@@ -82,11 +81,6 @@
 					<td>
 						<c:out value="${vehiculo.disponible}"/>
 					</td>
-					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservar/{vehiculoId}" >
-															<spring:param name="vehiculoId" value="${vehiculo.id}"/>
-														</spring:url>'>Reservar</a>
-					</td>	
 					<sec:authorize access="hasAuthority('admin')">
 						<c:choose>
 							<c:when test="${vehiculo.disponible.id == 4}">

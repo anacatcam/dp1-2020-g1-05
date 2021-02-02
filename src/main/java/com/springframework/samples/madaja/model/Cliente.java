@@ -23,6 +23,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cliente")
 @Indexed
@@ -48,12 +50,15 @@ public class Cliente extends Person {
 	private String esConflictivo;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Venta> ventas;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Alquiler> alquileres;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Reserva> reservas;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -61,6 +66,7 @@ public class Cliente extends Person {
 	private User user;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Incidencia> numIncidencias;
 	
 	@Column(name = "dias_retraso")

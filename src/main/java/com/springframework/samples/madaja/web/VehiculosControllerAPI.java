@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class VehiculosControllerAPI {
 	@GetMapping(value = "/disponibles-ofertas")
 	public List<Vehiculos> allDisponiblesOfertas(){
 		return vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = "/oferta/{id}")
+	public List<Vehiculos> allVehiculosByOferta(@PathVariable int id){
+		return vehiculosService.findByOferta(id).stream().collect(Collectors.toList());
 	}
 }
