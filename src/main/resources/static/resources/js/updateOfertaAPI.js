@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	add_values();
 	add_options();
 	$('#add-owner-form').submit(function(event){
 		var errors = validate();
@@ -11,46 +12,85 @@ $(document).ready(function(){
 	});
 });
 
-function add_options(){
+function add_values(){
+	var id = document.getElementById('id').value;
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8090/api/v1/vehiculos/disponibles-ofertas',
+		url: 'http://localhost:8090/api/v1/ofertas/oferta/' + id,
 		dataType : "json",
 		contentType: "application/json",
 		success:function(response){
-			var select = document.getElementById("vehiculos");
-			for(var i = 0; i<response.length;i++){
-				var opt = document.createElement('option')
-				opt.value=response[i].id;
-				opt.innerHTML = response[i].matricula;
-				select.appendChild(opt);
-			}
+				document.getElementById("name").value = response.name;
+				document.getElementById("descuento").value = response.descuento;
+				document.getElementById("fechaLimite").value = response.fechaLimite;
+				document.getElementById("horaLimite").value = response.horaLimite;
+
 		},
 		error : function(){
-			alert("Se ha producido un error");
+			alert("No se encuentra ninguna oferta con id = " + id)
+			window.location = "http://localhost:8090/ofertaAPI"
 		}
 	});
 }
+
+function add_options(){
+	var id = document.getElementById('id').value;
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost:8090/api/v1/vehiculos/oferta/' + id,
+		dataType : "json",
+		contentType: "application/json",
+		success:function(response){
+			add_options_html(response)
+			$.ajax({
+				type: 'GET',
+				url: 'http://localhost:8090/api/v1/vehiculos/disponibles-ofertas',
+				dataType : "json",
+				contentType: "application/json",
+				success:function(response){
+					add_options_html(response)
+				},
+				error : function(){
+					alert("Se ha producido un error")
+				}
+			});
+			
+		},
+		error : function(){
+			alert("Se ha producido un error")
+		}
+	});
+}
+
+function add_options_html(response){
+	var select = document.getElementById("vehiculos");
+	for(var i = 0; i<response.length;i++){
+		var opt = document.createElement('option')
+		opt.value=response[i].id;
+		opt.innerHTML = response[i].matricula;
+		select.appendChild(opt);
+	}
+}
 function ajax_submit(){
+	var id = document.getElementById('id').value;
 	var oferta = {}
 	oferta["name"] = $('#name').val();
 	oferta["descuento"] = $('#descuento').val();
 	oferta["fechaLimite"] = $('#fechaLimite').val();
 	oferta["horaLimite"] = $('#horaLimite').val();
-	
 	var vehiculoId = $('#vehiculos').val();
 	if(!$('#vehiculos').val()){
 		vehiculoId = "";
 	}
 	$.ajax({
-		type: "POST",
+		type: "PUT",
 		contentType: "application/json",
-		url: "http://localhost:8090/api/v1/ofertas/saveOferta/" + vehiculoId,
+		url: "http://localhost:8090/api/v1/ofertas/oferta/" + id + "/" + vehiculoId,
 		data: JSON.stringify(oferta),
 
 		success: function(data){
 			window.location.href = "/ofertaAPI/";
-		}, 
+		},
 		error: function(e){
 			var json = e.responseJSON;
 			for(var i=0; i<json.length; i++){
@@ -127,3 +167,4 @@ function isDateBeforeToday(date) {
 	var today = new Date();
     return date.valueOf() <= today.valueOf();
 }
+

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springframework.samples.madaja.util.FechaLimiteConstraint;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -30,22 +33,24 @@ import com.sun.istack.NotNull;
 public class Oferta extends NamedEntity {
 	
 	@Column(name = "descuento")
+	@javax.validation.constraints.NotNull
 	@Min(0)
 	private Double descuento;
 	
 	@Column(name = "fecha_limite")
-	@NotNull
+	@FechaLimiteConstraint
 	@DateTimeFormat(iso=ISO.DATE)
 	private LocalDate fechaLimite;
 
 	@Column(name = "hora_limite")   
+	@javax.validation.constraints.NotNull
 	@DateTimeFormat(iso=ISO.TIME)
 	private LocalTime horaLimite;
 	
 	@OneToMany(mappedBy = "oferta", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
-
+	
 	public void addVehiculo(Vehiculos vehiculo) {
 		vehiculos.add(vehiculo);
 		vehiculo.setOferta(this);
@@ -90,7 +95,7 @@ public class Oferta extends NamedEntity {
 	}
 
 	
-	
+
 	@Override
 	public String toString() {
 		ToStringCreator builder = new ToStringCreator(this);

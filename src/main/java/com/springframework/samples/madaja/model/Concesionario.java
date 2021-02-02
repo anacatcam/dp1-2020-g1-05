@@ -24,6 +24,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "concesionario")
@@ -48,9 +50,11 @@ public class Concesionario extends Localizacion {
 			joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), 
 			inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Gestor> gestores;
 	
 	@OneToMany(mappedBy = "concesionario", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
 	
 	protected Set<Vehiculos> getVehiculosInternal(){
@@ -133,6 +137,17 @@ public class Concesionario extends Localizacion {
 		return localidad + ", " + provincia;
 	}
 
+	@Override
+	public String toString() {
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("nombre", nombre);
+		builder.append("email", email);
+		builder.append("telefono", telefono);
+		builder.append("gestores", gestores);
+		builder.append("vehiculos", vehiculos);
+		return builder.toString();
+	}
+
 //	@Override
 //	public String toString() {
 //		ToStringCreator builder = new ToStringCreator(this);
@@ -147,6 +162,7 @@ public class Concesionario extends Localizacion {
 //		return builder.toString();
 //	}
 //	
+	
 	
 
 }

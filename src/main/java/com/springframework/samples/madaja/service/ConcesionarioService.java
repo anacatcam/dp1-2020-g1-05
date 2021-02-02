@@ -1,9 +1,12 @@
 package com.springframework.samples.madaja.service;
 
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,14 @@ public class ConcesionarioService {
 		this.concesionarioRepository=concesionarioRepository;
 	}
 	
+	//////
+	@Transactional(readOnly = true)
+	public Page<Concesionario> getAll(Pageable pageable) {
+		return concesionarioRepository.findAll(pageable);
+	}
+	//////
+	
+	/** anterior a la paginacion **/
 	@Transactional(readOnly = true)
 	public Collection<Concesionario> findAllConcesionarios() throws DataAccessException {
 		return concesionarioRepository.findAll();
