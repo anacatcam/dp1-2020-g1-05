@@ -1,6 +1,8 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -134,7 +136,7 @@ public class AlquilerController {
 			nuevoAlquiler.setVehiculo(vehiculo);
 			nuevoAlquiler.setReserva(null);
 			nuevoAlquiler.setDepLleno(true);
-			nuevoAlquiler.setDevuelto(false);
+			nuevoAlquiler.setDevuelto(false); //esto no lo guarda
 			nuevoAlquiler.setRecogida(null);
 			nuevoAlquiler.setEnvio(null);
 			model.put("alquiler", nuevoAlquiler);
@@ -177,7 +179,6 @@ public class AlquilerController {
 			return "vehiculos/devolverVehiculo";
 		}
 		else {
-			System.out.println("okei todo");
 			Alquiler alquiler = this.alquilerService.findAlquilerById(alquilerId.get());
 			alquiler.setDevuelto(true);
 			Integer vehiculoId = alquiler.getVehiculo().getId();
@@ -188,6 +189,8 @@ public class AlquilerController {
 			String devolucion = fechaDevolucion.get();
 			LocalDate fechaFin = alquiler.getFechaFin();
 			Integer retraso = esRetraso(devolucion, fechaFin);
+			alquiler.getCliente().setDiasRetraso(retraso);
+			System.out.println(alquiler.getCliente().getDiasRetraso());
 		}
 		return "redirect:/vehiculos";
 	}
@@ -218,9 +221,8 @@ public class AlquilerController {
 	}
 	
 	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
-		Integer retraso = 0;
-		String[] devolucion = fechaDevolucion.split("-"); //el elemento cero es el año, el uno el mes y el dos el día
-		
+		LocalDate devolucion = LocalDate.parse(fechaDevolucion, DateTimeFormatter.ofPattern("yyyy-mm-dd"));
+		Integer retraso = (int) Duration.between(devolucion, fechaFin).toDays();
 		return retraso;
 	}
 	

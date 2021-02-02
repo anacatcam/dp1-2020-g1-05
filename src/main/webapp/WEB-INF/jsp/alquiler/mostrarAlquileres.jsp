@@ -20,6 +20,7 @@
 			<th style="width: 150px;">Fecha de fin</th>
 			<th style="width: 150px;">Cliente</th>
 			<th style="width: 150px;">Devuelto</th>
+			<th style="width: 150px;"></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -44,9 +45,10 @@
 						<c:out value="${alquiler.fechaFin}"/>	
 					</td>
 					<td>
-						<c:out value="${alquiler.cliente}"/>	
+						<c:out value="${alquiler.cliente.firstName}"/>	<c:out value="${alquiler.cliente.lastName}"/>	
 					</td>
 					<td>
+						<c:out value="${alquiler.devuelto}"/>
 						<c:choose>
 							<c:when test="${alquiler.devuelto eq true}">
 								Sí
@@ -60,7 +62,7 @@
 						<c:choose>
 							<c:when test="${alquiler.devuelto eq false}">
 								<spring:url value="/alquileres/{alquilerId}/devolucion" var="devolverUrl">
-		                            <spring:param name="vehiculoId" value="${alquiler.id}"/>
+		                            <spring:param name="alquilerId" value="${alquiler.id}"/>
 								</spring:url>
 		                        <a href="${fn:escapeXml(devolverUrl)}">Marcar como devuelto</a>
 							</c:when>
