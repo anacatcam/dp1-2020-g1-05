@@ -43,6 +43,7 @@ public class Alquiler extends BaseEntity {
 	private Boolean depLleno;
 	
 	@Column(name = "devuelto")
+	@NotNull
 	private Boolean devuelto;
 
 	@OneToOne
