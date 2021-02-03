@@ -129,6 +129,7 @@ public class SeguroClienteControllerTests {
 		vehiculo.setSeguroVehiculo(seguroVehiculo);
 		
 		seguroCliente = new SeguroCliente();
+		seguroCliente.setId(1);
 		seguroCliente.setCobertura("Prueba controller");
 		seguroCliente.setFranquicia(150);
 		seguroCliente.setFechaInicio(LocalDate.of(2020, 12, 10));
@@ -137,6 +138,7 @@ public class SeguroClienteControllerTests {
 		seguroCliente.setVehiculos(vehiculo);
 		
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+		given(seguroClienteService.findSeguroClienteById(anyInt())).willReturn(seguroCliente);
 	}
 	
 	@WithMockUser(value = "spring")
@@ -152,10 +154,10 @@ public class SeguroClienteControllerTests {
 	@Test
 	void testProcessCreationFormSucess() throws Exception{
 		mockMvc.perform((post("/vehiculos/{vehiculoId}/seguroCliente/new",1)
-				.param("cobertura", "Prueba controller")
+				.param("cobertura", "Prueba controller test")
 				.param("franquicia", "150")
-				.param("fechaInicio", "LocalDate.of(2020, 12, 10)")
-				.param("fechaFin", "LocalDate.of(2020, 12, 15)")
+				.param("fechaInicio", "2020-12-10")
+				.param("fechaFin", "2020-12-15")
 				.param("precio", "390")
 				.with(csrf())))
 		.andExpect(status().is3xxRedirection())
@@ -179,13 +181,12 @@ public class SeguroClienteControllerTests {
 		.andExpect(model().attributeHasFieldErrors("seguroCliente", "fechaFin"))
 		.andExpect(model().attributeHasFieldErrors("seguroCliente", "precio"))
 		.andExpect(status().isOk())
-		.andExpect(view().name("seguroCl/updateSeguroClForm"));
+		.andExpect(view().name("seguroCl/createSeguroClForm"));
 	}
 	
 	@WithMockUser(value = "spring")
 	@Test
 	void testInitUpdateForm() throws Exception{
-		given(seguroClienteService.findSeguroClienteById(anyInt())).willReturn(seguroCliente);
 		
 		mockMvc.perform(get("/vehiculos/{vehiculoId}/seguroCliente/{seguroClienteId}/edit", 1,1))
 		.andExpect(status().isOk())
@@ -197,13 +198,12 @@ public class SeguroClienteControllerTests {
 	@WithMockUser(value = "spring")
 	@Test
 	void testProcessUpdateFormSucess() throws Exception{
-		given(seguroClienteService.findSeguroClienteById(anyInt())).willReturn(seguroCliente);
 		
 		mockMvc.perform(post("/vehiculos/{vehiculoId}/seguroCliente/{seguroClienteId}/edit",1,1)
 				.param("cobertura", "Prueba controller update")
 				.param("franquicia", "170")
-				.param("fechaInicio", "LocalDate.of(2020, 12, 10)")
-				.param("fechaFin", "LocalDate.of(2020, 12, 18)")
+				.param("fechaInicio", "2020-12-10")
+				.param("fechaFin", "2020-12-18")
 				.param("precio", "400")
 				.with(csrf()))
 		.andExpect(status().is3xxRedirection())

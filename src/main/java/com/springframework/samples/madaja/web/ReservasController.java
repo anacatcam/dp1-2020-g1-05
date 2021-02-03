@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
@@ -156,7 +161,7 @@ public class ReservasController {
 	
 	/** Anular reservas admin **/
 	@GetMapping(path = "/delete/{reservaId}")
-	public String borrarReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
+	public String borrarReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap, Map<String, Object> params) {
 		String view = "";
 		Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
 		if (reserva.isPresent()) {

@@ -7,6 +7,7 @@
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
 <madaja:layout pageName="oferta">
+
 	<h2>Ofertas</h2>
 
 	<table id="ownersTable" class="table table-striped">
@@ -53,4 +54,58 @@
 	</table>
 	<br/>
 	<a class="btn btn-default" href='<spring:url value="/oferta/new" htmlEscape="true"/>'>Añadir oferta</a>
+	
+	
+	<div>
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+
+                    <c:choose>
+                        <c:when test="${prev == 0}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&laquo;</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${prev}">&laquo;</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <c:forEach items="${pages}" var="page">
+
+                    <c:choose>
+                        <c:when test="${current == page}">
+                            <li class="page-item active">
+                                <a class="page-link" href="?page=${page}">${page}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${page}">${page}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    </c:forEach>
+					<c:choose>
+                        <c:when test="${current == max}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&raquo</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${next}">&raquo</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                  </ul>
+            </nav>
+    </div>
+	
+	
 </madaja:layout>

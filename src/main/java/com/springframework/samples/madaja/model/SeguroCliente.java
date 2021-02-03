@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,10 +24,12 @@ public class SeguroCliente extends Seguro {
 	
 	@Column(name = "fecha_inicio")
 	@DateTimeFormat(iso=ISO.DATE)
+	@NotNull
 	private LocalDate fechaInicio;
 	
 	@Column(name = "fecha_fin")
 	@DateTimeFormat(iso=ISO.DATE)
+	@NotNull
 	private LocalDate fechaFin;
 
 	

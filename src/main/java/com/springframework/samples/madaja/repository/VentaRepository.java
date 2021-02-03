@@ -3,6 +3,8 @@ package com.springframework.samples.madaja.repository;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 import com.springframework.samples.madaja.model.Venta;
 
 public interface VentaRepository extends Repository<Venta, Integer>{
+	
+	Page<Venta> findAllPag(Pageable pageable);
 	
 	Iterable<Venta> findAll() throws DataAccessException; //TODAS las ventas
 	

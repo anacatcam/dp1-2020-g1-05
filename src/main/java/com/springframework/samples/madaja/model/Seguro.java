@@ -11,11 +11,12 @@ public class Seguro extends BaseEntity{
 	
 	@Column(name = "precio")
 	@PositiveOrZero
+	@NotNull
 	protected Double precio;
 	
 	@Column(name = "franquicia")
-	@NotNull
 	@PositiveOrZero
+	@NotNull
 	protected Integer franquicia;
 
 	public Double getPrecio() {
