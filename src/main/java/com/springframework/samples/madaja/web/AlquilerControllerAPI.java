@@ -48,8 +48,8 @@ public class AlquilerControllerAPI {
 		this.vehiculosService = vehiculosService;
 	}
 	
-	@GetMapping(value = "/misAlquileres")
-	public List<Alquiler> showMisAlquileres() {
+	@GetMapping()
+	public List<Alquiler> getAlquileresCliente() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if(principal instanceof UserDetails) {

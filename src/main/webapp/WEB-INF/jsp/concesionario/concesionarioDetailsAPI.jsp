@@ -7,7 +7,7 @@
 <madaja:layout pageName="concesionariosAPI">
 <body>	
 	<h2>Información del concesionario</h2>
-	<input id="id" type="hidden" value="${id}"/>	
+	<input id="concesionarioId" type="hidden" value="${concesionarioId}"/>	
 	<table id="detallesConcesionario" class="table table-striped">
 	</table>
 	<h2>Vehículos</h2>
