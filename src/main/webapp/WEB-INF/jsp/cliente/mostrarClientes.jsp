@@ -9,6 +9,18 @@
 <madaja:layout pageName="clientes">
 	<h2>Clientes</h2>
 	
+	<div>
+		<form:form action ="/doSearchClientes" method="POST" role="form">
+			<label for="inputSearch">Buscar clientes</label>
+			<div class="form-group">
+				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
+				<span class="col-sm-offset-2 col-sm-10">
+					<button type="submit">Buscar</button>
+				</span>
+			</div>
+		</form:form>
+	</div>
+	
 	<table id="ownersTable" class="table table-striped">
 	<thead>
 	<tr>
@@ -56,6 +68,61 @@
 		</tbody>
 	</table>
 
+	<!--  -->
+	<div>
+			<nav aria-label="Pagination">
+				<ul class="pagination">
+				
+					<c:choose>
+						<c:when test="${prev == 0}">
+							<li class="page-item disabled">
+			    				<a class="page-link" href="#">&laquo;</a>
+			    			</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+			    				<a class="page-link" href="?page=${prev}">&laquo;</a>
+			    			</li>
+						</c:otherwise>
+					</c:choose>
+
+					
+					<c:forEach items="${pages}" var="page">
+					
+					<c:choose>
+						<c:when test="${current == page}">
+							<li class="page-item active">
+				    			<a class="page-link" href="?page=${page}">${page}</a>
+				    		</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+				    			<a class="page-link" href="?page=${page}">${page}</a>
+				    		</li>
+						</c:otherwise>
+					</c:choose>
+						
+				    </c:forEach>
+					
+					
+					<c:choose>
+						<c:when test="${current == max}">
+							<li class="page-item disabled">
+			    				<a class="page-link" href="#">&raquo</a>
+			    			</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+			    				<a class="page-link" href="?page=${next}">&raquo</a>
+			    			</li>
+						</c:otherwise>
+					</c:choose>
+
+			  	</ul>
+			</nav>
+	</div>
+	
+	<!--  -->
 
 
 </madaja:layout>

@@ -11,21 +11,39 @@
 <madaja:layout pageName="vehiculos">
 	<h2>Vehículos</h2>
 	
+	<div>
+		<form:form action ="/doSearchVehiculos" method="POST" role="form">
+			<label for="inputSearch">Encuentra tu vehículo</label>
+			<div class="form-group">
+				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
+				<span class="col-sm-offset-2 col-sm-10">
+					<button type="submit">Buscar</button>
+				</span>
+			</div>
+		</form:form>
+	</div>
+	
 	<spring:url value="/vehiculos" var="todosUrl"></spring:url><a class="btn btn-default" href="${fn:escapeXml(todosUrl)}">Todos</a>
 	
 	<c:forEach items="${disponible}" var="disponible">
-		<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
-	        <spring:param name="disponibleId" value="${disponible.id}"/>
-       </spring:url>
-       <a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+		<c:choose>
+			<c:when test="${disponible.id > 3}">
+				<sec:authorize access="hasAuthority('admin')">
+					<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
+		    			<spring:param name="disponibleId" value="${disponible.id}"/>
+	    			</spring:url>
+	    			<a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+	    		</sec:authorize>
+    		</c:when>
+    		<c:otherwise>
+				<spring:url value="/vehiculos/disponible/{disponibleId}" var="disponibleUrl">
+		    		<spring:param name="disponibleId" value="${disponible.id}"/>
+	    		</spring:url>
+	   			<a class="btn btn-default" href="${fn:escapeXml(disponibleUrl)}"><c:out value="${disponible.name}"/></a>
+    		</c:otherwise>
+    	</c:choose>
 	</c:forEach>
-<!-- 	
-	<a class="btn btn-default"  href='<spring:url value="/vehiculos/EnAlquiler"  ></spring:url>' >En Alquiler</a>
-						
-	<a class="btn btn-default" href='<spring:url value="/vehiculos/EnVenta" ></spring:url>'>En Venta</a>
-	
-	<a class="btn btn-default" href='<spring:url value="/vehiculos/Ambos" ></spring:url>'>Ambos</a> 
--->																
+															
 	<table id="ownersTable" class="table table-striped">
 		<thead>
 		<tr>
@@ -36,7 +54,6 @@
 			<th style="width: 150px;">Precio de venta</th>
 			<th style="width: 150px;">Plazas</th>
 			<th style="width: 150px;">Disponibilidad</th>
-			<th style="width: 150px;">Reservar</th>
 			<sec:authorize access="hasAuthority('admin')">
 				<th></th>
 			</sec:authorize>
@@ -70,21 +87,16 @@
 					<td>
 						<c:out value="${vehiculo.disponible}"/>
 					</td>
-					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservar/{vehiculoId}" >
-															<spring:param name="vehiculoId" value="${vehiculo.id}"/>
-														</spring:url>'>Reservar</a>
-					</td>	
 					<sec:authorize access="hasAuthority('admin')">
 						<c:choose>
-							<c:when test="${vehiculo.disponible.id == 4}">
+<%-- 							<c:when test="${vehiculo.disponible.id == 4}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/devolucion" var="altaUrl">
 								        <spring:param name="vehiculoId" value="${vehiculo.id}"/>
 								    </spring:url>
 								    <a href="${fn:escapeXml(altaUrl)}">Devuelto</a>
 								</td>
-                        	</c:when>
+                        	</c:when> --%>
                         	<c:when test="${vehiculo.disponible.id > 4}">
                         		<td>
 								    <spring:url value="/vehiculos/{vehiculoId}/edit" var="altaUrl">
@@ -111,4 +123,55 @@
 	<sec:authorize access="hasAuthority('admin')">
 	<a class="btn btn-default" href='<spring:url value="/vehiculos/new" htmlEscape="true"/>'>Añadir vehículo</a>
 	</sec:authorize>
+	
+	<div>
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+
+                    <c:choose>
+                        <c:when test="${prev == 0}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&laquo;</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${prev}">&laquo;</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <c:forEach items="${pages}" var="page">
+
+                    <c:choose>
+                        <c:when test="${current == page}">
+                            <li class="page-item active">
+                                <a class="page-link" href="?page=${page}">${page}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${page}">${page}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    </c:forEach>
+					<c:choose>
+                        <c:when test="${current == max}">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&raquo</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${next}">&raquo</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                  </ul>
+            </nav>
+    </div>
 </madaja:layout>

@@ -19,17 +19,48 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.apache.lucene.analysis.ngram.EdgeNGramFilterFactory;
+import org.apache.lucene.analysis.standard.StandardFilterFactory;
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "concesionario")
+@Indexed
+@AnalyzerDef(name = "edgeNGram_query",
+	tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+	filters = {
+        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler counterpart (è => e, etc.)
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
+		@TokenFilterDef(factory = StandardFilterFactory.class)
+    })
+@AnalyzerDef(name = "edgeNgram",
+tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
+filters = {
+        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler counterpart (è => e, etc.)
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
+        @TokenFilterDef(
+                factory = EdgeNGramFilterFactory.class, // Generate prefix tokens
+                params = {
+                        @Parameter(name = "minGramSize", value = "1"),
+                        @Parameter(name = "maxGramSize", value = "10")
+                }
+        )
+})
 public class Concesionario extends Localizacion {
 	
+	
 	@Column(name = "nombre")
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	@NotEmpty
 	private String nombre;
 
@@ -48,9 +79,11 @@ public class Concesionario extends Localizacion {
 			joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), 
 			inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Gestor> gestores;
 	
 	@OneToMany(mappedBy = "concesionario", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
 	
 	protected Set<Vehiculos> getVehiculosInternal(){
@@ -133,6 +166,17 @@ public class Concesionario extends Localizacion {
 		return localidad + ", " + provincia;
 	}
 
+	@Override
+	public String toString() {
+		ToStringCreator builder = new ToStringCreator(this);
+		builder.append("nombre", nombre);
+		builder.append("email", email);
+		builder.append("telefono", telefono);
+		builder.append("gestores", gestores);
+		builder.append("vehiculos", vehiculos);
+		return builder.toString();
+	}
+
 //	@Override
 //	public String toString() {
 //		ToStringCreator builder = new ToStringCreator(this);
@@ -147,6 +191,7 @@ public class Concesionario extends Localizacion {
 //		return builder.toString();
 //	}
 //	
+	
 	
 
 }

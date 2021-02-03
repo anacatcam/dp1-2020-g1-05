@@ -6,11 +6,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misVentas">
+<madaja:layout pageName="misCompras">
 
-<h2>Mis Ventas</h2>
+<h2>Mis compras</h2>
 
-<table id="ownersTable" class="table table-striped">
+<table id="comprasTable" class="table table-striped">
 		<thead>
 		<tr>
 			<th style="width: 150px;">Número de identificación</th>
@@ -42,6 +42,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+<<<<<<< HEAD
 	
 	<div>
             <nav aria-label="Pagination">
@@ -94,4 +95,7 @@
             </nav>
     </div>
 	
+=======
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/disponible/2" htmlEscape="true"/>'>Comprar nuevo vehículo</a>
+>>>>>>> branch 'master' of https://github.com/gii-is-DP1/dp1-2020-g1-05.git
 </madaja:layout>

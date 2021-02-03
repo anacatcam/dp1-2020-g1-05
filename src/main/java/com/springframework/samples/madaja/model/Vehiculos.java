@@ -18,6 +18,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.bridge.builtin.IntegerBridge;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
@@ -27,6 +29,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "vehiculos")
+@Indexed
 public class Vehiculos extends BaseEntity{
 	
 	@Column(name = "matricula")
@@ -43,18 +46,24 @@ public class Vehiculos extends BaseEntity{
 	
 	@Column(name = "marca")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String marca;
 	
 	@Column(name = "modelo")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String modelo;
 	
 	@Column(name = "puertas")
 	@Positive
+	@Field
+	@FieldBridge(impl = IntegerBridge.class)
 	private Integer puertas;
 	
 	@Column(name = "plazas")
 	@Positive
+	@Field
+	@FieldBridge(impl = IntegerBridge.class)
 	private Integer plazas;
 
 	@ManyToOne
@@ -99,11 +108,11 @@ public class Vehiculos extends BaseEntity{
 	private SeguroVehiculo seguroVehiculo;
 	
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
-	@JsonIgnore
 	private Set<Incidencia> incidencias;
 	
 	//ANTONIO
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<SeguroCliente> segurosCliente;
 	//
 	
@@ -118,7 +127,6 @@ public class Vehiculos extends BaseEntity{
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = true)
 	private Oferta oferta;
-	
 	
 	public String getMatricula() {
 		return matricula;

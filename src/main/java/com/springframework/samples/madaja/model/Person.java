@@ -19,6 +19,9 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+
 /**
  * Simple JavaBean domain object representing an person.
  *
@@ -29,10 +32,12 @@ public class Person extends BaseEntity {
 
 	@Column(name = "first_name")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String firstName;
 
 	@Column(name = "last_name")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String lastName;
 
 	public String getFirstName() {

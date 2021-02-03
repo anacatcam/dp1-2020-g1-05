@@ -47,6 +47,13 @@ public class EnvioController {
 		dataBinder.setDisallowedFields("direccion");
 	}
 	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/enviosAPI"})
+	public String showEnviosAPI() {
+		return "Envio/mostrarEnviosAPI";
+	}
+	//-------------------------------------API--------------------------------
+	
 	@GetMapping("/concesionario/{concesionarioId}/EnviosAlquileres")
 	public String showEnviosAlq(@PathVariable("concesionarioId") int concesionarioId, ModelMap model) {
 		List<Envio> envios = this.envioService.findEnvioAlqByConcesionario(concesionarioId);

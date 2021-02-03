@@ -1,14 +1,13 @@
 $(document).ready(function(){
 	add_options();
 	$('#add-owner-form').submit(function(event){
-			$("#fechaLimite").datepicker({dateFormat: 'yy-mm-dd'});
+		var errors = validate();
+		if(errors == true){
 			event.preventDefault();
-		
+		}else{
 			ajax_submit();
-		
-			
-
-			
+		}
+				
 	});
 });
 
@@ -26,10 +25,9 @@ function add_options(){
 				opt.innerHTML = response[i].matricula;
 				select.appendChild(opt);
 			}
-			console.log("Exito")
 		},
 		error : function(){
-			console.log("Error!")
+			alert("Se ha producido un error");
 		}
 	});
 }
@@ -51,9 +49,8 @@ function ajax_submit(){
 		data: JSON.stringify(oferta),
 
 		success: function(data){
-			console.log("Exito!",data);
 			window.location.href = "/ofertaAPI/";
-		},
+		}, 
 		error: function(e){
 			var json = e.responseJSON;
 			for(var i=0; i<json.length; i++){
@@ -79,8 +76,54 @@ function ajax_submit(){
 					error.style.color = "red";
 				}
 			}
-			console.log("Error!", json)
 		}
 	});
 }
 
+function validate(){
+	const name = document.getElementById('name');
+	const descuento = document.getElementById('descuento');
+	const fechaLimite = document.getElementById('fechaLimite');
+	const horaLimite = document.getElementById('horaLimite');
+	var fecha = new Date(fechaLimite.value);
+	var errors = false;
+	
+	var errorName = document.getElementById('errorName');
+	errorName.innerHTML = "";
+	
+	var errorDescuento = document.getElementById('errorDescuento');
+	errorDescuento.innerHTML = "";
+	
+	var errorFecha = document.getElementById('errorFecha');
+		errorFecha.innerHTML = "";
+		
+	var errorHora = document.getElementById('errorHora');
+		errorHora.innerHTML = "";
+		
+	if(name.value == null || name.value==''){
+		errors = true;
+		errorName.innerHTML = "El nombre no puede estar vacio";
+		errorName.style.color = "red";
+	}
+	if(descuento.value == '' || descuento.value < 0 || descuento.value == null){
+		errors = true;
+		errorDescuento.innerHTML = "El descuento no puede estar vacío o ser menor que 0";
+		errorDescuento.style.color = "red";
+	}
+	if(isDateBeforeToday(fecha) || fechaLimite.value == null || fechaLimite.value == '')	{
+		errors = true;
+		errorFecha.innerHTML = "La fecha no puede estar vacia y no puede ser anterior a la fecha de hoy ";
+		errorFecha.style.color = "red";
+	}
+	if(horaLimite.value == null || horaLimite.value == '')	{
+		errors = true;
+		errorHora.innerHTML = "La hora limite no puede estar vacia";
+		errorHora.style.color = "red";
+	}
+	return errors; 
+}
+
+function isDateBeforeToday(date) {
+	var today = new Date();
+    return date.valueOf() <= today.valueOf();
+}

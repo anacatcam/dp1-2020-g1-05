@@ -1,10 +1,8 @@
 package com.springframework.samples.madaja.web;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,12 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Disponible;
-import com.springframework.samples.madaja.model.Incidencia;
-import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.service.IncidenciaService;
-import com.springframework.samples.madaja.model.Venta;
-import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 @Controller
@@ -40,9 +34,12 @@ public class VehiculosController {
 	
 	private final VehiculosService vehiculosService;
 	
+	private final ConcesionarioService concesionarioService;
+	
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService) {
+	public VehiculosController(VehiculosService vehiculosService, ConcesionarioService concesionarioService) {
 		this.vehiculosService=vehiculosService;
+		this.concesionarioService = concesionarioService;
 	}
 	
 	@InitBinder
@@ -58,21 +55,23 @@ public class VehiculosController {
 
         PageRequest pageRequest = PageRequest.of(page, 2);
 
-        Page<Oferta> pageOferta = this.ofertaService.getAllPag(pageRequest);
+        Page<Vehiculos> pageVehiculos = this.vehiculosService.getAllPagVehiculos(pageRequest);
+        Page<Disponible> pageDisponible = this.vehiculosService.getAllPagDisponible(pageRequest);
 
-        int totalPage = pageOferta.getTotalPages();
+        int totalPage = pageVehiculos.getTotalPages()+pageDisponible.getTotalPages();
         if(totalPage > 0) {
             // lista con todas las páginas que hay:
             List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
             model.addAttribute("pages", pages);
         }
 
-        model.addAttribute("ofertas", pageOferta.getContent());
+        model.addAttribute("vehiculos", pageVehiculos.getContent());
+        model.addAttribute("disponible", pageDisponible.getContent());
         model.addAttribute("current", page+1);
         model.addAttribute("next", page+2);
         model.addAttribute("prev", page);
         model.addAttribute("max", totalPage);
-        return "o/mostrarOfertas";
+        return "vehiculos/mostrarVehiculos";
 	}
    /* OBSOLETO POR PAGINACIÓN
 	@GetMapping(value = { "/vehiculos" })
@@ -89,7 +88,7 @@ public class VehiculosController {
 		Vehiculos vehiculo = new Vehiculos();
 		model.put("vehiculos", vehiculo);
 		model.put("cambios", this.vehiculosService.findAllCambios());
-		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 		model.put("disponibles", this.vehiculosService.findAllDisponibles());
 		model.put("combustibles", this.vehiculosService.findAllCombustibles());
 		model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -100,7 +99,7 @@ public class VehiculosController {
 	public String processCreationForm(@Valid Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
 		if (result.hasErrors()) {
 			model.put("cambios", this.vehiculosService.findAllCambios());
-			model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+			model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 			model.put("disponibles", this.vehiculosService.findAllDisponibles());
 			model.put("combustibles", this.vehiculosService.findAllCombustibles());
 			model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -113,39 +112,12 @@ public class VehiculosController {
 		}
 	}
 	
-//	@GetMapping(value = "/vehiculos/buscar")
-//	public String processFindForm(Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
-//
-//		// permitir solicitudes GET sin parámetros
-//		if (vehiculo.getPlazas() == null) {
-//			vehiculo.setPlazas(0); // empty string signifies broadest possible search
-//		}
-//
-//		// encontrar vehículos por número de plazas
-//		Collection<Vehiculos> results = this.vehiculosService.findVehiculoByPlazas(vehiculo.getPlazas());
-//		if (results.isEmpty()) {
-//			// no se encontraron vehículos
-//			result.rejectValue("vehículo", "notFound", "not found");
-//			return "vehiculos/mostrarVehiculos";
-//		}
-//		else if (results.size() == 1) {
-//			// si se encuentra 1 vehículo
-//			vehiculo = results.iterator().next();
-//			return "redirect:/vehiculos/" + vehiculo.getId();
-//		}
-//		else {
-//			// si se encuentran más de 1
-//			model.put("selections", results);
-//			return "vehiculos/mostrarVehiculos";
-//		}
-//	}
-	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/edit")
 	public String initUpdateForm(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		model.put("vehiculos", vehiculo);
 		model.put("cambios", this.vehiculosService.findAllCambios());
-		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 		model.put("disponibles", this.vehiculosService.findAllDisponibles());
 		model.put("combustibles", this.vehiculosService.findAllCombustibles());
 		model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -175,7 +147,7 @@ public class VehiculosController {
 	@GetMapping(value = "/vehiculos/{vehiculoId}/delete")
 	public String deleteVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		Disponible disponible = this.vehiculosService.findDisponibleById(4);
+		Disponible disponible = this.vehiculosService.findDisponibleById(7);
 		vehiculo.setDisponible(disponible);
 		this.vehiculosService.saveVehiculo(vehiculo);
 		return "redirect:/vehiculos";
@@ -191,37 +163,30 @@ public class VehiculosController {
 		return "vehiculos/mostrarVehiculos";
 	}
 	
-	@GetMapping(value = "/vehiculos/{vehiculoId}/devolucion")
-	public String initDevolverVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
-		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-		model.put("vehiculos", vehiculo);
-		model.put("disponibles", this.vehiculosService.findAllDisponibles());
-		return "vehiculos/devolverVehiculo";
-	}
-	
-	@PostMapping(value = "/vehiculos/{vehiculoId}/devolucion")
-	public String processDevolverVehiculo(@Valid Vehiculos vehiculo, BindingResult result, ModelMap model, 
-				@RequestParam(name="Fecha de devolución") Optional<LocalDate> fechaDevolucion) {
-		if (result.hasErrors()) {
-			model.put("vehiculos", vehiculo);
-			model.put("disponibles", this.vehiculosService.findAllDisponibles());
-			return "vehiculos/devolverVehiculo";
-		}
-		else {
-			
-		}
-		return "redirect:/vehiculos";
-	}
-	
 	/** Reservar vehiculo  **/
 	@GetMapping(value = "/reservar/{vehiculoId}")
 	public String reservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {		
 		String view = "reservas/createReservaForm";
 		
-			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-			model.put("vehiculos", vehiculo);
+		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+		model.put("vehiculos", vehiculo);
 				
 		return view;
 	}
 
+	@GetMapping(value= {"/searchVehiculos"})
+	public String initFindForm(ModelMap model) {
+		model.put("vehiculo",new Vehiculos());
+		return "vehiculos/mostrarVehiculos";
+	}
+	
+	@PostMapping(value = {"/doSearchVehiculos"})
+	public String searchVehiculos(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
+		if(searchText == "") {
+			return "redirect:/vehiculos";
+		}
+		model.put("vehiculos", this.vehiculosService.searchVehiculos(searchText));
+		
+		return "vehiculos/mostrarVehiculos";
+	}
 }

@@ -10,11 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -36,24 +39,32 @@ public class Alquiler extends BaseEntity {
 	private Integer limiteKM;
 
 	@Column(name = "dep_lleno")
+	@NotNull
 	private Boolean depLleno;
+	
+	@Column(name = "devuelto")
+	private Boolean devuelto;
 
 	@OneToOne
 	@JoinColumn(name = "reserva_id", nullable = true)
+	@JsonIgnore
 	private Reserva reserva;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "envio_id", nullable = true)
+	@JsonIgnore
 	private Envio envio;
 
 	@OneToOne
 	@JoinColumn(name = "recogida_id", nullable = true)
+	@JsonIgnore
 	private Recogida recogida;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vehiculos vehiculo;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Cliente cliente;
 
 	public LocalDate getFechaInicio() {
@@ -86,6 +97,14 @@ public class Alquiler extends BaseEntity {
 
 	public void setDepLleno(Boolean depLleno) {
 		this.depLleno = depLleno;
+	}
+	
+	public Boolean getDevuelto() {
+		return devuelto;
+	}
+
+	public void setDevuelto(Boolean devuelto) {
+		this.devuelto = devuelto;
 	}
 
 	public Reserva getReserva() {

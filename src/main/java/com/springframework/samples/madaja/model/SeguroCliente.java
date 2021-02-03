@@ -22,11 +22,13 @@ public class SeguroCliente extends Seguro {
 	@NotEmpty
 	private String cobertura;
 	
+	@NotNull
 	@Column(name = "fecha_inicio")
 	@DateTimeFormat(iso=ISO.DATE)
 	@NotNull
 	private LocalDate fechaInicio;
 	
+	@NotNull	
 	@Column(name = "fecha_fin")
 	@DateTimeFormat(iso=ISO.DATE)
 	@NotNull

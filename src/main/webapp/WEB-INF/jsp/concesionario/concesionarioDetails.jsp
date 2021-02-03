@@ -3,10 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
-
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <madaja:layout pageName="concesionarios">
 	
-	<h2>InformaciÛn del concesionario</h2>
+	<h2>Informaci√≥n del concesionario</h2>
 	
 	<table class="table table-striped">
         <tr>
@@ -25,17 +26,17 @@
             <td></td>
         </tr>
         <tr>
-            <th>DirecciÛn</th>
+            <th>Direcci√≥n</th>
             <td><c:out value="${concesionario.direccion}"/></td>
             <td></td>
         </tr>
         <tr>
-            <th>CÛdigo Postal</th>
+            <th>C√≥digo Postal</th>
             <td><c:out value="${concesionario.codigoPostal}"/></td>
             <td></td>
         </tr>
         <tr>
-            <th>PaÌs</th>
+            <th>Pa√≠s</th>
             <td><c:out value="${concesionario.pais}"/></td>
             <td></td>
         </tr>
@@ -45,7 +46,7 @@
             <td></td>
         </tr>
         <tr>
-            <th>TelÈfono</th>
+            <th>Tel√©fono</th>
             <td><c:out value="${concesionario.telefono}"/></td>
             <td></td>
         </tr>
@@ -54,7 +55,7 @@
 	<br/>
     <br/>
     <br/>
-    <h2>VehÌculos asociados</h2>
+    <h2>Veh√≠culos asociados</h2>
     
     <table class="table table-striped">
     	<c:forEach var="vehiculo" items="${concesionario.vehiculos}">
@@ -62,7 +63,7 @@
                 <td valign="top">
                     <dl class="dl-horizontal">
                     	<dd>
-                        <dt>MatrÌcula</dt>
+                        <dt>Matr√≠cula</dt>
                         <dd>
                         	<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
 	                            <spring:param name="vehiculoId" value="${vehiculo.id}"/>
@@ -97,9 +98,9 @@
                                 <td valign="top">
                                 	<dl class="dl-horizontal">
                                 		<dd>
-                        				<dt>DescripciÛn</dt>
+                        				<dt>Descripci√≥n</dt>
                         				<dd><c:out value="${incidencia.descripcion}"/></dd>
-                       				    <dt>Mec·nico</dt>
+                       				    <dt>Mec√°nico</dt>
                         				<dd>
              							<c:forEach var="mecanico" items="${incidencia.mecanicos}">
                         					<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
@@ -109,7 +110,7 @@
                         				<dd>
 											<c:choose>
 				                        		<c:when test="${incidencia.solucionada}">
-				                        			SÌ
+				                        			S√≠
 				                        		</c:when>
 				                        		<c:otherwise>
 				                        			No
@@ -148,7 +149,7 @@
                         <dd><c:out value="${gestor.nombre}"/></dd>
                         <dt>Apellidos</dt>
                         <dd><c:out value="${gestor.apellidos}"/></dd>
-                        <dt>TelÈfono</dt>
+                        <dt>Tel√©fono</dt>
                         <dd><c:out value="${gestor.telefono}"/></dd>
                         <dt>Email</dt>
                         <dd><c:out value="${gestor.email}"/></dd>
@@ -159,7 +160,7 @@
                         <thead>
                         <tr>
                             <th>Concesionario</th>
-                            <th>LocalizaciÛn</th>
+                            <th>Localizaci√≥n</th>
                         </tr>
                         </thead>
                         <c:forEach var="concesionario" items="${gestor.concesionarios}">
@@ -178,14 +179,11 @@
 			</tr>
     	</c:forEach>
     </table>
-	
+	<sec:authorize access="hasAuthority('admin')">
 	<spring:url value="/concesionario/{concesionarioId}/EnviosAlquileres" var="enviosUrl">
 		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
 		    </spring:url>
-		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Alquileres</a>
-		    
-	<spring:url value="/concesionario/{concesionarioId}/EnviosVentas" var="enviosUrl">
-		        <spring:param name="concesionarioId" value="${concesionario.id}"/>
-		    </spring:url>
-		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios Ventas</a>
+		   		    <a href="${fn:escapeXml(enviosUrl)}" class="btn btn-default">Ver envios</a>
+	</sec:authorize>
+
 </madaja:layout>

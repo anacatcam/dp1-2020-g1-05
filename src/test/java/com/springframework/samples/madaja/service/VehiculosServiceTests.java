@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -58,6 +60,9 @@ public class VehiculosServiceTests {
 	@Mock
 	private SeguroVehiculoRepository seguroVehiculoRepository;
 	
+	@Mock
+	private EntityManager entityManager;
+	
 	@Autowired
 	protected VehiculosService vehiculosService;
 	
@@ -71,7 +76,7 @@ public class VehiculosServiceTests {
 	
 	@BeforeEach
 	void setUp() {
-		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository);
+		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository,entityManager);
 		
 		combustible = new Combustible();
 		combustible.setId(1);
@@ -245,18 +250,6 @@ public class VehiculosServiceTests {
 		
 	}
 	
-	@Test
-	void testFindAllConcesionarios() throws Exception{
-		List<Concesionario> concesionarios=new ArrayList<Concesionario>();
-		concesionarios.add(concesionario);
-		when(concesionarioRepository.findAll()).thenReturn(concesionarios);
-		
-		vehiculosService.findAllConcesionarios();
-		
-		verify(concesionarioRepository).findAll();
-		assertEquals(concesionarios, vehiculosService.findAllConcesionarios());
-		
-	}
 	
 	@Test
 	void testfindAllCombustibles() throws Exception{

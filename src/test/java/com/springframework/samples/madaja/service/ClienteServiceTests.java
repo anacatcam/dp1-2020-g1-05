@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,6 +37,9 @@ public class ClienteServiceTests {
 	@Mock
 	private ClienteRepository clienteRepository;
 	
+	@Mock 
+	private EntityManager entityManager;
+	
 	@Autowired
 	protected ClienteService clienteService;
 	
@@ -44,7 +49,7 @@ public class ClienteServiceTests {
 	
 	@BeforeEach
 	void setUp() {
-		clienteService = new ClienteService(clienteRepository);
+		clienteService = new ClienteService(clienteRepository,entityManager);
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);
@@ -84,6 +89,7 @@ public class ClienteServiceTests {
 		assertEquals(clientesIt, clienteService.findAllClientes());
 		
 	}
+	
 	/*
 	@Test
 	void testSaveCliente() throws Exception{
@@ -93,6 +99,7 @@ public class ClienteServiceTests {
 		verify(clienteRepository).save(cliente);
 	}
 	*/
+	
 	@Test
 	void testFindClienteByUsername() throws Exception{
 		when(clienteRepository.findByUsername(anyString())).thenReturn(cliente);

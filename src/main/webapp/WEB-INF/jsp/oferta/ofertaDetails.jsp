@@ -40,7 +40,7 @@
             				<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
 			       				<spring:param name="vehiculoId" value="${vehiculo.id}"/>
 			   				</spring:url>
-			   				 <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.matricula}"/></a>
+			   				 <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${vehiculo.marca} "/> <c:out value="${vehiculo.modelo}"/></a>
 			   			</li>
             		</c:forEach>
             	</ul>

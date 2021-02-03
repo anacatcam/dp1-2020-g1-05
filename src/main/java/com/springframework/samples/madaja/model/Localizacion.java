@@ -7,15 +7,21 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.hibernate.search.annotations.*;
+
 @MappedSuperclass
 public class Localizacion extends BaseEntity{
 	
+	
 	@Column(name = "provincia")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	protected String provincia;
 	
 	@Column(name = "localidad")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	protected String localidad;
 	
 	@Column(name = "direccion")
@@ -26,8 +32,10 @@ public class Localizacion extends BaseEntity{
 	@NotEmpty
 	protected String codigoPostal;
 	
+	
 	@Column(name = "pais")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	protected String pais;
 
 	public String getProvincia() {

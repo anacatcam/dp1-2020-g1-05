@@ -90,7 +90,15 @@ public class OfertaController {
 		map.put("vehiculos", vehiculos);
 		return "oferta/ofertaDetails";
 	}
-	
+
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = {"/ofertaAPI/{ofertaId}"})
+	public String showOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/ofertaDetailsAPI";
+	}
+	//-------------------------------------API--------------------------------
+
 	@InitBinder("oferta")
 	public void initVehiculoBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
@@ -159,9 +167,11 @@ public class OfertaController {
 			return VIEW_OFERTA_UPDATE_FORM;
 		}else {
 			//Quitar todos los vehiculos que han dejado de aplicarse la oferta
-			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
-			for(Vehiculos vehiculo: vehiculosOld) {
-				vehiculo.setOferta(null);
+			if(!oferta.getVehiculos().isEmpty()) {
+				List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+				for(Vehiculos vehiculo: vehiculosOld) {
+					vehiculo.setOferta(null);
+				}
 			}
 			//Guardar la oferta actualizada
 			Oferta ofertaUpdate = this.ofertaService.findOfertaById(ofertaId);
@@ -175,10 +185,33 @@ public class OfertaController {
 			return "redirect:/oferta";
 		}
 	}
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/{ofertaId}/edit")
+	public String updateOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/updateOfertaAPI";
+	}
+	
+	//-------------------------------------API--------------------------------
 	
 	@GetMapping(value = "/oferta/{ofertaId}/delete")
 	public String deleteOferta(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
+		if(!oferta.getVehiculos().isEmpty()) {
+			List<Vehiculos> vehiculosOld = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
+			for(Vehiculos vehiculo: vehiculosOld) {
+				vehiculo.setOferta(null);
+			}
+		}
 		this.ofertaService.deleteById(ofertaId);
 		return "redirect:/oferta";
 	}
+	
+	//-------------------------------------API--------------------------------
+	@GetMapping(value = "/ofertaAPI/{ofertaId}/delete")
+	public String deleteOfertaAPI(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
+		map.put("id", ofertaId);
+		return "oferta/mostrarOfertasAPI";
+	}
+	//-------------------------------------API--------------------------------
 }

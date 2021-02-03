@@ -10,7 +10,7 @@
 
 <h2>Mis Alquileres</h2>
 
-<table id="ownersTable" class="table table-striped">
+<table id="alquilerTable" class="table table-striped">
 		<thead>
 		<tr>
 			<th style="width: 150px;">Número de identificación</th>
@@ -53,4 +53,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+		<spring:url value="/vehiculos/disponible/1" var="alquilerUrl">
+		    </spring:url>
+		    <a href="${fn:escapeXml(alquilerUrl)}" class="btn btn-default">Alquilar nuevo vehículo</a>
 </madaja:layout>

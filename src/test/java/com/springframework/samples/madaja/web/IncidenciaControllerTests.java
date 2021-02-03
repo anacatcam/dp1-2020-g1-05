@@ -43,19 +43,19 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class IncidenciaControllerTests {
 	
 	@Autowired
-    private IncidenciaController incidenciaController;
-
-    @MockBean
-    private IncidenciaService incidenciaService;
-
-    @MockBean
-    private VehiculosService vehiculosService;
-
-    @MockBean
-    private ClienteService clienteService;
-
-    @MockBean
-    private MecanicoService mecanicoService;
+	private IncidenciaController incidenciaController;
+	
+	@MockBean
+	private IncidenciaService incidenciaService;
+	
+	@MockBean
+	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private ClienteService clienteService;
+	
+	@MockBean
+	private MecanicoService mecanicoService;
 
 	@Autowired
 	private MockMvc mockMvc;

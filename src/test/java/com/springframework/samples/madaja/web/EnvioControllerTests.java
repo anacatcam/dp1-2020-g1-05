@@ -198,13 +198,7 @@ public class EnvioControllerTests {
 		alquiler.setReserva(reserva);
 		alquiler.setVehiculo(vehiculo);
 		
-//		venta = new Venta();
-//		venta.setId(1);
-//		venta.setCliente(cliente);
-//		venta.setEnvio(envio);
-//		venta.setReserva(reserva);
-//		venta.setVehiculo(vehiculo);
-//		
+	
 		estadoEnvio = new EstadoEnvio();
 		estadoEnvio.setId(1);
 		estadoEnvio.setName("Pendiente");

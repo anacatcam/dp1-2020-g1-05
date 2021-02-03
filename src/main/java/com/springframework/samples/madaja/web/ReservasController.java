@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
@@ -63,19 +58,9 @@ public class ReservasController {
 	}
 
 	@InitBinder("reserva")
-	public void initVehiculoBinder(WebDataBinder dataBinder) {
+	public void initReservaBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-	
-//	@InitBinder
-//	public void setValidator(WebDataBinder dataBinder) {
-//		dataBinder.setValidator(new ReservasValidator());
-//	}
-	
-//	@Autowired
-//	public ReservasController(ClienteService clienteService) {
-//		this.clienteService = clienteService;
-//	}
 	
 	@GetMapping(path="/new")
 	public String crearReserva(ModelMap modelMap) {
@@ -85,7 +70,7 @@ public class ReservasController {
 	}
 	
 	@PostMapping(path="/new")
-	public String guardarReserva(@Valid Reserva reserva, BindingResult result, ModelMap modelMap) {
+	public String processCrearReserva(@Valid Reserva reserva, BindingResult result, ModelMap modelMap) {
 		if(result.hasErrors()) {
 			modelMap.put("reserva", reserva);
 			return "reservas/editReservaForm";
@@ -95,7 +80,6 @@ public class ReservasController {
 			return "reservas/mostrarReservas";
 		}
 		
-		//return "redirect:/reservas";
 	}
 	
 	/** Todas las reservas (vista del administrador) **/
@@ -114,21 +98,6 @@ public class ReservasController {
 	@GetMapping(value = {"/mis-reservas"})
 	public String mostrarMisReservas(ModelMap modelMap) {
 		String vista = ("/reservas/mostrarMisReservas");
-		
-		/** Para pasar las reservas en vez de alquileres y ventas
-		List<Reserva> resList = new ArrayList<>();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
-						
-		resList.addAll(this.reservaService.findByDNI(cliente.getDni()));
-		modelMap.put("reservas", resList);
-		**/
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		
@@ -149,50 +118,53 @@ public class ReservasController {
 		return vista;
 	}
 	
-	/** OBSOLETO **/
-	/** Reservas de un cliente **/
-	@GetMapping(path="/{dniCliente}")
-	public String reservasCliente(@PathVariable("dniCliente") String dniCliente, ModelMap modelMap) {
-		String view = "reservas/mostrarReservas";
-		Iterable<Reserva> reservas = reservaService.findByDNI(dniCliente);
-		modelMap.addAttribute("reservas", reservas);
-		return view;
-	}
 	
-	/** Anular reservas admin **/
-	@GetMapping(path = "/delete/{reservaId}")
-	public String borrarReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap, Map<String, Object> params) {
-		String view = "";
-		Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
-		if (reserva.isPresent()) {
-			reservaService.deleteRes(reservaId);
-			view = "reservas/mostrarReservas";
-			mostrarReservas(modelMap);
-			modelMap.addAttribute("message", "Reserva anulada correctamente");
-		} else {
-			modelMap.addAttribute("message", "Reserva no encontrada");
-		}
-		return view;
-	}
-	
-	/** Anular reserva usuario **/
-	@GetMapping(path = "/deleteU/{reservaId}")
-	public String borrarMiReserva(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
-		String view = "";
 
-		Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
-		if (reserva.isPresent()) {
-			reservaService.deleteRes(reservaId);
-			view = "reservas/mostrarMisReservas";
-			mostrarMisReservas(modelMap);
-			modelMap.addAttribute("message", "Reserva anulada correctamente");
-		} else {
-			modelMap.addAttribute("message", "Reserva no encontrada");
+	@GetMapping(path = "/{reservaId}/delete")
+	public String borrarReservas(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String autoridad;
+		String username = "";
+		String view = "";
+		List<Reserva> reservas = new ArrayList<>();
+		
+		if(principal instanceof UserDetails) {
+			 autoridad = ((UserDetails)principal).getAuthorities().iterator().next().toString();
+			 username = ((UserDetails)principal).getUsername();
+		}else {
+			 autoridad = principal.toString();
+		}
+		
+		if(autoridad.equals("admin")) {
+			Optional<Reserva> reserva = reservaService.findReservaById(reservaId);
+			if (reserva.isPresent()) {
+				reservaService.deleteRes(reservaId);
+				view = "reservas/mostrarReservas";
+				mostrarReservas(modelMap);
+				modelMap.addAttribute("message", "Reserva anulada correctamente");
+			} else {
+				modelMap.addAttribute("message", "Reserva no encontrada");
+			}
+		} else if (autoridad.equals("cliente")) {
+			Cliente cliente = this.clienteService.findClienteByUsername(username);
+			String dni = cliente.getDni();
+			reservas = this.reservaService.findByDNI(dni);
+			for (Reserva r : reservas) {
+				if(r.getId().equals(reservaId)) {
+					this.reservaService.deleteRes(reservaId);
+					view = "reservas/mostrarMisReservas";
+					mostrarMisReservas(modelMap);
+					modelMap.addAttribute("message", "Reserva anulada correctamente");
+					break;
+				}else {
+					return "redirect:/oups";
+				}
+			}
 		}
 		return view;
 	}
 	
-	@GetMapping(value = "/{vehiculoId}/nuevaReserva")
+	@GetMapping(value = "/nuevaReserva/{vehiculoId}")
 	public String nuevaReserva(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
@@ -233,11 +205,9 @@ public class ReservasController {
 		Reserva nuevaReserva = new Reserva();
 		Double fianza;
 		
-		if(tipo.equals("Alquiler")) {
-			//creo que deberia crear un nuevo alquiler vacío aquí
+		if(tipo.equals("Alquiler")) { 
 			fianza = vehiculo.getPrecioAlquiler().doubleValue(); //En el caso de un alquiler, la finaza es un mes del propio alquiler
 		}else {
-			//creo que debería crear una nueva venta vacía aquí
 			fianza = 0.2*vehiculo.getPrecioAlquiler(); //En el caso de una venta, la finaza es un 20% del precio
 		}
 		

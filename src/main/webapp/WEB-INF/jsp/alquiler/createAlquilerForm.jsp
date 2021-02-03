@@ -6,7 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misAlquileres">
+<madaja:layout pageName="createAlquiler">
     <h2>Nuevo alquiler</h2>
     <form:form modelAttribute="alquiler" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
@@ -17,7 +17,25 @@
             <madaja:inputField label="Limite de kilometros" name="limiteKM"/>
         	<input type="hidden" name="vehiculo" value="${alquiler.vehiculo.id}"/>
         	<input type="hidden" name="cliente" value="${alquiler.cliente.id}"/>
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">¿Dónde desea recoger el vehículo? </label>
+            	<div class="col-sm-10">
+					<select>
+						<c:forEach items="${concesionarios}" var="concesionario">
+							<option value="${concesionario.id}">
+								<c:out value="${concesionario.nombre} - "/>  
+								<c:out value="${concesionario.direccion}, "/>
+								<c:out value="${concesionario.localidad} "/> 
+								<c:out value="(${concesionario.provincia}), "/>
+								<c:out value="${concesionario.codigoPostal}"/> 
+							</option>
+						</c:forEach>
+					</select>		
+    	        </div>
+      	</div>
+            
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
 				<button class="btn btn-default" type="submit">Alquilar</button>

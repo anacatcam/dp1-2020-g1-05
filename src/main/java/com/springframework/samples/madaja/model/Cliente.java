@@ -17,17 +17,22 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cliente")
+@Indexed
 public class Cliente extends Person {
 
 	@Column(name = "dni")
 	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String dni;
 	
 	@Column(name = "telefono")
@@ -45,12 +50,15 @@ public class Cliente extends Person {
 	private String esConflictivo;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Venta> ventas;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Alquiler> alquileres;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Reserva> reservas;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -58,6 +66,7 @@ public class Cliente extends Person {
 	private User user;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Incidencia> numIncidencias;
 	
 	@Column(name = "dias_retraso")
