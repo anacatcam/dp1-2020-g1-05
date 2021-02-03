@@ -48,7 +48,6 @@
 						<c:out value="${alquiler.cliente.firstName}"/>	<c:out value="${alquiler.cliente.lastName}"/>	
 					</td>
 					<td>
-						<c:out value="${alquiler.devuelto}"/>
 						<c:choose>
 							<c:when test="${alquiler.devuelto eq true}">
 								Sí
