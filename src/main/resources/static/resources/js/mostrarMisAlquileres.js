@@ -1,7 +1,7 @@
 $(function(){
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8090/api/v1/alquileres/misAlquileres',
+		url: 'http://localhost:8090/api/v1/alquileres/',
 		dataType : "json",
 		contentType: "application/json",
 		success:function(response){

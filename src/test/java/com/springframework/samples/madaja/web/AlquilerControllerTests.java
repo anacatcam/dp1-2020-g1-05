@@ -191,7 +191,7 @@ public class AlquilerControllerTests {
 		cliente.setFirstName("Alejandro");
 		cliente.setLastName("Castellano Sanz");
 		cliente.setDni("12422051G");
-		cliente.setEmail("alejcastz@gmail.co");
+		cliente.setEmail("alejcastz@gmail.com");
 		cliente.setEsConflictivo("No lo es");
 		cliente.setTelefono("637666517");
 		cliente.setUser(usuario);

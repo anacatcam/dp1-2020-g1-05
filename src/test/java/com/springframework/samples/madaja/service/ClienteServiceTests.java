@@ -89,6 +89,7 @@ public class ClienteServiceTests {
 		assertEquals(clientesIt, clienteService.findAllClientes());
 		
 	}
+	
 	/*
 	@Test
 	void testSaveCliente() throws Exception{
@@ -98,6 +99,7 @@ public class ClienteServiceTests {
 		verify(clienteRepository).save(cliente);
 	}
 	*/
+	
 	@Test
 	void testFindClienteByUsername() throws Exception{
 		when(clienteRepository.findByUsername(anyString())).thenReturn(cliente);

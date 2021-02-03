@@ -44,12 +44,11 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 	
-	//////
 	@Transactional(readOnly = true)
 	public Page<Cliente> getAll(Pageable pageable) {
 		return clienteRepository.findAll(pageable);
 	}
-	//////
+
 	
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
@@ -66,7 +65,8 @@ public class ClienteService {
 	public Cliente findClienteByUsername(String username) {
 		return clienteRepository.findByUsername(username);
 	}
-
+	
+	@Transactional
 	public Cliente findClienteById(Integer clienteId) {
 		return clienteRepository.findById(clienteId);
 	}

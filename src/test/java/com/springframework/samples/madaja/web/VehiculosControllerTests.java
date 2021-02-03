@@ -49,6 +49,7 @@ import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.web.VehiculosController;
 
@@ -61,13 +62,15 @@ excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classe
 excludeAutoConfiguration= SecurityConfiguration.class)
 public class VehiculosControllerTests {
 	
-	//private static final int VEHICULO_ID = 1;
 	
 	@Autowired
 	private VehiculosController vehiculosController;
 	
 	@MockBean
 	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private ConcesionarioService concesionarioService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -244,7 +247,7 @@ public class VehiculosControllerTests {
 		given(vehiculosService.findByDisponible(anyInt())).willReturn(vehiculos);
 		given(vehiculosService.findAllDisponibles()).willReturn(disponibles);
 		given(vehiculosService.findAllCambios()).willReturn(cambios);
-		given(vehiculosService.findAllConcesionarios()).willReturn(concesionarios);
+		given(concesionarioService.findAllConcesionarios()).willReturn(concesionarios);
 		given(vehiculosService.findAllCombustibles()).willReturn(combustibles);
 		given(vehiculosService.findAllSeguros()).willReturn(segurosVehiculos);
 	}
@@ -431,5 +434,15 @@ public class VehiculosControllerTests {
 		.andExpect(model().attributeExists("disponible"))
 		.andExpect(model().attribute("disponible", disponibles))
 		.andExpect(view().name("vehiculos/mostrarVehiculos"));
+	}
+	
+	@WithMockUser(value= "spring")
+	@Test
+	void testReservarVehiculos() throws Exception{
+		mockMvc.perform(get("/reservar/{vehiculoId}", 1))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("vehiculos"))
+		.andExpect(model().attribute("vehiculos", vehiculo))
+		.andExpect(view().name("reservas/createReservaForm"));
 	}
 }

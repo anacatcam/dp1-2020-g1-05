@@ -48,7 +48,6 @@ public class Incidencia extends BaseEntity {
 			joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), 
 			inverseJoinColumns = @JoinColumn(name = "mecanico_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JsonIgnore
 	private Set<Mecanico> mecanicos;
 
 	protected Set<Mecanico> getMecanicosInternal(){
