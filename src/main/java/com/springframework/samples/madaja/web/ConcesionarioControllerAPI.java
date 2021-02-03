@@ -34,12 +34,12 @@ public class ConcesionarioControllerAPI {
 		this.vehiculosService=vehiculosService;
 	}
 	@GetMapping(value="/all")
-	public List<Concesionario> showConcesionariosList(){
+	public List<Concesionario> getConcesionariosList(){
 		return concesionarioService.findAllConcesionarios().stream().collect(Collectors.toList());
 	}
 	
-	@GetMapping(value="/concesionario/{concesionarioId}")
-	public ResponseEntity<Concesionario> concesionarioDetails(@PathVariable int concesionarioId){
+	@GetMapping(value="/{concesionarioId}")
+	public ResponseEntity<Concesionario> getConcesionarioDetails(@PathVariable int concesionarioId){
 		Concesionario concesionario=concesionarioService.findConcesionarioById(concesionarioId);
 		ResponseEntity<Concesionario> res;
 		if(concesionario == null) {
@@ -50,8 +50,8 @@ public class ConcesionarioControllerAPI {
 		return res;
 	}
 	
-	@GetMapping(value="/concesionario/{concesionarioId}/gestores")
-	public ResponseEntity<List<Gestor>> gestoresDetails(@PathVariable int concesionarioId){
+	@GetMapping(value="/{concesionarioId}/gestores")
+	public ResponseEntity<List<Gestor>> getGestoresDetails(@PathVariable int concesionarioId){
 		List<Gestor> gestores=concesionarioService.findConcesionarioById(concesionarioId).getGestores();
 		ResponseEntity<List<Gestor>> res;
 		if(gestores == null) {
@@ -62,8 +62,8 @@ public class ConcesionarioControllerAPI {
 		return res;
 	}
 	
-	@GetMapping(value="/concesionario/{concesionarioId}/vehiculos")
-	public ResponseEntity<List<Vehiculos>> vehiculosConcesionario(@PathVariable int concesionarioId){
+	@GetMapping(value="/{concesionarioId}/vehiculos")
+	public ResponseEntity<List<Vehiculos>> getVehiculosConcesionario(@PathVariable int concesionarioId){
 		List<Vehiculos> vehiculos=concesionarioService.findConcesionarioById(concesionarioId).getVehiculos();
 		ResponseEntity<List<Vehiculos>> res;
 		if(vehiculos == null) {
@@ -73,38 +73,5 @@ public class ConcesionarioControllerAPI {
 		}
 		return res;
 	}
-	
-	@GetMapping(value="/concesionario/{concesionarioId}/vehiculos/{vehiculoId}/disponibilidad")
-	public ResponseEntity<Disponible> disponibilidadVehiculosConcesionario(@PathVariable int concesionarioId, @PathVariable int vehiculoId){
-		Disponible disponibilidad=vehiculosService.findVehiculoById(vehiculoId).getDisponible();
-		ResponseEntity<Disponible> res;
-		if(disponibilidad == null) {
-			res=new ResponseEntity<Disponible>(disponibilidad,HttpStatus.NOT_FOUND);
-		}else {
-			res=new ResponseEntity<Disponible>(disponibilidad,HttpStatus.OK);		
-		}
-		return res;
-	}
-	
-	@GetMapping(value="/concesionario/{concesionarioId}/vehiculos/{vehiculoId}/incidencias")
-	public ResponseEntity<List<Incidencia>> incidenciasVehiculosConcesionario(@PathVariable int concesionarioId, @PathVariable int vehiculoId){
-		List<Incidencia> incidencias=new ArrayList<>();
-		
-		//REVISAR
-		List<Vehiculos> vehiculos=concesionarioService.findConcesionarioById(concesionarioId).getVehiculos();
-		for(int i=0; i<vehiculos.size(); i++) {
-			for(int j=0; j<vehiculos.get(i).getIncidencias().size(); j++) {
-				incidencias.add(vehiculos.get(i).getIncidencias().get(j));
-			}
-		}
-		ResponseEntity<List<Incidencia>> res;
-		if(incidencias == null) {
-			res=new ResponseEntity<List<Incidencia>>(incidencias,HttpStatus.NOT_FOUND);
-		}else {
-			res=new ResponseEntity<List<Incidencia>>(incidencias,HttpStatus.OK);		
-		}
-		return res;
-	}
-	
 }
 

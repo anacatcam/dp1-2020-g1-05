@@ -16,18 +16,23 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "mecanico")
 public class Mecanico extends Trabajador{
 
 	@ManyToMany(mappedBy = "mecanicos")
+	@JsonIgnore
 	private Set<Incidencia> incidencias;
 	
 	@OneToMany(mappedBy = "mecanico", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Recogida> recogidas;
 	
 	@OneToMany(mappedBy = "mecanico", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Envio> envios;
 
 	protected Set<Incidencia> getIncidenciasInternal() {

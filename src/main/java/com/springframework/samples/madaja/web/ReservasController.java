@@ -125,7 +125,7 @@ public class ReservasController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String autoridad;
 		String username = "";
-		String view = "";
+		String view = "/oups";
 		List<Reserva> reservas = new ArrayList<>();
 		
 		if(principal instanceof UserDetails) {

@@ -89,7 +89,6 @@ public class Vehiculos extends BaseEntity{
 
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
-	@JsonIgnore
 	private Disponible disponible;
 	
 	@ManyToOne

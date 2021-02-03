@@ -93,8 +93,9 @@ public class ConcesionarioController {
 	//-------------------------------------API--------------------------------
 	@GetMapping(value = {"/concesionariosAPI/{concesionarioId}"})
 	public String showConcesionarioAPI(@PathVariable("concesionarioId") int concesionarioId, ModelMap map) {
-		map.put("id", concesionarioId);
+		map.put("concesionarioId", concesionarioId);
 		return "concesionario/concesionarioDetailsAPI";
 	}
 	//-------------------------------------API--------------------------------
+	
 }

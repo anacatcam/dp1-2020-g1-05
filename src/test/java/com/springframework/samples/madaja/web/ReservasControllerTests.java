@@ -206,6 +206,51 @@ public class ReservasControllerTests {
 		given(alquilerService.findAlquilerByDni(anyString())).willReturn(alquileres);
 		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
 	}
+	@WithMockUser(value = "spring")
+	@Test
+	void testCrearReserva() throws Exception{
+		reserva= new Reserva();
+		mockMvc.perform(get("/reservas/new"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("reserva"))
+		.andExpect(model().attribute("reserva", reserva))
+		.andExpect(view().name("reservas/mostrarReservas"));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testProcessCrearReservaSuccess() throws Exception{
+		reserva= new Reserva();
+		mockMvc.perform(post("/reservas/new")
+				.with(csrf())
+				.param("fechaGastos", "2016-09-03")
+				.param("fianza", "234.")
+				.param("cliente", "cliente")
+				.param("alquiler", "")
+				.param("venta", "venta"))		
+				.andExpect(model().attributeExists("message"))
+				.andExpect(model().attribute("message", reserva))
+				.andExpect(status().isOk())
+				.andExpect(view().name("reservas/mostrarReservas"));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testProcessCrearReservaErrors() throws Exception{
+		mockMvc.perform(post("/reservas/new")
+				.with(csrf())
+				.param("fechaGastos", "2016-09/03")
+				.param("fianza", "234...")
+				.param("cliente", "")
+				.param("alquiler", "")
+				.param("venta", ""))		
+				.andExpect(model().attributeHasErrors("reserva"))
+				.andExpect(model().attributeErrorCount("reserva", 2))
+				.andExpect(model().attributeHasFieldErrors("reserva", "fechaGastos"))
+				.andExpect(model().attributeHasFieldErrors("reserva", "fianza"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("reservas/editReservaForm"));
+	}
 	
 	@WithMockUser(value = "spring")
 	@Test
@@ -224,24 +269,26 @@ public class ReservasControllerTests {
 	@Test
 	void testMostrarReservas() throws Exception{
 
-		mockMvc.perform(get("/reservas/{dniCliente}",1))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("reservas"))
-		.andExpect(model().attribute("reservas", reservas))
-		.andExpect(view().name("reservas/mostrarReservas"));
-	}
-	
-	@WithMockUser(value = "spring")
-	@Test
-	void testBorrarReserva() throws Exception{
-		
-		mockMvc.perform(get("/reservas/delete/{reservaId}",1))
+		mockMvc.perform(get("/reservas"))
 		.andExpect(status().isOk())
 		.andExpect(model().attributeExists("ventas"))
 		.andExpect(model().attribute("ventas", ventas))
 		.andExpect(model().attributeExists("alquileres"))
 		.andExpect(model().attribute("alquileres", alquileres))
-		.andExpect(view().name("reservas/mostrarReservas"));
+		.andExpect(view().name("/reservas/mostrarReservas"));
+	}
+	
+	/*Al tener condicionales no puede revisar si existe el atributo en el modelo, de igual forma la vista a devolver 
+	se actualiza en el condicional, por lo que devolvemos a oups por defecto que significa que la persona que 
+	ha intentado acceder no es cliente ni admin*/
+	@WithMockUser(value = "spring")
+	@Test
+	void testBorrarReserva() throws Exception{
+		
+		mockMvc.perform(get("/reservas/{reservaId}/delete",1))
+		.andExpect(status().isOk())
+		.andExpect(model().hasNoErrors())
+		.andExpect(view().name("/oups"));
 	}
 	
 
