@@ -24,7 +24,9 @@ import com.springframework.samples.madaja.repository.ClienteRepository;
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private AuthoritiesService authoritiesService;
 	private EntityManager entityManager;
 	
@@ -53,10 +55,11 @@ public class ClienteService {
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
 		//creating cliente
-		clienteRepository.save(cliente);		
+		clienteRepository.save(cliente);	
+		
 		//creating user
-		User sd = cliente.getUser();
 		userService.saveUser(cliente.getUser());
+		
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}

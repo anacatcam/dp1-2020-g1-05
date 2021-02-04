@@ -28,6 +28,8 @@ import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 public class VehiculosController {
 	
