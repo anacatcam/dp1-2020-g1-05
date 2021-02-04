@@ -188,13 +188,8 @@ public class ReservaServiceTests {
 		alquiler.setReserva(reserva);
 		alquiler.setVehiculo(vehiculo);
 	}
-//	@Test
-//	void shouldFindReservaById() {
-//		Optional<Reserva> reserva = this.reservaService.findReservaById(1);
-//		assertThat(reserva.get().getCliente().getDni()).isEqualTo("15442604");
-//	}
-//	
-	@Test  //REVISAR
+
+	@Test  
 	void testFindReservaById() throws Exception{
 		when(reservaRepository.findById(anyInt())).thenReturn(Optional.of(reserva));
 		

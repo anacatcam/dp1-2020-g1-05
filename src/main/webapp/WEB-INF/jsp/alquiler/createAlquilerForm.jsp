@@ -12,6 +12,7 @@
         <div class="form-group has-feedback">
         	<input type="hidden" name="id" value="${alquiler.id}"/>
         	<input type="hidden" name="depLleno" value="${alquiler.depLleno}"/>
+        	<input type="hidden" name="devuelto" value="${alquiler.devuelto}"/>
             <madaja:inputField label="Fecha de inicio" name="fechaInicio"/>
             <madaja:inputField label="Fecha de finalizacion" name="fechaFin"/>
             <madaja:inputField label="Limite de kilometros" name="limiteKM"/>

@@ -36,15 +36,6 @@ public class ConcesionarioController {
 		this.searchService=searchService;
 	}
 	
-	/** anterior a la paginacion **/
-//	@GetMapping(value = { "/concesionario" })
-//	public String showConcesionariosList(Map<String, Object> model) {
-//		Collection<Concesionario> concesionarios = this.concesionarioService.findAllConcesionarios();
-//		model.put("concesionarios", concesionarios);		
-//		return "concesionario/mostrarConcesionarios";
-//	}
-	
-	//////
 	@GetMapping(value = { "/concesionario" })
 	public String findAll(@RequestParam Map<String, Object> params, ModelMap model){
 		
@@ -70,7 +61,6 @@ public class ConcesionarioController {
 				
 		return "concesionario/mostrarConcesionarios";
 	}
-	//////
 	
 	@GetMapping("/concesionario/{concesionarioId}")
 	public String showConcesionario(@PathVariable("concesionarioId") int concesionarioId, ModelMap model) {
@@ -105,8 +95,9 @@ public class ConcesionarioController {
 	//-------------------------------------API--------------------------------
 	@GetMapping(value = {"/concesionariosAPI/{concesionarioId}"})
 	public String showConcesionarioAPI(@PathVariable("concesionarioId") int concesionarioId, ModelMap map) {
-		map.put("id", concesionarioId);
+		map.put("concesionarioId", concesionarioId);
 		return "concesionario/concesionarioDetailsAPI";
 	}
 	//-------------------------------------API--------------------------------
+	
 }

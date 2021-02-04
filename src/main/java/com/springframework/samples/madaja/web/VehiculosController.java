@@ -26,7 +26,10 @@ import com.springframework.samples.madaja.service.IncidenciaService;
 import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class VehiculosController {
@@ -34,12 +37,17 @@ public class VehiculosController {
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
 	
 	private final VehiculosService vehiculosService;
-	
+
 	private final SearchService searchService;
+
+	private final ConcesionarioService concesionarioService;
+
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService,SearchService searchService) {
+	public VehiculosController(VehiculosService vehiculosService, ConcesionarioService concesionarioService,SearchService searchService) {
+
 		this.vehiculosService=vehiculosService;
 		this.searchService = searchService;
+		this.concesionarioService = concesionarioService;
 	}
 	
 	@InitBinder
@@ -62,7 +70,7 @@ public class VehiculosController {
 		Vehiculos vehiculo = new Vehiculos();
 		model.put("vehiculos", vehiculo);
 		model.put("cambios", this.vehiculosService.findAllCambios());
-		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 		model.put("disponibles", this.vehiculosService.findAllDisponibles());
 		model.put("combustibles", this.vehiculosService.findAllCombustibles());
 		model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -73,7 +81,7 @@ public class VehiculosController {
 	public String processCreationForm(@Valid Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
 		if (result.hasErrors()) {
 			model.put("cambios", this.vehiculosService.findAllCambios());
-			model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+			model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 			model.put("disponibles", this.vehiculosService.findAllDisponibles());
 			model.put("combustibles", this.vehiculosService.findAllCombustibles());
 			model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -86,39 +94,12 @@ public class VehiculosController {
 		}
 	}
 	
-//	@GetMapping(value = "/vehiculos/buscar")
-//	public String processFindForm(Vehiculos vehiculo, BindingResult result, Map<String, Object> model) {
-//
-//		// permitir solicitudes GET sin parámetros
-//		if (vehiculo.getPlazas() == null) {
-//			vehiculo.setPlazas(0); // empty string signifies broadest possible search
-//		}
-//
-//		// encontrar vehículos por número de plazas
-//		Collection<Vehiculos> results = this.vehiculosService.findVehiculoByPlazas(vehiculo.getPlazas());
-//		if (results.isEmpty()) {
-//			// no se encontraron vehículos
-//			result.rejectValue("vehículo", "notFound", "not found");
-//			return "vehiculos/mostrarVehiculos";
-//		}
-//		else if (results.size() == 1) {
-//			// si se encuentra 1 vehículo
-//			vehiculo = results.iterator().next();
-//			return "redirect:/vehiculos/" + vehiculo.getId();
-//		}
-//		else {
-//			// si se encuentran más de 1
-//			model.put("selections", results);
-//			return "vehiculos/mostrarVehiculos";
-//		}
-//	}
-	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/edit")
 	public String initUpdateForm(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		model.put("vehiculos", vehiculo);
 		model.put("cambios", this.vehiculosService.findAllCambios());
-		model.put("concesionarios", this.vehiculosService.findAllConcesionarios());
+		model.put("concesionarios", this.concesionarioService.findAllConcesionarios());
 		model.put("disponibles", this.vehiculosService.findAllDisponibles());
 		model.put("combustibles", this.vehiculosService.findAllCombustibles());
 		model.put("seguros", this.vehiculosService.findAllSeguros());
@@ -169,8 +150,8 @@ public class VehiculosController {
 	public String reservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, ModelMap model) {		
 		String view = "reservas/createReservaForm";
 		
-			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-			model.put("vehiculos", vehiculo);
+		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
+		model.put("vehiculos", vehiculo);
 				
 		return view;
 	}

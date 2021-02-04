@@ -35,6 +35,7 @@ import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
@@ -76,7 +77,7 @@ public class AlquilerController {
 	}
 	
 	@GetMapping(value = {"/MisAlquileres"})
-	public String showMisAlquileres(/*@PathVariable("clienteDni") String dni,*/ModelMap model){
+	public String showMisAlquileres(ModelMap model){
 		List<Alquiler> alqList = new ArrayList<>();
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
@@ -87,7 +88,6 @@ public class AlquilerController {
 		}
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
 		
-	//	Cliente cliente = this.clienteService.findClienteByDni(dni);
 		alqList.addAll(this.alquilerService.findAlquilerByDni(cliente.getDni()));
 		model.put("alquileres", alqList);
 		
@@ -96,8 +96,9 @@ public class AlquilerController {
 	}
 	
 	//-------------------------------------API--------------------------------
-	@GetMapping(value = {"/alquileresAPI"})
-	public String showMisAlquileresListAPI() {
+	@GetMapping(value = {"/alquileresAPI/{clienteId}"})
+	public String showMisAlquileresListAPI(@PathVariable("clienteId") int clienteId, ModelMap map) {
+		map.put("clienteId", clienteId);
 		return "alquiler/mostrarMisAlquileresAPI";
 	}
 	//-------------------------------------API--------------------------------
@@ -181,6 +182,7 @@ public class AlquilerController {
 		else {
 			Alquiler alquiler = this.alquilerService.findAlquilerById(alquilerId.get());
 			alquiler.setDevuelto(true);
+			System.out.println(alquiler.getDevuelto());
 			Integer vehiculoId = alquiler.getVehiculo().getId();
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 			Disponible disponibilidad = this.vehiculosService.findDisponibleById(Integer.parseInt(disponible.get()));
@@ -189,8 +191,13 @@ public class AlquilerController {
 			String devolucion = fechaDevolucion.get();
 			LocalDate fechaFin = alquiler.getFechaFin();
 			Integer retraso = esRetraso(devolucion, fechaFin);
-			alquiler.getCliente().setDiasRetraso(retraso);
+			alquiler.getCliente().setDiasRetraso(alquiler.getCliente().getDiasRetraso() + retraso);
 			System.out.println(alquiler.getCliente().getDiasRetraso());
+			if (alquiler.getCliente().getDiasRetraso() > 14) {
+				alquiler.getCliente().setEsConflictivo("Si");
+			}
+			this.alquilerService.saveAlquiler(alquiler);
+			this.vehiculosService.saveVehiculo(vehiculo);
 		}
 		return "redirect:/vehiculos";
 	}
@@ -221,9 +228,10 @@ public class AlquilerController {
 	}
 	
 	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
-		LocalDate devolucion = LocalDate.parse(fechaDevolucion, DateTimeFormatter.ofPattern("yyyy-mm-dd"));
-		Integer retraso = (int) Duration.between(devolucion, fechaFin).toDays();
-		return retraso;
+		LocalDate devolucion = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(fechaDevolucion));
+		long retraso = DAYS.between(fechaFin, devolucion);
+		Integer res = (int) retraso;
+		return res;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.springframework.samples.madaja.web;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.validation.Validation;
@@ -29,7 +30,7 @@ public class OfertaValidator implements Validator{
 		if(oferta.getDescuento() == null || oferta.getDescuento() < 0) {
 			errors.rejectValue("descuento", "descuento incorrecto", "Descuento incorrecto");
 		}
-		if(oferta.getFechaLimite() == null) {
+		if(oferta.getFechaLimite() == null || !isValid(oferta.getFechaLimite())) {
 			errors.rejectValue("fechaLimite", "fecha incorrecta: yyyy-mm-dd", "Fecha incorrecta: yyyy-mm-dd");
 		}
 		if(oferta.getHoraLimite() == null) {
@@ -37,5 +38,9 @@ public class OfertaValidator implements Validator{
 		}
 	}
 	
+	public boolean isValid(LocalDate date) {
+		String fecha = date.toString();
+		return fecha.matches("^\\d{4}-\\d{2}-\\d{2}$");
+	}
 	
 }

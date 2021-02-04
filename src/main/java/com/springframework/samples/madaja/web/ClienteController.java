@@ -51,15 +51,7 @@ public class ClienteController {
 		this.searchService = searchService;
 	}
 	
-	/** anterior a la paginacion **/
-//	@GetMapping(value = "/clientes")
-//	public String showClienteList(ModelMap model) {
-//		Iterable<Cliente> clientes = this.clienteService.findAllClientes();
-//		model.put("clientes", clientes);
-//		return "cliente/mostrarClientes";
-//	}
-	
-	//////
+
 	@GetMapping(value = { "/clientes" })
 	public String findAll(@RequestParam Map<String, Object> params, ModelMap model){
 		
@@ -85,7 +77,7 @@ public class ClienteController {
 				
 		return "cliente/mostrarClientes";
 	}
-	//////
+
 	
 	@GetMapping(value = {"/clientes/ventas/{clienteId}"})
 	public String showVentasCliente(@PathVariable("clienteId") String id,ModelMap model) {
@@ -102,23 +94,6 @@ public class ClienteController {
 		model.put("cliente", cliente);
 		model.put("alquileres", alquileres);
 		return "cliente/alquilerDetails";
-	}
-	
-	@GetMapping(value = {"/miPerfil"})
-	public String miPerfil(ModelMap model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
-		
-		model.put("cliente", cliente);
-		
-		return "cliente/miPerfil";
 	}
 	
 	@GetMapping(value= {"/searchClientes"})

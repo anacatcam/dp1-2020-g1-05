@@ -247,18 +247,6 @@ public class VehiculosServiceTests {
 		
 	}
 	
-	@Test
-	void testFindAllConcesionarios() throws Exception{
-		List<Concesionario> concesionarios=new ArrayList<Concesionario>();
-		concesionarios.add(concesionario);
-		when(concesionarioRepository.findAll()).thenReturn(concesionarios);
-		
-		vehiculosService.findAllConcesionarios();
-		
-		verify(concesionarioRepository).findAll();
-		assertEquals(concesionarios, vehiculosService.findAllConcesionarios());
-		
-	}
 	
 	@Test
 	void testfindAllCombustibles() throws Exception{

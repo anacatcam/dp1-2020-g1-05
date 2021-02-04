@@ -32,14 +32,11 @@ public class ConcesionarioService {
 		this.concesionarioRepository=concesionarioRepository;
 	}
 	
-	//////
 	@Transactional(readOnly = true)
 	public Page<Concesionario> getAll(Pageable pageable) {
 		return concesionarioRepository.findAll(pageable);
 	}
-	//////
-	
-	/** anterior a la paginacion **/
+
 	@Transactional(readOnly = true)
 	public Collection<Concesionario> findAllConcesionarios() throws DataAccessException {
 		return concesionarioRepository.findAll();

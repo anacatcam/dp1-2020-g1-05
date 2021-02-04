@@ -24,7 +24,9 @@ import com.springframework.samples.madaja.repository.ClienteRepository;
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private AuthoritiesService authoritiesService;
 	
 	@Autowired
@@ -42,20 +44,20 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 	
-	//////
 	@Transactional(readOnly = true)
 	public Page<Cliente> getAll(Pageable pageable) {
 		return clienteRepository.findAll(pageable);
 	}
-	//////
+
 	
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
 		//creating cliente
-		clienteRepository.save(cliente);		
+		clienteRepository.save(cliente);	
+		
 		//creating user
-		User sd = cliente.getUser();
 		userService.saveUser(cliente.getUser());
+		
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}
@@ -64,7 +66,8 @@ public class ClienteService {
 	public Cliente findClienteByUsername(String username) {
 		return clienteRepository.findByUsername(username);
 	}
-
+	
+	@Transactional
 	public Cliente findClienteById(Integer clienteId) {
 		return clienteRepository.findById(clienteId);
 	}

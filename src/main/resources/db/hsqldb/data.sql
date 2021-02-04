@@ -34,15 +34,15 @@ INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('664931
 --Clientes (con sus cuentas de usuario)
 INSERT INTO users(username,password,enabled) VALUES ('manuel','contraseña1',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (8,'manuel','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', 'No', 'manuel');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,dias_retraso,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', 'No', 13, 'manuel');
 
 INSERT INTO users(username,password,enabled) VALUES ('daniel','contraseña2',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (9,'daniel','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (2,'31998039W', 'Daniel', 'Barranco Llanos', '660257585', 'danBarll@gmail.com', 'No', 'daniel');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,dias_retraso,username) VALUES (2,'31998039W', 'Daniel', 'Barranco Llanos', '660257585', 'danBarll@gmail.com', 'No', 4, 'daniel');
 
 INSERT INTO users(username,password,enabled) VALUES ('alejandro','contraseña3',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10,'alejandro','cliente');
-INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (3,'31004225H', 'Alejandro', 'Castellano Sanz', '637666517', 'alejcastz@gmail.com', 'No', 'alejandro');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,dias_retraso,username) VALUES (3,'31004225H', 'Alejandro', 'Castellano Sanz', '637666517', 'alejcastz@gmail.com', 'No', 0, 'alejandro');
 
 INSERT INTO cambio VALUES (1, 'Automático');
 INSERT INTO cambio VALUES (2, 'Manual');

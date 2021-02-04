@@ -1,7 +1,8 @@
 $(function(){
+	var clienteId = document.getElementById('clienteId').value
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8090/api/v1/alquileres/misAlquileres',
+		url: 'http://localhost:8090/api/v1/alquileres/' + clienteId,
 		dataType : "json",
 		contentType: "application/json",
 		success:function(response){
@@ -19,7 +20,7 @@ function buildTable(data){
 		var row = `<tr>
 						<td>${data[i].id}</td>
 						<td>${data[i].vehiculo.marca} ${data[i].vehiculo.modelo}</td>
-						<td><a href="/vehiculos/${data[i].vehiculo.id}">${data[i].vehiculo.matricula}</a></td>
+						<td>${data[i].vehiculo.matricula}</td>
 						<td>${data[i].vehiculo.precioAlquiler}</td>
 						<td>${data[i].fechaInicio}</td>
 						<td>${data[i].fechaFin}</td>
