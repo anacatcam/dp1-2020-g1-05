@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.SearchService;
 
 @WebMvcTest(controllers=ConcesionarioController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -38,6 +39,9 @@ public class ConcesionarioControllerTests {
 	
 	@MockBean
 	private ConcesionarioService concesionarioService;
+	
+	@MockBean
+	private SearchService searchService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -71,4 +75,25 @@ public class ConcesionarioControllerTests {
 		
 	}
 	
+	@WithMockUser(value = "spring")
+	@Test
+	void testInitFindForm() throws Exception{
+		
+		mockMvc.perform(get("/searchConcesionarios"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("concesionario"))
+		.andExpect(view().name("concesionario/mostrarConcesionarios"));
+	}
+		
+	@WithMockUser(value = "spring")
+	@Test
+	void testSearchConcesionarios() throws Exception{
+		
+		mockMvc.perform(post("/doSearchConcesionarios")
+				.with(csrf())
+				.param("provincia", "Sevilla"))
+				.andExpect(status().is2xxSuccessful())
+				.andExpect(view().name("concesionario/mostrarConcesionarios"));
+			
+	}
 }

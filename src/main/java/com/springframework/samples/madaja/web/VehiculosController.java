@@ -23,6 +23,7 @@ import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ConcesionarioService;
@@ -36,12 +37,16 @@ public class VehiculosController {
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
 	
 	private final VehiculosService vehiculosService;
-	
+
+	private final SearchService searchService;
+
 	private final ConcesionarioService concesionarioService;
-	
+
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService, ConcesionarioService concesionarioService) {
+	public VehiculosController(VehiculosService vehiculosService, ConcesionarioService concesionarioService,SearchService searchService) {
+
 		this.vehiculosService=vehiculosService;
+		this.searchService = searchService;
 		this.concesionarioService = concesionarioService;
 	}
 	
@@ -162,7 +167,7 @@ public class VehiculosController {
 		if(searchText == "") {
 			return "redirect:/vehiculos";
 		}
-		model.put("vehiculos", this.vehiculosService.searchVehiculos(searchText));
+		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
 		
 		return "vehiculos/mostrarVehiculos";
 	}
