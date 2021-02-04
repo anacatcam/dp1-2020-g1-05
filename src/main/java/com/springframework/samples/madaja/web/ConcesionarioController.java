@@ -22,15 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.SearchService;
 
 @Controller
 public class ConcesionarioController {
 	
 	private final ConcesionarioService concesionarioService;
+	private SearchService searchService;
 	
 	@Autowired
-	public ConcesionarioController(ConcesionarioService concesionarioService) {
+	public ConcesionarioController(ConcesionarioService concesionarioService,SearchService searchService) {
 		this.concesionarioService=concesionarioService;
+		this.searchService=searchService;
 	}
 	
 	/** anterior a la paginacion **/
@@ -88,8 +91,7 @@ public class ConcesionarioController {
 		if(searchText == "") {
 			return "redirect:/concesionario";
 		}
-		model.put("concesionarios", concesionarioService.searchConcesionarios(searchText));
-		
+		model.put("concesionarios", this.searchService.searchConcesionarios(searchText));
 		return "concesionario/mostrarConcesionarios";
 	}
 	

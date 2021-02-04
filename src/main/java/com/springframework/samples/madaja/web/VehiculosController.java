@@ -23,6 +23,7 @@ import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.IncidenciaService;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
@@ -34,9 +35,11 @@ public class VehiculosController {
 	
 	private final VehiculosService vehiculosService;
 	
+	private final SearchService searchService;
 	@Autowired
-	public VehiculosController(VehiculosService vehiculosService) {
+	public VehiculosController(VehiculosService vehiculosService,SearchService searchService) {
 		this.vehiculosService=vehiculosService;
+		this.searchService = searchService;
 	}
 	
 	@InitBinder
@@ -183,8 +186,7 @@ public class VehiculosController {
 		if(searchText == "") {
 			return "redirect:/vehiculos";
 		}
-		model.put("vehiculos", this.vehiculosService.searchVehiculos(searchText));
-	//	model.put("disponible", this.vehiculosService.findAllDisponibles());
+		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
 		
 		return "vehiculos/mostrarVehiculos";
 	}

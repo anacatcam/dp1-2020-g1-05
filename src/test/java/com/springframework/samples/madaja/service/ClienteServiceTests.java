@@ -37,9 +37,6 @@ public class ClienteServiceTests {
 	@Mock
 	private ClienteRepository clienteRepository;
 	
-	@Mock 
-	private EntityManager entityManager;
-	
 	@Autowired
 	protected ClienteService clienteService;
 	
@@ -49,7 +46,7 @@ public class ClienteServiceTests {
 	
 	@BeforeEach
 	void setUp() {
-		clienteService = new ClienteService(clienteRepository,entityManager);
+		clienteService = new ClienteService(clienteRepository);
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);

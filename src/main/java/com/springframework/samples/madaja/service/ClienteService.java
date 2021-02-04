@@ -26,12 +26,10 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	private UserService userService;
 	private AuthoritiesService authoritiesService;
-	private EntityManager entityManager;
 	
 	@Autowired
-	public ClienteService(ClienteRepository clienteRepository,EntityManager entityManager) {
+	public ClienteService(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
-		this.entityManager = entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -69,30 +67,5 @@ public class ClienteService {
 
 	public Cliente findClienteById(Integer clienteId) {
 		return clienteRepository.findById(clienteId);
-	}
-	
-	@Transactional
-	public List<Cliente> searchClientes(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Cliente.class)
-				.overridesForField("firstName", "edgeNGram_query")
-				.overridesForField("lastName", "edgeNGram_query")
-				.overridesForField("dni", "edgeNGram_query")
-				.get();
-		
-		Query q = qb.keyword()
-				.onFields("firstName","lastName","dni")
-				.matching(searchText)
-				.createQuery();
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q,Cliente.class);
-		
-		List<Cliente> clienteList = fullTextQuery.getResultList();
-		
-		return clienteList;
 	}
  }

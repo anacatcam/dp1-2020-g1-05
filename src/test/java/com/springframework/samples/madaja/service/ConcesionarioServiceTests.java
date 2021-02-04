@@ -14,6 +14,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.SessionBuilder;
+import org.hibernate.SessionFactory;
+import org.hibernate.search.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,10 +25,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 
+import com.mysql.cj.Session;
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.repository.ConcesionarioRepository;
+
 
 @ExtendWith(MockitoExtension.class)
 public class ConcesionarioServiceTests {
@@ -36,15 +45,11 @@ public class ConcesionarioServiceTests {
 	@Mock
 	private ConcesionarioRepository concesionarioRepository;
 	
-	@Mock
-	private EntityManager entityManager;
-	
 	private Concesionario concesionario;
-	
 	
 	@BeforeEach
 	void setUp() {
-		concesionarioService = new ConcesionarioService(concesionarioRepository,entityManager);
+		concesionarioService = new ConcesionarioService(concesionarioRepository);
 		
 		concesionario = new Concesionario();
 		concesionario.setId(1);
@@ -86,5 +91,4 @@ public class ConcesionarioServiceTests {
 		
 		verify(concesionarioRepository).save(concesionario);
 	}
-	
 }

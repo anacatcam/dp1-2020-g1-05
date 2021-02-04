@@ -24,6 +24,7 @@ import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.service.VentaService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,12 +40,15 @@ public class ClienteController {
 	
 	private final AlquilerService alquilerService;
 	
+	private final SearchService searchService;
+	
 	@Autowired
-	public ClienteController(ClienteService clienteService, VentaService ventaService, ReservaService reservaService,AlquilerService alquilerService) {
+	public ClienteController(ClienteService clienteService, VentaService ventaService, ReservaService reservaService,AlquilerService alquilerService,SearchService searchService) {
 		this.clienteService = clienteService;
 		this.ventaService = ventaService;
 		this.reservaService = reservaService;
 		this.alquilerService = alquilerService;
+		this.searchService = searchService;
 	}
 	
 	/** anterior a la paginacion **/
@@ -129,7 +133,7 @@ public class ClienteController {
 		if(searchText == "") {
 			return "redirect:/clientes";
 		}
-		model.put("clientes", clienteService.searchClientes(searchText));
+		model.put("clientes", searchService.searchClientes(searchText));
 		
 		return "cliente/mostrarClientes";
 	}

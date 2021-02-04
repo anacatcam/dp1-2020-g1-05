@@ -37,19 +37,17 @@ public class VehiculosService {
 	private CombustibleRepository combustibleRepository;
 	private DisponibleRepository disponibleRepository;
 	private SeguroVehiculoRepository seguroVehiculoRepository;
-	private EntityManager entityManager;
 	
 	@Autowired
 	public VehiculosService(VehiculosRepository vehiculosRepository, CambioRepository cambioRepository, 
 			ConcesionarioRepository concesionarioRepository, CombustibleRepository combustibleRepository,
-			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository, EntityManager entityManager) {
+			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository) {
 		this.vehiculosRepository=vehiculosRepository;
 		this.cambioRepository=cambioRepository;
 		this.concesionarioRepository=concesionarioRepository;
 		this.combustibleRepository=combustibleRepository;
 		this.disponibleRepository=disponibleRepository;
 		this.seguroVehiculoRepository=seguroVehiculoRepository;
-		this.entityManager = entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -126,29 +124,5 @@ public class VehiculosService {
 	@Transactional(readOnly = true)
 	public Collection<Vehiculos> findByOferta(int id_oferta){
 		return vehiculosRepository.findByOferta(id_oferta);
-	}
-
-	@Transactional
-	public List<Vehiculos> searchVehiculos(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Vehiculos.class)
-				.overridesForField("marca", "edgeNGram_query")
-				.overridesForField("modelo", "edgeNGram_query")
-				.get();
-		
-		Query q = qb.keyword()
-				.onFields("marca","modelo","plazas","puertas")
-				.matching(searchText)
-				.createQuery();
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q, Vehiculos.class);
-		
-		List<Vehiculos> vehiculosList = fullTextQuery.getResultList();
-		
-		return vehiculosList;
 	}
 }
