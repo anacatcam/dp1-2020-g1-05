@@ -8,7 +8,10 @@
 
 <madaja:layout pageName="misAlquileresAPI">
 <body>
+
 <h2>Mis Alquileres</h2>
+
+<input id="clienteId" type="hidden" value="${clienteId}"/>
 
 <table id="alquileresTable" class="table table-striped">
 		<thead>
