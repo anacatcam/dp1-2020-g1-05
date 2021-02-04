@@ -47,10 +47,11 @@ public class UserController {
 	public UserController(ClienteService clinicService) {
 		this.clienteService = clinicService;
 	}
-
+	
+	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("dni");
+		dataBinder.setDisallowedFields("id");
 	}
 
 	@GetMapping(value = "/users/new")

@@ -12,6 +12,7 @@
     </h2>
     <form:form modelAttribute="cliente" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
+      	  <input type="hidden" name="id" value="${cliente.id}"/>
             <madaja:inputField label="DNI" name="dni"/>
             <madaja:inputField label="Nombre" name="firstName"/>
             <madaja:inputField label="Apellidos" name="lastName"/>
