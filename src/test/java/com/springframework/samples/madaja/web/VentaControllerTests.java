@@ -26,6 +26,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
+import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Combustible;
@@ -213,6 +214,18 @@ public class VentaControllerTests {
 		.andExpect(model().attribute("ventas",ventas))
 		.andExpect(view().name("/venta/mostrarMisVentas"));
 	}
+	
+	@WithMockUser(value = "spring")
+	 @Test
+	 void testShowAllVentas() throws Exception{
+		List<Venta> ventas = new ArrayList<Venta>();
+		ventas.add(venta);
+		given(ventaService.findAllVentas()).willReturn(ventas);
+		 
+		 mockMvc.perform(get("/ventas")).andExpect(status().isOk()).andExpect(model().attributeExists("ventas"))
+		 .andExpect(model().attribute("ventas", ventas))
+		 .andExpect(view().name("/venta/mostrarVentas"));;
+	 }
 	
 	@WithMockUser(value = "Spring")
 	@Test
