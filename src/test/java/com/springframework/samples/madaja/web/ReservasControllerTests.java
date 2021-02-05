@@ -13,8 +13,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
 import com.springframework.samples.madaja.model.Alquiler;
+import com.springframework.samples.madaja.model.Authorities;
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Combustible;
@@ -87,6 +90,7 @@ public class ReservasControllerTests {
 	private Concesionario concesionario;
 	private Combustible combustible;
 	private Cambio cambio;
+	private Authorities authority;
 	
 	List<Reserva> reservas= new ArrayList<Reserva>();
 	List<Alquiler> alquileres= new ArrayList<Alquiler>();
@@ -96,9 +100,17 @@ public class ReservasControllerTests {
 	@BeforeEach
 	void setUp() {
 		
+		authority = new Authorities();
+		authority.setId(1);
+		authority.setAuthority("cliente");
+		
+		Set<Authorities> authorities = new HashSet<>();
+		authorities.add(authority);
+		
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);
+		usuario.setAuthorities(authorities);
 		usuario.setPassword("contraseña3");
 		
 		cliente = new Cliente();
@@ -113,7 +125,7 @@ public class ReservasControllerTests {
 		
 		reserva = new Reserva();
 		reserva.setId(1);
-		reserva.setFechaGastos(LocalDate.of(2016, 9, 3));
+		reserva.setFechaGastos(LocalDate.of(2021, 9, 3));
 		reserva.setFianza(234.);
 		reserva.setCliente(cliente);
 		
@@ -203,6 +215,7 @@ public class ReservasControllerTests {
 		given(reservaService.findReservaById(anyInt())).willReturn(Optional.of(reserva));
 		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
+		given(vehiculosService.findDisponibleById(anyInt())).willReturn(disponible);
 		given(alquilerService.findAlquilerByDni(anyString())).willReturn(alquileres);
 		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
 	}
@@ -291,25 +304,90 @@ public class ReservasControllerTests {
 		.andExpect(view().name("/oups"));
 	}
 	
-
 	
-	/*
+	@WithMockUser(value = "spring")
+	@Test
+	void testNuevaReserva() throws Exception{
+
+		mockMvc.perform(get("/reservas/nuevaReserva/{vehiculoId}", 1))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("cliente"))
+		.andExpect(model().attribute("cliente", cliente))
+		.andExpect(model().attributeExists("vehiculo"))
+		.andExpect(model().attribute("vehiculo", vehiculo))
+		.andExpect(view().name("reservas/seleccionarReserva"));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testNuevaReservaConflictivo() throws Exception{
+
+		Cliente clienteConflictivo = new Cliente();
+		clienteConflictivo.setId(1);
+		clienteConflictivo.setFirstName("Alejandro");
+		clienteConflictivo.setLastName("Castellano Sanz");
+		clienteConflictivo.setDni("12422051G");
+		clienteConflictivo.setEmail("alejcastz@gmail.com");
+		clienteConflictivo.setEsConflictivo("Si");
+		clienteConflictivo.setTelefono("637666517");
+		clienteConflictivo.setUser(usuario);
+		
+		given(clienteService.findClienteByUsername(anyString())).willReturn(clienteConflictivo);
+		
+		//Rama del if conflictivo: es cliente conflictivo
+		
+		mockMvc.perform(get("/reservas/nuevaReserva/{vehiculoId}", 1))
+		.andExpect(status().isOk())
+		.andExpect(model().attribute("esConflictivo", true))
+		.andExpect(view().name("operacionImposible"));
+	}
+	
+	
 	@WithMockUser(value = "spring")  
 	@Test
-	void testProcessReservarVehiculoErrors() throws Exception{
-		mockMvc.perform(post("reservas/{vehiculoId}/reservar/{tipo}",1,"alquiler")
-				.param("fechaGastos", "2016-09-03")
-				.param("fianza", "234.")
-				.with(csrf())
-				.param("alquiler", "")
-				.param("venta", "")
-				.param("cliente", ""))
-		.andExpect(model().attributeHasErrors("reservas"))
-		.andExpect(model().attributeHasFieldErrors("reservas","alquiler"))
-		.andExpect(model().attributeHasFieldErrors("reservas","venta"))
-		.andExpect(model().attributeHasFieldErrors("reservas","cliente"))
-		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/reservas"));		
+	void testInitReservarVehiculo() throws Exception{
+		
+		Reserva nuevaReserva = new Reserva();
+		Double fianza = 234.;
+		nuevaReserva.setFianza(fianza);
+		nuevaReserva.setCliente(cliente);
+		
+		mockMvc.perform(get("/reservas/{vehiculoId}/reservar/{tipo}", 1, "alquiler"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("reserva"))
+		.andExpect(model().attribute("reserva", nuevaReserva))
+		.andExpect(model().attributeExists("cliente"))
+		.andExpect(model().attribute("cliente", cliente))
+		.andExpect(view().name("reservas/crearReservaForm"));
 	}
-	*/
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testProcessreservarVehiculoSuccess() throws Exception{
+		mockMvc.perform(post("/reservas/{vehiculoId}/reservar/{tipo}", 1, "Alquiler")
+				.with(csrf())
+				.param("id", "1")
+				.param("fianza", "234.")
+				.param("fechaGastos", "2021-09-03")
+				.param("cliente", "1"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/reservas/mis-reservas"));
+	}
+	
+	@WithMockUser(value = "Spring")
+	@Test
+	void testProcessreservarVehiculoError() throws Exception{
+		mockMvc.perform(post("/reservas/{vehiculoId}/reservar/{tipo}", 1, "Alquiler")
+				.with(csrf())
+				.param("id", "1")
+				.param("fianza", "234.")
+				.param("fechaGastos", "4545546")
+				.param("cliente", "1"))
+		.andExpect(model().attributeHasErrors("reserva"))
+		.andExpect(model().attributeErrorCount("reserva", 1))
+		.andExpect(model().attributeHasFieldErrors("reserva", "fechaGastos"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("reservas/crearReservaForm"));
+	}
+	
 }

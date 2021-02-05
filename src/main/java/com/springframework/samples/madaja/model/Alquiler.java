@@ -46,8 +46,7 @@ public class Alquiler extends BaseEntity {
 	@NotNull
 	private Boolean devuelto;
 
-	@OneToOne
-	@JoinColumn(name = "reserva_id", nullable = true)
+	@OneToOne(mappedBy = "alquiler", optional = true)
 	@JsonIgnore
 	private Reserva reserva;
 

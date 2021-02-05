@@ -6,9 +6,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misAlquileres">
+<madaja:layout pageName="alquileres">
 
-<h2>Mis Alquileres</h2>
+<h2>Alquileres</h2>
 
 <table id="ownersTable" class="table table-striped">
 		<thead>
