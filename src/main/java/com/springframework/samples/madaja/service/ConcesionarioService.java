@@ -26,12 +26,10 @@ import com.springframework.samples.madaja.repository.ConcesionarioRepository;
 public class ConcesionarioService {
 	
 	private ConcesionarioRepository concesionarioRepository;
-	private EntityManager entityManager;
 	
 	@Autowired
-	public ConcesionarioService(ConcesionarioRepository concesionarioRepository,EntityManager entityManager) {
+	public ConcesionarioService(ConcesionarioRepository concesionarioRepository) {
 		this.concesionarioRepository=concesionarioRepository;
-		this.entityManager=entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -53,35 +51,4 @@ public class ConcesionarioService {
 	public void saveConcesionario(Concesionario concesionario) {
 		concesionarioRepository.save(concesionario);
 	}
-
-	@Transactional
-	public List<Concesionario> searchConcesionarios(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Concesionario.class)
-				.overridesForField("nombre", "edgeNGram_query")
-				.overridesForField("provincia", "edgeNGram_query")
-				.overridesForField("localidad", "edgeNGram_query")
-				.overridesForField("pais", "edgeNGram_query")
-				.get(); 
-		
-		Query q = qb.keyword()
-				.onFields("nombre","provincia","localidad","pais")
-				.matching(searchText)
-				.createQuery();
-//		Query q = qb.bool().must(qb.keyword()
-//				.onFields("nombre","provincia","localidad","pais")
-//				.matching(searchText).createQuery()).createQuery();
-		
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q, Concesionario.class); 
-		
-		List<Concesionario> concesionarioList = fullTextQuery.getResultList();
-		
-		return concesionarioList;
-	}
-
 }

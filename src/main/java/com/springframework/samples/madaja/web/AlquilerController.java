@@ -96,8 +96,9 @@ public class AlquilerController {
 	}
 	
 	//-------------------------------------API--------------------------------
-	@GetMapping(value = {"/alquileresAPI"})
-	public String showMisAlquileresListAPI() {
+	@GetMapping(value = {"/alquileresAPI/{clienteId}"})
+	public String showMisAlquileresListAPI(@PathVariable("clienteId") int clienteId, ModelMap map) {
+		map.put("clienteId", clienteId);
 		return "alquiler/mostrarMisAlquileresAPI";
 	}
 	//-------------------------------------API--------------------------------

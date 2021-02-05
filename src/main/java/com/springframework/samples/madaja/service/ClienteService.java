@@ -24,14 +24,14 @@ import com.springframework.samples.madaja.repository.ClienteRepository;
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private AuthoritiesService authoritiesService;
-	private EntityManager entityManager;
 	
 	@Autowired
-	public ClienteService(ClienteRepository clienteRepository,EntityManager entityManager) {
+	public ClienteService(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
-		this.entityManager = entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -53,10 +53,11 @@ public class ClienteService {
 	@Transactional
 	public void saveCliente(Cliente cliente) throws DataAccessException {
 		//creating cliente
-		clienteRepository.save(cliente);		
+		clienteRepository.save(cliente);	
+		
 		//creating user
-		User sd = cliente.getUser();
 		userService.saveUser(cliente.getUser());
+		
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}
@@ -69,30 +70,5 @@ public class ClienteService {
 	@Transactional
 	public Cliente findClienteById(Integer clienteId) {
 		return clienteRepository.findById(clienteId);
-	}
-	
-	@Transactional
-	public List<Cliente> searchClientes(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Cliente.class)
-				.overridesForField("firstName", "edgeNGram_query")
-				.overridesForField("lastName", "edgeNGram_query")
-				.overridesForField("dni", "edgeNGram_query")
-				.get();
-		
-		Query q = qb.keyword()
-				.onFields("firstName","lastName","dni")
-				.matching(searchText)
-				.createQuery();
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q,Cliente.class);
-		
-		List<Cliente> clienteList = fullTextQuery.getResultList();
-		
-		return clienteList;
 	}
  }

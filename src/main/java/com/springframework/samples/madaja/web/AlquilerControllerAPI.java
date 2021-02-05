@@ -48,17 +48,9 @@ public class AlquilerControllerAPI {
 		this.vehiculosService = vehiculosService;
 	}
 	
-	@GetMapping()
-	public List<Alquiler> getAlquileresCliente() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
-		
+	@GetMapping(value= "/{clienteId}")
+	public List<Alquiler> getAlquileresCliente(@PathVariable int clienteId) {
+		Cliente cliente = this.clienteService.findClienteById(clienteId);
 		return alquilerService.findAlquilerByDni(cliente.getDni()).stream().collect(Collectors.toList());
 		
 	}
