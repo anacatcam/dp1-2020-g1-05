@@ -1,7 +1,6 @@
 package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Cliente;
-import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
@@ -42,7 +40,7 @@ public class VentaController {
 		this.clienteService = clienteService;
 		this.vehiculosService = vehiculosService;
 	}
-	
+	/*
 	@GetMapping(value = {"/MisVentas"})
 	public String showMisVentas(ModelMap model){
 		List<Venta> venVist = new ArrayList<>();
@@ -59,9 +57,9 @@ public class VentaController {
 		model.put("ventas", venVist);
 		
 		return "/venta/mostrarMisVentas";
-	}
+	}*/
 	
-	/////////////////////////////////////////////////////////////////////////////////////
+	//PAGINACIÓN
 	@GetMapping(value = { "/MisVentas" })
     public String findAll(@RequestParam Map<String, Object> params, ModelMap model){
 		
@@ -74,12 +72,11 @@ public class VentaController {
 		}
 		Cliente cliente = this.clienteService.findClienteByUsername(username);
 
-        //equivalente a un if/else, si se cumple, hace lo de la izq de los ":" y si no, lo de la derecha:
         int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
         PageRequest pageRequest = PageRequest.of(page, 2);
 
-        Page<Venta> pageVenta = this.ventaService.getAllPag(pageRequest);
+        Page<Venta> pageVenta = this.ventaService.getAll(cliente.getDni(), pageRequest);
 
         int totalPage = pageVenta.getTotalPages();
         if(totalPage > 0) {
@@ -94,9 +91,9 @@ public class VentaController {
         model.addAttribute("prev", page);
         model.addAttribute("max", totalPage);
 
-        return "concesionario/mostrarConcesionarios";
+        return "/venta/mostrarMisVentas";
     }
-	/////////////////////////////////////////////////////////////////////////////////////////
+	//
 	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/comprar")
 	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {

@@ -1,5 +1,6 @@
 package com.springframework.samples.madaja.web;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class OfertaController {
 
         PageRequest pageRequest = PageRequest.of(page, 2);
 
-        Page<Oferta> pageOferta = this.ofertaService.getAllPag(pageRequest);
+        Page<Oferta> pageOferta = this.ofertaService.getAll(pageRequest);
 
         int totalPage = pageOferta.getTotalPages();
         if(totalPage > 0) {

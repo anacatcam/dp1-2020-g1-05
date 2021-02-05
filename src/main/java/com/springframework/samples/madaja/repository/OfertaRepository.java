@@ -26,6 +26,6 @@ public interface OfertaRepository extends Repository<Oferta, Integer>{
 	public void deleteById(int id) throws DataAccessException;
 	
 	//PAGINACIÓN
-	Page<Oferta> findAllPag(Pageable pageable);
+	Page<Oferta> findAll(Pageable pageable);
 
 }

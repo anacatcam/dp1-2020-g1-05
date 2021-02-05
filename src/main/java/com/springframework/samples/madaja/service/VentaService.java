@@ -29,11 +29,6 @@ public class VentaService {
 	}
 	
 	@Transactional(readOnly = true)
-    public Page<Venta> getAllPag(Pageable pageable) {
-        return ventaRepository.findAllPag(pageable);
-    }
-	
-	@Transactional(readOnly = true)
 	public Iterable<Venta> findAllVentas() throws DataAccessException{
 		return ventaRepository.findAll();
 	}
@@ -52,4 +47,10 @@ public class VentaService {
 	public Venta findVentaByEnvio(int id) throws DataAccessException { //test
 		return ventaRepository.findByEnvio(id);
 	}
+	
+	@Transactional(readOnly = true)
+    public Page<Venta> getAll(String dni, Pageable pageable) {
+        return ventaRepository.findAll(dni, pageable);
+    }
+
 }

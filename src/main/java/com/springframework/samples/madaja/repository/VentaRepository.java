@@ -13,8 +13,6 @@ import com.springframework.samples.madaja.model.Venta;
 
 public interface VentaRepository extends Repository<Venta, Integer>{
 	
-	Page<Venta> findAllPag(Pageable pageable);
-	
 	Iterable<Venta> findAll() throws DataAccessException; //TODAS las ventas
 	
 	Venta findById(int id) throws DataAccessException; //Venta por ID
@@ -26,4 +24,8 @@ public interface VentaRepository extends Repository<Venta, Integer>{
 	
 	@Query("SELECT venta FROM Venta venta WHERE venta.envio.id = :id")
 	public Venta findByEnvio(@Param("id") int id);
+	
+	//PAGINACIÓN
+	@Query("SELECT venta FROM Venta venta WHERE venta.cliente.dni =:dni") //Encontrar ventas por DNI del cliente
+	public Page<Venta> findAll(@Param("dni") String dni, Pageable pageable);
 }

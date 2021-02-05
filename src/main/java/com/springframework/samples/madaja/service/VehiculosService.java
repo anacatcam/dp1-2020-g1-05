@@ -125,16 +125,18 @@ public class VehiculosService {
 	
 	//PAGINACIÓN
 	@Transactional(readOnly = true)
-	public Page<Vehiculos> getAllPagVehiculos(Pageable pageable) throws DataAccessException {
-		return vehiculosRepository.findAllPagVehiculos(pageable);
+	public Page<Vehiculos> getAll(Pageable pageable){
+		return vehiculosRepository.findAll(pageable);
 	}
 	
-	//PAGINACIÓN (Disponible)
+	//PAGINACIÓN (disponible)
 	@Transactional(readOnly = true)
-	public Page<Disponible> getAllPagDisponible(Pageable pageable) throws DataAccessException {
-		return disponibleRepository.findAllPagDisponible(pageable);
+	public Page<Vehiculos> getAllD(@Param("id") int id, Pageable pageable){
+		return vehiculosRepository.findAll(id, pageable);
 	}
 	//
+	
+	
 		
 	@Transactional
 	public List<Vehiculos> searchVehiculos(String searchText){

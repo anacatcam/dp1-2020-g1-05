@@ -42,8 +42,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-<<<<<<< HEAD
 	
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/disponible/2" htmlEscape="true"/>'>Comprar nuevo vehículo</a>
+
 	<div>
             <nav aria-label="Pagination">
                 <ul class="pagination">
@@ -94,8 +95,4 @@
                   </ul>
             </nav>
     </div>
-	
-=======
-	<a class="btn btn-default" href='<spring:url value="/vehiculos/disponible/2" htmlEscape="true"/>'>Comprar nuevo vehículo</a>
->>>>>>> branch 'master' of https://github.com/gii-is-DP1/dp1-2020-g1-05.git
 </madaja:layout>

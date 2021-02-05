@@ -44,6 +44,10 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 	
 	//PAGINACIÓN
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id < 4 ORDER BY vehiculos.id")
-	public Page<Vehiculos> findAllPagVehiculos(Pageable pageable);
+	public Page<Vehiculos> findAll(Pageable pageable);
+	
+	//Paginación (disponible)
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id =:id")
+	public Page<Vehiculos> findAll(@Param("id") int id, Pageable pageable);
 
 }

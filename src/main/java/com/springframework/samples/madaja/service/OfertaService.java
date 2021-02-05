@@ -47,8 +47,8 @@ public class OfertaService {
 	
 	//PAGINACIÓN
 	@Transactional(readOnly = true)
-    public Page<Oferta> getAllPag(Pageable pageable) {
-        return ofertaRepository.findAllPag(pageable);
+    public Page<Oferta> getAll(Pageable pageable) {
+        return ofertaRepository.findAll(pageable);
     }
 
 }

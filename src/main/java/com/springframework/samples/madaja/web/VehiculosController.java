@@ -55,25 +55,27 @@ public class VehiculosController {
 
         PageRequest pageRequest = PageRequest.of(page, 2);
 
-        Page<Vehiculos> pageVehiculos = this.vehiculosService.getAllPagVehiculos(pageRequest);
-        Page<Disponible> pageDisponible = this.vehiculosService.getAllPagDisponible(pageRequest);
+        Page<Vehiculos> pageVehiculos = this.vehiculosService.getAll(pageRequest);
 
-        int totalPage = pageVehiculos.getTotalPages()+pageDisponible.getTotalPages();
+        int totalPage = pageVehiculos.getTotalPages();
         if(totalPage > 0) {
             // lista con todas las páginas que hay:
             List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
             model.addAttribute("pages", pages);
         }
+        
+        Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
+        model.put("disponible", disponible);
 
         model.addAttribute("vehiculos", pageVehiculos.getContent());
-        model.addAttribute("disponible", pageDisponible.getContent());
         model.addAttribute("current", page+1);
         model.addAttribute("next", page+2);
         model.addAttribute("prev", page);
         model.addAttribute("max", totalPage);
         return "vehiculos/mostrarVehiculos";
 	}
-   /* OBSOLETO POR PAGINACIÓN
+    //
+	/*
 	@GetMapping(value = { "/vehiculos" })
 	public String showVehiculosList(Map<String, Object> model) {
 		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
@@ -153,6 +155,7 @@ public class VehiculosController {
 		return "redirect:/vehiculos";
 	}
 	
+	/*
 	@GetMapping(value="/vehiculos/disponible/{disponibleId}")
 	public String showVehiculosDisponibleList(@PathVariable("disponibleId") int disponibleId, 
 			Map<String, Object> model) {
@@ -161,7 +164,36 @@ public class VehiculosController {
 		model.put("vehiculos", vehiculos);
 		model.put("disponible", disponible);
 		return "vehiculos/mostrarVehiculos";
-	}
+	}*/
+	
+	//PAGINACIÓN (disponible)
+		@GetMapping(value = { "/vehiculos/disponible/{disponibleId}" })
+	    public String findAll(@PathVariable("disponibleId") int disponibleId, @RequestParam Map<String, Object> params, ModelMap model){
+
+	        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
+
+	        PageRequest pageRequest = PageRequest.of(page, 2);
+
+	        Page<Vehiculos> pageVehiculosD = this.vehiculosService.getAllD(disponibleId, pageRequest);
+
+	        int totalPage = pageVehiculosD.getTotalPages();
+	        if(totalPage > 0) {
+	            // lista con todas las páginas que hay:
+	            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+	            model.addAttribute("pages", pages);
+	        }
+	        
+	        Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
+	        model.put("disponible", disponible);
+
+	        model.addAttribute("vehiculos", pageVehiculosD.getContent());
+	        model.addAttribute("current", page+1);
+	        model.addAttribute("next", page+2);
+	        model.addAttribute("prev", page);
+	        model.addAttribute("max", totalPage);
+	        return "vehiculos/mostrarVehiculos";
+		}
+	    //
 	
 	/** Reservar vehiculo  **/
 	@GetMapping(value = "/reservar/{vehiculoId}")
