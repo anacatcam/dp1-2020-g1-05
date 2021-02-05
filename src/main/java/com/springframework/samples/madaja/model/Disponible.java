@@ -8,11 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "disponible")
 public class Disponible extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "disponible")
+	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
 	
 	protected Set<Vehiculos> getVehiculosInternal() {

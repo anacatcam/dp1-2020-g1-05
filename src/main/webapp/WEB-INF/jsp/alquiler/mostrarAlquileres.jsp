@@ -6,9 +6,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
-<madaja:layout pageName="misAlquileres">
+<madaja:layout pageName="alquileres">
 
-<h2>Mis Alquileres</h2>
+<h2>Alquileres</h2>
 
 <table id="ownersTable" class="table table-striped">
 		<thead>
@@ -48,7 +48,6 @@
 						<c:out value="${alquiler.cliente.firstName}"/>	<c:out value="${alquiler.cliente.lastName}"/>	
 					</td>
 					<td>
-						<c:out value="${alquiler.devuelto}"/>
 						<c:choose>
 							<c:when test="${alquiler.devuelto eq true}">
 								Sí

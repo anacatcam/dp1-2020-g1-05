@@ -7,6 +7,7 @@
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
 <madaja:layout pageName="reservas">
+	
 	<h2>Reservas</h2>	
 	
 	<!-- v -->

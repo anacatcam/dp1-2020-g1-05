@@ -38,19 +38,17 @@ public class VehiculosService {
 	private CombustibleRepository combustibleRepository;
 	private DisponibleRepository disponibleRepository;
 	private SeguroVehiculoRepository seguroVehiculoRepository;
-	private EntityManager entityManager;
 	
 	@Autowired
 	public VehiculosService(VehiculosRepository vehiculosRepository, CambioRepository cambioRepository, 
 			ConcesionarioRepository concesionarioRepository, CombustibleRepository combustibleRepository,
-			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository, EntityManager entityManager) {
+			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository) {
 		this.vehiculosRepository=vehiculosRepository;
 		this.cambioRepository=cambioRepository;
 		this.concesionarioRepository=concesionarioRepository;
 		this.combustibleRepository=combustibleRepository;
 		this.disponibleRepository=disponibleRepository;
 		this.seguroVehiculoRepository=seguroVehiculoRepository;
-		this.entityManager = entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -122,7 +120,7 @@ public class VehiculosService {
 	public Collection<Vehiculos> findByOferta(int id_oferta){
 		return vehiculosRepository.findByOferta(id_oferta);
 	}
-	
+  
 	//PAGINACIÓN
 	@Transactional(readOnly = true)
 	public Page<Vehiculos> getAll(Pageable pageable){

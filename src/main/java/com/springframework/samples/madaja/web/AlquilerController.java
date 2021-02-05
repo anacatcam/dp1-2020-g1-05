@@ -35,6 +35,7 @@ import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
@@ -95,8 +96,9 @@ public class AlquilerController {
 	}
 	
 	//-------------------------------------API--------------------------------
-	@GetMapping(value = {"/alquileresAPI"})
-	public String showMisAlquileresListAPI() {
+	@GetMapping(value = {"/alquileresAPI/{clienteId}"})
+	public String showMisAlquileresListAPI(@PathVariable("clienteId") int clienteId, ModelMap map) {
+		map.put("clienteId", clienteId);
 		return "alquiler/mostrarMisAlquileresAPI";
 	}
 	//-------------------------------------API--------------------------------
@@ -135,7 +137,7 @@ public class AlquilerController {
 			nuevoAlquiler.setVehiculo(vehiculo);
 			nuevoAlquiler.setReserva(null);
 			nuevoAlquiler.setDepLleno(true);
-			nuevoAlquiler.setDevuelto(false); //esto no lo guarda
+			nuevoAlquiler.setDevuelto(false);
 			nuevoAlquiler.setRecogida(null);
 			nuevoAlquiler.setEnvio(null);
 			model.put("alquiler", nuevoAlquiler);
@@ -169,29 +171,37 @@ public class AlquilerController {
 	}
 	
 	@PostMapping(value = "/alquileres/{alquilerId}/devolucion")
-	public String processDevolverVehiculo(ModelMap model, @RequestParam(name="AlquilerId") Optional<Integer> alquilerId,
-				@RequestParam(name="disponible") Optional<String> disponible, 
-				@RequestParam(name="FechaDevolucion") Optional<String> fechaDevolucion) {
-		if (alquilerId.isPresent() == false || fechaDevolucion.isPresent() == false || disponible.isPresent() == false ) {
+	public String processDevolverVehiculo(ModelMap model, @RequestParam(name="AlquilerId") Integer alquilerId,
+				@RequestParam(name="disponible") Integer disponible, 
+				@RequestParam(name="FechaDevolucion") String fechaDevolucion) {
+		if (alquilerId.equals(null) || fechaDevolucion.equals("") || disponible.equals(null)) {
 			model.put("alquiler_id", alquilerId);
 			model.put("disponibles", this.vehiculosService.findAllDisponibles());
 			return "vehiculos/devolverVehiculo";
 		}
 		else {
-			Alquiler alquiler = this.alquilerService.findAlquilerById(alquilerId.get());
+			Alquiler alquiler = this.alquilerService.findAlquilerById(alquilerId);
 			alquiler.setDevuelto(true);
 			Integer vehiculoId = alquiler.getVehiculo().getId();
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
-			Disponible disponibilidad = this.vehiculosService.findDisponibleById(Integer.parseInt(disponible.get()));
+			Disponible disponibilidad = this.vehiculosService.findDisponibleById(disponible);
 			vehiculo.setDisponible(disponibilidad);
+			
 			//Comprobamos si hay retraso en la fecha de devolución
-			String devolucion = fechaDevolucion.get();
+			String devolucion = fechaDevolucion;
 			LocalDate fechaFin = alquiler.getFechaFin();
 			Integer retraso = esRetraso(devolucion, fechaFin);
-			alquiler.getCliente().setDiasRetraso(retraso);
-			System.out.println(alquiler.getCliente().getDiasRetraso());
+			alquiler.getCliente().setDiasRetraso(alquiler.getCliente().getDiasRetraso() + retraso);
+			if (alquiler.getCliente().getDiasRetraso() > 14) {
+				alquiler.getCliente().setEsConflictivo("Si");
+			}
+			this.alquilerService.saveAlquiler(alquiler);
+			this.vehiculosService.saveVehiculo(vehiculo);
+			
 		}
+		
 		return "redirect:/vehiculos";
+		
 	}
 	
 	public Map<Boolean, LocalDate> estaAlquilado(Vehiculos vehiculo) {
@@ -220,9 +230,10 @@ public class AlquilerController {
 	}
 	
 	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
-		LocalDate devolucion = LocalDate.parse(fechaDevolucion, DateTimeFormatter.ofPattern("yyyy-mm-dd"));
-		Integer retraso = (int) Duration.between(devolucion, fechaFin).toDays();
-		return retraso;
+		LocalDate devolucion = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(fechaDevolucion));
+		long retraso = DAYS.between(fechaFin, devolucion);
+		Integer res = (int) retraso;
+		return res;
 	}
 	
 }

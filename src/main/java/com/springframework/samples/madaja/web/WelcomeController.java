@@ -4,17 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Person;
+import com.springframework.samples.madaja.service.ClienteService;
 
 @Controller
 public class WelcomeController {
+	 
+	  private final ClienteService clienteService;
 	
+	  @Autowired
+	  public WelcomeController(ClienteService clienteService) {
+	    this.clienteService = clienteService;
+	  }
 	
 	  @GetMapping({"/","/welcome"})
-	  public String welcome(Map<String, Object> model) {	 
+	  public String welcome(Map<String, Object> model) {
+		  
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		String autoridad="";
+		if(principal instanceof UserDetails) {
+			 autoridad = ((UserDetails)principal).getAuthorities().iterator().next().toString();
+			 username = ((UserDetails)principal).getUsername();
+		}else {
+			 username = principal.toString();
+		}
+		if(autoridad.equals("cliente")) {
+			Cliente cliente = clienteService.findClienteByUsername(username);
+			Integer clienteId=cliente.getId();
+			model.put("clienteId", clienteId);
+		}
 		  
 		  List<Person> personas = new ArrayList<Person>();
 		  Person persona = new Person();

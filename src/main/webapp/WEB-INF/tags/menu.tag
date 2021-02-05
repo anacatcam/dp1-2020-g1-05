@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
-	description="Name of the active menu: home, owners, vets or error"%>
+	description="Name of the active menu: home, concesionarios, vehiculos, oferta, gestion"%>
 
 <nav class="navbar navbar-default" role="navigation">
 <!--<span style="float:left; font-size: 30px; color:white;">MADAJA</span>-->
@@ -74,12 +74,6 @@
 						</ul>	
 					</madaja:menuItem>
 				</sec:authorize>
-				
-				<madaja:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
-				</madaja:menuItem>
 			</ul>
 			
 			
@@ -113,17 +107,6 @@
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
 													class="btn btn-danger btn-block btn-sm">Logout</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</li>
-                            <li> 
-								<div class="navbar-login navbar-login-session">
-									<div class="row">
-										<div class="col-lg-12">
-											<p>
-												<a href="<c:url value="/miPerfil"/>" class="btn btn-primary btn-block">Mi perfil</a>
 											</p>
 										</div>
 									</div>

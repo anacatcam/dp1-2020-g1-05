@@ -64,9 +64,6 @@ public class VehiculosServiceTests {
 	@Mock
 	private EntityManager entityManager;
 	
-	@Mock
-    private Pageable pageableMock;
-	
 	@Autowired
 	protected VehiculosService vehiculosService;
 	
@@ -80,11 +77,9 @@ public class VehiculosServiceTests {
 	
 	@BeforeEach
 	void setUp() {
-		
-		MockitoAnnotations.initMocks(this);
-		
+			
 		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository,entityManager);
-		
+	
 		combustible = new Combustible();
 		combustible.setId(1);
 		combustible.setName("diesel");

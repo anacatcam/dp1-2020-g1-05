@@ -87,9 +87,9 @@ public class ReservasController {
 	public String mostrarReservas(ModelMap modelMap) {
 		String vista = ("/reservas/mostrarReservas");
 		Iterable<Venta> ventas = ventaService.findAllVentas();
-		modelMap.addAttribute("ventas", ventas);
 		Iterable<Alquiler> alquileres = alquilerService.findAllAlquiler();
-		modelMap.addAttribute("alquileres", alquileres);
+		modelMap.put("ventas", ventas);
+		modelMap.put("alquileres", alquileres);
 		
 		return vista;
 	}
@@ -125,7 +125,7 @@ public class ReservasController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String autoridad;
 		String username = "";
-		String view = "";
+		String view = "/oups";
 		List<Reserva> reservas = new ArrayList<>();
 		
 		if(principal instanceof UserDetails) {
@@ -208,7 +208,7 @@ public class ReservasController {
 		if(tipo.equals("Alquiler")) { 
 			fianza = vehiculo.getPrecioAlquiler().doubleValue(); //En el caso de un alquiler, la finaza es un mes del propio alquiler
 		}else {
-			fianza = 0.2*vehiculo.getPrecioAlquiler(); //En el caso de una venta, la finaza es un 20% del precio
+			fianza = 0.2*vehiculo.getPrecioVenta(); //En el caso de una venta, la finaza es un 20% del precio
 		}
 		
 		nuevaReserva.setFianza(fianza);
@@ -220,8 +220,8 @@ public class ReservasController {
 	}
 	
 	@PostMapping(value = "/{vehiculoId}/reservar/{tipo}")
-	public String processReservarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @PathVariable("tipo") String tipo,
-			@Valid Reserva reserva, BindingResult result, ModelMap model) {
+	public String processReservarVehiculo(ModelMap model, @PathVariable("vehiculoId") int vehiculoId, @PathVariable("tipo") String tipo,
+			@Valid Reserva reserva, BindingResult result) {
 		if (result.hasErrors()) {
 			return VIEWS_RESERVA_CREATE_FORM;
 		}else {
@@ -231,7 +231,7 @@ public class ReservasController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			reservaService.saveReserva(reserva);
 		
-			return "redirect:/reservas";
+			return "redirect:/reservas/mis-reservas";
 		}
 		
 	}

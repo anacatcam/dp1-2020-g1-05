@@ -29,6 +29,7 @@
 		<th style="width: 150px;">Apellidos</th>
 		<th style="width: 150px;">Teléfono</th>
 		<th style="width: 150px;">Email</th>
+		<th style="width: 150px;">Conflictivo</th>
 		<th style="width: 150px;">Ventas</th>
 		<th style="width: 150px;">Alquileres</th>
 	</tr>
@@ -50,6 +51,9 @@
 						</td>
 						<td>
 							<c:out value="${cliente.email}"/>
+						</td>
+						<td>
+							<c:out value="${cliente.esConflictivo}"/>
 						</td>
 						<td>
 							<spring:url value="/clientes/ventas/{clienteId}" var="clienteURL">

@@ -95,6 +95,16 @@ public class VentaController {
     }
 	//
 	
+	@GetMapping(value = {"/ventas"})
+	public String mostrarVentas(ModelMap modelMap) {
+		String vista = ("/venta/mostrarVentas");
+		Iterable<Venta> ventas = ventaService.findAllVentas();
+		modelMap.addAttribute("ventas", ventas);
+		
+		return vista;
+	}
+
+	
 	@GetMapping(value = "/vehiculos/{vehiculoId}/comprar")
 	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
