@@ -123,6 +123,18 @@ INSERT INTO incidencias_mecanicos VALUES (5, '66493193D');
 INSERT INTO incidencias_mecanicos VALUES (6, '25652228Y');
 INSERT INTO incidencias_mecanicos VALUES (6, '47565973E');
 
+INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (1,150,210,'Todo riesgo','2021-2-10','2020-2-4',1);
+INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (2,300,430,'Robos e incendios','2021-2-10','2020-2-4',2);
+INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (3,0,350,'Repostaje ilimitado','2021-2-10','2020-2-4',5);
+INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (4,220,174,'Todo riesgo','2021-2-10','2020-2-4',7);
+
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (1,'2016-09-03',317.8,1);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (2,'2015-05-08',122.0,2);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (3,'2012-09-02',226.0,3);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (4,'2010-03-23',173.4,1);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (5,'2020-06-07',586.0,3);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (6,'2020-07-15',428.5,1);
+
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','2010-09-03','10:00',4,'25652228Y');
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','2010-08-07','11:00',2,'47565973E');
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (3,'Córdoba','Aguilar de la Frontera','C/Monturque','43055','España','2020-07-07','16:30',2,'25652228Y');

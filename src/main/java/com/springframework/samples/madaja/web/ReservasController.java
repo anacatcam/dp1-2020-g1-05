@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -120,6 +119,7 @@ public class ReservasController {
 	}
 	
 	
+
 	@GetMapping(path = "/{reservaId}/delete")
 	public String borrarReservas(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
