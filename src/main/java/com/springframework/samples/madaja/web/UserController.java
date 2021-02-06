@@ -30,12 +30,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.service.ClienteService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
  * @author Arjen Poutsma
  * @author Michael Isvy
  */
+@Slf4j
 @Controller
 public class UserController {
 
@@ -64,6 +67,7 @@ public class UserController {
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Cliente cliente, BindingResult result) {
 		if (result.hasErrors()) {
+			log.warn("Errores encontrados en el registro de un usuario: " + result.getAllErrors());
 			return VIEWS_CLIENTE_CREATE_FORM;
 		}
 		else {

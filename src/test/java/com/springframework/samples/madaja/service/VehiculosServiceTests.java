@@ -61,8 +61,6 @@ public class VehiculosServiceTests {
 	@Mock
 	private SeguroVehiculoRepository seguroVehiculoRepository;
 	
-	@Mock
-	private EntityManager entityManager;
 	
 	@Autowired
 	protected VehiculosService vehiculosService;
@@ -78,7 +76,7 @@ public class VehiculosServiceTests {
 	@BeforeEach
 	void setUp() {
 			
-		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository,entityManager);
+		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository);
 	
 		combustible = new Combustible();
 		combustible.setId(1);

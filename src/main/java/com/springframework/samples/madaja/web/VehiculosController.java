@@ -35,6 +35,7 @@ import com.springframework.samples.madaja.service.VehiculosService;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class VehiculosController {
 	
@@ -65,9 +66,13 @@ public class VehiculosController {
 
         int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
-        PageRequest pageRequest = PageRequest.of(page, 2);
+        PageRequest pageRequest = PageRequest.of(page, 10);
 
         Page<Vehiculos> pageVehiculos = this.vehiculosService.getAll(pageRequest);
+        
+        if(pageVehiculos == null) {
+        	log.warn("No se han podido encontrar ningún vehículo");
+        }
 
         int totalPage = pageVehiculos.getTotalPages();
         if(totalPage > 0) {
@@ -78,12 +83,14 @@ public class VehiculosController {
         
         Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
         model.put("disponible", disponible);
-
+        
         model.addAttribute("vehiculos", pageVehiculos.getContent());
         model.addAttribute("current", page+1);
         model.addAttribute("next", page+2);
         model.addAttribute("prev", page);
         model.addAttribute("max", totalPage);
+        
+      
         return "vehiculos/mostrarVehiculos";
 	}
     //
@@ -155,6 +162,7 @@ public class VehiculosController {
 	public ModelAndView showVehiculo(@PathVariable("vehiculoId") int vehiculoId) {
 		ModelAndView mav = new ModelAndView("vehiculos/vehiculoDetails");
 		mav.addObject(this.vehiculosService.findVehiculoById(vehiculoId));
+		log.info("Se realizado una consulta al vehiculo con id: " + vehiculoId);
 		return mav;
 	}
 	
@@ -163,6 +171,7 @@ public class VehiculosController {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		Disponible disponible = this.vehiculosService.findDisponibleById(7);
 		vehiculo.setDisponible(disponible);
+		log.info("Este vehículo con id: " + vehiculoId + " ha pasado al estado: " + disponible.getName());
 		this.vehiculosService.saveVehiculo(vehiculo);
 		return "redirect:/vehiculos";
 	}
@@ -179,33 +188,33 @@ public class VehiculosController {
 	}*/
 	
 	//PAGINACIÓN (disponible)
-		@GetMapping(value = { "/vehiculos/disponible/{disponibleId}" })
-	    public String findAll(@PathVariable("disponibleId") int disponibleId, @RequestParam Map<String, Object> params, ModelMap model){
+	@GetMapping(value = { "/vehiculos/disponible/{disponibleId}" })
+    public String findAll(@PathVariable("disponibleId") int disponibleId, @RequestParam Map<String, Object> params, ModelMap model){
 
-	        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
+        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
-	        PageRequest pageRequest = PageRequest.of(page, 2);
+        PageRequest pageRequest = PageRequest.of(page, 2);
 
-	        Page<Vehiculos> pageVehiculosD = this.vehiculosService.getAllD(disponibleId, pageRequest);
+        Page<Vehiculos> pageVehiculosD = this.vehiculosService.getAllD(disponibleId, pageRequest);
 
-	        int totalPage = pageVehiculosD.getTotalPages();
-	        if(totalPage > 0) {
-	            // lista con todas las páginas que hay:
-	            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
-	            model.addAttribute("pages", pages);
-	        }
-	        
-	        Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
-	        model.put("disponible", disponible);
+        int totalPage = pageVehiculosD.getTotalPages();
+        if(totalPage > 0) {
+            // lista con todas las páginas que hay:
+            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages", pages);
+        }
+        
+        Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
+        model.put("disponible", disponible);
 
-	        model.addAttribute("vehiculos", pageVehiculosD.getContent());
-	        model.addAttribute("current", page+1);
-	        model.addAttribute("next", page+2);
-	        model.addAttribute("prev", page);
-	        model.addAttribute("max", totalPage);
-	        return "vehiculos/mostrarVehiculos";
-		}
-	    //
+        model.addAttribute("vehiculos", pageVehiculosD.getContent());
+        model.addAttribute("current", page+1);
+        model.addAttribute("next", page+2);
+        model.addAttribute("prev", page);
+        model.addAttribute("max", totalPage);
+        return "vehiculos/mostrarVehiculos";
+	}
+    //
 	
 	/** Reservar vehiculo  **/
 	@GetMapping(value = "/reservar/{vehiculoId}")
@@ -230,7 +239,7 @@ public class VehiculosController {
 			return "redirect:/vehiculos";
 		}
 		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
-		
+		log.info("Se ha realizado la siguiente búsqueda de vehículos: " + searchText);
 		return "vehiculos/mostrarVehiculos";
 	}
 }

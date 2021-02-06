@@ -136,27 +136,5 @@ public class VehiculosService {
 	
 	
 		
-	@Transactional
-	public List<Vehiculos> searchVehiculos(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Vehiculos.class)
-				.overridesForField("marca", "edgeNGram_query")
-				.overridesForField("modelo", "edgeNGram_query")
-				.get();
-		
-		Query q = qb.keyword()
-				.onFields("marca","modelo","plazas","puertas")
-				.matching(searchText)
-				.createQuery();
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q, Vehiculos.class);
-		
-		List<Vehiculos> vehiculosList = fullTextQuery.getResultList();
-		
-		return vehiculosList;
-	}
+
 }

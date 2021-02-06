@@ -1,6 +1,9 @@
 package com.springframework.samples.madaja.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,6 +13,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -28,7 +33,9 @@ import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.OfertaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class OfertaController {
 	
@@ -89,6 +96,7 @@ public class OfertaController {
 		List<Vehiculos> vehiculos = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
 		map.put("oferta", oferta);
 		map.put("vehiculos", vehiculos);
+		log.info("Se ha realizado una consulta a la oferta con id: " + ofertaId);
 		return "oferta/ofertaDetails";
 	}
 
@@ -103,6 +111,12 @@ public class OfertaController {
 	@InitBinder("oferta")
 	public void initVehiculoBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@InitBinder
+	public void initBinder(final WebDataBinder binder){
+	  final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); 
+	  binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
 	@InitBinder

@@ -18,6 +18,8 @@ package com.springframework.samples.madaja.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Controller used to showcase what happens when an exception is thrown
  *
@@ -26,11 +28,13 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Also see how the bean of type 'SimpleMappingExceptionResolver' has been declared inside
  * /WEB-INF/mvc-core-config.xml
  */
+@Slf4j
 @Controller
 public class CrashController {
 
 	@GetMapping(value = "/oups")
 	public String triggerException() {
+		log.error("Se ha producido un error");
 		throw new RuntimeException(
 				"Expected: controller used to showcase what " + "happens when an exception is thrown");
 	}

@@ -29,6 +29,7 @@ import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.repository.ClienteRepository;
+import com.springframework.samples.madaja.repository.UserRepository;
 import com.springframework.samples.madaja.util.EntityUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,8 +38,18 @@ public class ClienteServiceTests {
 	@Mock
 	private ClienteRepository clienteRepository;
 	
+
 	@Autowired
 	protected ClienteService clienteService;
+	
+	@Mock
+	protected UserService userService;
+	
+	@Autowired
+	protected AuthoritiesService authoritiesService;
+	
+	@Mock
+	UserRepository userRepository;
 	
 	private User usuario;
 	
@@ -46,6 +57,9 @@ public class ClienteServiceTests {
 	
 	@BeforeEach
 	void setUp() {
+		clienteService = new ClienteService(clienteRepository);
+		userService = new UserService(userRepository);
+
 		clienteService = new ClienteService(clienteRepository);
 		usuario = new User();
 		usuario.setUsername("alejandro");
@@ -61,6 +75,7 @@ public class ClienteServiceTests {
 		cliente.setEsConflictivo("No lo es");
 		cliente.setTelefono("637666517");
 		cliente.setUser(usuario);
+		cliente.setDiasRetraso(0);
 	}
 	
 	@Test
@@ -91,9 +106,12 @@ public class ClienteServiceTests {
 	@Test
 	void testSaveCliente() throws Exception{
 		clienteService.saveCliente(cliente);
+
 		
 		
 		verify(clienteRepository).save(cliente);
+		verify(userRepository).save(cliente.getUser());
+	//	verify(authoritiesService).saveAuthorities(cliente.getUser().getUsername(), "cliente");
 	}
 	*/
 	
