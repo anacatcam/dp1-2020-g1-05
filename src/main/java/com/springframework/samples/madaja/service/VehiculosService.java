@@ -12,13 +12,14 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Combustible;
-import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.Vehiculos;
@@ -119,4 +120,21 @@ public class VehiculosService {
 	public Collection<Vehiculos> findByOferta(int id_oferta){
 		return vehiculosRepository.findByOferta(id_oferta);
 	}
+  
+	//PAGINACIÓN
+	@Transactional(readOnly = true)
+	public Page<Vehiculos> getAll(Pageable pageable){
+		return vehiculosRepository.findAll(pageable);
+	}
+	
+	//PAGINACIÓN (disponible)
+	@Transactional(readOnly = true)
+	public Page<Vehiculos> getAllD(@Param("id") int id, Pageable pageable){
+		return vehiculosRepository.findAll(id, pageable);
+	}
+	//
+	
+	
+		
+
 }

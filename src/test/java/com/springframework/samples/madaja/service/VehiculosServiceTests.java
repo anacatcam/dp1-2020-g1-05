@@ -1,6 +1,5 @@
 package com.springframework.samples.madaja.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -10,7 +9,6 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,11 +16,15 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Combustible;
@@ -37,7 +39,6 @@ import com.springframework.samples.madaja.repository.ConcesionarioRepository;
 import com.springframework.samples.madaja.repository.DisponibleRepository;
 import com.springframework.samples.madaja.repository.SeguroVehiculoRepository;
 import com.springframework.samples.madaja.repository.VehiculosRepository;
-import com.springframework.samples.madaja.util.EntityUtils;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class VehiculosServiceTests {
@@ -60,6 +61,7 @@ public class VehiculosServiceTests {
 	@Mock
 	private SeguroVehiculoRepository seguroVehiculoRepository;
 	
+	
 	@Autowired
 	protected VehiculosService vehiculosService;
 	
@@ -73,8 +75,9 @@ public class VehiculosServiceTests {
 	
 	@BeforeEach
 	void setUp() {
+			
 		vehiculosService=new VehiculosService(vehiculosRepository, cambioRepository, concesionarioRepository, combustibleRepository, disponibleRepository, seguroVehiculoRepository);
-		
+	
 		combustible = new Combustible();
 		combustible.setId(1);
 		combustible.setName("diesel");
@@ -287,4 +290,40 @@ public class VehiculosServiceTests {
 		
 	}
 	
+	//PAGINACIÓN
+	@Test
+	void testGetAll() throws Exception{
+		List<Vehiculos> vehiculos= new ArrayList<Vehiculos>();
+		vehiculos.add(vehiculo);
+		
+		Pageable pageable = PageRequest.of(0, 8);
+		Page<Vehiculos> page = new PageImpl<Vehiculos>(vehiculos);
+		
+		when(vehiculosRepository.findAll(pageable)).thenReturn(page);
+		
+		vehiculosService.getAll(pageable);
+
+		verify(vehiculosRepository).findAll(pageable);
+		assertEquals(page, vehiculosService.getAll(pageable));
+				
+	}
+	
+	//PAGINACIÓN (disponible)
+	@Test
+	void testGetAllD() throws Exception{
+		List<Vehiculos> vehiculos= new ArrayList<Vehiculos>();
+		vehiculos.add(vehiculo);
+		
+		int id=vehiculo.getId();
+		
+		Pageable pageable = PageRequest.of(0, 8);
+		Page<Vehiculos> page = new PageImpl<Vehiculos>(vehiculos);
+		
+		when(vehiculosRepository.findAll(id, pageable)).thenReturn(page);
+		
+		vehiculosService.getAllD(id, pageable);
+		
+		verify(vehiculosRepository).findAll(id, pageable);
+		assertEquals(page, vehiculosService.getAllD(id, pageable));
+	}
 }

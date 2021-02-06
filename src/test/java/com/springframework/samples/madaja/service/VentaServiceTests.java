@@ -17,6 +17,10 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.springframework.samples.madaja.model.Cambio;
@@ -205,4 +209,23 @@ public class VentaServiceTests {
 		verify(ventaRepository).findByEnvio(anyInt());
 		assertEquals(venta,ventaService.findVentaByEnvio(anyInt()));
 	}
+  
+  //PAGINACIÓN
+  @Test
+  void testGetAll() throws Exception{
+	  List<Venta> ventas=new ArrayList<Venta>();
+	  ventas.add(venta);
+	  
+	  String dni =cliente.getDni();
+	  
+	  Pageable pageable = PageRequest.of(0, 8);
+	  Page<Venta> page = new PageImpl<Venta>(ventas);
+	 
+	  when(ventaRepository.findAll(dni, pageable)).thenReturn(page);
+		
+	  ventaService.getAll(dni,pageable);
+		
+	  verify(ventaRepository).findAll(dni, pageable);
+	  assertEquals(page, ventaService.getAll(dni, pageable));
+  }
 }

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +31,9 @@ import com.springframework.samples.madaja.service.ReservaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/reservas")
 public class ReservasController {
@@ -63,25 +65,6 @@ public class ReservasController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@GetMapping(path="/new")
-	public String crearReserva(ModelMap modelMap) {
-		Reserva reserva = new Reserva();
-		modelMap.put("reserva", reserva);		
-		return "reservas/mostrarReservas";
-	}
-	
-	@PostMapping(path="/new")
-	public String processCrearReserva(@Valid Reserva reserva, BindingResult result, ModelMap modelMap) {
-		if(result.hasErrors()) {
-			modelMap.put("reserva", reserva);
-			return "reservas/editReservaForm";
-		} else {
-			this.reservaService.save(reserva);
-			modelMap.addAttribute("message", reserva);
-			return "reservas/mostrarReservas";
-		}
-		
-	}
 	
 	/** Todas las reservas (vista del administrador) **/
 	@GetMapping()
@@ -120,6 +103,7 @@ public class ReservasController {
 	}
 	
 	
+
 	@GetMapping(path = "/{reservaId}/delete")
 	public String borrarReservas(@PathVariable("reservaId") int reservaId, ModelMap modelMap) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -230,7 +214,7 @@ public class ReservasController {
 			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(6));
 			this.vehiculosService.saveVehiculo(vehiculo);
 			reservaService.saveReserva(reserva);
-		
+			log.info("El vehículo " + vehiculoId + " ha sido reservado.");
 			return "redirect:/reservas/mis-reservas";
 		}
 		

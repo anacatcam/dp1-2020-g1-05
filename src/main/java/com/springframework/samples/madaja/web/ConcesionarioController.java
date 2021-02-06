@@ -24,6 +24,9 @@ import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.SearchService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ConcesionarioController {
 	
@@ -81,6 +84,7 @@ public class ConcesionarioController {
 		if(searchText == "") {
 			return "redirect:/concesionario";
 		}
+		log.info("Se ha realizado la siguiente búsqueda de concesionarios: " + searchText);
 		model.put("concesionarios", this.searchService.searchConcesionarios(searchText));
 		return "concesionario/mostrarConcesionarios";
 	}
