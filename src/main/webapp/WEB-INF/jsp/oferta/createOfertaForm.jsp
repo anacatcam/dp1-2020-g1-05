@@ -27,7 +27,7 @@
 		<div class="form-group has-feedback">
 			<madaja:inputField label="Título" name="name" />
 			<madaja:inputField label="Descuento" name="descuento"/>
-			<madaja:inputField label="Fecha Límite" name="fechaLimite"/>
+			<madaja:inputField label="Fecha Límite" name="fechaLimite" />
 			<madaja:inputField label="Hora Límite"  name="horaLimite"/>
 			<label>Vehiculos disponibles:</label>
 			<form:select multiple="true" path="vehiculos">

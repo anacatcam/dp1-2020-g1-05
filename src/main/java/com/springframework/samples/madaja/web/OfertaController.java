@@ -1,6 +1,8 @@
 package com.springframework.samples.madaja.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -78,6 +81,12 @@ public class OfertaController {
 	@InitBinder("oferta")
 	public void initVehiculoBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@InitBinder
+	public void initBinder(final WebDataBinder binder){
+	  final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); 
+	  binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
 	@InitBinder

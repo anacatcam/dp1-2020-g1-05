@@ -24,6 +24,7 @@ import com.springframework.samples.madaja.repository.ClienteRepository;
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
+	
 	@Autowired
 	private UserService userService;
 	@Autowired
