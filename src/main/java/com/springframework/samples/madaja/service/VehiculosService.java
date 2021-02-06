@@ -12,13 +12,14 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Combustible;
-import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.Vehiculos;
@@ -37,19 +38,17 @@ public class VehiculosService {
 	private CombustibleRepository combustibleRepository;
 	private DisponibleRepository disponibleRepository;
 	private SeguroVehiculoRepository seguroVehiculoRepository;
-	private EntityManager entityManager;
 	
 	@Autowired
 	public VehiculosService(VehiculosRepository vehiculosRepository, CambioRepository cambioRepository, 
 			ConcesionarioRepository concesionarioRepository, CombustibleRepository combustibleRepository,
-			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository, EntityManager entityManager) {
+			DisponibleRepository disponibleRepository, SeguroVehiculoRepository seguroVehiculoRepository) {
 		this.vehiculosRepository=vehiculosRepository;
 		this.cambioRepository=cambioRepository;
 		this.concesionarioRepository=concesionarioRepository;
 		this.combustibleRepository=combustibleRepository;
 		this.disponibleRepository=disponibleRepository;
 		this.seguroVehiculoRepository=seguroVehiculoRepository;
-		this.entityManager = entityManager;
 	}
 	
 	@Transactional(readOnly = true)
@@ -121,28 +120,21 @@ public class VehiculosService {
 	public Collection<Vehiculos> findByOferta(int id_oferta){
 		return vehiculosRepository.findByOferta(id_oferta);
 	}
-
-	@Transactional
-	public List<Vehiculos> searchVehiculos(String searchText){
-		FullTextEntityManager fullTextEntityManager = 
-				Search.getFullTextEntityManager(entityManager);
-		
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-				.buildQueryBuilder()
-				.forEntity(Vehiculos.class)
-				.overridesForField("marca", "edgeNGram_query")
-				.overridesForField("modelo", "edgeNGram_query")
-				.get();
-		
-		Query q = qb.keyword()
-				.onFields("marca","modelo","plazas","puertas")
-				.matching(searchText)
-				.createQuery();
-		
-		FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(q, Vehiculos.class);
-		
-		List<Vehiculos> vehiculosList = fullTextQuery.getResultList();
-		
-		return vehiculosList;
+  
+	//PAGINACIÓN
+	@Transactional(readOnly = true)
+	public Page<Vehiculos> getAll(Pageable pageable){
+		return vehiculosRepository.findAll(pageable);
 	}
+	
+	//PAGINACIÓN (disponible)
+	@Transactional(readOnly = true)
+	public Page<Vehiculos> getAllD(@Param("id") int id, Pageable pageable){
+		return vehiculosRepository.findAll(id, pageable);
+	}
+	//
+	
+	
+		
+
 }

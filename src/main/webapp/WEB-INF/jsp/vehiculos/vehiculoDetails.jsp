@@ -183,7 +183,7 @@
 		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Comprar</a>
 	    </c:if>
 	    <c:if test="${vehiculos.disponible.id < 4}"> 
-		    <spring:url value="/reservas/{vehiculoId}/nuevaReserva" var="reservarUrl">
+		    <spring:url value="/reservas/nuevaReserva/{vehiculoId}" var="reservarUrl">
 		        <spring:param name="vehiculoId" value="${vehiculos.id}"/>
 		    </spring:url>
 		    <a href="${fn:escapeXml(reservarUrl)}" class="btn btn-default">Reservar</a>

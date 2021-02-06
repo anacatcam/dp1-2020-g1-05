@@ -49,6 +49,7 @@ import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.web.VehiculosController;
@@ -68,6 +69,9 @@ public class VehiculosControllerTests {
 	
 	@MockBean
 	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private SearchService searchService;
 	
 	@MockBean
 	private ConcesionarioService concesionarioService;
@@ -434,6 +438,27 @@ public class VehiculosControllerTests {
 		.andExpect(model().attributeExists("disponible"))
 		.andExpect(model().attribute("disponible", disponibles))
 		.andExpect(view().name("vehiculos/mostrarVehiculos"));
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testInitFindForm() throws Exception{
+		
+		mockMvc.perform(get("/searchVehiculos"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("vehiculo"))
+		.andExpect(view().name("vehiculos/mostrarVehiculos"));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testSearchConcesionarios() throws Exception{
+		
+		mockMvc.perform(post("/doSearchVehiculos")
+				.with(csrf())
+				.param("marca", "Opel"))
+				.andExpect(status().is2xxSuccessful())
+				.andExpect(view().name("vehiculos/mostrarVehiculos"));
 	}
 	
 	@WithMockUser(value= "spring")

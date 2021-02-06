@@ -1,15 +1,14 @@
 package com.springframework.samples.madaja.repository;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
-import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
 
 public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
@@ -41,5 +40,14 @@ public interface VehiculosRepository extends Repository<Vehiculos, Integer>{
 	
 	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.oferta.id =:id")
 	public Collection<Vehiculos> findByOferta(@Param("id") int id);
+
+	
+	//PAGINACIÓN
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id < 4 ORDER BY vehiculos.id")
+	public Page<Vehiculos> findAll(Pageable pageable);
+	
+	//Paginación (disponible)
+	@Query("SELECT vehiculos FROM Vehiculos vehiculos WHERE vehiculos.disponible.id =:id")
+	public Page<Vehiculos> findAll(@Param("id") int id, Pageable pageable);
 
 }

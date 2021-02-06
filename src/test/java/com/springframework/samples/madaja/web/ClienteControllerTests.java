@@ -35,6 +35,7 @@ import com.springframework.samples.madaja.repository.ClienteRepository;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ReservaService;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.service.VentaService;
 import com.springframework.samples.madaja.web.ClienteController;
 
@@ -82,6 +83,8 @@ class ClienteControllerTests {
 	@MockBean
 	private AlquilerService alquilerService;
 	
+	@MockBean
+	private SearchService searchService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -279,5 +282,27 @@ class ClienteControllerTests {
 		.andExpect(model().attribute("alquileres", alquileres))
 		.andExpect(view().name("cliente/alquilerDetails"));
 		
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testInitFindForm() throws Exception{
+		
+		mockMvc.perform(get("/searchClientes"))
+		.andExpect(status().isOk())
+		.andExpect(model().attributeExists("cliente"))
+		.andExpect(view().name("cliente/mostrarClientes"));
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testSearchConcesionarios() throws Exception{
+		
+		mockMvc.perform(post("/doSearchClientes")
+				.with(csrf())
+				.param("firstName", "Alejandro"))
+				.andExpect(status().is2xxSuccessful())
+				.andExpect(view().name("cliente/mostrarClientes"));
+			
 	}
 }
