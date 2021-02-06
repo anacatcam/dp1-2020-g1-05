@@ -8,10 +8,6 @@
 
 <madaja:layout pageName="reservas">
 	<h2>Reservas</h2>	
-	
-	<!-- v -->
-	<c:out value="${msg}"/>
-	<!-- ^ -->
 				
 	<table id="ownersTable" class="table table-striped">
 		<thead>

@@ -137,8 +137,8 @@ INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (4,'Sevilla','Utrera','C/Sierpes','41710','España','2020-02-07','12:30',3,'47565973E');
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (5,'Sevilla','Los Palacios y Villafranca','C/Martínez Montañés','41720','España','2019-09-17','10:30',1,'47565973E');
 
-INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','12:00','47565973E');
-INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00','66493193D');
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','2021-09-03','12:00','47565973E');
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','2021-09-03','13:00','66493193D');
 
 INSERT INTO venta(id,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (1,1,3,7,1);
 INSERT INTO venta(id,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (2,2,4,6,2);

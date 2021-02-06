@@ -19,10 +19,26 @@
         	<input type="hidden" name="cliente" value="${alquiler.cliente.id}"/>
         	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback">
             <label class="col-sm-2 control-label">¿Dónde desea recoger el vehículo? </label>
             	<div class="col-sm-10">
-					<select>
+					<select id="concesionariosE" name="concesionariosE">
+						<c:forEach items="${concesionarios}" var="concesionario">
+							<option value="${concesionario.id}">
+								<c:out value="${concesionario.nombre} - "/>  
+								<c:out value="${concesionario.direccion}, "/>
+								<c:out value="${concesionario.localidad} "/> 
+								<c:out value="(${concesionario.provincia}), "/>
+								<c:out value="${concesionario.codigoPostal}"/> 
+							</option>
+						</c:forEach>
+					</select>		
+    	        </div>
+      	</div>
+      	<div class="form-group has-feedback">
+            <label class="col-sm-2 control-label">¿Dónde desea entregar el vehículo? </label>
+            	<div class="col-sm-10">
+					<select id="concesionariosR" name="concesionariosR">
 						<c:forEach items="${concesionarios}" var="concesionario">
 							<option value="${concesionario.id}">
 								<c:out value="${concesionario.nombre} - "/>  
