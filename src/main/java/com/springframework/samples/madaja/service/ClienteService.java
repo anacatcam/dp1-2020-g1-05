@@ -72,7 +72,6 @@ public class ClienteService {
 		return clienteRepository.findByUsername(username);
 	}
 	
-	@Transactional
 	public Cliente findClienteById(Integer clienteId) {
 		return clienteRepository.findById(clienteId);
 	}

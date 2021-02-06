@@ -13,15 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.search.annotations.*;
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.search.annotations.Indexed;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,24 +27,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Indexed
 public class Cliente extends Person {
 
-	@Column(name = "dni")
-	@NotEmpty
-	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
-	private String dni;
-	
-	@Column(name = "telefono")
-	@NotEmpty
-	@Length(min = 9,max=9)
-	@Digits(fraction = 0, integer = 10)
-	private String telefono;
-	
-	@Column(name = "email")
-	@NotEmpty
-	@Email
-	private  String email;
-	
-	@Column(name = "esConflictivo") 
+	@Column(name = "esConflictivo")
+	@NotNull
 	private String esConflictivo;
+	
+	@Column(name = "dias_retraso")
+	@NotNull
+	@Min(0)
+	private Integer diasRetraso;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -69,32 +56,6 @@ public class Cliente extends Person {
 	@JsonIgnore
 	private Set<Incidencia> numIncidencias;
 	
-	@Column(name = "dias_retraso")
-	private Integer diasRetraso;
-
-	public String getDni() {
-		return this.dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
-	public String getTelefono() {
-		return this.telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 	public String getEsConflictivo() {
 		return esConflictivo;

@@ -18,7 +18,7 @@
             	<div class="col-sm-10">
 	     	        <select id="mecanicos" name="mecanicos" multiple="true">
             			<c:forEach var = "mecanico" items = "${mecanicos}">
-            				<option value="${mecanico.dni}"><c:out value="${mecanico.nombre} "></c:out></option>
+            				<option value="${mecanico.dni}"><c:out value="${mecanico.firstName} "></c:out></option>
            				</c:forEach>
             		</select>
     	        </div>

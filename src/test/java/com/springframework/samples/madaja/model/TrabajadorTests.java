@@ -24,8 +24,8 @@ public class TrabajadorTests {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Trabajador trabajador = new Trabajador();
 		trabajador.setDni("49958021C");
-		trabajador.setNombre("");
-		trabajador.setApellidos("");
+		trabajador.setFirstName("");
+		trabajador.setLastName("");
 		trabajador.setTelefono("");
 		trabajador.setEmail("");
 		trabajador.setSueldo(null);
@@ -40,8 +40,8 @@ public class TrabajadorTests {
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Trabajador trabajador = new Trabajador();
 		trabajador.setDni("49958021C");
-		trabajador.setNombre("Alejandro");
-		trabajador.setApellidos("Piury");
+		trabajador.setFirstName("Alejandro");
+		trabajador.setLastName("Piury");
 		trabajador.setTelefono("640126156");
 		trabajador.setEmail("ale@gmail.com");
 		trabajador.setSueldo(11.0);

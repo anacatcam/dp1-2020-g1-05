@@ -150,7 +150,7 @@ function buildTableVehiculo(vehiculos){
 				
 		    stringVehiculoHTML+= column2Vehiculo    
 			for(var j=0; j<incidenciasVehiculo[i].mecanicos.length; j++){
-				stringVehiculoHTML+=`<dd>${incidenciasVehiculo[i].mecanicos[j].nombre} ${incidenciasVehiculo[i].mecanicos[j].apellidos}, ${incidenciasVehiculo[i].mecanicos[j].dni}</dd>`  
+				stringVehiculoHTML+=`<dd>${incidenciasVehiculo[i].mecanicos[j].firstName} ${incidenciasVehiculo[i].mecanicos[j].lastName}, ${incidenciasVehiculo[i].mecanicos[j].dni}</dd>`  
 			}
 			stringVehiculoHTML+=`<dt>Solucionada</dt>
             				<dd>${solucionada}</dd>
@@ -176,10 +176,10 @@ function buildTableGestor(gestores){
 						<dd>${gestores[i].dni}</dd>
 
 						<dt>Nombre</dt>
-						<dd>${gestores[i].nombre}</dd>
+						<dd>${gestores[i].firstName}</dd>
 
 						<dt>Apellidos</dt>
-						<dd>${gestores[i].apellidos}</dd>
+						<dd>${gestores[i].lastName}</dd>
 
 						<dt>Tel\u00e9fono</dt>
 						<dd>${gestores[i].telefono}</dd>

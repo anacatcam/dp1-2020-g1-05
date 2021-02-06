@@ -103,7 +103,7 @@
                        				    <dt>Mecánico</dt>
                         				<dd>
              							<c:forEach var="mecanico" items="${incidencia.mecanicos}">
-                        					<c:out value="${mecanico.nombre} ${mecanico.apellidos}, ${mecanico.dni}"/><br>
+                        					<c:out value="${mecanico.firstName} ${mecanico.lastName}, ${mecanico.dni}"/><br>
                         				</c:forEach>
                        					</dd>                        				
                         				<dt>Solucionada</dt>
@@ -139,16 +139,11 @@
                     <dl class="dl-horizontal">
                     	<dd>
                         <dt>DNI</dt>
-                        <dd>
-                        	<spring:url value="/gestor/{gestorId}" var="gestorUrl">
-	                            <spring:param name="gestorId" value="${gestor.dni}"/>
-                            </spring:url>
-                        	<a href="${fn:escapeXml(gestorUrl)}"><c:out value="${gestor.dni}"/></a>
-                        </dd>
+                        <dd><c:out value="${gestor.dni}"/></dd>
                         <dt>Nombre</dt>
-                        <dd><c:out value="${gestor.nombre}"/></dd>
+                        <dd><c:out value="${gestor.firstName}"/></dd>
                         <dt>Apellidos</dt>
-                        <dd><c:out value="${gestor.apellidos}"/></dd>
+                        <dd><c:out value="${gestor.lastName}"/></dd>
                         <dt>Teléfono</dt>
                         <dd><c:out value="${gestor.telefono}"/></dd>
                         <dt>Email</dt>

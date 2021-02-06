@@ -50,24 +50,5 @@ public class Gestor extends Trabajador{
 	public boolean removeConcesionario(Concesionario concesionario) {
 		return getConcesionariosInternal().remove(concesionario);
 	}
-
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("concesionarios", concesionarios);
-		builder.append("sueldo", sueldo);
-		builder.append("dni", dni);
-		builder.append("nombre", nombre);
-		builder.append("apellidos", apellidos);
-		builder.append("telefono", telefono);
-		builder.append("email", email);
-		builder.append("getSueldo()", getSueldo());
-		builder.append("getDni()", getDni());
-		builder.append("getNombre()", getNombre());
-		builder.append("getApellidos()", getApellidos());
-		builder.append("getTelefono()", getTelefono());
-		builder.append("getEmail()", getEmail());
-		return builder.toString();
-	}
 	
 }
