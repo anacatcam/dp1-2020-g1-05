@@ -21,15 +21,15 @@ INSERT INTO users(username,password,enabled) VALUES ('alepiupin','piuryp',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (7,'alepiupin','admin');
 
 --Gestores
-INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('78542089X', 'Juan José', 'Domínguez García', '678117290', 'jdomgarcia@gmail.com', 2275.5);
-INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('56137491B', 'Paco', 'Pérez Rodríguez', '640496862', 'pacoperez@gmail.com', 2275.5);
-INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('61939644T', 'Pepe', 'Reina López', '661506234', 'peperelop@gmail.com', 2275.5);
-INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('72679664D', 'Antonio', 'Amador Jiménez', '681572524', 'antodor@gmail.com', 2275.5);
-INSERT INTO gestor(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('88682022W', 'Jose Manuel', 'Huertas Barroso', '610519128', 'josehubar@gmail.com', 2275.5);
+INSERT INTO gestor(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (1,'78542089X', 'Juan José', 'Domínguez García', '678117290', 'jdomgarcia@gmail.com', 2275.5);
+INSERT INTO gestor(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (2,'56137491B', 'Paco', 'Pérez Rodríguez', '640496862', 'pacoperez@gmail.com', 2275.5);
+INSERT INTO gestor(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (3,'61939644T', 'Pepe', 'Reina López', '661506234', 'peperelop@gmail.com', 2275.5);
+INSERT INTO gestor(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (4,'72679664D', 'Antonio', 'Amador Jiménez', '681572524', 'antodor@gmail.com', 2275.5);
+INSERT INTO gestor(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (5,'88682022W', 'Jose Manuel', 'Huertas Barroso', '610519128', 'josehubar@gmail.com', 2275.5);
 
-INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('47565973E', 'Álvaro', 'Molinas Trujillo', '625496828', 'alvmoltrujillo@gmail.com', 1730.);
-INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('25652228Y', 'Antonio', 'Guerra Galera', '697386649', 'antonioguegal@gmail.com', 1730.);
-INSERT INTO mecanico(dni,nombre,apellidos,telefono,email,sueldo) VALUES ('66493193D', 'Elias', 'Acuña Roldan', '629279637', 'antonioguegal@gmail.com', 1730.);
+INSERT INTO mecanico(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (1,'47565973E', 'Álvaro', 'Molinas Trujillo', '625496828', 'alvmoltrujillo@gmail.com', 1730.);
+INSERT INTO mecanico(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (2,'25652228Y', 'Antonio', 'Guerra Galera', '697386649', 'antonioguegal@gmail.com', 1730.);
+INSERT INTO mecanico(id,dni,first_name,last_name,telefono,email,sueldo) VALUES (3,'66493193D', 'Elias', 'Acuña Roldan', '629279637', 'antonioguegal@gmail.com', 1730.);
 
 --Clientes (con sus cuentas de usuario)
 INSERT INTO users(username,password,enabled) VALUES ('manuel','contraseña1',TRUE);
@@ -60,13 +60,13 @@ INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion
 INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (5, 'Gysa' ,'gysaVehicles@gmail.com', '956571106', 'Cádiz', 'Olvera', 'Calle de Guarino', '11690', 'España');
 INSERT INTO concesionario(id,nombre,email,telefono,provincia,localidad,direccion,codigo_postal,pais) VALUES (6, 'Autos Cervican' ,'cervicanMotors@gmail.com', '957565319', 'Sevilla', 'Utrera', 'Calle Albahaca', '41710', 'España');
 
-INSERT INTO concesionarios_gestores VALUES (1, '78542089X');
-INSERT INTO concesionarios_gestores VALUES (2, '56137491B');
-INSERT INTO concesionarios_gestores VALUES (3, '61939644T');
-INSERT INTO concesionarios_gestores VALUES (2, '72679664D');
-INSERT INTO concesionarios_gestores VALUES (4, '56137491B');
-INSERT INTO concesionarios_gestores VALUES (5, '72679664D');
-INSERT INTO concesionarios_gestores VALUES (6, '88682022W');
+INSERT INTO concesionarios_gestores VALUES (1, 1);
+INSERT INTO concesionarios_gestores VALUES (2, 2);
+INSERT INTO concesionarios_gestores VALUES (3, 3);
+INSERT INTO concesionarios_gestores VALUES (2, 4);
+INSERT INTO concesionarios_gestores VALUES (4, 2);
+INSERT INTO concesionarios_gestores VALUES (5, 4);
+INSERT INTO concesionarios_gestores VALUES (6, 5);
 
 INSERT INTO disponible(id,name) VALUES (1, 'Alquiler');
 INSERT INTO disponible(id,name) VALUES (2, 'Venta');
@@ -114,14 +114,14 @@ INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUE
 INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (5, 'Raíl del asiento delantero roto', true, 4, 3);
 INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (6, 'Rueda izquierda posterior pinchada', true, 2, 2);
 
-INSERT INTO incidencias_mecanicos VALUES (1, '47565973E');
-INSERT INTO incidencias_mecanicos VALUES (2, '47565973E');
-INSERT INTO incidencias_mecanicos VALUES (3, '25652228Y');
-INSERT INTO incidencias_mecanicos VALUES (3, '66493193D');
-INSERT INTO incidencias_mecanicos VALUES (4, '25652228Y');
-INSERT INTO incidencias_mecanicos VALUES (5, '66493193D');
-INSERT INTO incidencias_mecanicos VALUES (6, '25652228Y');
-INSERT INTO incidencias_mecanicos VALUES (6, '47565973E');
+INSERT INTO incidencias_mecanicos VALUES (1, 1);
+INSERT INTO incidencias_mecanicos VALUES (2, 1);
+INSERT INTO incidencias_mecanicos VALUES (3, 2);
+INSERT INTO incidencias_mecanicos VALUES (3, 3);
+INSERT INTO incidencias_mecanicos VALUES (4, 2);
+INSERT INTO incidencias_mecanicos VALUES (5, 3);
+INSERT INTO incidencias_mecanicos VALUES (6, 2);
+INSERT INTO incidencias_mecanicos VALUES (6, 1);
 
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (1,150,210,'Todo riesgo','2021-2-10','2020-2-4',1);
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (2,300,430,'Robos e incendios','2021-2-10','2020-2-4',2);
@@ -129,14 +129,14 @@ INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (4,220,174,'Todo riesgo','2021-2-10','2020-2-4',7);
 
 
-INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','2010-09-03','10:00',4,'25652228Y');
-INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','2010-08-07','11:00',2,'47565973E');
-INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (3,'Córdoba','Aguilar de la Frontera','C/Monturque','43055','España','2020-07-07','16:30',2,'25652228Y');
-INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (4,'Sevilla','Utrera','C/Sierpes','41710','España','2020-02-07','12:30',3,'47565973E');
-INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_dni) VALUES (5,'Sevilla','Los Palacios y Villafranca','C/Martínez Montañés','41720','España','2019-09-17','10:30',1,'47565973E');
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','2010-09-03','10:00',4,2);
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','2010-08-07','11:00',2,1);
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (3,'Córdoba','Aguilar de la Frontera','C/Monturque','43055','España','2020-07-07','16:30',2,2);
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (4,'Sevilla','Utrera','C/Sierpes','41710','España','2020-02-07','12:30',3,1);
+INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (5,'Sevilla','Los Palacios y Villafranca','C/Martínez Montañés','41720','España','2019-09-17','10:30',1,1);
 
-INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','12:00','47565973E');
-INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_dni) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00','66493193D');
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_id) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','12:00',1);
+INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_id) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00',3);
 
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (1,'2020-09-05',1,3,7);
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (2,'2020-02-01',2,4,6);

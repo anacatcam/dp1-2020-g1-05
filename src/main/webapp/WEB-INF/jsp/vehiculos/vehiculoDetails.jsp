@@ -205,7 +205,7 @@
 	                        <dt>Mecánico</dt>
 	                        <dd>
 	             				<c:forEach var="mecanico" items="${incidencia.mecanicos}">
-	                        		<c:out value="${mecanico.nombre}"/>, <c:out value="${mecanico.dni}"/><br>
+	                        		<c:out value="${mecanico.firstName}"/>, <c:out value="${mecanico.dni}"/><br>
 	                        	</c:forEach>
 	                        </dd>
 	                        <dt>Solucionada</dt>

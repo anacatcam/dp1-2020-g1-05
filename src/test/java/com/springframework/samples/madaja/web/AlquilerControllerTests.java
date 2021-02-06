@@ -1,19 +1,19 @@
 package com.springframework.samples.madaja.web;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
 import com.springframework.samples.madaja.model.Alquiler;
@@ -43,7 +43,6 @@ import com.springframework.samples.madaja.model.Reserva;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
@@ -52,7 +51,7 @@ import com.springframework.samples.madaja.service.VehiculosService;
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 public class AlquilerControllerTests {
-
+	
     @Autowired
 	private AlquilerController alquilerController;
 	 
@@ -98,6 +97,7 @@ public class AlquilerControllerTests {
 	 
 	 @BeforeEach
 	 void setUp() {
+		 
 		seguroVehiculo = new SeguroVehiculo();
 		seguroVehiculo.setId(1);
 		seguroVehiculo.setNumeroPoliza("32151");
@@ -159,9 +159,9 @@ public class AlquilerControllerTests {
 			
 		mecanico = new Mecanico();
 		mecanico.setDni("47565973E");
-		mecanico.setApellidos("Molinas Trujillo");
+		mecanico.setLastName("Molinas Trujillo");
 		mecanico.setEmail("alvmoltrujillo@gmail.com");
-		mecanico.setNombre("Álvaro");
+		mecanico.setFirstName("Álvaro");
 		mecanico.setTelefono("625496828");
 		mecanico.setSueldo(1730.0);		
 			

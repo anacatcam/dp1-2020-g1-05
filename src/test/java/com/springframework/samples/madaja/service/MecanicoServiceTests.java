@@ -40,9 +40,9 @@ public class MecanicoServiceTests {
 		
 		mecanico = new Mecanico();
 		mecanico.setDni("47565973E");
-		mecanico.setApellidos("Molinas Trujillo");
+		mecanico.setLastName("Molinas Trujillo");
 		mecanico.setEmail("alvmoltrujillo@gmail.com");
-		mecanico.setNombre("Álvaro");
+		mecanico.setFirstName("Álvaro");
 		mecanico.setTelefono("625496828");
 		mecanico.setSueldo(1730.0);		
 	}

@@ -113,24 +113,5 @@ public class Mecanico extends Trabajador{
 	public boolean removeEnvio(Envio envio) {
 		return getEnviosInternal().remove(envio);
 	}
-
-	@Override
-	public String toString() {
-		ToStringCreator builder = new ToStringCreator(this);
-		builder.append("incidencias", incidencias);
-		builder.append("sueldo", sueldo);
-		builder.append("dni", dni);
-		builder.append("nombre", nombre);
-		builder.append("apellidos", apellidos);
-		builder.append("telefono", telefono);
-		builder.append("email", email);
-		builder.append("getSueldo()", getSueldo());
-		builder.append("getDni()", getDni());
-		builder.append("getNombre()", getNombre());
-		builder.append("getApellidos()", getApellidos());
-		builder.append("getTelefono()", getTelefono());
-		builder.append("getEmail()", getEmail());
-		return builder.toString();
-	}
 	
 }

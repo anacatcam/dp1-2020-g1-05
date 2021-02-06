@@ -216,7 +216,7 @@ public class AlquilerController {
 		Map<Boolean, LocalDate> res = new HashMap<>();
 		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
 		for(Alquiler a:alquileres) {
-			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now())) {
+			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDepLleno()==false) {
 				res.put(true, a.getFechaFin());
 				return res;
 			}
