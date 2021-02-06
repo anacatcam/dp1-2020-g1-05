@@ -35,8 +35,12 @@ import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
+@Slf4j
 @Controller
 @PreAuthorize("isAuthenticated()")
 public class AlquilerController {
@@ -111,10 +115,12 @@ public class AlquilerController {
 		if(alquilado.containsKey(true)) {
 			model.put("esAlquiler", true);
 			model.put("fecha", alquilado.get(true));
+			log.info("El vehículo está ya alquilado y no se ha podido realizar el alquiler");
 			return "operacionImposible";
 		}else if(estaEnRevision(vehiculo)){
 			model.put("enRevision", estaEnRevision(vehiculo));
 			model.put("esRevisionAlquiler", true);
+			log.info("El vehículo está en revisión y no se ha podido realizar el alquiler");
 			return "operacionImposible";
 		}else {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -129,6 +135,7 @@ public class AlquilerController {
 			Cliente cliente = this.clienteService.findClienteByUsername(username);
 			if(cliente.getEsConflictivo().equals("Si")) {
 				model.put("esConflictivo", true);
+				log.warn("El cliente es conflictivo y no se ha podido realizar el alquiler");
 				return "operacionImposible";
 			}
 			//Crear alquiler
@@ -151,6 +158,7 @@ public class AlquilerController {
 	public String processAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @Valid Alquiler alquiler, 
 			BindingResult result) {
 		if (result.hasErrors()) {
+			log.warn("No se ha podido realizar el alquiler");
 			return VIEWS_ALQUILER_CREATE_FORM;
 		}
 		else {
@@ -158,7 +166,7 @@ public class AlquilerController {
 			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(4));
 			this.vehiculosService.saveVehiculo(vehiculo);
 			alquilerService.saveAlquiler(alquiler);
-
+			log.info("Este vehículo con id: " + vehiculoId + " ha sido alquilado ");
 			return "redirect:/MisAlquileres";
 		}
 	}

@@ -25,6 +25,9 @@ import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class VentaController {
 	
@@ -111,10 +114,12 @@ public class VentaController {
 		Boolean vendido  = estaVendido(vehiculo);
 		if(vendido) {
 			model.put("esVenta", vendido);
+			log.info("El vehículo ya está vendido y no se ha podido realizar la compra");
 			return "operacionImposible";
 		}else if(estaEnRevision(vehiculo)){
 			model.put("enRevision", estaEnRevision(vehiculo));
 			model.put("esRevisionVenta", true);
+			log.info("El vehículo está en revisión y no se ha podido realizar la compra");
 			return "operacionImposible";
 		}else {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -137,6 +142,8 @@ public class VentaController {
 			nuevaVenta.setVehiculo(vehiculo);
 			nuevaVenta.setReserva(null);
 			ventaService.saveVenta(nuevaVenta);
+			
+			log.info("Este vehículo con id: " + vehiculoId + " ha sido comprado ");
 			
 			return "redirect:/MisVentas";
 		}

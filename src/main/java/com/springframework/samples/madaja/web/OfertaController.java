@@ -33,7 +33,9 @@ import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.OfertaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class OfertaController {
 	
@@ -94,6 +96,7 @@ public class OfertaController {
 		List<Vehiculos> vehiculos = vehiculosService.findByOferta(ofertaId).stream().collect(Collectors.toList());
 		map.put("oferta", oferta);
 		map.put("vehiculos", vehiculos);
+		log.info("Se ha realizado una consulta a la oferta con id: " + ofertaId);
 		return "oferta/ofertaDetails";
 	}
 

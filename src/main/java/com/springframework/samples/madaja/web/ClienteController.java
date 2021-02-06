@@ -29,6 +29,7 @@ import com.springframework.samples.madaja.service.VentaService;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ClienteController {
 	
@@ -61,6 +62,10 @@ public class ClienteController {
 		PageRequest pageRequest = PageRequest.of(page, 10);
 		
 		Page<Cliente> pageCliente = this.clienteService.getAll(pageRequest);
+		
+		if(pageCliente == null) {
+			log.warn("No se han podido encontrar ningún cliente");
+		}
 		
 		int totalPage = pageCliente.getTotalPages();
 		if(totalPage > 0) {

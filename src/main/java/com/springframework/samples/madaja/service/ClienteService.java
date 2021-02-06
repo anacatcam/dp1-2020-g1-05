@@ -21,6 +21,9 @@ import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.repository.ClienteRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
@@ -61,6 +64,7 @@ public class ClienteService {
 		
 		//creating authorities
 		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
+		log.info("Se ha registrado un nuevo usuario");
 	}
 	
 	@Transactional
