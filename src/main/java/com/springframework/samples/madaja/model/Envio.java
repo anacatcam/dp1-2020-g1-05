@@ -20,34 +20,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "envio")
 public class Envio extends Localizacion {
-	
+
 	@Column(name = "fecha")
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fecha;
-	
+
 	@Column(name = "hora")
-//	@NotEmpty
-	@DateTimeFormat(iso=ISO.TIME)
+	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime hora;
-	
+
 	@OneToOne(mappedBy = "envio", optional = true)
 	@JsonIgnore
 	private Alquiler alquiler;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Mecanico mecanico;
-	
+
 	@OneToOne(mappedBy = "envio", optional = true)
 	@JsonIgnore
 	private Venta venta;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	@JsonIgnore
 	private EstadoEnvio estadoEnvio;
 
-	
 	public LocalDate getFecha() {
 		return fecha;
 	}

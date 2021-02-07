@@ -1,35 +1,48 @@
 package com.springframework.samples.madaja.model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "recogida")
 public class Recogida extends Localizacion {
-	
+
+	@Column(name = "fecha")
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate fecha;
+
 	@Column(name = "hora")
-	@NotEmpty
+	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime hora;
 
 	@OneToOne(mappedBy = "recogida", optional = true)
 	@JsonIgnore
 	private Alquiler alquiler;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Mecanico mecanico;
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
 	public LocalTime getHora() {
 		return hora;
@@ -64,5 +77,4 @@ public class Recogida extends Localizacion {
 		return builder.toString();
 	}
 
-	
 }

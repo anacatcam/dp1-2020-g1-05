@@ -10,11 +10,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cambio")
-public class Cambio extends NamedEntity{
-	
+public class Cambio extends NamedEntity {
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cambio")
 	private Set<Vehiculos> vehiculos;
-	
+
 	protected Set<Vehiculos> getVehiculosInternal() {
 		if (this.vehiculos == null) {
 			this.vehiculos = new HashSet<>();
@@ -25,5 +25,5 @@ public class Cambio extends NamedEntity{
 	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
 		this.vehiculos = vehiculos;
 	}
-	
+
 }

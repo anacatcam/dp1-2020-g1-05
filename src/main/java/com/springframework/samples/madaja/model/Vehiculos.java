@@ -1,4 +1,4 @@
- package com.springframework.samples.madaja.model;
+package com.springframework.samples.madaja.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,44 +22,42 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.search.bridge.builtin.IntegerBridge;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "vehiculos")
 @Indexed
-public class Vehiculos extends BaseEntity{
-	
+public class Vehiculos extends BaseEntity {
+
 	@Column(name = "matricula")
 	@NotEmpty
 	private String matricula;
-	
+
 	@Column(name = "precio_alquiler")
 	@Positive
 	private Integer precioAlquiler;
-	
+
 	@Column(name = "precio_venta")
 	@Positive
 	private Integer precioVenta;
-	
+
 	@Column(name = "marca")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String marca;
-	
+
 	@Column(name = "modelo")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String modelo;
-	
+
 	@Column(name = "puertas")
 	@Positive
 	@Field
 	@FieldBridge(impl = IntegerBridge.class)
 	private Integer puertas;
-	
+
 	@Column(name = "plazas")
 	@Positive
 	@Field
@@ -70,19 +68,19 @@ public class Vehiculos extends BaseEntity{
 	@JoinColumn(name = "cambio_id")
 	@JsonIgnore
 	private Cambio cambio;
-	
+
 	@Column(name = "maletero")
 	@PositiveOrZero
 	private Integer maletero;
-	
+
 	@Column(name = "km_actuales")
 	@PositiveOrZero
 	private Integer kmActuales;
-	
+
 	@Column(name = "caracteristicas")
 	@NotEmpty
 	private String caracteristicas;
-	
+
 	@Column(name = "estado")
 	@NotEmpty
 	private String estado;
@@ -90,35 +88,35 @@ public class Vehiculos extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "disponible_id")
 	private Disponible disponible;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "combustible_id")
 	@JsonIgnore
 	private Combustible combustible;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = true)
 	@JsonIgnore
-	private Concesionario concesionario;	
-	
+	private Concesionario concesionario;
+
 	@OneToOne
 	@JoinColumn(name = "seguro_vehiculo_id", unique = true, nullable = true)
 	@JsonIgnore
 	private SeguroVehiculo seguroVehiculo;
-	
+
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
 	private Set<Incidencia> incidencias;
-	
-	//ANTONIO
+
+	// ANTONIO
 	@OneToMany(mappedBy = "vehiculos", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<SeguroCliente> segurosCliente;
 	//
-	
+
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Venta> ventas;
-	
+
 	@OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Alquiler> alquileres;
@@ -126,7 +124,7 @@ public class Vehiculos extends BaseEntity{
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = true)
 	private Oferta oferta;
-	
+
 	public String getMatricula() {
 		return matricula;
 	}
@@ -174,7 +172,7 @@ public class Vehiculos extends BaseEntity{
 	public void setPuertas(Integer puertas) {
 		this.puertas = puertas;
 	}
-	
+
 	public Integer getPlazas() {
 		return plazas;
 	}
@@ -198,7 +196,7 @@ public class Vehiculos extends BaseEntity{
 	public void setMaletero(Integer maletero) {
 		this.maletero = maletero;
 	}
-	
+
 	public Integer getKmActuales() {
 		return kmActuales;
 	}
@@ -206,7 +204,7 @@ public class Vehiculos extends BaseEntity{
 	public void setKmActuales(Integer kmActuales) {
 		this.kmActuales = kmActuales;
 	}
-	
+
 	public String getCaracteristicas() {
 		return caracteristicas;
 	}
@@ -214,7 +212,7 @@ public class Vehiculos extends BaseEntity{
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
-	
+
 	public String getEstado() {
 		return estado;
 	}
@@ -230,7 +228,7 @@ public class Vehiculos extends BaseEntity{
 	public void setDisponible(Disponible disponible) {
 		this.disponible = disponible;
 	}
-	
+
 	public Combustible getCombustible() {
 		return combustible;
 	}
@@ -262,7 +260,7 @@ public class Vehiculos extends BaseEntity{
 	public void setSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
 		this.seguroVehiculo = seguroVehiculo;
 	}
-	
+
 	protected Set<Incidencia> getIncidenciasInternal() {
 		if (this.incidencias == null) {
 			this.incidencias = new HashSet<>();
@@ -284,12 +282,11 @@ public class Vehiculos extends BaseEntity{
 		getIncidenciasInternal().add(incidencia);
 		incidencia.setVehiculos(this);
 	}
-	
+
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
-	
-	//PARTE ANTONIO
+
 	protected Set<SeguroCliente> getSegurosClienteInternal() {
 		if (this.segurosCliente == null) {
 			this.segurosCliente = new HashSet<>();
@@ -311,13 +308,11 @@ public class Vehiculos extends BaseEntity{
 		getSegurosClienteInternal().add(seguroCliente);
 		seguroCliente.setVehiculos(this);
 	}
-	
+
 	public boolean removeSeguroCliente(SeguroCliente seguroCliente) {
 		return getSegurosClienteInternal().remove(seguroCliente);
 	}
-	
-	//TERMINA PARTE ANTONIO
-	
+
 	protected Set<Venta> getVentasInternal() {
 		if (this.ventas == null) {
 			this.ventas = new HashSet<>();
@@ -339,11 +334,11 @@ public class Vehiculos extends BaseEntity{
 		getVentasInternal().add(venta);
 		venta.setVehiculo(this);
 	}
-	
+
 	public boolean removeVenta(Venta venta) {
 		return getVentasInternal().remove(venta);
 	}
-	
+
 	protected Set<Alquiler> getAlquileresInternal() {
 		if (this.alquileres == null) {
 			this.alquileres = new HashSet<>();
@@ -365,53 +360,9 @@ public class Vehiculos extends BaseEntity{
 		getAlquileresInternal().add(alquiler);
 		alquiler.setVehiculo(this);
 	}
-	
+
 	public boolean removeAlquiler(Alquiler alquiler) {
 		return getAlquileresInternal().remove(alquiler);
 	}
-	
-	
-//	@Override
-//	public String toString() {
-//		ToStringCreator builder = new ToStringCreator(this);
-//		builder.append("matricula", matricula);
-//		builder.append("precioAlquiler", precioAlquiler);
-//		builder.append("precioVenta", precioVenta);
-//		builder.append("marca", marca);
-//		builder.append("modelo", modelo);
-//		builder.append("plazas", plazas);
-//		builder.append("cambio", cambio);
-//		builder.append("maletero", maletero);
-//		builder.append("kmActuales", kmActuales);
-//		builder.append("caracteristicas", caracteristicas);
-//		builder.append("estado", estado);
-//		builder.append("disponible", disponible);
-//		builder.append("combustible", combustible);
-//		builder.append("concesionario", concesionario);
-//		builder.append("oferta", oferta);
-//		builder.append("seguro_vehiculo", seguro_vehiculo);
-//		builder.append("id", id);
-//		builder.append("getMatricula()", getMatricula());
-//		builder.append("getPrecioAlquiler()", getPrecioAlquiler());
-//		builder.append("getPrecioVenta()", getPrecioVenta());
-//		builder.append("getMarca()", getMarca());
-//		builder.append("getModelo()", getModelo());
-//		builder.append("getPlazas()", getPlazas());
-//		builder.append("getCambio()", getCambio());
-//		builder.append("getMaletero()", getMaletero());
-//		builder.append("getKmActuales()", getKmActuales());
-//		builder.append("getCaracteristicas()", getCaracteristicas());
-//		builder.append("getEstado()", getEstado());
-//		builder.append("getDisponible()", getDisponible());
-//		builder.append("getCombustible()", getCombustible());
-//		builder.append("getConcesionario()", getConcesionario());
-//		builder.append("getOferta()", getOferta());
-//		builder.append("getSeguroVehiculo()", getSeguroVehiculo());
-//		builder.append("getId()", getId());
-//		builder.append("isNew()", isNew());
-//		return builder.toString();
-//	}
-	
-	
 
 }

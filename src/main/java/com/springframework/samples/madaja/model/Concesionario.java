@@ -28,37 +28,26 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 @Entity
 @Table(name = "concesionario")
 @Indexed
-@AnalyzerDef(name = "edgeNGram_query",
-	tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
-	filters = {
-        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler counterpart (è => e, etc.)
-        @TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
-		@TokenFilterDef(factory = StandardFilterFactory.class)
-    })
-@AnalyzerDef(name = "edgeNgram",
-tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class),
-filters = {
-        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler counterpart (è => e, etc.)
-        @TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
-        @TokenFilterDef(
-                factory = EdgeNGramFilterFactory.class, // Generate prefix tokens
-                params = {
-                        @Parameter(name = "minGramSize", value = "1"),
-                        @Parameter(name = "maxGramSize", value = "10")
-                }
-        )
-})
+@AnalyzerDef(name = "edgeNGram_query", tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler
+																	// counterpart (è => e, etc.)
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
+		@TokenFilterDef(factory = StandardFilterFactory.class) })
+@AnalyzerDef(name = "edgeNgram", tokenizer = @TokenizerDef(factory = WhitespaceTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class), // Replace accented characeters by their simpler
+																	// counterpart (è => e, etc.)
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class), // Lowercase all characters
+		@TokenFilterDef(factory = EdgeNGramFilterFactory.class, // Generate prefix tokens
+				params = { @Parameter(name = "minGramSize", value = "1"),
+						@Parameter(name = "maxGramSize", value = "10") }) })
 public class Concesionario extends Localizacion {
-	
-	
+
 	@Column(name = "nombre")
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	@NotEmpty
@@ -68,31 +57,29 @@ public class Concesionario extends Localizacion {
 	@NotEmpty
 	@Email
 	private String email;
-	
+
 	@Column(name = "telefono")
 	@NotEmpty
-	@Length(min = 9,max=9)
+	@Length(min = 9, max = 9)
 	@Digits(fraction = 0, integer = 10)
 	private String telefono;
-	
-	@JoinTable(name = "concesionarios_gestores", 
-			joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), 
-			inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
+
+	@JoinTable(name = "concesionarios_gestores", joinColumns = @JoinColumn(name = "concesionario_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "gestor_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Gestor> gestores;
-	
+
 	@OneToMany(mappedBy = "concesionario", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
-	
-	protected Set<Vehiculos> getVehiculosInternal(){
-		if(this.vehiculos == null) {
+
+	protected Set<Vehiculos> getVehiculosInternal() {
+		if (this.vehiculos == null) {
 			this.vehiculos = new HashSet<>();
 		}
 		return this.vehiculos;
 	}
-	
+
 	protected void setVehiculosInternal(Set<Vehiculos> vehiculos) {
 		this.vehiculos = vehiculos;
 	}
@@ -107,18 +94,18 @@ public class Concesionario extends Localizacion {
 		getVehiculosInternal().add(vehiculos);
 		vehiculos.setConcesionario(this);
 	}
-	
+
 	public boolean removeVehiculo(Vehiculos vehiculos) {
 		return getVehiculosInternal().remove(vehiculos);
 	}
 
-	protected Set<Gestor> getGestoresInternal(){
-		if(this.gestores == null) {
+	protected Set<Gestor> getGestoresInternal() {
+		if (this.gestores == null) {
 			this.gestores = new HashSet<>();
 		}
 		return this.gestores;
 	}
-	
+
 	protected void setGestoresInternal(Set<Gestor> gestores) {
 		this.gestores = gestores;
 	}
@@ -132,7 +119,7 @@ public class Concesionario extends Localizacion {
 	public void addGestor(Gestor gestor) {
 		getGestoresInternal().add(gestor);
 	}
-	
+
 	public boolean removeGestor(Gestor gestor) {
 		return getGestoresInternal().remove(gestor);
 	}
@@ -140,11 +127,11 @@ public class Concesionario extends Localizacion {
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -160,12 +147,10 @@ public class Concesionario extends Localizacion {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
+
 	@Transient
 	public String getFullLugar() {
 		return localidad + ", " + provincia;
 	}
-	
-	
 
 }

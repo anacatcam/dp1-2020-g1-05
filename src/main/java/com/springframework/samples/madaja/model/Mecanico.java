@@ -14,23 +14,21 @@ import javax.persistence.Table;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "mecanico")
-public class Mecanico extends Trabajador{
+public class Mecanico extends Trabajador {
 
 	@ManyToMany(mappedBy = "mecanicos")
 	@JsonIgnore
 	private Set<Incidencia> incidencias;
-	
+
 	@OneToMany(mappedBy = "mecanico", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Recogida> recogidas;
-	
+
 	@OneToMany(mappedBy = "mecanico", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Envio> envios;
@@ -41,8 +39,6 @@ public class Mecanico extends Trabajador{
 		}
 		return this.incidencias;
 	}
-	
-
 
 	protected void setIncidenciasInternal(Set<Incidencia> incidencias) {
 		this.incidencias = incidencias;
@@ -57,11 +53,11 @@ public class Mecanico extends Trabajador{
 	public void addIncidencia(Incidencia incidencia) {
 		getIncidenciasInternal().add(incidencia);
 	}
-	
+
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
-	
+
 	protected Set<Recogida> getRecogidasInternal() {
 		if (this.recogidas == null) {
 			this.recogidas = new HashSet<>();
@@ -83,11 +79,11 @@ public class Mecanico extends Trabajador{
 		getRecogidasInternal().add(recogida);
 		recogida.setMecanico(this);
 	}
-	
+
 	public boolean removeRecogida(Recogida recogida) {
 		return getRecogidasInternal().remove(recogida);
 	}
-	
+
 	protected Set<Envio> getEnviosInternal() {
 		if (this.envios == null) {
 			this.envios = new HashSet<>();
@@ -109,9 +105,9 @@ public class Mecanico extends Trabajador{
 		getEnviosInternal().add(envio);
 		envio.setMecanico(this);
 	}
-	
+
 	public boolean removeEnvio(Envio envio) {
 		return getEnviosInternal().remove(envio);
 	}
-	
+
 }

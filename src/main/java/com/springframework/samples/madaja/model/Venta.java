@@ -25,7 +25,7 @@ public class Venta extends BaseEntity {
 
 	@OneToOne(mappedBy = "venta", optional = true)
 	private Reserva reserva;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "envio_id", nullable = true)
 	private Envio envio;

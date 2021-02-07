@@ -1,6 +1,5 @@
 package com.springframework.samples.madaja.model;
 
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,6 +16,8 @@ import javax.validation.Payload;
 public @interface DateConstraint {
 
 	String message() default "Invalid date";
+
 	Class<?>[] groups() default {};
+
 	Class<? extends Payload>[] payload() default {};
 }
