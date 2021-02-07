@@ -8,13 +8,10 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class ClienteController {
+	
+	private static final String VISTA_CLIENTES="cliente/mostrarClientes";
 	
 	private final ClienteService clienteService;
 	
@@ -80,7 +79,7 @@ public class ClienteController {
 		model.addAttribute("prev", page);
 		model.addAttribute("max", totalPage);
 				
-		return "cliente/mostrarClientes";
+		return VISTA_CLIENTES;
 	}
 
 	
@@ -104,17 +103,17 @@ public class ClienteController {
 	@GetMapping(value= {"/searchClientes"})
 	public String initFindForm(ModelMap model) {
 		model.put("cliente", new Cliente());
-		return "cliente/mostrarClientes";
+		return VISTA_CLIENTES;
 	}
 	
 	@PostMapping(value = {"/doSearchClientes"})
 	public String searchClientes(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
 		
-		if(searchText == "") {
+		if(searchText.equals("")) {
 			return "redirect:/clientes";
 		}
 		model.put("clientes", searchService.searchClientes(searchText));
 		
-		return "cliente/mostrarClientes";
+		return VISTA_CLIENTES;
 	}
 }

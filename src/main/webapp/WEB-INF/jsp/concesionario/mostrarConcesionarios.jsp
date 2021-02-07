@@ -13,10 +13,10 @@
 		<form:form action ="/doSearchConcesionarios" method="POST" role="form">
 			<label for="inputSearch">Encuentra tu concesionario</label>
 			<div class="form-group">
-				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
-				<span class="col-sm-offset-2 col-sm-10">
-					<button type="submit">Buscar</button>
-				</span>
+				<div class="form-inline">
+						<input class="form-control" placeholder="Nombre, provincia, localidad o país" id="search" name="search" type="text" maxlength="25" size="31">
+					<button class="btn btn-default" type="submit" style="margin-left:15px;">Buscar</button>
+				</div>
 			</div>
 		</form:form>
 	</div>

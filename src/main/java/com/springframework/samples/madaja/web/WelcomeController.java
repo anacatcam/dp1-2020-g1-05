@@ -42,7 +42,7 @@ public class WelcomeController {
 			model.put("clienteId", clienteId);
 		}
 		  
-		  List<Person> personas = new ArrayList<Person>();
+		  List<Person> personas = new ArrayList<>();
 		  Person persona = new Person();
 		  persona.setFirstName("Juan José ");
 		  persona.setLastName("Pérez Plata");

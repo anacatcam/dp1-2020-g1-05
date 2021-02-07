@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,7 +24,8 @@ import com.springframework.samples.madaja.service.VentaService;
 
 @Controller
 public class EnvioController {
-
+	
+	private static final String VISTA_ENVIOS="Envio/mostrarEnvios";
 	private final EnvioService envioService;
 	private final AlquilerService alquilerService;
 	private final VentaService ventaService;
@@ -65,7 +65,7 @@ public class EnvioController {
 		}
 		model.put("objects", alquileres);
 		model.put("concesionario", concesionarioId);
-		return "Envio/mostrarEnvios";
+		return VISTA_ENVIOS;
 	}
 	
 	@GetMapping("/concesionario/{concesionarioId}/EnviosVentas")
@@ -79,7 +79,7 @@ public class EnvioController {
 		}
 		model.put("objects", ventas);
 		model.put("concesionario", concesionarioId);
-		return "Envio/mostrarEnvios";
+		return VISTA_ENVIOS;
 	}
 	
 	@GetMapping(value = "/concesionario/{concesionarioId}/envio={envioId}/edit")
@@ -110,7 +110,7 @@ public class EnvioController {
 				model.put("object",venta);
 			}
 			model.put("envio", envio);
-			return "Envio/mostrarEnvios";
+			return VISTA_ENVIOS;
 		}
 		else {
 			Envio envioUpdate = this.envioService.findEnvioById(id);

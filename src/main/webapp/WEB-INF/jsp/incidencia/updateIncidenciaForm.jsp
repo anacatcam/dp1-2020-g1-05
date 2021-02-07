@@ -33,7 +33,11 @@
 	            	</select>
     	        </div>
             </div>
-            <label>Solucionada </label><input name="solucionada">
+			<label class="col-sm-2 control-label" style="padding-right:25px;">Solucionada</label>
+            <select name="solucionada" id="solucionada">
+            	<option value="true">Sí</option>
+            	<option value="false">No</option>
+            </select>
 
         </div>
         <div class="form-group">

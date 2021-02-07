@@ -44,9 +44,9 @@
 						<c:out value="${venta.reserva.fechaGastos}"/>
 					</td>					
 					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/delete/{reservaId}" >
-															<spring:param name="reservaId" value="${venta.reserva.id}"/>
-														</spring:url>'>Anular</a>
+						<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
+						<spring:param name="reservaId" value="${venta.reserva.id}"/>
+						</spring:url>'>Anular</a>
 					</td>		
 				</tr>
 			</c:forEach>
@@ -69,9 +69,9 @@
 						<c:out value="${alquiler.reserva.fechaGastos}"/>
 					</td>					
 					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/delete/{reservaId}" >
-															<spring:param name="reservaId" value="${alquiler.reserva.id}"/>
-														</spring:url>'>Anular</a>
+						<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
+						<spring:param name="reservaId" value="${alquiler.reserva.id}"/>
+						</spring:url>'>Anular</a>
 					</td>		
 				</tr>
 			</c:forEach>

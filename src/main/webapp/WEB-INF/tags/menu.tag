@@ -8,8 +8,9 @@
 	description="Name of the active menu: home, concesionarios, vehiculos, oferta, gestion"%>
 
 <nav class="navbar navbar-default" role="navigation">
-<!--<span style="float:left; font-size: 30px; color:white;">MADAJA</span>-->
 	<div class="container">
+		<spring:url value="/resources/images/madaja.png" var="MadajaLogo"/>
+	    <img style="float:left; margin-left:-60px" src="${MadajaLogo}"/>	
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 				<madaja:menuItem active="${name eq 'home'}" url="/"

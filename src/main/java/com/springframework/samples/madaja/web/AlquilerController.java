@@ -1,19 +1,18 @@
 package com.springframework.samples.madaja.web;
 
-import java.time.Duration;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,14 +30,11 @@ import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Slf4j
 @Controller
@@ -46,6 +42,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class AlquilerController {
 	
 	private static final String VIEWS_ALQUILER_CREATE_FORM = "alquiler/createAlquilerForm";
+	private static final String ERROR_VIEW="operacionImposible";
 
 	private final AlquilerService alquilerService;
 	
@@ -116,12 +113,12 @@ public class AlquilerController {
 			model.put("esAlquiler", true);
 			model.put("fecha", alquilado.get(true));
 			log.info("El vehículo está ya alquilado y no se ha podido realizar el alquiler");
-			return "operacionImposible";
+			return ERROR_VIEW;
 		}else if(estaEnRevision(vehiculo)){
 			model.put("enRevision", estaEnRevision(vehiculo));
 			model.put("esRevisionAlquiler", true);
 			log.info("El vehículo está en revisión y no se ha podido realizar el alquiler");
-			return "operacionImposible";
+			return ERROR_VIEW;
 		}else {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String username;
@@ -136,7 +133,7 @@ public class AlquilerController {
 			if(cliente.getEsConflictivo().equals("Si")) {
 				model.put("esConflictivo", true);
 				log.warn("El cliente es conflictivo y no se ha podido realizar el alquiler");
-				return "operacionImposible";
+				return ERROR_VIEW;
 			}
 			//Crear alquiler
 			Alquiler nuevoAlquiler = new Alquiler();
@@ -182,7 +179,7 @@ public class AlquilerController {
 	public String processDevolverVehiculo(ModelMap model, @RequestParam(name="AlquilerId") Integer alquilerId,
 				@RequestParam(name="disponible") Integer disponible, 
 				@RequestParam(name="FechaDevolucion") String fechaDevolucion) {
-		if (alquilerId.equals(null) || fechaDevolucion.equals("") || disponible.equals(null)) {
+		if (alquilerId==null || fechaDevolucion.equals("") || disponible==null) {
 			model.put("alquiler_id", alquilerId);
 			model.put("disponibles", this.vehiculosService.findAllDisponibles());
 			return "vehiculos/devolverVehiculo";
@@ -216,7 +213,7 @@ public class AlquilerController {
 		Map<Boolean, LocalDate> res = new HashMap<>();
 		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
 		for(Alquiler a:alquileres) {
-			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDepLleno()==false) {
+			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDepLleno()==Boolean.FALSE) {
 				res.put(true, a.getFechaFin());
 				return res;
 			}
@@ -240,8 +237,7 @@ public class AlquilerController {
 	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
 		LocalDate devolucion = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(fechaDevolucion));
 		long retraso = DAYS.between(fechaFin, devolucion);
-		Integer res = (int) retraso;
-		return res;
+		return (int)retraso;
 	}
 	
 }

@@ -2,15 +2,12 @@ package com.springframework.samples.madaja.web;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.aspectj.weaver.AjAttribute;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +16,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springframework.samples.madaja.model.Oferta;
@@ -65,9 +60,9 @@ public class OfertaControllerAPI {
 						vehiculosService.saveVehiculo(vehiculo);
 					}
 				}
-				return new ResponseEntity<Oferta>(HttpStatus.CREATED);
+				return new ResponseEntity<>(HttpStatus.CREATED);
 			}else {
-				return new ResponseEntity<Oferta>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 		} 
@@ -76,9 +71,9 @@ public class OfertaControllerAPI {
 	public ResponseEntity<Oferta> detailsOferta(@PathVariable int id) {
 		Oferta oferta = ofertaService.findOfertaById(id);
 		if(oferta == null) {
-			return new ResponseEntity<Oferta>(oferta,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(oferta,HttpStatus.NOT_FOUND);
 		}else {
-			return new ResponseEntity<Oferta>(oferta,HttpStatus.OK);
+			return new ResponseEntity<>(oferta,HttpStatus.OK);
 		}
 	}
 	@RequestMapping(method = RequestMethod.PUT, value= {"/oferta/{id}", "/oferta/{id}/{ids}"})
@@ -106,9 +101,9 @@ public class OfertaControllerAPI {
 					BeanUtils.copyProperties(oferta, ofertaUpdate,"id");
 					this.ofertaService.saveOferta(ofertaUpdate);
 				}
-				return new ResponseEntity<Oferta>(HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.OK);
 			}else {
-				return new ResponseEntity<Oferta>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		}
 	}
@@ -124,18 +119,14 @@ public class OfertaControllerAPI {
 				}
 			}
 			this.ofertaService.deleteById(id);
-			return new ResponseEntity<Oferta>(oferta,HttpStatus.OK);
+			return new ResponseEntity<>(oferta,HttpStatus.OK);
 		}else {
-			return new ResponseEntity<Oferta>(oferta,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(oferta,HttpStatus.NOT_FOUND);
 		}		
 	}
 
 	public List<APIerror> validacion(Oferta oferta){
-		List<APIerror> errores = new ArrayList<APIerror>();
-		System.out.println("Aqui");
-		System.out.println(LocalDate.now());
-		System.out.println(oferta.getFechaLimite());
-		System.out.println(oferta.getFechaLimite().isBefore(LocalDate.now()));
+		List<APIerror> errores = new ArrayList<>();
 		if(oferta.getName() == null || oferta.getName().isEmpty()) {
 			APIerror error = new APIerror();
 			error.setField("name");

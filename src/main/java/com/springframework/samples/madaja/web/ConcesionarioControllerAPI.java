@@ -1,25 +1,21 @@
 package com.springframework.samples.madaja.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springframework.samples.madaja.model.Concesionario;
+import com.springframework.samples.madaja.model.Gestor;
+import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.VehiculosService;
-import com.springframework.samples.madaja.model.Concesionario;
-import com.springframework.samples.madaja.model.Disponible;
-import com.springframework.samples.madaja.model.Gestor;
-import com.springframework.samples.madaja.model.Incidencia;
-import com.springframework.samples.madaja.model.Vehiculos;
 
 @RestController
 @RequestMapping(value = "/api/v1/concesionarios/")
@@ -43,9 +39,9 @@ public class ConcesionarioControllerAPI {
 		Concesionario concesionario=concesionarioService.findConcesionarioById(concesionarioId);
 		ResponseEntity<Concesionario> res;
 		if(concesionario == null) {
-			res=new ResponseEntity<Concesionario>(concesionario,HttpStatus.NOT_FOUND);
+			res=new ResponseEntity<>(concesionario,HttpStatus.NOT_FOUND);
 		}else {
-			res=new ResponseEntity<Concesionario>(concesionario,HttpStatus.OK);		
+			res=new ResponseEntity<>(concesionario,HttpStatus.OK);		
 		}
 		return res;
 	}
@@ -55,9 +51,9 @@ public class ConcesionarioControllerAPI {
 		List<Gestor> gestores=concesionarioService.findConcesionarioById(concesionarioId).getGestores();
 		ResponseEntity<List<Gestor>> res;
 		if(gestores == null) {
-			res=new ResponseEntity<List<Gestor>>(gestores,HttpStatus.NOT_FOUND);
+			res=new ResponseEntity<>(gestores,HttpStatus.NOT_FOUND);
 		}else {
-			res=new ResponseEntity<List<Gestor>>(gestores,HttpStatus.OK);		
+			res=new ResponseEntity<>(gestores,HttpStatus.OK);		
 		}
 		return res;
 	}
@@ -67,9 +63,9 @@ public class ConcesionarioControllerAPI {
 		List<Vehiculos> vehiculos=concesionarioService.findConcesionarioById(concesionarioId).getVehiculos();
 		ResponseEntity<List<Vehiculos>> res;
 		if(vehiculos == null) {
-			res=new ResponseEntity<List<Vehiculos>>(vehiculos,HttpStatus.NOT_FOUND);
+			res=new ResponseEntity<>(vehiculos,HttpStatus.NOT_FOUND);
 		}else {
-			res=new ResponseEntity<List<Vehiculos>>(vehiculos,HttpStatus.OK);		
+			res=new ResponseEntity<>(vehiculos,HttpStatus.OK);		
 		}
 		return res;
 	}

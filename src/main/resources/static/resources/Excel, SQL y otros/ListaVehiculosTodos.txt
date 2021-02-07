@@ -1,0 +1,547 @@
+//ABARTH
+500C
+500
+124 Spider
+//ALFA ROMEO
+Giulietta
+MiTo
+4C
+Giulia
+Stelvio
+//ALFA ROMEO (FIAT)
+4C
+//ASTON MARTIN
+DB9
+Vantage V8
+Vanquish
+Vantage V12
+Rapide
+//AUDI
+A4
+A8
+A3A3
+TT
+A5
+A4 Allroad Quattro
+A6
+A7
+Q3
+Q5
+S5
+A1
+A6 allroad quattro
+S7
+S6
+S8
+RS4
+RS5
+R8
+SQ5
+Q7
+RS6
+RS7
+RS Q3
+S3
+S1
+TTS
+S4
+RS3
+SQ7
+Q2
+TTS
+SQ7
+S4
+S6
+S7
+//BENTLEY
+Continental GT
+Mulsanne
+Flying Spur
+Continental GTC
+Bentayga
+//BMW
+Serie 3
+Serie 5
+Serie 4
+Serie 7
+Z4
+X5
+Serie 1
+X3
+Serie 6
+X1
+X6
+i3
+Serie 2
+X4
+i8
+Serie 2 Gran Tourer
+Serie 2 Active Tourer
+X2
+//BYD
+E6
+//CHEVROLET
+Cruze
+Aveo
+Trax
+Orlando
+Spark
+Camaro
+//CITROEN
+C4
+C3
+C5
+C3 Picasso
+C4 Picasso
+Grand C4 Picasso
+C4 Aircross
+Nemo
+Berlingo
+C-Elysée
+C4 Cactus
+C1
+C-Zero
+C-Elysée
+Spacetourer
+E-Mehari
+C3 Aircross
+//DACIA
+Logan
+Lodgy
+Sandero
+Duster
+Dokker
+//DFSK
+Serie V
+Serie K
+//DS
+DS 4
+DS 5
+DS 3
+DS 4 Crossback
+DS 7 Crossback
+//FERRARI
+488
+GTC4
+California
+F12
+Portofino
+812
+//FERRARI (FCA)
+458
+FFFF
+F12F12
+California
+488
+//FIAT
+Freemont
+Doblò
+Punto
+Panda
+500
+500L
+500L
+500X
+Qubo
+Fiorino
+Bravo
+Doblò
+500C
+Tipo
+124 Spider
+//FIAT
+Bravo
+Fiorino
+//FORD
+C-Max
+Fiesta
+Focus
+Mondeo
+Ka
+S-MAX
+B-MAX
+Grand C-Max
+Tourneo Custom
+Kuga
+Galaxy
+Grand Tourneo Connect
+Tourneo Connect
+EcoSport
+Tourneo Courier
+Mustang
+Transit Connect
+Edge
+Ka+
+//HONDA
+Accord
+Jazz
+Civic
+CR-V
+HR-V
+//HYUNDAI
+i20
+ix35
+ix20
+i10
+Santa Fe
+Veloster
+i40
+Elantra
+i30
+Grand Santa Fe
+Genesis
+H-1 Travel
+Tucson
+i20 Active
+IONIQ
+Kona
+//INFINITI
+Q70
+Q50
+QX70
+QX50
+Q60
+Q30
+QX30
+//ISUZU
+D-Max
+//JAGUAR
+XF
+Serie XK
+F-Type
+XJ
+XE
+F-Pace
+E-Pace
+//JEEP
+Grand Cherokee
+Wrangler Unlimited
+Cherokee
+Wrangler
+Renegade
+Compass
+Renegade
+//KIA
+Picanto
+Rio
+Sportage
+Venga
+Optima
+cee'd
+Sportswagon
+Carens
+Sorento
+Soul
+Niro
+Soul EV
+GT
+Stonic
+Optima SW
+Optima PHEV
+Optima Híbrido Enchufable
+Optima SW GT
+Optima GT
+Niro HHíbrido Enchufable
+Optima SW Híbrido Enchufable
+Stinger
+//LADA
+4X4
+Priora
+//LAMBORGHINI
+AventadorAventador
+HuracanHuracán
+//LANCIA
+Ypsilon
+Voyager
+DeltaDelta
+//LANCIA (FIAT)
+Thema
+Delta
+//LAND ROVER
+Defender
+Discovery 4
+Range Rover
+Range Rover Evoque
+Freelander
+Range Rover Sport
+Discovery Sport
+Discovery
+Range Rover Velar
+//LEXUS
+GS
+RX
+CT
+IS
+NX
+RC
+LS
+LC
+//MAHINDRA
+XUV500
+//MASERATI
+GranCabrio
+Quattroporte
+Ghibli
+GranTurismo
+Levante
+//MAZDA
+Mazda2
+CX-5
+Mazda6
+MX-5
+Mazda3
+Mazda5
+CX-9
+CX-3
+//MERCEDES
+Clase SL
+Clase SLK
+Clase V
+Clase C
+Clase M
+Clase G
+Clase E
+Clase CL
+Clase S
+Clase GLK
+SLS AMG
+Clase B
+Clase A
+Clase GL
+Clase CLS
+Clase CLA
+Clase GLA
+AMG GT
+Vito
+Clase GLE Coupé
+Clase GLE
+Clase GLE Coupé
+Clase GLK
+Clase GLC
+Citan
+Clase GLS
+Clase SLC
+GLC Coupé
+Mercedes-AMG GT
+CLS
+//MINI
+MINI
+COUNTRYMAN
+PACEMAN
+CLUBMAN
+//MITSUBISHI
+Montero
+i-MiEV
+ASX
+Outlander
+Space Star
+L200
+Eclipse Cross
+//MORGAN
+Roadster
+Plus 8
+Plus 4
+04-abr
+//NISSAN
+X-TRAIL
+QASHQAI
+NOTE
+LEAF
+Pathfinder
+EVALIA
+Navara
+Micra
+JUKE
+370Z
+NV200
+GT-R
+PULSAR
+Murano
+NV200 EVALIA
+e-NV200 EVALIA
+//OPEL
+Mokka X
+Vivaro
+Grandland X
+//OPEL (GM COMPANY)
+Corsa
+Astra
+Meriva
+Zafira Tourer
+Zafira
+Insignia
+Combo
+Ampera
+Mokka
+Adam
+Cabrio
+Antara
+Karl
+GTC
+GTC
+Mokka
+Zafira
+Crossland X
+Mokka X
+Grandland X
+Vivaro
+//PEUGEOT
+308
+807
+Bipper
+508
+Partner
+3008
+208
+2008
+RCZ
+5008
+4008
+108
+207
+ion
+Traveller
+//PORSCHE
+911
+Boxster
+Cayenne
+Panamera
+918
+Macan
+Cayman
+718
+//RENAULT
+Fluence
+Grand Scénic
+Latitude
+Clio
+Scénic
+Laguna
+Kangoo Combi
+Mégane
+Grand Kangoo Combi
+Captur
+ZOE
+Koleos
+Twingo
+Espace
+Kadjar
+Talisman
+//ROLLS-ROYCE
+Phantom
+//SEAT
+Ibiza
+Nuevo León
+Alhambra
+Altea
+Mii
+Toledo
+Altea XL
+Ateca
+León
+Nuevo Ibiza
+Arona
+//SKODA
+Octavia
+Fabia
+Roomster
+Yeti
+Superb
+Citigo
+Rapid
+Spaceback
+Scout
+Kodiaq
+Karoq
+//SMART
+fortwo
+forfour
+//SSANGYONG
+Rexton
+Rodius
+Korando
+Actyon Sports Pick Up
+Tivoli
+XLV
+//SUBARU
+Forester
+XV
+Outback
+BRZ
+WRX STI
+Levorg
+WRX STI
+//SUZUKI
+Grand Vitara
+Swift
+SX4
+Jimny
+SX4 S-Cross
+Celerio
+Kizashi
+Vitara
+Baleno
+Ignis
+//TATA
+Xenon
+Aria
+Vista
+//TESLA
+Model X
+Model S
+//TOYOTA
+Avensis
+Land Cruiser
+Yaris
+Verso
+Auris
+Prius+
+GT86
+Prius
+Rav4
+Aygo
+Hilux
+Land Cruiser 200
+Proace Verso
+C-HR
+//VOLKSWAGEN
+Polo
+Jetta
+Phaeton
+Golf
+TouranTouran
+Touareg
+Beetle
+Sharan
+Tiguan
+Multivan
+California
+Caravelle
+up!
+CC
+Golf Sportsvan
+Amarok
+Caddy
+Transporter
+Scirocco
+Passat
+Eos
+Arteon
+T-Roc
+Tiguan Allspace
+//VOLVO
+V70
+S80
+XC70
+V60
+S60
+XC90
+XC60
+V40
+V40 Cross Country
+V60 Cross Country
+S60 Cross Country
+S90
+V90
+V90 Cross Country
+XC40
