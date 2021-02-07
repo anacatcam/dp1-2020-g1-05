@@ -17,13 +17,13 @@ import org.springframework.core.style.ToStringCreator;
 public class Venta extends BaseEntity {
 
 	@Column(name = "fecha")
-	// @Temporal(TemporalType.DATE)
 	private LocalDate fecha;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cliente cliente;
 
-	@OneToOne(mappedBy = "venta", optional = true)
+	@OneToOne
+	@JoinColumn(name = "reserva_id", nullable = true)
 	private Reserva reserva;
 
 	@OneToOne(cascade = CascadeType.ALL)

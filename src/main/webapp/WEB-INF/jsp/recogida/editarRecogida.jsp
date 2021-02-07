@@ -60,7 +60,7 @@
 				<select id="mecanico" name="mecanico">
 					<c:forEach items="${mecanicos}" var="mecanico">
 							<option value="${mecanico}">
-								<c:out value="${mecanico.nombre} ${mecanico.apellidos}"/> 
+								<c:out value="${mecanico.firstName} ${mecanico.lastName}"/> 
 							</option>
 					</c:forEach>
 				</select>	

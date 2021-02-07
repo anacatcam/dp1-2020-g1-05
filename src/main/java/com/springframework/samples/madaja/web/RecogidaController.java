@@ -1,11 +1,7 @@
 package com.springframework.samples.madaja.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,19 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.springframework.samples.madaja.model.Alquiler;
-import com.springframework.samples.madaja.model.Concesionario;
-import com.springframework.samples.madaja.model.Envio;
 import com.springframework.samples.madaja.model.Mecanico;
 import com.springframework.samples.madaja.model.Recogida;
-import com.springframework.samples.madaja.model.Venta;
-import com.springframework.samples.madaja.service.AlquilerService;
-import com.springframework.samples.madaja.service.EnvioService;
 import com.springframework.samples.madaja.service.MecanicoService;
 import com.springframework.samples.madaja.service.RecogidaService;
-import com.springframework.samples.madaja.service.VentaService;
 
 @Controller
 public class RecogidaController {
@@ -71,10 +59,8 @@ public class RecogidaController {
 	
 	@PostMapping("/recogida/{recogidaId}/edit")
 	public String procsessUpdateFormRecogida(@PathVariable("recogidaId") int recogidaId,
-			Recogida recogida, 
-			BindingResult result) {
+			Recogida recogida, BindingResult result) {
 		Recogida recogidaUpdate = this.recogidaService.findRecogidaById(recogidaId);
-		//recogidaUpdate.setMecanico(mecanico);
 
 		this.recogidaService.saveRecogida(recogidaUpdate);
 		

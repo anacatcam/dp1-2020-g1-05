@@ -57,13 +57,13 @@
 										(${recogida.provincia})"/>	
 					</td>	
 					<td>
-						<c:out value="${recogida.mecanico.nombre}  ${recogida.mecanico.apellidos}"/>
+						<c:out value="${recogida.mecanico.firstName}  ${recogida.mecanico.lastName}"/>
 					</td>
 					<td>
 						<spring:url value="/recogida/{recogidaId}/edit" var="envioUrl">
 							<spring:param name="recogidaId" value="${recogida.id}"/>
 						</spring:url>
-		    			<a href="${fn:escapeXml(envioUrl)}" class="btn btn-default">Editar recogida</a>
+		    			<a href="${fn:escapeXml(envioUrl)}" class="btn btn-default" >Editar recogida</a>
 					</td>
 				</tr>
 			</c:forEach>

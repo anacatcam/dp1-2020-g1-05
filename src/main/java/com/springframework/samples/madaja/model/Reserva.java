@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,9 +29,8 @@ public class Reserva extends BaseEntity {
 	@Column(name = "fechaGastos")
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fechaGastos;
-
-	@OneToOne
-	@JoinColumn(name = "alquiler_id", nullable = true)
+	
+	@OneToOne(mappedBy = "reserva", optional = true)
 	@JsonIgnore
 	private Alquiler alquiler;
 
@@ -40,8 +38,7 @@ public class Reserva extends BaseEntity {
 	@JsonIgnore
 	private Cliente cliente;
 
-	@OneToOne
-	@JoinColumn(name = "venta_id", nullable = true)
+	@OneToOne(mappedBy = "reserva", optional = true)
 	@JsonIgnore
 	private Venta venta;
 
