@@ -9,10 +9,6 @@
 <madaja:layout pageName="reservas">
 	
 	<h2>Reservas</h2>	
-	
-	<!-- v -->
-	<c:out value="${msg}"/>
-	<!-- ^ -->
 				
 	<table id="ownersTable" class="table table-striped">
 		<thead>
@@ -27,53 +23,58 @@
 		<tbody>
 			
 			<c:forEach items="${ventas}" var="venta">
-				<tr>
-					<td>
-						<c:out value="${venta.vehiculo.marca} "/>
-						<c:out value="${venta.vehiculo.modelo} "/>
-						<br/>
-						<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
-							<spring:param name="vehiculoId" value="${venta.vehiculo.id}"/>
-						</spring:url>
-						<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="(más info)"/></a>
-					</td>
-					<td>
-						<c:out value="${venta.reserva.fianza}"/>
-					</td>
-					<td>
-						<c:out value="${venta.reserva.fechaGastos}"/>
-					</td>					
-					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
-						<spring:param name="reservaId" value="${venta.reserva.id}"/>
-						</spring:url>'>Anular</a>
-					</td>		
-				</tr>
+			
+			<c:if test = "${not empty venta.reserva}">
+					<tr>
+						<td>
+							<c:out value="${venta.vehiculo.marca} "/>
+							<c:out value="${venta.vehiculo.modelo} "/>
+							<br/>
+							<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+								<spring:param name="vehiculoId" value="${venta.vehiculo.id}"/>
+							</spring:url>
+							<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="(más info)"/></a>
+						</td>
+						<td>
+							<c:out value="${venta.reserva.fianza}"/>
+						</td>
+						<td>
+							<c:out value="${venta.reserva.fechaGastos}"/>
+						</td>					
+						<td>
+							<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
+							<spring:param name="reservaId" value="${venta.reserva.id}"/>
+							</spring:url>'>Anular</a>
+						</td>		
+					</tr>
+				</c:if>
 			</c:forEach>
 		
 			<c:forEach items="${alquileres}" var="alquiler">
-				<tr>
-					<td>
-						<c:out value="${alquiler.vehiculo.marca} "/>
-						<c:out value="${alquiler.vehiculo.modelo} "/>
-						<br/>
-						<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
-							<spring:param name="vehiculoId" value="${alquiler.vehiculo.id}"/>
-						</spring:url>
-						<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="(más info)"/></a>
-					</td>
-					<td>
-						<c:out value="${alquiler.reserva.fianza}"/>
-					</td>
-					<td>
-						<c:out value="${alquiler.reserva.fechaGastos}"/>
-					</td>					
-					<td>
-						<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
-						<spring:param name="reservaId" value="${alquiler.reserva.id}"/>
-						</spring:url>'>Anular</a>
-					</td>		
-				</tr>
+				<c:if test = "${not empty alquiler.reserva}">
+					<tr>
+						<td>
+							<c:out value="${alquiler.vehiculo.marca} "/>
+							<c:out value="${alquiler.vehiculo.modelo} "/>
+							<br/>
+							<spring:url value="/vehiculos/{vehiculoId}" var="vehiculoUrl">
+								<spring:param name="vehiculoId" value="${alquiler.vehiculo.id}"/>
+							</spring:url>
+							<a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="(más info)"/></a>
+						</td>
+						<td>
+							<c:out value="${alquiler.reserva.fianza}"/>
+						</td>
+						<td>
+							<c:out value="${alquiler.reserva.fechaGastos}"/>
+						</td>					
+						<td>
+							<a class="btn btn-default" href='<spring:url value="/reservas/{reservaId}/delete" >
+							<spring:param name="reservaId" value="${alquiler.reserva.id}"/>
+							</spring:url>'>Anular</a>
+						</td>		
+					</tr>
+				</c:if>
 			</c:forEach>
 		
 

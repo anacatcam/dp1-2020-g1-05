@@ -71,6 +71,14 @@
 											<a href="<c:url value="/ventas" />">Ventas</a>
 									</div>																					
 								</div>						
+							</li>
+							<li class="divider"></li>
+							<li>								
+								<div class="row">
+									<div class="text-center">																					
+											<a href="<c:url value="/recogidas" />">Recogidas</a>
+									</div>																					
+								</div>						
 							</li>													
 						</ul>	
 					</madaja:menuItem>

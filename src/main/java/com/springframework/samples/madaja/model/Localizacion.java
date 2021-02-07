@@ -1,38 +1,32 @@
 package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.hibernate.search.annotations.*;
 
 @MappedSuperclass
-public class Localizacion extends BaseEntity{
-	
-	
+public class Localizacion extends BaseEntity {
+
 	@Column(name = "provincia")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	protected String provincia;
-	
+
 	@Column(name = "localidad")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	protected String localidad;
-	
+
 	@Column(name = "direccion")
 	@NotEmpty
 	protected String direccion;
-	
+
 	@Column(name = "codigoPostal")
 	@NotEmpty
 	protected String codigoPostal;
-	
-	
+
 	@Column(name = "pais")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
@@ -77,8 +71,5 @@ public class Localizacion extends BaseEntity{
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-
-
-
 
 }

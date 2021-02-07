@@ -17,27 +17,26 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Entity
 @Table(name = "seguro_cliente")
 public class SeguroCliente extends Seguro {
-	
+
 	@Column(name = "cobertura")
 	@NotEmpty
 	private String cobertura;
-	
+
 	@NotNull
 	@Column(name = "fecha_inicio")
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	@NotNull
 	private LocalDate fechaInicio;
-	
-	@NotNull	
+
+	@NotNull
 	@Column(name = "fecha_fin")
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	@NotNull
 	private LocalDate fechaFin;
 
-	
 	@ManyToOne(cascade = CascadeType.ALL, optional = true)
 	private Vehiculos vehiculos;
-	
+
 	public String getCobertura() {
 		return cobertura;
 	}
@@ -45,7 +44,7 @@ public class SeguroCliente extends Seguro {
 	public void setCobertura(String cobertura) {
 		this.cobertura = cobertura;
 	}
-	
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -53,7 +52,7 @@ public class SeguroCliente extends Seguro {
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+
 	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
@@ -61,13 +60,13 @@ public class SeguroCliente extends Seguro {
 	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
+
 	public Vehiculos getVehiculos() {
 		return vehiculos;
 	}
-	
+
 	public void setVehiculos(Vehiculos vehiculos) {
-		this.vehiculos = vehiculos;		
+		this.vehiculos = vehiculos;
 	}
 
 	@Override
@@ -85,5 +84,4 @@ public class SeguroCliente extends Seguro {
 		return builder.toString();
 	}
 
-	
 }

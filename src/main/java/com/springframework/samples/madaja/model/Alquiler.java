@@ -19,18 +19,16 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-
 @Entity
 @Table(name = "alquiler")
 public class Alquiler extends BaseEntity {
 
 	@Column(name = "fecha_inicio")
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fechaInicio;
-	
+
 	@Column(name = "fecha_fin")
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fechaFin;
 
 	@Column(name = "limite_KM")
@@ -41,12 +39,13 @@ public class Alquiler extends BaseEntity {
 	@Column(name = "dep_lleno")
 	@NotNull
 	private Boolean depLleno;
-	
+
 	@Column(name = "devuelto")
 	@NotNull
 	private Boolean devuelto;
 
-	@OneToOne(mappedBy = "alquiler", optional = true)
+	@OneToOne
+	@JoinColumn(name = "reserva_id", nullable = true)
 	@JsonIgnore
 	private Reserva reserva;
 
@@ -98,7 +97,7 @@ public class Alquiler extends BaseEntity {
 	public void setDepLleno(Boolean depLleno) {
 		this.depLleno = depLleno;
 	}
-	
+
 	public Boolean getDevuelto() {
 		return devuelto;
 	}
