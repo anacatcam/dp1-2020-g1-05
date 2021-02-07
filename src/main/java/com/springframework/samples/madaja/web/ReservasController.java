@@ -109,8 +109,7 @@ public class ReservasController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String autoridad;
 		String username = "";
-		String view = "/oups";
-		List<Reserva> reservas = new ArrayList<>();
+		String view = "/oups";  //Cambiar por error cuando funcione CustomErrorController
 		
 		if(principal instanceof UserDetails) {
 			 autoridad = ((UserDetails)principal).getAuthorities().iterator().next().toString();
@@ -132,7 +131,7 @@ public class ReservasController {
 		} else if (autoridad.equals("cliente")) {
 			Cliente cliente = this.clienteService.findClienteByUsername(username);
 			String dni = cliente.getDni();
-			reservas = this.reservaService.findByDNI(dni);
+			List<Reserva> reservas = this.reservaService.findByDNI(dni);
 			for (Reserva r : reservas) {
 				if(r.getId().equals(reservaId)) {
 					this.reservaService.deleteRes(reservaId);

@@ -65,7 +65,7 @@ function buildTable(data,data_veh){
 
 			for(var i = 0; i < data_veh.length; i++){
 				var li = `<li>
-							<a href="/vehiculos/${data_veh[i].id}">${data_veh[i].matricula}</a>
+							<a href="/vehiculos/${data_veh[i].id}">${data_veh[i].marca} ${data_veh[i].modelo}</a>
 						 </li`
 				ul.innerHTML += li
 			}

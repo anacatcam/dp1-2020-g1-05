@@ -6,7 +6,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.springframework.samples.madaja.model.Alquiler;
-import com.springframework.samples.madaja.model.Oferta;
 
 
 public class AlquilerValidator implements Validator{

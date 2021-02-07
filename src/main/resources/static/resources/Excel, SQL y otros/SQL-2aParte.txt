@@ -1,0 +1,47 @@
+--Clientes
+
+INSERT INTO users(username,password,enabled) VALUES ('manuel','contraseña1',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8,'manuel','cliente');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (1,'12422051G', 'Manuel', 'Aviles Campillo', '604223062', 'manuCamp32@gmail.com', false, 'manuel');
+
+INSERT INTO users(username,password,enabled) VALUES ('daniel','contraseña2',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (9,'daniel','cliente');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (2,'31998039W', 'Daniel', 'Barranco Llanos', '660257585', 'danBarll@gmail.com', false, 'daniel');
+
+INSERT INTO users(username,password,enabled) VALUES ('alejandro','contraseña3',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (10,'alejandro','cliente');
+INSERT INTO cliente(id,dni,first_name,last_name,telefono,email,es_conflictivo,username) VALUES (3,'31004225H', 'Alejandro', 'Castellano Sanz', '637666517', 'alejcastz@gmail.com', false, 'alejandro');
+
+--Incidencias
+
+INSERT INTO incidencia VALUES (1, 'Golpe en la parte frontal', false, 1);
+INSERT INTO incidencia VALUES (2, 'Luna trasera rota', false, 3);
+INSERT INTO incidencia VALUES (3, 'Espejillo derecho arrancado', true, 5);
+INSERT INTO incidencia VALUES (4, 'Rueda derecha anterior pinchada', true, 2);
+INSERT INTO incidencia VALUES (5, 'Raíl del asiento delantero roto', true, 4);
+INSERT INTO incidencia VALUES (6, 'Rueda izquierda posterior pinchada', true, 2);
+INSERT INTO incidencia VALUES (7, 'Corrosión en la carrocería', false, 7);
+INSERT INTO incidencia VALUES (8, 'Fuga de aceite', false, 12);
+INSERT INTO incidencia VALUES (9, 'Rodamientos desgastados', true, 21);
+INSERT INTO incidencia VALUES (10, 'Bombilla delantera fundida', false, 11);
+INSERT INTO incidencia VALUES (11, 'Bujías en mal estado', true, 18);
+INSERT INTO incidencia VALUES (12, 'Discos de freno oxidados', false, 14);
+
+--Compañia
+
+INSERT INTO compania(id,nombre,telefono,email) VALUES (1, 'Mapfre', '918366240', 'mapfre@mapfre.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (2, 'Better Call Saul', '977710750', 'saulSecures@gmail.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (3, 'AXA', '918070055', 'atencion.cliente@axa.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (4, 'Zurich', '913755755', 'defensacliente-es@zurich.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (5, 'Helvetia', '913939057', 'info@helvetia.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (6, 'Pelayo', '917496800', ' correo@pelayo.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (7, 'Generali', '918373707', 'info.es@generali.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (8, 'Línea Directa', '917300300', 'Gestion_Clientes@LineaDirecta.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (9, 'Allianz', '902300186', 'attcliente@allianz-assistance.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (10, 'Qualitas Auto', '912755440', 'atencionalcliente@qualitasauto.com');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (11, 'Génesis', '917227901', 'contacto@genesis.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (12, 'Verti', '911758767', 'incidenciasclientes@verti.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (13, 'Mutua Madrileña', '915578322', 'accidentespersonales@mutua.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (14, 'Liberty Seguros', '934890567', 'atencionalcliente@libertyseguros.es');
+INSERT INTO compania(id,nombre,telefono,email) VALUES (15, 'Direct Seguros', '918378902', 'contacto@directseguros.es');
+

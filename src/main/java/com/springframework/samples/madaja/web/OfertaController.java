@@ -1,9 +1,7 @@
 package com.springframework.samples.madaja.web;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +12,6 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -41,6 +38,7 @@ public class OfertaController {
 	
 	private static final String VIEW_OFERTA_CREATE_FORM = "oferta/createOfertaForm";
 	private static final String VIEW_OFERTA_UPDATE_FORM = "oferta/updateOfertaForm";
+	private static final String VIEW_REDIRECT="redirect:/oferta";
 	
 	private final OfertaService ofertaService;
 	private final VehiculosService vehiculosService;
@@ -76,13 +74,6 @@ public class OfertaController {
 
         return "oferta/mostrarOfertas";
     }
-	/*//OBSOLETO POR PAGINACIÓN
-	@GetMapping(value = {"/oferta"})
-	public String showOfertasList(Map<String, Object> model) {
-		Collection<Oferta> ofertas = this.ofertaService.findAllOfertas();
-		model.put("ofertas", ofertas);
-		return "oferta/mostrarOfertas";
-	}*/
 	
 	//-------------------------------------API--------------------------------
 	@GetMapping(value = {"/ofertaAPI"})
@@ -90,6 +81,7 @@ public class OfertaController {
 		return "oferta/mostrarOfertasAPI";
 	}
 	//-------------------------------------API--------------------------------
+	
 	@GetMapping(value = {"/oferta/{ofertaId}"})
 	public String showOferta(@PathVariable("ofertaId") int ofertaId, ModelMap map) {
 		Oferta oferta = this.ofertaService.findOfertaById(ofertaId);
@@ -127,8 +119,7 @@ public class OfertaController {
 	
 	@ModelAttribute("vehiculosDisponibles")
 	public List<Vehiculos> matriculasDisponible(){
-		List<Vehiculos> vehiculos = vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
-		return vehiculos;
+		return vehiculosService.findAllVehiculosDisponiblesYsinOfertas().stream().collect(Collectors.toList());
 	}
 	
 	@GetMapping(value = "/oferta/new")
@@ -156,7 +147,7 @@ public class OfertaController {
 					vehiculo.setOferta(oferta);
 					vehiculosService.saveVehiculo(vehiculo);
 				}
-			return "redirect:/oferta";
+			return VIEW_REDIRECT;
 		}
 	}
 
@@ -197,7 +188,7 @@ public class OfertaController {
 				vehiculo.setOferta(ofertaUpdate);
 				vehiculosService.saveVehiculo(vehiculo);
 			}
-			return "redirect:/oferta";
+			return VIEW_REDIRECT;
 		}
 	}
 	//-------------------------------------API--------------------------------
@@ -219,7 +210,7 @@ public class OfertaController {
 			}
 		}
 		this.ofertaService.deleteById(ofertaId);
-		return "redirect:/oferta";
+		return VIEW_REDIRECT;
 	}
 	
 	//-------------------------------------API--------------------------------

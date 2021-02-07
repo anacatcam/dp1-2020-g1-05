@@ -9,8 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -61,14 +59,12 @@ public class IncidenciaController {
 	
 	@ModelAttribute("mecanicos")
 	public List<Mecanico> mecanicosDisponibles(){
-		List<Mecanico> mecanicos = mecanicoService.findAll();
-		return mecanicos;
+		return mecanicoService.findAll();
 	}
 	
 	@ModelAttribute("clientes")
 	public Iterable<Cliente> clientes(){
-		Iterable<Cliente> clientes = clienteService.findAllClientes();
-		return clientes;
+		return clienteService.findAllClientes();
 	}
 	
 	@InitBinder("vehiculos")
