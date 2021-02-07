@@ -274,9 +274,11 @@ public class VentaControllerTests {
 	@Test
 	void testComprarVehiculoElse() throws Exception{
 		
-		//Rama del else if: está en revisión
+		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
+		cliente.addVentas(venta);
+		//Rama del else: se puede comprar
 		List<Venta> ventas = new ArrayList<Venta>();
-		
+		ventas.add(venta);
 		given(ventaService.findAllVentas()).willReturn(ventas);
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
 

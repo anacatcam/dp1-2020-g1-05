@@ -78,7 +78,7 @@ public class Cliente extends Person {
 
 	public List<Venta> getVentas() {
 		List<Venta> sortedVentas = new ArrayList<>(getVentasInternal());
-		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("id", true, true));
+		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("fecha", true, false));
 		return Collections.unmodifiableList(sortedVentas);
 	}
 

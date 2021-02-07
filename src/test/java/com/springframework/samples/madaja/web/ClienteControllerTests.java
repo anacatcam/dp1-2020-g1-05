@@ -296,7 +296,7 @@ class ClienteControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
-	void testSearchConcesionarios() throws Exception{
+	void testSearchClientes() throws Exception{
 		
 		mockMvc.perform(post("/doSearchClientes")
 				.with(csrf())

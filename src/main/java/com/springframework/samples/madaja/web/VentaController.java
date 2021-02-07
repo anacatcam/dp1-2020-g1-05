@@ -1,12 +1,18 @@
 package com.springframework.samples.madaja.web;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -94,7 +100,7 @@ public class VentaController {
 	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		Boolean vendido  = estaVendido(vehiculo);
-		if(Boolean.FALSE.equals(vendido)) {
+		if(Boolean.TRUE.equals(vendido)) {
 			model.put("esVenta", vendido);
 			log.info("El vehículo ya está vendido y no se ha podido realizar la compra");
 			return "operacionImposible";
@@ -114,9 +120,15 @@ public class VentaController {
 			
 			//Obtener cliente logueado y vehiculo
 			Cliente cliente = this.clienteService.findClienteByUsername(username);
+			//Comprobamos que no ha hecho ninguna compra hace menos de 30 días
+			Boolean compraHaceMenosDe30Dias = compraHaceMenosDe30Dias(cliente);
+			if (compraHaceMenosDe30Dias) {
+				model.put("compraHaceMenosDe30Dias", true);
+				log.info("Este cliente hace menos de 30 días que compró un vehículo y no se ha podido realizar la compra");
+				return "operacionImposible";
+			}
 			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(5));
 			this.vehiculosService.saveVehiculo(vehiculo);
-			
 			//Crear venta
 			Venta nuevaVenta = new Venta();
 			nuevaVenta.setFecha(LocalDate.now());
@@ -153,6 +165,16 @@ public class VentaController {
 			}
 		}
 		return res;
+	}
+	
+	public boolean compraHaceMenosDe30Dias(Cliente cliente) {
+		List<Venta> ventas = cliente.getVentas();
+		long diferencia = DAYS.between(ventas.get(0).getFecha(), LocalDate.now());
+		if (diferencia < 30) {
+			return true;
+		}
+		return false;
+		
 	}
 
 }

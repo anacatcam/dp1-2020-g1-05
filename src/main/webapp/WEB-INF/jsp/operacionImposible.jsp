@@ -82,4 +82,18 @@
 		    <a href="${fn:escapeXml(catalogoUrl)}" class="btn btn-default">Volver al catálogo</a>
 		</div>
 	</c:if>
+	<c:if test="${compraHaceMenosDe30Dias}">
+		<h2 style="text-align:center;">La operación no se pudo realizar</h2>
+		<br>
+		<spring:url value="/resources/images/conflictivo.jpg" var="conflictivo"/>
+	    <img style="display:block; margin: auto; width: 40%; height: 40%;" src="${conflictivo}"/>
+	    <br>
+		<p style="text-align:center;">Has hecho una compra hace menos de 30 días, deberás esperar un poco para la próxima.</p>
+		<br>
+		<div style="display:block; margin: auto; text-align:center;">
+			<spring:url value="/vehiculos" var="catalogoUrl">
+		    </spring:url>
+		    <a href="${fn:escapeXml(catalogoUrl)}" class="btn btn-default">Volver al catálogo</a>
+		</div>
+	</c:if>
 </madaja:layout>

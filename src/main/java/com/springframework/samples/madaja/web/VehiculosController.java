@@ -211,7 +211,7 @@ public class VehiculosController {
 	
 	@PostMapping(value = {"/doSearchVehiculos"})
 	public String searchVehiculos(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
-		if(searchText.equals("")) {
+		if(searchText == "") {
 			return "redirect:/vehiculos";
 		}
 		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
