@@ -26,7 +26,7 @@
 	<c:if test="${error404}">
 		<br>
 		<spring:url value="/resources/images/error404.jpg" var="notFound"/>
-	    <img style="display:block; margin: auto;" src="${unauthorized}"/>
+	    <img style="display:block; margin: auto; width:55%; height:55% " src="${notFound}"/>
 	    <br>	
 	</c:if>
 	<c:if test="${error500}">
@@ -38,7 +38,7 @@
 	<c:if test="${error503}">
 		<br>
 		<spring:url value="/resources/images/error503.jpg" var="serviceUnavailable"/>
-	    <img style="display:block; margin: auto;" src="${serviceUnavailable}"/>
+	    <img style="display:block; margin: auto; width:50%; height:50%" src="${serviceUnavailable}"/>
 	    <br>	
 	</c:if>				
 

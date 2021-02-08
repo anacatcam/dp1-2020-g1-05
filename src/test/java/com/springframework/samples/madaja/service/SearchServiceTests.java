@@ -40,8 +40,8 @@ public class SearchServiceTests {
 	@Test
 	void shouldSearchVehiculos() {
 		List<Vehiculos> vehiculos = this.searchService.searchVehiculos("Renault");
-		Vehiculos vehiculo = EntityUtils.getById(vehiculos, Vehiculos.class, 3);
+		Vehiculos vehiculo = EntityUtils.getById(vehiculos, Vehiculos.class, 379);
 		
-		assertThat(vehiculo.getMarca()).isEqualTo("Renault");
+		assertThat(vehiculo.getMarca()).isEqualTo("RENAULT");
 	}	
 }
