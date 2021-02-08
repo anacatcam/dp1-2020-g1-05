@@ -109,9 +109,11 @@ public class ClienteController {
 	@PostMapping(value = {"/doSearchClientes"})
 	public String searchClientes(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
 		
-		if(searchText.equals("")) {
+		if(searchText == "") {
 			return "redirect:/clientes";
 		}
+		int page = 0;
+		model.put("prev", page);
 		model.put("clientes", searchService.searchClientes(searchText));
 		
 		return VISTA_CLIENTES;

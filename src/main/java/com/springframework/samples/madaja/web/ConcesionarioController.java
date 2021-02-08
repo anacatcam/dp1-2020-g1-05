@@ -77,10 +77,12 @@ public class ConcesionarioController {
 	@PostMapping(value = {"/doSearchConcesionarios"})
 	public String searchConcesionarios(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
 		
-		if(searchText.equals("")) {
+		if(searchText == "") {
 			return "redirect:/concesionario";
 		}
 		log.info("Se ha realizado la siguiente búsqueda de concesionarios: " + searchText);
+		int page = 0;
+		model.put("prev", page);
 		model.put("concesionarios", this.searchService.searchConcesionarios(searchText));
 		return VISTA_CONCESIONARIOS;
 	}
