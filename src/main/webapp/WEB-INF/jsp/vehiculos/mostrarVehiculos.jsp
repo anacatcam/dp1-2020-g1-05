@@ -16,7 +16,7 @@
 			<label for="inputSearch">Encuentra tu vehículo</label>
 			<div class="form-group">
 				<div class="form-inline">
-					<input class="form-control" placeholder="Marca, modelo, nº plazas o nº puertas" id="search" name="search" type="text" maxlength="27" size="34">
+					<input class="form-control" placeholder="Marca, modelo, nº plazas o nº puertas" id="search" name="search" type="text" pattern="^[^\s].+|^\d{1}$|^[a-zA-Z]{1}$" maxlength="27" size="34">
 						<button class="btn btn-default" type="submit" style="margin-left:15px;">Buscar</button>
 					</div>
 				</div>

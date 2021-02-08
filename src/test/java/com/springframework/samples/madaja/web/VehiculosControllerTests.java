@@ -452,7 +452,7 @@ public class VehiculosControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
-	void testSearchConcesionarios() throws Exception{
+	void testSearchVehiculos() throws Exception{
 		
 		mockMvc.perform(post("/doSearchVehiculos")
 				.with(csrf())
