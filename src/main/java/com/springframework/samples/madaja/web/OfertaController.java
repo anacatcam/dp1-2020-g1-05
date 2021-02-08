@@ -55,7 +55,7 @@ public class OfertaController {
 
         int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
-        PageRequest pageRequest = PageRequest.of(page, 2);
+        PageRequest pageRequest = PageRequest.of(page, 10);
 
         Page<Oferta> pageOferta = this.ofertaService.getAll(pageRequest);
 
