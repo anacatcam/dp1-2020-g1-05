@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,8 +27,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+import com.springframework.samples.madaja.model.Authorities;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.User;
+import com.springframework.samples.madaja.repository.AuthoritiesRepository;
 import com.springframework.samples.madaja.repository.ClienteRepository;
 import com.springframework.samples.madaja.repository.UserRepository;
 import com.springframework.samples.madaja.util.EntityUtils;
@@ -43,28 +46,37 @@ public class ClienteServiceTests {
 	protected ClienteService clienteService;
 	
 	@Mock
-	protected UserService userService;
+	private UserService userService;
 	
-	@Autowired
-	protected AuthoritiesService authoritiesService;
+	@Mock
+	private AuthoritiesService authoritiesService;
 	
 	@Mock
 	UserRepository userRepository;
 	
+	@Mock
+	AuthoritiesRepository authoritiesReposioty;
+	
 	private User usuario;
+	
+	private Authorities auth;
 	
 	private Cliente cliente;
 	
 	@BeforeEach
 	void setUp() {
-		clienteService = new ClienteService(clienteRepository);
+		clienteService = new ClienteService(clienteRepository, userService, authoritiesService);
 		userService = new UserService(userRepository);
+		authoritiesService = new AuthoritiesService(authoritiesReposioty, userService);
 
-		clienteService = new ClienteService(clienteRepository);
 		usuario = new User();
 		usuario.setUsername("alejandro");
 		usuario.setEnabled(Boolean.TRUE);
 		usuario.setPassword("contraseña3");
+		
+		auth = new Authorities();
+		auth.setUser(usuario);
+		auth.setAuthority("cliente");
 		
 		cliente = new Cliente();
 		cliente.setId(1);
@@ -102,18 +114,20 @@ public class ClienteServiceTests {
 		
 	}
 	
-	/*
+	
 	@Test
 	void testSaveCliente() throws Exception{
-		clienteService.saveCliente(cliente);
-
+		when(userService.findUser(anyString())).thenReturn(Optional.of(cliente.getUser()));
 		
+		clienteService.saveCliente(cliente);
+		userService.saveUser(cliente.getUser());
+		authoritiesService.saveAuthorities(cliente.getUser().getUsername(), "cliente");
 		
 		verify(clienteRepository).save(cliente);
-		verify(userRepository).save(cliente.getUser());
-	//	verify(authoritiesService).saveAuthorities(cliente.getUser().getUsername(), "cliente");
+		verify(userRepository).save(usuario);
+		verify(authoritiesReposioty).save(auth);
 	}
-	*/
+	
 	
 	@Test
 	void testFindClienteByUsername() throws Exception{

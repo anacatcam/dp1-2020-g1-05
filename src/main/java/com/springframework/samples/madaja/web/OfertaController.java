@@ -139,7 +139,7 @@ public class OfertaController {
 	}
 	//-------------------------------------API--------------------------------
 	@GetMapping(value = "/ofertaAPI/new")
-	public String creationFormOfertaAPI() {
+	public String creationOfertaAPI() {
 		return "oferta/createOfertaFormAPI";
 	}
 	//-------------------------------------API--------------------------------
