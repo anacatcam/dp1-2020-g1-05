@@ -77,7 +77,7 @@ public class Cliente extends Person {
 
 	public List<Venta> getVentas() {
 		List<Venta> sortedVentas = new ArrayList<>(getVentasInternal());
-		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("id", true, true));
+		PropertyComparator.sort(sortedVentas, new MutableSortDefinition("fecha", true, false));
 		return Collections.unmodifiableList(sortedVentas);
 	}
 
@@ -103,7 +103,7 @@ public class Cliente extends Person {
 
 	public List<Alquiler> getAlquileres() {
 		List<Alquiler> sortedAlquileres = new ArrayList<>(getAlquileresInternal());
-		PropertyComparator.sort(sortedAlquileres, new MutableSortDefinition("id", true, true));
+		PropertyComparator.sort(sortedAlquileres, new MutableSortDefinition("fechaInicio", true, false));
 		return Collections.unmodifiableList(sortedAlquileres);
 	}
 

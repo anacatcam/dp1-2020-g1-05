@@ -14,14 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * responses to [ErrorController], which produces validation response. So we need to fake it in tests.
  * It's not ideal, but at least we can use classic MockMvc tests for testing error response + document it.
  */
-@ControllerAdvice
 public class ExceptionHandlerConfiguration 
 {
-	@Autowired
-	private BasicErrorController basicErrorController;
-	// add any exceptions/validations/binding problems
-//	@Autowired
-//	private CustomErrorController customErrorController;
 
    @ExceptionHandler(Exception.class)
    public String defaultErrorHandler(HttpServletRequest request,  Exception ex)  {

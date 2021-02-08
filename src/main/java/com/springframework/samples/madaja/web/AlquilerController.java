@@ -35,12 +35,14 @@ import com.springframework.samples.madaja.model.EstadoEnvio;
 import com.springframework.samples.madaja.model.Incidencia;
 import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.ConcesionarioService;
 import com.springframework.samples.madaja.service.EnvioService;
 import com.springframework.samples.madaja.service.RecogidaService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.springframework.samples.madaja.service.VentaService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,6 +52,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AlquilerController {
 	
 	private static final String VIEWS_ALQUILER_CREATE_FORM = "alquiler/createAlquilerForm";
+	
 	private static final String ERROR_VIEW="operacionImposible";
 
 	private final AlquilerService alquilerService;
@@ -58,6 +61,8 @@ public class AlquilerController {
 	
 	private final VehiculosService vehiculosService;
 	
+	private final VentaService ventaService;
+
 	private final ConcesionarioService concesionarioService;
 	
 	private final EnvioService envioService;
@@ -65,15 +70,17 @@ public class AlquilerController {
 	private final RecogidaService recogidaService;
 	
 	@Autowired
-	public AlquilerController(AlquilerService alquilerService,ClienteService clienteService, 
+	public AlquilerController(AlquilerService alquilerService,ClienteService clienteService, VentaService ventaService,
 			VehiculosService vehiculosService, ConcesionarioService concesionarioService, EnvioService envioService,
 			RecogidaService recogidaService) {
 		this.alquilerService = alquilerService;
 		this.clienteService = clienteService;
 		this.vehiculosService = vehiculosService;
+		this.ventaService = ventaService;
 		this.concesionarioService = concesionarioService;
 		this.envioService = envioService;
 		this.recogidaService = recogidaService;
+
 	}
 	
 	@InitBinder("alquiler")
@@ -127,10 +134,15 @@ public class AlquilerController {
 		//comprobación de que el vehiculo no está alquilado ya
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		Map<Boolean, LocalDate> alquilado = estaAlquilado(vehiculo);
+		Boolean vendido  = estaVendido(vehiculo);
 		if(alquilado.containsKey(true)) {
 			model.put("esAlquiler", true);
 			model.put("fecha", alquilado.get(true));
 			log.info("El vehículo está ya alquilado y no se ha podido realizar el alquiler");
+			return ERROR_VIEW;
+		}else if(Boolean.TRUE.equals(vendido)) {
+			model.put("esVentaAlquiler", vendido);
+			log.info("El vehículo ya está vendido y no se ha podido realizar el alquiler");
 			return ERROR_VIEW;
 		}else if(estaEnRevision(vehiculo)){
 			model.put("enRevision", estaEnRevision(vehiculo));
@@ -178,12 +190,19 @@ public class AlquilerController {
 	public String processAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @Valid Alquiler alquiler, 
 			/**/@RequestParam(name = "concesionariosE") Concesionario concesionarioE,
 			@RequestParam(name = "concesionariosR") Concesionario concesionarioR,/**/ 
-			BindingResult result) {
+			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			log.warn("No se ha podido realizar el alquiler");
 			return VIEWS_ALQUILER_CREATE_FORM;
 		}
 		else {
+			//Comprobamos que no ha hecho ninguna compra hace menos de 30 días
+			Map<Boolean, LocalDate> alquilerEnMismoPeriodo = alquilerEnMismoPeriodo(alquiler);
+			if (alquilerEnMismoPeriodo.containsKey(true)) {
+				model.put("alquilerEnMismoPeriodo", true);
+				model.put("fechaFin", alquilerEnMismoPeriodo.get(true));
+				return ERROR_VIEW;
+			}
 			Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 			vehiculo.setDisponible(this.vehiculosService.findDisponibleById(4));
 			this.vehiculosService.saveVehiculo(vehiculo);
@@ -270,7 +289,7 @@ public class AlquilerController {
 		Map<Boolean, LocalDate> res = new HashMap<>();
 		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
 		for(Alquiler a:alquileres) {
-			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDepLleno()==Boolean.FALSE) {
+			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDevuelto()==Boolean.FALSE) {
 				res.put(true, a.getFechaFin());
 				return res;
 			}
@@ -295,6 +314,30 @@ public class AlquilerController {
 		LocalDate devolucion = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(fechaDevolucion));
 		long retraso = DAYS.between(fechaFin, devolucion);
 		return (int)retraso;
+	}
+	
+	public Map<Boolean, LocalDate> alquilerEnMismoPeriodo(Alquiler alquiler) {
+		Map<Boolean, LocalDate> res = new HashMap<>();
+		List<Alquiler> alquileres = alquiler.getCliente().getAlquileres();
+		if (alquileres.get(0).getFechaFin().isAfter(alquiler.getFechaInicio())) {
+			res.put(true, alquileres.get(0).getFechaFin());
+			return res;
+		}
+		res.put(false, null);
+		return res;
+		
+	}
+	
+	public boolean estaVendido(Vehiculos vehiculo) {
+		Boolean res = false;
+		Iterable<Venta> ventas = this.ventaService.findAllVentas();
+		for(Venta v:ventas) {
+			if(vehiculo.equals(v.getVehiculo())) {
+				res = true;
+				return res;
+			}
+		}
+		return res;
 	}
 	
 }

@@ -1,13 +1,13 @@
 package com.springframework.samples.madaja.web;
 
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,7 +26,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
-import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cambio;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.Combustible;
@@ -41,6 +40,7 @@ import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
+import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
@@ -62,6 +62,9 @@ public class VentaControllerTests {
 	
 	@MockBean
 	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private AlquilerService alquilerService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -273,16 +276,20 @@ public class VentaControllerTests {
 	@WithMockUser(value = "Spring")
 	@Test
 	void testComprarVehiculoElse() throws Exception{
+	
+		venta.setVehiculo(null);
 		
-		//Rama del else if: está en revisión
+		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
+		cliente.addVentas(venta);
+		//Rama del else: se puede comprar
 		List<Venta> ventas = new ArrayList<Venta>();
-		
+		ventas.add(venta);
 		given(ventaService.findAllVentas()).willReturn(ventas);
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
 
 		
 		
-		mockMvc.perform(get("/vehiculos/{vehiculoId}/comprar",1)).andExpect(status().is3xxRedirection())
+		mockMvc.perform(get("/vehiculos/{vehiculoId}/comprar",2)).andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/MisVentas"));
 	}
 }
