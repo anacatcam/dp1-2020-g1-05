@@ -16,31 +16,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "seguro_vehiculo")
 public class SeguroVehiculo extends Seguro {
-	
+
 	@Column(name = "numeroPoliza")
 	@NotEmpty
 	protected String numeroPoliza;
-	
+
 	@Column(name = "cobertura")
 	@NotEmpty
 	private String cobertura;
-	
+
 	@Column(name = "fecha_inicio")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotEmpty
 	private LocalDate fechaInicio;
-	
+
 	@Column(name = "fecha_fin")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@NotEmpty
 	private LocalDate fechaFin;
-	
+
 	@OneToOne(mappedBy = "seguroVehiculo", cascade = CascadeType.ALL, optional = true)
 	private Vehiculos vehiculo;
-	
+
 	@ManyToOne
 	private Compania compania;
-	
+
 	public String getNumeroPoliza() {
 		return numeroPoliza;
 	}
@@ -48,7 +48,7 @@ public class SeguroVehiculo extends Seguro {
 	public void setNumeroPoliza(String numeroPoliza) {
 		this.numeroPoliza = numeroPoliza;
 	}
-	
+
 	public String getCobertura() {
 		return cobertura;
 	}
@@ -56,7 +56,7 @@ public class SeguroVehiculo extends Seguro {
 	public void setCobertura(String cobertura) {
 		this.cobertura = cobertura;
 	}
-	
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -64,7 +64,7 @@ public class SeguroVehiculo extends Seguro {
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+
 	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
@@ -115,5 +115,5 @@ public class SeguroVehiculo extends Seguro {
 		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-	
+
 }

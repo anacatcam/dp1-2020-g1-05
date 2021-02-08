@@ -45,7 +45,7 @@
 						<c:out value="${alquiler.fechaFin}"/>	
 					</td>
 					<td>
-						<c:out value="${alquiler.cliente.firstName}"/>	<c:out value="${alquiler.cliente.lastName}"/>	
+						<c:out value="${alquiler.cliente.firstName} "/>	<c:out value="${alquiler.cliente.lastName}"/>	
 					</td>
 					<td>
 						<c:choose>

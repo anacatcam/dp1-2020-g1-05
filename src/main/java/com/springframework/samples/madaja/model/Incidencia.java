@@ -1,4 +1,4 @@
-	package com.springframework.samples.madaja.model;
+package com.springframework.samples.madaja.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -27,36 +26,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "incidencia")
 public class Incidencia extends BaseEntity {
-	
+
 	@Column(name = "descripcion")
 	@NotEmpty
 	private String descripcion;
-	
+
 	@Column(name = "solucionada")
 	@NotNull
 	private Boolean solucionada;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JsonIgnore
 	private Vehiculos vehiculos;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JsonIgnore
 	private Cliente cliente;
-	
-	@JoinTable(name = "incidencias_mecanicos", 
-			joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), 
-			inverseJoinColumns = @JoinColumn(name = "mecanico_id", nullable = false))
+
+	@JoinTable(name = "incidencias_mecanicos", joinColumns = @JoinColumn(name = "incidencia_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "mecanico_id", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<Mecanico> mecanicos;
 
-	protected Set<Mecanico> getMecanicosInternal(){
-		if(this.mecanicos == null) {
+	protected Set<Mecanico> getMecanicosInternal() {
+		if (this.mecanicos == null) {
 			this.mecanicos = new HashSet<>();
 		}
 		return this.mecanicos;
 	}
-	
+
 	protected void setMecanicosInternal(Set<Mecanico> mecanicos) {
 		this.mecanicos = mecanicos;
 	}
@@ -70,7 +67,7 @@ public class Incidencia extends BaseEntity {
 	public void addMecanico(Mecanico mecanico) {
 		getMecanicosInternal().add(mecanico);
 	}
-	
+
 	public boolean removeMecanicos(Mecanico mecanico) {
 		return getMecanicosInternal().remove(mecanico);
 	}
@@ -98,7 +95,7 @@ public class Incidencia extends BaseEntity {
 	public void setVehiculos(Vehiculos vehiculos) {
 		this.vehiculos = vehiculos;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -121,7 +118,5 @@ public class Incidencia extends BaseEntity {
 		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-	
-	
-	
+
 }

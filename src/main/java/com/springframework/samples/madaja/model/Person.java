@@ -17,10 +17,13 @@ package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Simple JavaBean domain object representing an person.
@@ -29,6 +32,11 @@ import org.hibernate.search.annotations.Field;
  */
 @MappedSuperclass
 public class Person extends BaseEntity {
+
+	@Column(name = "dni")
+	@NotEmpty
+	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
+	private String dni;
 
 	@Column(name = "first_name")
 	@NotEmpty
@@ -39,6 +47,41 @@ public class Person extends BaseEntity {
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String lastName;
+
+	@Column(name = "telefono")
+	@NotEmpty
+	@Length(min = 9, max = 9)
+	@Digits(fraction = 0, integer = 10)
+	private String telefono;
+
+	@Column(name = "email")
+	@NotEmpty
+	@Email
+	private String email;
+
+	public String getDni() {
+		return this.dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getTelefono() {
+		return this.telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getFirstName() {
 		return this.firstName;
@@ -55,7 +98,5 @@ public class Person extends BaseEntity {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	
 
 }

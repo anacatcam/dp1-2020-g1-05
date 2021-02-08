@@ -15,11 +15,11 @@
 		<form:form action ="/doSearchVehiculos" method="POST" role="form">
 			<label for="inputSearch">Encuentra tu vehículo</label>
 			<div class="form-group">
-				<input class="form-control" placeholder="Search for..." id="search" name="search" type="text">
-				<span class="col-sm-offset-2 col-sm-10">
-					<button type="submit">Buscar</button>
-				</span>
-			</div>
+				<div class="form-inline">
+					<input class="form-control" placeholder="Marca, modelo, nº plazas o nº puertas" id="search" name="search" type="text" maxlength="27" size="34">
+						<button class="btn btn-default" type="submit" style="margin-left:15px;">Buscar</button>
+					</div>
+				</div>
 		</form:form>
 	</div>
 	

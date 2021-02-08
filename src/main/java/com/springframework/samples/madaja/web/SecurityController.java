@@ -1,7 +1,5 @@
 package com.springframework.samples.madaja.web;
 
-import java.util.Collection;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,8 +13,7 @@ public class SecurityController {
     @ResponseBody
     public String currentUserAuthority(Authentication authentication) {
 		UserDetails user = (UserDetails) authentication.getPrincipal();
-		String autoridad = user.getAuthorities().iterator().next().toString();
-        return autoridad;
+        return user.getAuthorities().iterator().next().toString();
     }
 	
 }

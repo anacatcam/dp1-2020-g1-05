@@ -1,15 +1,13 @@
 package com.springframework.samples.madaja.configuration;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * This advice is necessary because MockMvc is not a real servlet environment, therefore it does not redirect error
@@ -20,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionHandlerConfiguration 
 {
 	@Autowired
-	private BasicErrorController errorController;
-    // add any exceptions/validations/binding problems
+	private BasicErrorController basicErrorController;
+	// add any exceptions/validations/binding problems
+//	@Autowired
+//	private CustomErrorController customErrorController;
 
    @ExceptionHandler(Exception.class)
    public String defaultErrorHandler(HttpServletRequest request,  Exception ex)  {

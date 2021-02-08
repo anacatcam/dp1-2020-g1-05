@@ -13,15 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.search.annotations.*;
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.search.annotations.Indexed;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,72 +27,35 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Indexed
 public class Cliente extends Person {
 
-	@Column(name = "dni")
-	@NotEmpty
-	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
-	private String dni;
-	
-	@Column(name = "telefono")
-	@NotEmpty
-	@Length(min = 9,max=9)
-	@Digits(fraction = 0, integer = 10)
-	private String telefono;
-	
-	@Column(name = "email")
-	@NotEmpty
-	@Email
-	private  String email;
-	
-	@Column(name = "esConflictivo") 
+	@Column(name = "esConflictivo")
+	@NotNull
 	private String esConflictivo;
-	
+
+	@Column(name = "dias_retraso")
+	@NotNull
+	@Min(0)
+	private Integer diasRetraso;
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Venta> ventas;
-	
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Alquiler> alquileres;
-	
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Reserva> reservas;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "username", referencedColumnName = "username")
+	@JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
-	
+
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Incidencia> numIncidencias;
-	
-	@Column(name = "dias_retraso")
-	private Integer diasRetraso;
 
-	public String getDni() {
-		return this.dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	
-	public String getTelefono() {
-		return this.telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	public String getEsConflictivo() {
 		return esConflictivo;
 	}
@@ -125,11 +85,11 @@ public class Cliente extends Person {
 		getVentasInternal().add(venta);
 		venta.setCliente(this);
 	}
-	
+
 	public boolean removeVenta(Venta venta) {
 		return getVentasInternal().remove(venta);
 	}
-	
+
 	protected Set<Alquiler> getAlquileresInternal() {
 		if (this.alquileres == null) {
 			this.alquileres = new HashSet<>();
@@ -151,11 +111,11 @@ public class Cliente extends Person {
 		getAlquileresInternal().add(alquiler);
 		alquiler.setCliente(this);
 	}
-	
+
 	public boolean removeAlquiler(Alquiler alquiler) {
 		return getAlquileresInternal().remove(alquiler);
 	}
-	
+
 	protected Set<Reserva> getReservasInternal() {
 		if (this.reservas == null) {
 			this.reservas = new HashSet<>();
@@ -177,11 +137,11 @@ public class Cliente extends Person {
 		getReservasInternal().add(reserva);
 		reserva.setCliente(this);
 	}
-	
+
 	public boolean removeReserva(Reserva reserva) {
 		return getReservasInternal().remove(reserva);
 	}
-	
+
 	protected Set<Incidencia> getIncidenciasInternal() {
 		if (this.numIncidencias == null) {
 			this.numIncidencias = new HashSet<>();
@@ -203,11 +163,11 @@ public class Cliente extends Person {
 		getIncidenciasInternal().add(incidencia);
 		incidencia.setCliente(this);
 	}
-	
+
 	public boolean removeIncidencia(Incidencia incidencia) {
 		return getIncidenciasInternal().remove(incidencia);
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -215,33 +175,13 @@ public class Cliente extends Person {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Integer getDiasRetraso() {
 		return this.diasRetraso;
 	}
-	
+
 	public void setDiasRetraso(Integer dias) {
 		this.diasRetraso = dias;
 	}
 
-//	@Override
-//	public String toString() {
-//		ToStringCreator builder = new ToStringCreator(this);
-//		builder.append("esConflictivo", esConflictivo);
-//		builder.append("alquileres", alquileres);
-//		builder.append("reservas", reservas);
-//		builder.append("dni", dni);
-//		builder.append("nombre", nombre);
-//		builder.append("apellidos", apellidos);
-//		builder.append("telefono", telefono);
-//		builder.append("email", email);
-//		builder.append("getEsConflictivo()", getEsConflictivo());
-//		builder.append("getDni()", getDni());
-//		builder.append("getNombre()", getNombre());
-//		builder.append("getApellidos()", getApellidos());
-//		builder.append("getTelefono()", getTelefono());
-//		builder.append("getEmail()", getEmail());
-//		return builder.toString();
-//	}
-	
 }

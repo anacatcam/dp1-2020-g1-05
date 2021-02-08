@@ -43,24 +43,6 @@ public class VentaController {
 		this.clienteService = clienteService;
 		this.vehiculosService = vehiculosService;
 	}
-	/*
-	@GetMapping(value = {"/MisVentas"})
-	public String showMisVentas(ModelMap model){
-		List<Venta> venVist = new ArrayList<>();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username;
-		if(principal instanceof UserDetails) {
-			 username = ((UserDetails)principal).getUsername();
-		}else {
-			 username = principal.toString();
-		}
-		Cliente cliente = this.clienteService.findClienteByUsername(username);
-		
-		venVist.addAll(this.ventaService.findVentasByDni(cliente.getDni()));
-		model.put("ventas", venVist);
-		
-		return "/venta/mostrarMisVentas";
-	}*/
 	
 	//PAGINACIÓN
 	@GetMapping(value = { "/MisVentas" })
@@ -112,7 +94,7 @@ public class VentaController {
 	public String comprarVehiculo(@PathVariable("vehiculoId") int vehiculoId, Map<String, Object> model) {
 		Vehiculos vehiculo = this.vehiculosService.findVehiculoById(vehiculoId);
 		Boolean vendido  = estaVendido(vehiculo);
-		if(vendido) {
+		if(Boolean.FALSE.equals(vendido)) {
 			model.put("esVenta", vendido);
 			log.info("El vehículo ya está vendido y no se ha podido realizar la compra");
 			return "operacionImposible";
@@ -165,7 +147,7 @@ public class VentaController {
 		Boolean res = false;
 		List<Incidencia> incidencias = vehiculo.getIncidencias();
 		for(Incidencia i:incidencias) {
-			if(i.getSolucionada() == false) {
+			if(Boolean.FALSE.equals(i.getSolucionada())) {
 				res = true;
 				break;
 			}

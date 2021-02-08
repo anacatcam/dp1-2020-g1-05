@@ -1,19 +1,19 @@
 package com.springframework.samples.madaja.web;
 
-import java.time.Duration;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,17 +28,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
+import com.springframework.samples.madaja.model.Envio;
+import com.springframework.samples.madaja.model.EstadoEnvio;
 import com.springframework.samples.madaja.model.Incidencia;
+import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.Vehiculos;
-import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.EnvioService;
+import com.springframework.samples.madaja.service.RecogidaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Slf4j
 @Controller
@@ -46,6 +50,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class AlquilerController {
 	
 	private static final String VIEWS_ALQUILER_CREATE_FORM = "alquiler/createAlquilerForm";
+	private static final String ERROR_VIEW="operacionImposible";
 
 	private final AlquilerService alquilerService;
 	
@@ -53,12 +58,22 @@ public class AlquilerController {
 	
 	private final VehiculosService vehiculosService;
 	
+	private final ConcesionarioService concesionarioService;
+	
+	private final EnvioService envioService;
+	
+	private final RecogidaService recogidaService;
+	
 	@Autowired
 	public AlquilerController(AlquilerService alquilerService,ClienteService clienteService, 
-			VehiculosService vehiculosService) {
+			VehiculosService vehiculosService, ConcesionarioService concesionarioService, EnvioService envioService,
+			RecogidaService recogidaService) {
 		this.alquilerService = alquilerService;
 		this.clienteService = clienteService;
 		this.vehiculosService = vehiculosService;
+		this.concesionarioService = concesionarioService;
+		this.envioService = envioService;
+		this.recogidaService = recogidaService;
 	}
 	
 	@InitBinder("alquiler")
@@ -116,12 +131,12 @@ public class AlquilerController {
 			model.put("esAlquiler", true);
 			model.put("fecha", alquilado.get(true));
 			log.info("El vehículo está ya alquilado y no se ha podido realizar el alquiler");
-			return "operacionImposible";
+			return ERROR_VIEW;
 		}else if(estaEnRevision(vehiculo)){
 			model.put("enRevision", estaEnRevision(vehiculo));
 			model.put("esRevisionAlquiler", true);
 			log.info("El vehículo está en revisión y no se ha podido realizar el alquiler");
-			return "operacionImposible";
+			return ERROR_VIEW;
 		}else {
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String username;
@@ -136,7 +151,7 @@ public class AlquilerController {
 			if(cliente.getEsConflictivo().equals("Si")) {
 				model.put("esConflictivo", true);
 				log.warn("El cliente es conflictivo y no se ha podido realizar el alquiler");
-				return "operacionImposible";
+				return ERROR_VIEW;
 			}
 			//Crear alquiler
 			Alquiler nuevoAlquiler = new Alquiler();
@@ -149,6 +164,11 @@ public class AlquilerController {
 			nuevoAlquiler.setEnvio(null);
 			model.put("alquiler", nuevoAlquiler);
 			
+			//obtener concesionarios donde entregar y recoger el vehículo
+			Iterable<Concesionario> concesionarios = concesionarioService.findAllConcesionarios();
+			model.put("concesionarios", concesionarios);
+			
+			
 			return VIEWS_ALQUILER_CREATE_FORM;
 		}
 
@@ -156,6 +176,8 @@ public class AlquilerController {
 	
 	@PostMapping(value = "/vehiculos/{vehiculoId}/alquilar")
 	public String processAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @Valid Alquiler alquiler, 
+			/**/@RequestParam(name = "concesionariosE") Concesionario concesionarioE,
+			@RequestParam(name = "concesionariosR") Concesionario concesionarioR,/**/ 
 			BindingResult result) {
 		if (result.hasErrors()) {
 			log.warn("No se ha podido realizar el alquiler");
@@ -167,6 +189,38 @@ public class AlquilerController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			alquilerService.saveAlquiler(alquiler);
 			log.info("Este vehículo con id: " + vehiculoId + " ha sido alquilado ");
+			
+			//////////////////////////////
+			//Crear envio
+			Envio nuevoEnvio = new Envio();
+			nuevoEnvio.setAlquiler(alquiler);
+			nuevoEnvio.setCodigoPostal(concesionarioE.getCodigoPostal());
+			nuevoEnvio.setDireccion(concesionarioE.getDireccion());
+			nuevoEnvio.setFecha(alquiler.getFechaInicio());
+			nuevoEnvio.setHora(LocalTime.of(9, 00, 00)); //por defecto
+			EstadoEnvio estadoEnvio = new EstadoEnvio();
+			estadoEnvio.setId(1); //por defecto, se crea con estado "1 = pendiente"
+			nuevoEnvio.setEstadoEnvio(estadoEnvio);
+			nuevoEnvio.setLocalidad(concesionarioE.getLocalidad());
+			nuevoEnvio.setPais(concesionarioE.getPais());
+			nuevoEnvio.setProvincia(concesionarioE.getProvincia());
+			alquiler.setEnvio(nuevoEnvio);
+			envioService.saveEnvio(nuevoEnvio);
+			
+			//Crear recogida
+			Recogida nuevaRecogida = new Recogida();
+			nuevaRecogida.setAlquiler(alquiler);//
+			nuevaRecogida.setCodigoPostal(concesionarioR.getCodigoPostal());
+			nuevaRecogida.setDireccion(concesionarioR.getDireccion());
+			nuevaRecogida.setFecha(alquiler.getFechaFin());
+			nuevaRecogida.setHora(LocalTime.of(9, 00, 00)); //por defecto
+			nuevaRecogida.setLocalidad(concesionarioR.getLocalidad());
+			nuevaRecogida.setPais(concesionarioR.getPais());
+			nuevaRecogida.setProvincia(concesionarioR.getProvincia());
+			alquiler.setRecogida(nuevaRecogida);
+			recogidaService.saveRecogida(nuevaRecogida);
+			//////////////////////////////
+
 			return "redirect:/MisAlquileres";
 		}
 	}
@@ -182,7 +236,7 @@ public class AlquilerController {
 	public String processDevolverVehiculo(ModelMap model, @RequestParam(name="AlquilerId") Integer alquilerId,
 				@RequestParam(name="disponible") Integer disponible, 
 				@RequestParam(name="FechaDevolucion") String fechaDevolucion) {
-		if (alquilerId.equals(null) || fechaDevolucion.equals("") || disponible.equals(null)) {
+		if (alquilerId==null || fechaDevolucion.equals("") || disponible==null) {
 			model.put("alquiler_id", alquilerId);
 			model.put("disponibles", this.vehiculosService.findAllDisponibles());
 			return "vehiculos/devolverVehiculo";
@@ -216,7 +270,7 @@ public class AlquilerController {
 		Map<Boolean, LocalDate> res = new HashMap<>();
 		Iterable<Alquiler> alquileres = this.alquilerService.findAllAlquiler();
 		for(Alquiler a:alquileres) {
-			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now())) {
+			if(vehiculo.equals(a.getVehiculo()) && a.getFechaFin().isAfter(LocalDate.now()) && a.getDepLleno()==Boolean.FALSE) {
 				res.put(true, a.getFechaFin());
 				return res;
 			}
@@ -240,8 +294,7 @@ public class AlquilerController {
 	public Integer esRetraso(String fechaDevolucion, LocalDate fechaFin) {
 		LocalDate devolucion = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(fechaDevolucion));
 		long retraso = DAYS.between(fechaFin, devolucion);
-		Integer res = (int) retraso;
-		return res;
+		return (int)retraso;
 	}
 	
 }

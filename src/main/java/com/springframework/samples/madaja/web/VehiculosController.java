@@ -24,13 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.springframework.samples.madaja.model.Disponible;
 import com.springframework.samples.madaja.model.Vehiculos;
-
-import com.springframework.samples.madaja.service.IncidenciaService;
-import com.springframework.samples.madaja.service.SearchService;
-import com.springframework.samples.madaja.model.Venta;
-import com.springframework.samples.madaja.service.ClienteService;
-
 import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.SearchService;
 import com.springframework.samples.madaja.service.VehiculosService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class VehiculosController {
 	
 	private static final String VIEWS_VEHICULOS_CREATE_OR_UPDATE_FORM = "vehiculos/createOrUpdateVehiculoForm";
+	private static final String VIEW_VEHICULOS = "vehiculos/mostrarVehiculos";
 	
 	private final VehiculosService vehiculosService;
 
@@ -66,7 +62,7 @@ public class VehiculosController {
 
         int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
-        PageRequest pageRequest = PageRequest.of(page, 10);
+        PageRequest pageRequest = PageRequest.of(page, 12);
 
         Page<Vehiculos> pageVehiculos = this.vehiculosService.getAll(pageRequest);
         
@@ -91,18 +87,8 @@ public class VehiculosController {
         model.addAttribute("max", totalPage);
         
       
-        return "vehiculos/mostrarVehiculos";
+        return VIEW_VEHICULOS;
 	}
-    //
-	/*
-	@GetMapping(value = { "/vehiculos" })
-	public String showVehiculosList(Map<String, Object> model) {
-		Collection<Vehiculos> vehiculos = this.vehiculosService.findAllVehiculos();
-		Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
-		model.put("vehiculos", vehiculos);
-		model.put("disponible", disponible);
-		return "vehiculos/mostrarVehiculos";
-	}*/
 	
 	@GetMapping(value = "/vehiculos/new")
 	public String initCreationForm(Map<String, Object> model) {
@@ -176,16 +162,6 @@ public class VehiculosController {
 		return "redirect:/vehiculos";
 	}
 	
-	/*
-	@GetMapping(value="/vehiculos/disponible/{disponibleId}")
-	public String showVehiculosDisponibleList(@PathVariable("disponibleId") int disponibleId, 
-			Map<String, Object> model) {
-		Collection<Vehiculos> vehiculos = this.vehiculosService.findByDisponible(disponibleId);
-		Collection<Disponible> disponible = this.vehiculosService.findAllDisponibles();
-		model.put("vehiculos", vehiculos);
-		model.put("disponible", disponible);
-		return "vehiculos/mostrarVehiculos";
-	}*/
 	
 	//PAGINACIÓN (disponible)
 	@GetMapping(value = { "/vehiculos/disponible/{disponibleId}" })
@@ -193,7 +169,7 @@ public class VehiculosController {
 
         int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 
-        PageRequest pageRequest = PageRequest.of(page, 2);
+        PageRequest pageRequest = PageRequest.of(page, 12);
 
         Page<Vehiculos> pageVehiculosD = this.vehiculosService.getAllD(disponibleId, pageRequest);
 
@@ -212,7 +188,7 @@ public class VehiculosController {
         model.addAttribute("next", page+2);
         model.addAttribute("prev", page);
         model.addAttribute("max", totalPage);
-        return "vehiculos/mostrarVehiculos";
+        return VIEW_VEHICULOS;
 	}
     //
 	
@@ -230,16 +206,16 @@ public class VehiculosController {
 	@GetMapping(value= {"/searchVehiculos"})
 	public String initFindForm(ModelMap model) {
 		model.put("vehiculo",new Vehiculos());
-		return "vehiculos/mostrarVehiculos";
+		return VIEW_VEHICULOS;
 	}
 	
 	@PostMapping(value = {"/doSearchVehiculos"})
 	public String searchVehiculos(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
-		if(searchText == "") {
+		if(searchText.equals("")) {
 			return "redirect:/vehiculos";
 		}
 		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
 		log.info("Se ha realizado la siguiente búsqueda de vehículos: " + searchText);
-		return "vehiculos/mostrarVehiculos";
+		return VIEW_VEHICULOS;
 	}
 }

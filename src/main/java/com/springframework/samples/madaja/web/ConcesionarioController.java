@@ -12,13 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.service.ConcesionarioService;
@@ -30,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ConcesionarioController {
 	
+	private static final String VISTA_CONCESIONARIOS="concesionario/mostrarConcesionarios";
 	private final ConcesionarioService concesionarioService;
 	private SearchService searchService;
 	
@@ -45,7 +41,7 @@ public class ConcesionarioController {
 		//equivalente a un if/else, si se cumple, hace lo de la izq de los ":" y si no, lo de la derecha:
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1 ) : 0;
 		
-		PageRequest pageRequest = PageRequest.of(page, 2);
+		PageRequest pageRequest = PageRequest.of(page, 12);
 		
 		Page<Concesionario> pageConcesionario = this.concesionarioService.getAll(pageRequest);
 		
@@ -62,7 +58,7 @@ public class ConcesionarioController {
 		model.addAttribute("prev", page);
 		model.addAttribute("max", totalPage);
 				
-		return "concesionario/mostrarConcesionarios";
+		return VISTA_CONCESIONARIOS;
 	}
 	
 	@GetMapping("/concesionario/{concesionarioId}")
@@ -75,18 +71,18 @@ public class ConcesionarioController {
 	@GetMapping(value= {"/searchConcesionarios"})
 	public String initFindForm(ModelMap model) {
 		model.put("concesionario", new Concesionario());
-		return "concesionario/mostrarConcesionarios";
+		return VISTA_CONCESIONARIOS;
 	}
 	
 	@PostMapping(value = {"/doSearchConcesionarios"})
 	public String searchConcesionarios(@RequestParam(value="search",required = false) String searchText, ModelMap model) {
 		
-		if(searchText == "") {
+		if(searchText.equals("")) {
 			return "redirect:/concesionario";
 		}
 		log.info("Se ha realizado la siguiente búsqueda de concesionarios: " + searchText);
 		model.put("concesionarios", this.searchService.searchConcesionarios(searchText));
-		return "concesionario/mostrarConcesionarios";
+		return VISTA_CONCESIONARIOS;
 	}
 	
 	//-------------------------------------API--------------------------------

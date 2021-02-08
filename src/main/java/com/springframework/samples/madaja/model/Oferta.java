@@ -2,23 +2,14 @@ package com.springframework.samples.madaja.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,41 +17,40 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springframework.samples.madaja.util.FechaLimiteConstraint;
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "oferta")
 public class Oferta extends NamedEntity {
-	
+
 	@Column(name = "descuento")
 	@javax.validation.constraints.NotNull
 	@Min(0)
 	private Double descuento;
-	
+
 	@Column(name = "fecha_limite")
 	@FechaLimiteConstraint
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fechaLimite;
 
-	@Column(name = "hora_limite")   
+	@Column(name = "hora_limite")
 	@javax.validation.constraints.NotNull
-	@DateTimeFormat(iso=ISO.TIME)
+	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime horaLimite;
-	
+
 	@OneToMany(mappedBy = "oferta", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Vehiculos> vehiculos;
-	
+
 	public void addVehiculo(Vehiculos vehiculo) {
 		vehiculos.add(vehiculo);
 		vehiculo.setOferta(this);
 	}
-	
+
 	public void removeVehiculo(Vehiculos vehiculo) {
 		vehiculos.remove(vehiculo);
 		vehiculo.setOferta(null);
 	}
-	
+
 	public Double getDescuento() {
 		return descuento;
 	}
@@ -85,7 +75,6 @@ public class Oferta extends NamedEntity {
 		this.horaLimite = horaLimite;
 	}
 
-	
 	public Set<Vehiculos> getVehiculos() {
 		return vehiculos;
 	}
@@ -93,8 +82,6 @@ public class Oferta extends NamedEntity {
 	public void setVehiculos(Set<Vehiculos> vehiculos) {
 		this.vehiculos = vehiculos;
 	}
-
-	
 
 	@Override
 	public String toString() {
@@ -105,9 +92,5 @@ public class Oferta extends NamedEntity {
 		builder.append("vehiculos", vehiculos);
 		return builder.toString();
 	}
-
-	
-	
-	
 
 }

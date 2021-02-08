@@ -20,20 +20,20 @@ import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "compania")
-public class Compania extends BaseEntity{
-	
+public class Compania extends BaseEntity {
+
 	@Column(name = "nombre")
 	@NotEmpty
 	private String nombre;
-	
+
 	@Column(name = "telefono")
 	@NotEmpty
 	private String telefono;
-	
+
 	@Column(name = "email")
 	@Email
 	private String email;
-	
+
 	@OneToMany(mappedBy = "compania", cascade = CascadeType.ALL)
 	private Set<SeguroVehiculo> segurosVehiculo;
 
@@ -60,7 +60,7 @@ public class Compania extends BaseEntity{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	protected Set<SeguroVehiculo> getSegurosVehiculoInternal() {
 		if (this.segurosVehiculo == null) {
 			this.segurosVehiculo = new HashSet<>();
@@ -82,7 +82,7 @@ public class Compania extends BaseEntity{
 		getSegurosVehiculoInternal().add(segurosVehiculo);
 		segurosVehiculo.setCompania(this);
 	}
-	
+
 	public boolean removeSeguroVehiculo(SeguroVehiculo seguroVehiculo) {
 		return getSegurosVehiculoInternal().remove(seguroVehiculo);
 	}
@@ -101,5 +101,5 @@ public class Compania extends BaseEntity{
 		builder.append("isNew()", isNew());
 		return builder.toString();
 	}
-	
+
 }
