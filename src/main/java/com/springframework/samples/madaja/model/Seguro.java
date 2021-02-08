@@ -5,15 +5,14 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-
 @MappedSuperclass
-public class Seguro extends BaseEntity{ 
-	
+public class Seguro extends BaseEntity {
+
 	@Column(name = "precio")
 	@PositiveOrZero
 	@NotNull
 	protected Double precio;
-	
+
 	@Column(name = "franquicia")
 	@PositiveOrZero
 	@NotNull
@@ -34,7 +33,5 @@ public class Seguro extends BaseEntity{
 	public void setFranquicia(Integer franquicia) {
 		this.franquicia = franquicia;
 	}
-
-
 
 }

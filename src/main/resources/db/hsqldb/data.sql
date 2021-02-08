@@ -1090,11 +1090,11 @@ INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca
 INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (484,1,'5507GDG',587,41954,'VOLVO','V40',4,4,1,569,32774,'Veloz y bajo consumo','Leve desgaste',2,2,7,484);																			
 INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (485,1,'8298LJL',1161,21026,'VOLVO','V40 Cross Country',5,5,2,759,28746,'Bajo coste de mantenimiento','Viejo',3,2,7,485);																			
 INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (486,4,'4831MCH',883,12940,'VOLVO','V60 Cross Country',5,2,1,392,16154,'Cómodo y amplio','Un poco sucio',3,1,7,486);																			
-INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (487,4,'0829JCD',552,29067,'VOLVO','S60 Cross Country',5,4,2,705,34265,'Gran calidad de acabado','Defectos menores',2,2,10,487);																			
-INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (488,3,'0648HMC',1279,34762,'VOLVO','S90',4,5,2,449,42919,'Bajo consumo y silencioso','Casi sin uso',5,2,1,488);																			
-INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (489,1,'5697NDH',741,7123,'VOLVO','V90',2,3,1,208,83664,'Respetuoso con el medio ambiente','Nuevo',5,3,3,489);																			
-INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (490,2,'2969LGD',939,20855,'VOLVO','V90 Cross Country',3,4,2,739,17800,'Cómodo y seguro','Muy desgastado',1,3,1,490);																			
-INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (491,3,'7350BCJ',1266,55081,'VOLVO','XC40',5,2,1,817,12508,'Veloz y silencioso','Daños superficiales',5,3,8,491);																			
+INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (487,null,'0829JCD',552,29067,'VOLVO','S60 Cross Country',5,4,2,705,34265,'Gran calidad de acabado','Defectos menores',2,2,10,487);																			
+INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (488,null,'0648HMC',1279,34762,'VOLVO','S90',4,5,2,449,42919,'Bajo consumo y silencioso','Casi sin uso',5,2,1,488);																			
+INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (489,null,'5697NDH',741,7123,'VOLVO','V90',2,3,1,208,83664,'Respetuoso con el medio ambiente','Nuevo',5,3,3,489);																			
+INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (490,null,'2969LGD',939,20855,'VOLVO','V90 Cross Country',3,4,2,739,17800,'Cómodo y seguro','Muy desgastado',1,3,1,490);																			
+INSERT INTO  vehiculos(id,oferta_id,matricula,precio_alquiler,precio_venta,marca,modelo,puertas,plazas,cambio_id,maletero,km_actuales,caracteristicas,estado,disponible_id,combustible_id,concesionario_id,seguro_vehiculo_id) VALUES (491,null,'7350BCJ',1266,55081,'VOLVO','XC40',5,2,1,817,12508,'Veloz y silencioso','Daños superficiales',5,3,8,491);																			
 																	
 
 INSERT INTO incidencia(id,descripcion,solucionada,vehiculos_id,cliente_id) VALUES (1, 'Golpe en la parte frontal', false,1, 1);
@@ -1128,9 +1128,8 @@ INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (1,'2016-09-03',31
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (2,'2015-05-08',122.0,2);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (3,'2012-09-02',226.0,3);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (4,'2010-03-23',173.4,1);
-INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (5,'2020-06-07',586.0,3);
+INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (5,'2020-06-07',586.0,2);
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (6,'2020-07-15',428.5,1);
-
 
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','2010-09-03','10:00',4,2);
 INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora,estado_id,mecanico_id) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','2010-08-07','11:00',2,1);
@@ -1147,9 +1146,9 @@ INSERT INTO envio(id,provincia,localidad,direccion,codigo_postal,pais,fecha,hora
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_id) VALUES (1,'Sevilla','Sevilla','C/Aznalcazar','41005','España','12:00',1);
 INSERT INTO recogida(id,provincia,localidad,direccion,codigo_postal,pais,hora,mecanico_id) VALUES (2,'Huelva','Huelva','C/San Pedro','21004','España','13:00',3);
 
-INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (1,'2020-09-05',1,3,7);
-INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (2,'2020-02-01',2,4,6);
-INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (3,'2020-11-08',3,5,5);
+INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (1,'2020-09-05',1,3,7,1);
+INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (2,'2020-02-01',2,4,6,2);
+INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id,reserva_id) VALUES (3,'2020-11-08',3,5,5,3);
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (4,'2020-04-10',1,6,20);
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (5,'2020-03-21',2,7,30);
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (6,'2020-12-01',3,8,40);
@@ -1157,9 +1156,9 @@ INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (7,'2020-04-1
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (8,'2020-03-21',2,10,35);
 INSERT INTO venta(id,fecha,cliente_id,envio_id,vehiculo_id) VALUES (9,'2020-12-01',3,11,45);
 
-INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
-	VALUES (1,1,1,1,4,'2010-09-03','2010-09-22',20000,true, true);
-INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
-	VALUES (2,2,2,2,1,'2010-08-07','2010-09-01',38000,true, false);
-INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
-	VALUES (3,2,null,null,3,'2020-09-05','2020-09-10',16500,false, true);
+INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
+	VALUES (1,1,1,1,4,4,'2010-09-03','2010-09-22',20000,true, true);
+INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
+	VALUES (2,2,2,2,5,1,'2010-08-07','2010-09-01',38000,true, false);
+INSERT INTO alquiler(id,cliente_id,envio_id,recogida_id,reserva_id,vehiculo_id,fecha_inicio,fecha_fin,limite_KM,dep_lleno, devuelto) 
+	VALUES (3,2,null,null,null,3,'2020-09-05','2020-09-10',16500,false, true);

@@ -81,6 +81,8 @@ public class ConcesionarioController {
 			return "redirect:/concesionario";
 		}
 		log.info("Se ha realizado la siguiente búsqueda de concesionarios: " + searchText);
+		int page = 0;
+		model.put("prev", page);
 		model.put("concesionarios", this.searchService.searchConcesionarios(searchText));
 		return VISTA_CONCESIONARIOS;
 	}

@@ -10,38 +10,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
-
 
 @Entity
 @Table(name = "users")
-public class User{
+public class User {
 	@Id
 	@NotBlank
 	@NotEmpty
 	String username;
-	
+
 	@NotBlank
 	@NotEmpty
 	String password;
-	
+
 	boolean enabled;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authorities> authorities;
 
-	
 	public void addAuthorities(Authorities aut) {
-		if(this.authorities == null) {
+		if (this.authorities == null) {
 			this.authorities = new HashSet<Authorities>();
-		}else {
+		} else {
 			this.authorities.add(aut);
 		}
 	}
+
 	/**
 	 * @return the username
 	 */
@@ -97,6 +91,5 @@ public class User{
 	public void setAuthorities(Set<Authorities> authorities) {
 		this.authorities = authorities;
 	}
-	
-	
+
 }

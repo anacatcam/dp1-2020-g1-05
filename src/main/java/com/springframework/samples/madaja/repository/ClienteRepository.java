@@ -19,10 +19,8 @@ public interface ClienteRepository extends Repository<Cliente, Integer>{
 	
 	@Query("SELECT cliente FROM Cliente cliente WHERE cliente.user.username = :username")
 	public Cliente findByUsername(@Param("username") String username);
-	
-	/////////
+
 	Page<Cliente> findAll(Pageable pageable);
-	/////////
 
 	@Query("SELECT cliente FROM Cliente cliente WHERE cliente.id =:id")
 	public Cliente findById(@Param("id") int id);

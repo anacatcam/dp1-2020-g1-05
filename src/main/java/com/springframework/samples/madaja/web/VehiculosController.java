@@ -214,6 +214,8 @@ public class VehiculosController {
 		if(searchText == "") {
 			return "redirect:/vehiculos";
 		}
+		int page = 0;
+		model.put("prev", page);
 		model.put("vehiculos",this.searchService.searchVehiculos(searchText));
 		log.info("Se ha realizado la siguiente búsqueda de vehículos: " + searchText);
 		return VIEW_VEHICULOS;

@@ -112,6 +112,8 @@ public class ClienteController {
 		if(searchText == "") {
 			return "redirect:/clientes";
 		}
+		int page = 0;
+		model.put("prev", page);
 		model.put("clientes", searchService.searchClientes(searchText));
 		
 		return VISTA_CLIENTES;

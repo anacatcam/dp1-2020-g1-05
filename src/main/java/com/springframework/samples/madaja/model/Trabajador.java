@@ -2,19 +2,15 @@ package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.Field;
-import org.springframework.core.style.ToStringCreator;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 
 @MappedSuperclass
-public class Trabajador extends Person{
-	
+public class Trabajador extends Person {
+
 	@Column(name = "sueldo")
-	@NotNull
+	@Positive
+	@Min(value = 1)
 	protected Double sueldo;
 
 	public Double getSueldo() {
@@ -25,6 +21,4 @@ public class Trabajador extends Person{
 		this.sueldo = sueldo;
 	}
 
-
-	
 }

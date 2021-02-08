@@ -14,7 +14,7 @@
 			<label for="inputSearch">Encuentra tu concesionario</label>
 			<div class="form-group">
 				<div class="form-inline">
-						<input class="form-control" placeholder="Nombre, provincia, localidad o país" id="search" name="search" type="text" maxlength="25" size="31">
+						<input class="form-control" placeholder="Nombre, provincia, localidad o país" id="search" name="search" type="text" pattern="^[^\s].+|^\d{1}$|^[a-zA-Z]{1}$" maxlength="25" size="31">
 					<button class="btn btn-default" type="submit" style="margin-left:15px;">Buscar</button>
 				</div>
 			</div>

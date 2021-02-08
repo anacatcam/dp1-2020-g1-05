@@ -17,15 +17,13 @@ package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.sun.istack.NotNull;
-
 /**
- * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as
- * a base class for objects needing these properties.
+ * Simple JavaBean domain object adds a name property to
+ * <code>BaseEntity</code>. Used as a base class for objects needing these
+ * properties.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller
@@ -33,8 +31,8 @@ import com.sun.istack.NotNull;
 @MappedSuperclass
 public class NamedEntity extends BaseEntity {
 
-    @Size(min = 3, max = 50)
-    @NotEmpty
+	@Size(min = 3, max = 50)
+	@NotEmpty
 	@Column(name = "name")
 	private String name;
 

@@ -37,7 +37,7 @@ public class Person extends BaseEntity {
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String dni;
-	
+
 	@Column(name = "first_name")
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
@@ -47,18 +47,18 @@ public class Person extends BaseEntity {
 	@NotEmpty
 	@Field(analyzer = @Analyzer(definition = "edgeNgram"))
 	private String lastName;
-	
+
 	@Column(name = "telefono")
 	@NotEmpty
-	@Length(min = 9,max=9)
+	@Length(min = 9, max = 9)
 	@Digits(fraction = 0, integer = 10)
 	private String telefono;
-	
+
 	@Column(name = "email")
 	@NotEmpty
 	@Email
-	private  String email;
-	
+	private String email;
+
 	public String getDni() {
 		return this.dni;
 	}
@@ -66,7 +66,7 @@ public class Person extends BaseEntity {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	
+
 	public String getTelefono() {
 		return this.telefono;
 	}
@@ -98,7 +98,5 @@ public class Person extends BaseEntity {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	
 
 }

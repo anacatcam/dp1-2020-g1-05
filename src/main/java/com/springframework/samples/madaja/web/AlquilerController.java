@@ -3,6 +3,7 @@ package com.springframework.samples.madaja.web;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +28,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.samples.madaja.model.Alquiler;
 import com.springframework.samples.madaja.model.Cliente;
+import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.model.Disponible;
+import com.springframework.samples.madaja.model.Envio;
+import com.springframework.samples.madaja.model.EstadoEnvio;
 import com.springframework.samples.madaja.model.Incidencia;
+import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.EnvioService;
+import com.springframework.samples.madaja.service.RecogidaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
 
@@ -54,14 +62,25 @@ public class AlquilerController {
 	private final VehiculosService vehiculosService;
 	
 	private final VentaService ventaService;
+
+	private final ConcesionarioService concesionarioService;
+	
+	private final EnvioService envioService;
+	
+	private final RecogidaService recogidaService;
 	
 	@Autowired
-	public AlquilerController(AlquilerService alquilerService,ClienteService clienteService, 
-			VehiculosService vehiculosService, VentaService ventaService) {
+	public AlquilerController(AlquilerService alquilerService,ClienteService clienteService, VentaService ventaService,
+			VehiculosService vehiculosService, ConcesionarioService concesionarioService, EnvioService envioService,
+			RecogidaService recogidaService) {
 		this.alquilerService = alquilerService;
 		this.clienteService = clienteService;
 		this.vehiculosService = vehiculosService;
 		this.ventaService = ventaService;
+		this.concesionarioService = concesionarioService;
+		this.envioService = envioService;
+		this.recogidaService = recogidaService;
+
 	}
 	
 	@InitBinder("alquiler")
@@ -157,6 +176,11 @@ public class AlquilerController {
 			nuevoAlquiler.setEnvio(null);
 			model.put("alquiler", nuevoAlquiler);
 			
+			//obtener concesionarios donde entregar y recoger el vehículo
+			Iterable<Concesionario> concesionarios = concesionarioService.findAllConcesionarios();
+			model.put("concesionarios", concesionarios);
+			
+			
 			return VIEWS_ALQUILER_CREATE_FORM;
 		}
 
@@ -164,6 +188,8 @@ public class AlquilerController {
 	
 	@PostMapping(value = "/vehiculos/{vehiculoId}/alquilar")
 	public String processAlquilarVehiculo(@PathVariable("vehiculoId") int vehiculoId, @Valid Alquiler alquiler, 
+			/**/@RequestParam(name = "concesionariosE") Concesionario concesionarioE,
+			@RequestParam(name = "concesionariosR") Concesionario concesionarioR,/**/ 
 			BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			log.warn("No se ha podido realizar el alquiler");
@@ -182,6 +208,38 @@ public class AlquilerController {
 			this.vehiculosService.saveVehiculo(vehiculo);
 			alquilerService.saveAlquiler(alquiler);
 			log.info("Este vehículo con id: " + vehiculoId + " ha sido alquilado ");
+			
+			//////////////////////////////
+			//Crear envio
+			Envio nuevoEnvio = new Envio();
+			nuevoEnvio.setAlquiler(alquiler);
+			nuevoEnvio.setCodigoPostal(concesionarioE.getCodigoPostal());
+			nuevoEnvio.setDireccion(concesionarioE.getDireccion());
+			nuevoEnvio.setFecha(alquiler.getFechaInicio());
+			nuevoEnvio.setHora(LocalTime.of(9, 00, 00)); //por defecto
+			EstadoEnvio estadoEnvio = new EstadoEnvio();
+			estadoEnvio.setId(1); //por defecto, se crea con estado "1 = pendiente"
+			nuevoEnvio.setEstadoEnvio(estadoEnvio);
+			nuevoEnvio.setLocalidad(concesionarioE.getLocalidad());
+			nuevoEnvio.setPais(concesionarioE.getPais());
+			nuevoEnvio.setProvincia(concesionarioE.getProvincia());
+			alquiler.setEnvio(nuevoEnvio);
+			envioService.saveEnvio(nuevoEnvio);
+			
+			//Crear recogida
+			Recogida nuevaRecogida = new Recogida();
+			nuevaRecogida.setAlquiler(alquiler);//
+			nuevaRecogida.setCodigoPostal(concesionarioR.getCodigoPostal());
+			nuevaRecogida.setDireccion(concesionarioR.getDireccion());
+			nuevaRecogida.setFecha(alquiler.getFechaFin());
+			nuevaRecogida.setHora(LocalTime.of(9, 00, 00)); //por defecto
+			nuevaRecogida.setLocalidad(concesionarioR.getLocalidad());
+			nuevaRecogida.setPais(concesionarioR.getPais());
+			nuevaRecogida.setProvincia(concesionarioR.getProvincia());
+			alquiler.setRecogida(nuevaRecogida);
+			recogidaService.saveRecogida(nuevaRecogida);
+			//////////////////////////////
+
 			return "redirect:/MisAlquileres";
 		}
 	}

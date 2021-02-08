@@ -28,13 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ClienteService {
 	private ClienteRepository clienteRepository;
 	
-	@Autowired
 	private UserService userService;
-	@Autowired
+
 	private AuthoritiesService authoritiesService;
 	
 	@Autowired
-	public ClienteService(ClienteRepository clienteRepository) {
+	public ClienteService(ClienteRepository clienteRepository, UserService userService, AuthoritiesService authoritiesService) {
+		this.userService = userService;
+		this.authoritiesService = authoritiesService;
 		this.clienteRepository = clienteRepository;
 	}
 	

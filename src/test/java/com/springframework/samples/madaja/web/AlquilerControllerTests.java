@@ -25,7 +25,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.springframework.samples.madaja.configuration.SecurityConfiguration;
 import com.springframework.samples.madaja.model.Alquiler;
@@ -45,6 +44,9 @@ import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
+import com.springframework.samples.madaja.service.ConcesionarioService;
+import com.springframework.samples.madaja.service.EnvioService;
+import com.springframework.samples.madaja.service.RecogidaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
 
@@ -67,6 +69,15 @@ public class AlquilerControllerTests {
 	
 	@MockBean
 	private VentaService ventaService;
+	
+	@MockBean
+	private ConcesionarioService concesionarioService;
+	
+	@MockBean
+	private EnvioService envioService;
+	
+	@MockBean
+	private RecogidaService recogidaService;
 	
 	@Autowired
 	private MockMvc mockMvc;
