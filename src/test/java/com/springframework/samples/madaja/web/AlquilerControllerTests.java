@@ -46,6 +46,7 @@ import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
 import com.springframework.samples.madaja.service.VehiculosService;
+import com.springframework.samples.madaja.service.VentaService;
 
 @WebMvcTest(controllers=AlquilerController.class,
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
@@ -63,6 +64,9 @@ public class AlquilerControllerTests {
 	
 	@MockBean
 	private VehiculosService vehiculosService;
+	
+	@MockBean
+	private VentaService ventaService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -322,7 +326,7 @@ public class AlquilerControllerTests {
 	void testInitAlquilarVehiculoElseConflictivoElse() throws Exception{
 		
 		List<Alquiler> alquileres = new ArrayList<Alquiler>();
-		
+		alquileres.add(alquiler);
 		given(alquilerService.findAllAlquiler()).willReturn(alquileres);
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
 		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
@@ -345,6 +349,7 @@ public class AlquilerControllerTests {
 	@WithMockUser(value = "Spring")
 	@Test
 	void testProcessAlquilarVehiculoSuccess() throws Exception{
+		
 		given(vehiculosService.findVehiculoById(anyInt())).willReturn(vehiculo);
 		given(vehiculosService.findDisponibleById(anyInt())).willReturn(disponible);
 		

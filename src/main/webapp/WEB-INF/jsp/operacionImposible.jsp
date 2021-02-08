@@ -16,7 +16,24 @@
 		<p style="text-align:center;">No ha sido posible llevar a cabo el alquiler debido a que este vehículo ya se encuentra alquilado.</p>
 		<p style="text-align:center;">Este vehículo no estará disponible hasta el <b><c:out value="${fecha}"/></b>.</p>
 		<br>
-		<p style="text-align:center;">Puedes consultar nuestros vehículos disponibles en el catálogo.</p>
+		<p style="text-align:center;">Puedes consultar otros vehículos disponibles en el catálogo.</p>
+		<br>
+		<div style="display:block; margin: auto; text-align:center;">
+			<spring:url value="/vehiculos" var="catalogoUrl">
+		    </spring:url>
+		    <a href="${fn:escapeXml(catalogoUrl)}" class="btn btn-default">Volver al catálogo</a>
+		</div>
+	</c:if>
+	<c:if test="${esAlquilerVenta}">
+		<h2 style="text-align:center;">La compra no se pudo realizar</h2>
+		<br>
+		<spring:url value="/resources/images/noDisponible.jpg" var="noDisponible"/>
+	    <img style="display:block; margin: auto;" src="${noDisponible}"/>
+	    <br>
+		<p style="text-align:center;">No ha sido posible llevar a cabo la compra debido a que este vehículo se encuentra alquilado.</p>
+		<p style="text-align:center;">Este vehículo no estará disponible hasta el <b><c:out value="${fecha}"/></b>.</p>
+		<br>
+		<p style="text-align:center;">Puedes consultar otros vehículos disponibles en el catálogo.</p>
 		<br>
 		<div style="display:block; margin: auto; text-align:center;">
 			<spring:url value="/vehiculos" var="catalogoUrl">
@@ -32,7 +49,23 @@
 	    <br>
 		<p style="text-align:center;">No ha sido posible llevar a cabo la compra debido a que este vehículo ya ha sido vendido.</p>
 		<br>
-		<p style="text-align:center;">Puedes consultar nuestros vehículos disponibles en el catálogo.</p>
+		<p style="text-align:center;">Puedes consultar otros vehículos disponibles en el catálogo.</p>
+		<br>
+		<div style="display:block; margin: auto; text-align:center;">
+			<spring:url value="/vehiculos" var="catalogoUrl">
+		    </spring:url>
+		    <a href="${fn:escapeXml(catalogoUrl)}" class="btn btn-default">Volver al catálogo</a>
+		</div>
+	</c:if>
+	<c:if test="${esVentaAlquiler}">
+		<h2 style="text-align:center;">El alquiler no se pudo realizar</h2>
+		<br>
+		<spring:url value="/resources/images/noDisponible.jpg" var="noDisponible"/>
+	    <img style="display:block; margin: auto;" src="${noDisponible}"/>
+	    <br>
+		<p style="text-align:center;">No ha sido posible llevar a cabo el alquiler debido a que este vehículo ya ha sido vendido.</p>
+		<br>
+		<p style="text-align:center;">Puedes consultar otros vehículos disponibles en el catálogo.</p>
 		<br>
 		<div style="display:block; margin: auto; text-align:center;">
 			<spring:url value="/vehiculos" var="catalogoUrl">
@@ -58,7 +91,7 @@
 			<p style="text-align:center;">No ha sido posible llevar a cabo la compra debido a que nuestros mecánicos están revisándolo en este momento. ¡Sentimos las molestias!</p>
 		</c:if>
 		<br>
-		<p style="text-align:center;">Puedes consultar nuestros vehículos disponibles en el catálogo.</p>
+		<p style="text-align:center;">Puedes consultar otros vehículos disponibles en el catálogo.</p>
 		<br>
 		<div style="display:block; margin: auto; text-align:center;">
 			<spring:url value="/vehiculos" var="catalogoUrl">
@@ -85,10 +118,26 @@
 	<c:if test="${compraHaceMenosDe30Dias}">
 		<h2 style="text-align:center;">La operación no se pudo realizar</h2>
 		<br>
-		<spring:url value="/resources/images/conflictivo.jpg" var="conflictivo"/>
-	    <img style="display:block; margin: auto; width: 40%; height: 40%;" src="${conflictivo}"/>
+		<spring:url value="/resources/images/demasiadosCoches.jpg" var="demasiadoscoches"/>
+	    <img style="display:block; margin: auto; width: 40%; height: 40%;" src="${demasiadoscoches}"/>
 	    <br>
 		<p style="text-align:center;">Has hecho una compra hace menos de 30 días, deberás esperar un poco para la próxima.</p>
+		<br>
+		<div style="display:block; margin: auto; text-align:center;">
+			<spring:url value="/vehiculos" var="catalogoUrl">
+		    </spring:url>
+		    <a href="${fn:escapeXml(catalogoUrl)}" class="btn btn-default">Volver al catálogo</a>
+		</div>
+	</c:if>
+	<c:if test="${alquilerEnMismoPeriodo}">
+		<h2 style="text-align:center;">La operación no se pudo realizar</h2>
+		<br>
+		<spring:url value="/resources/images/demasiadosCoches.jpg" var="demasiadoscoches"/>
+	    <img style="display:block; margin: auto; width: 40%; height: 40%;" src="${demasiadoscoches}"/>
+	    <br>
+		<p style="text-align:center;">El alquiler que quieres hacer está dentro del periodo de tiempo de otro alquiler que has hecho actualmente.</p>
+		<br>
+		<p style="text-align:center;">Si quieres hacer otro alquiler, este debe ser posterior al día <b><c:out value="${fechaFin}"></c:out></b></p>
 		<br>
 		<div style="display:block; margin: auto; text-align:center;">
 			<spring:url value="/vehiculos" var="catalogoUrl">
