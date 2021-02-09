@@ -1121,7 +1121,7 @@ INSERT INTO incidencias_mecanicos VALUES (6, 1);
 
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (1,150,210,'Todo riesgo','2021-2-10','2020-2-4',1);
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (2,300,430,'Robos e incendios','2021-2-10','2020-2-4',2);
-INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (3,0,350,'Repostaje ilimitado','2021-2-10','2020-2-4',5);
+INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (3,0,350,'Repostaje ilimitado','2021-2-10','2020-2-4',98);
 INSERT INTO seguro_cliente(id,franquicia,precio,cobertura,fecha_fin,fecha_inicio,vehiculos_id) VALUES (4,220,174,'Todo riesgo','2021-2-10','2020-2-4',7);
 
 INSERT INTO reserva(id,fecha_gastos,fianza,cliente_id) VALUES (1,'2016-09-03',317.8,1);
