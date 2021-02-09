@@ -39,7 +39,7 @@ public class ReservaTests {
 		reserva.setFechaGastos(null);
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Reserva>> constraintViolations = validator.validate(reserva);
-		assertEquals(constraintViolations.size(), 2);
+		assertEquals(constraintViolations.size(), 1);
 	}
 
 //	@Test

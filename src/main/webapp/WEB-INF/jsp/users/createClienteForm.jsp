@@ -19,6 +19,7 @@
             <madaja:inputField label="Teléfono" name="telefono"/>
             <madaja:inputField label="Correo" name="email"/>
             <input name="esConflictivo" type="hidden" value="No">
+            <input name="diasRetraso" type="hidden" value="0">
             <madaja:inputField label="Username" name="user.username"/>
             <div class="form-inline">
             	<label for="user.password" class="col-sm-2 control-label" style="margin-left:-10px; margin-right:15px;">Contraseña</label>

@@ -7,7 +7,14 @@
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
 <madaja:layout pageName="vehiculos">
-
+	<jsp:attribute name="customScript">     
+		<script>
+            $(function () {
+                $("#fechaGastos").datepicker({dateFormat: 'yy-mm-dd'});
+            });
+    </script>   
+   	</jsp:attribute>
+	<jsp:body>
     <h2>Confirmar reserva</h2>
     
     <span><b>Fianza:</b> <c:out value="${reserva.fianza}"></c:out></span><br/>
@@ -49,4 +56,5 @@
 	        </td>
 		</tr>
 	</table>
+	</jsp:body>
 </madaja:layout>

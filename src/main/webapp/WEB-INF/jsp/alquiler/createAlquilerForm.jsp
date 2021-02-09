@@ -7,6 +7,17 @@
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
 
 <madaja:layout pageName="createAlquiler">
+	<jsp:attribute name="customScript">     
+		<script>
+            $(function () {
+                $("#fechaInicio").datepicker({dateFormat: 'yy-mm-dd'});
+            });
+            $(function () {
+                $("#fechaFin").datepicker({dateFormat: 'yy-mm-dd'});
+            });
+    </script>   
+   	</jsp:attribute>
+	<jsp:body>
     <h2>Nuevo alquiler</h2>
     <form:form modelAttribute="alquiler" class="form-horizontal" id="add-owner-form">
         <div class="form-group has-feedback">
@@ -59,4 +70,5 @@
             </div>
         </div>
     </form:form>
+    </jsp:body>
 </madaja:layout>

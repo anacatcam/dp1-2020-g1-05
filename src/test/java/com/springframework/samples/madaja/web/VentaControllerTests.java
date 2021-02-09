@@ -205,18 +205,6 @@ public class VentaControllerTests {
 		venta.setReserva(reserva);
 	}
 	
-	@WithMockUser(value = "Spring")
-	@Test
-	void testShowMisVentas() throws Exception{
-		List<Venta> ventas = new ArrayList<Venta>();
-		ventas.add(venta);
-		given(clienteService.findClienteByUsername(anyString())).willReturn(cliente);
-		given(ventaService.findVentasByDni(anyString())).willReturn(ventas);
-		
-		mockMvc.perform(get("/MisVentas")).andExpect(status().isOk()).andExpect(model().attributeExists("ventas"))
-		.andExpect(model().attribute("ventas",ventas))
-		.andExpect(view().name("/venta/mostrarMisVentas"));
-	}
 	
 	@WithMockUser(value = "spring")
 	 @Test

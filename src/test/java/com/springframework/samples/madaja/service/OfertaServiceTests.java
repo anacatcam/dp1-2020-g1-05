@@ -122,11 +122,5 @@ public class OfertaServiceTests {
 		assertEquals(page, ofertaService.getAll(pageable));
 	}
 	
-	/*@Test
-	public void testGetAll(Pageable pageable) throws Exception{
-		Page<Oferta> ofertas = Mockito.mock(Page.class);
-		Mockito.when(ofertaRepository.findAll(pageable)).thenReturn(ofertas);
-	}*/
-	
 	
 }

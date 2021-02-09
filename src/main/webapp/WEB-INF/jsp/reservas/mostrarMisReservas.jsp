@@ -8,11 +8,7 @@
 
 <madaja:layout pageName="misReservas">
 
-<h2>Mis Reservas</h2>
-
-<!-- -->
-<c:out value="${msg}"/>
-<!--  -->
+<h2>Mis reservas</h2>
 
 <table id="ownersTable" class="table table-striped">
 	<thead>
@@ -79,6 +75,8 @@
 			</c:forEach>
 	</tbody>
 </table>
+
+	<a class="btn btn-default" href='<spring:url value="/vehiculos/disponible/1" htmlEscape="true"/>'>Reservar nuevo vehículo</a>
 			
 
 </madaja:layout>

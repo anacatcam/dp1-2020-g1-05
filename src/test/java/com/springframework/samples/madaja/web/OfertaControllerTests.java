@@ -95,30 +95,7 @@ class OfertaControllerTests {
 		given(vehiculosService.findByOferta(anyInt())).willReturn(vehiculos);
 		given(vehiculosService.findAllVehiculosDisponiblesYsinOfertas()).willReturn(matriculas);
 	}
-	
-	/*
-	@WithMockUser(value = "spring")
-	@Test
-	void testShowOfertasList() throws Exception{
-		List<Oferta> ofertas = new ArrayList<Oferta>();
-		ofertas.add(oferta);
-		given(ofertaService.findAllOfertas()).willReturn(ofertas);
-		mockMvc.perform(get("/oferta")).andExpect(status().isOk()).andExpect(model().attributeExists("ofertas")).andExpect(view().name("oferta/mostrarOfertas")).andExpect(model().attribute("ofertas", ofertas));
-	}*/
-	
-	//PAGINACIÓN
-	@WithMockUser(value = "spring")
-	@Test
-	void testFindAll() throws Exception{
-		List<Oferta> ofertas = new ArrayList<Oferta>();
-		ofertas.add(oferta);
 		
-		Pageable pageable = PageRequest.of(0, 8);
-		Page<Oferta> page = new PageImpl<Oferta>(ofertas);
-		
-		given(ofertaService.getAll(pageable)).willReturn(page);
-		mockMvc.perform(get("/oferta").param("?page=1")).andExpect(status().isOk()).andExpect(view().name("oferta/mostrarOfertas"));
-	}
 	
 	@WithMockUser(value = "spring")
 	@Test
