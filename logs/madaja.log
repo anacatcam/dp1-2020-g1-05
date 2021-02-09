@@ -149,3 +149,118 @@
 2021-02-09 12:54:54,524 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
 2021-02-09 12:54:54,699 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
 2021-02-09 12:54:54,781 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 12:57:51,508 INFO com.springframework.samples.madaja.web.ReservasControllerTests [main] Starting ReservasControllerTests on LAPTOP-FU52PV4C with PID 6272 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 12:57:51,511 INFO com.springframework.samples.madaja.web.ReservasControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 12:57:57,262 INFO com.springframework.samples.madaja.web.ReservasControllerTests [main] Started ReservasControllerTests in 6.316 seconds (JVM running for 8.509)
+2021-02-09 12:57:57,813 INFO com.springframework.samples.madaja.web.ReservasController [main] El vehículo 1 ha sido reservado.
+2021-02-09 12:58:15,979 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 4316 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 12:58:15,984 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 12:58:21,403 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 5.926 seconds (JVM running for 8.028)
+2021-02-09 12:58:21,678 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 12:58:21,767 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 12:58:21,942 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 12:58:22,006 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 12:58:35,532 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 3228 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 12:58:35,536 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 12:58:40,973 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.018 seconds (JVM running for 8.146)
+2021-02-09 12:58:41,304 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 12:58:41,391 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 12:58:41,790 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 12:58:41,923 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:07:25,642 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 3976 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:07:25,644 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:07:31,189 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.021 seconds (JVM running for 8.077)
+2021-02-09 13:07:31,424 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:07:31,516 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:07:31,667 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:07:31,766 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:20:10,556 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 2368 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:20:10,564 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:20:15,891 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 5.83 seconds (JVM running for 7.888)
+2021-02-09 13:20:16,131 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:20:16,253 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:20:16,391 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:20:16,507 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:22:38,220 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 15772 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:22:38,223 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:22:43,787 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.071 seconds (JVM running for 8.275)
+2021-02-09 13:22:44,068 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:22:44,153 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:22:44,311 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:22:44,401 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:23:26,758 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 14460 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:23:26,767 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:23:32,267 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.006 seconds (JVM running for 8.023)
+2021-02-09 13:23:32,554 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:23:32,658 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:23:32,805 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:23:32,907 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:26:24,160 INFO com.springframework.samples.madaja.web.VentaControllerTests [main] Starting VentaControllerTests on LAPTOP-FU52PV4C with PID 8428 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:26:24,168 INFO com.springframework.samples.madaja.web.VentaControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:26:30,311 INFO com.springframework.samples.madaja.web.VentaControllerTests [main] Started VentaControllerTests in 6.67 seconds (JVM running for 8.993)
+2021-02-09 13:26:30,599 INFO com.springframework.samples.madaja.web.VentaController [main] Este vehículo con id: 2 ha sido comprado 
+2021-02-09 13:26:30,656 INFO com.springframework.samples.madaja.web.VentaController [main] El vehículo está en revisión y no se ha podido realizar la compra
+2021-02-09 13:26:30,686 INFO com.springframework.samples.madaja.web.VentaController [main] El vehículo ya está vendido y no se ha podido realizar la compra
+2021-02-09 13:33:14,043 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 15000 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:33:14,047 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:33:20,500 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 7.02 seconds (JVM running for 9.219)
+2021-02-09 13:33:33,366 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 10376 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:33:33,370 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:33:38,656 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 5.754 seconds (JVM running for 7.817)
+2021-02-09 13:33:38,889 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:33:38,970 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:33:39,119 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:33:39,211 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:35:52,880 INFO com.springframework.samples.madaja.MadajaApplication [restartedMain] Starting MadajaApplication on LAPTOP-FU52PV4C with PID 9688 (C:\Users\Dani\git\dp1-2020-g1-05\target\classes started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:35:52,883 INFO com.springframework.samples.madaja.MadajaApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-02-09 13:36:10,375 INFO com.springframework.samples.madaja.MadajaApplication [restartedMain] Started MadajaApplication in 18.126 seconds (JVM running for 19.295)
+2021-02-09 13:36:31,189 INFO com.springframework.samples.madaja.web.VehiculosController [http-nio-8090-exec-6] Se realizado una consulta al vehiculo con id: 3
+2021-02-09 13:37:48,293 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 3972 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:37:48,299 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:37:54,499 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.799 seconds (JVM running for 9.327)
+2021-02-09 13:37:54,761 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:37:54,826 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:37:54,966 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:37:55,102 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:40:07,994 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 12336 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:40:07,997 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:40:13,976 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.504 seconds (JVM running for 8.687)
+2021-02-09 13:40:14,194 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:40:14,289 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:40:14,420 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:40:14,511 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:42:41,715 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 16748 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:42:41,720 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:42:47,316 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.146 seconds (JVM running for 8.295)
+2021-02-09 13:42:47,659 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:42:47,720 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:42:47,870 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:42:47,989 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:44:42,661 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 5432 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:44:42,669 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:44:48,890 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.782 seconds (JVM running for 9.032)
+2021-02-09 13:44:49,133 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:44:49,242 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:44:49,447 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:44:49,551 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:45:56,504 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 16796 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:45:56,509 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:46:01,976 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.032 seconds (JVM running for 8.176)
+2021-02-09 13:46:02,310 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:46:02,393 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:46:02,580 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:46:02,687 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:47:09,006 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 11528 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:47:09,009 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:47:14,874 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.579 seconds (JVM running for 8.956)
+2021-02-09 13:47:15,126 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:47:15,198 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:47:15,346 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:47:15,415 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:49:28,555 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Starting AlquilerControllerTests on LAPTOP-FU52PV4C with PID 636 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 13:49:28,558 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 13:49:34,557 INFO com.springframework.samples.madaja.web.AlquilerControllerTests [main] Started AlquilerControllerTests in 6.498 seconds (JVM running for 8.516)
+2021-02-09 13:49:34,884 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está en revisión y no se ha podido realizar el alquiler
+2021-02-09 13:49:34,972 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
+2021-02-09 13:49:35,132 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 13:49:35,221 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler

@@ -17,7 +17,6 @@ package com.springframework.samples.madaja.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -51,7 +50,6 @@ public class Person extends BaseEntity {
 	@Column(name = "telefono")
 	@NotEmpty
 	@Length(min = 9, max = 9)
-	@Digits(fraction = 0, integer = 10)
 	private String telefono;
 
 	@Column(name = "email")

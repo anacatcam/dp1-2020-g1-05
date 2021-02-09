@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 import org.springframework.core.style.ToStringCreator;
@@ -23,7 +22,6 @@ public class Reserva extends BaseEntity {
 
 	@Column(name = "fianza")
 	@Positive
-	@Min(value = 1)
 	private Double fianza;
 
 	@Column(name = "fechaGastos")
