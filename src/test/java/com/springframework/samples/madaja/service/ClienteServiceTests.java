@@ -1,41 +1,31 @@
 package com.springframework.samples.madaja.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 import com.springframework.samples.madaja.model.Authorities;
 import com.springframework.samples.madaja.model.Cliente;
 import com.springframework.samples.madaja.model.User;
 import com.springframework.samples.madaja.repository.AuthoritiesRepository;
 import com.springframework.samples.madaja.repository.ClienteRepository;
 import com.springframework.samples.madaja.repository.UserRepository;
-import com.springframework.samples.madaja.util.EntityUtils;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTests {
@@ -140,4 +130,22 @@ public class ClienteServiceTests {
 		verify(clienteRepository).findByUsername(anyString());
 		assertEquals(cliente, clienteService.findClienteByUsername(anyString()));
 	}
+	
+	//PAGINACIÓN
+	@Test
+	public void testGetAll() throws Exception{
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes.add(cliente);
+				
+		Pageable pageable = PageRequest.of(0, 8);
+		Page<Cliente> page = new PageImpl<Cliente>(clientes);
+						
+		when(clienteRepository.findAll(pageable)).thenReturn(page);
+				
+		clienteService.getAll(pageable);
+				
+		verify(clienteRepository).findAll(pageable);
+		assertEquals(page, clienteService.getAll(pageable));
+	}
+
 }

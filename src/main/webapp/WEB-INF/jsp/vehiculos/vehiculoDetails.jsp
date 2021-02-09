@@ -288,11 +288,13 @@
     </c:choose>
    
    <sec:authorize access="hasAuthority('admin')">
-   		<c:if test="${vehiculos.segurosCliente.size()==0}">
-  			<spring:url value="/vehiculos/{vehiculoId}/seguroCliente/new" var="editUrl">
-    		<spring:param name="vehiculoId" value="${vehiculos.id}"/>
-    		</spring:url>
-    		<a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Añadir seguro cliente</a>
+   		<c:if test="${vehiculos.segurosCliente.size()==0 and vehiculos.disponible.id ne 2}">
+   			<c:if test="${vehiculos.disponible.id ne 5}">
+  				<spring:url value="/vehiculos/{vehiculoId}/seguroCliente/new" var="editUrl">
+    			<spring:param name="vehiculoId" value="${vehiculos.id}"/>
+    			</spring:url>
+    			<a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Añadir seguro cliente</a>
+    		</c:if>
     	</c:if>
     
    <c:forEach var="seguroCliente" items="${vehiculos.segurosCliente}">
