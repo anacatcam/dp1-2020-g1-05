@@ -264,3 +264,6 @@
 2021-02-09 13:49:34,972 WARN com.springframework.samples.madaja.web.AlquilerController [main] El cliente es conflictivo y no se ha podido realizar el alquiler
 2021-02-09 13:49:35,132 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
 2021-02-09 13:49:35,221 INFO com.springframework.samples.madaja.web.AlquilerController [main] El vehículo está ya alquilado y no se ha podido realizar el alquiler
+2021-02-09 19:46:18,313 INFO com.springframework.samples.madaja.web.RecogidaControllerTests [main] Starting RecogidaControllerTests on LAPTOP-FU52PV4C with PID 14712 (started by Dani in C:\Users\Dani\git\dp1-2020-g1-05)
+2021-02-09 19:46:18,315 INFO com.springframework.samples.madaja.web.RecogidaControllerTests [main] No active profile set, falling back to default profiles: default
+2021-02-09 19:46:22,891 INFO com.springframework.samples.madaja.web.RecogidaControllerTests [main] Started RecogidaControllerTests in 5.063 seconds (JVM running for 6.839)
