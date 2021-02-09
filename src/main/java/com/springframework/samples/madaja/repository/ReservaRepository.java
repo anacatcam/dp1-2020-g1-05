@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -17,7 +15,6 @@ public interface ReservaRepository extends Repository<Reserva, Integer>{
 	
 	void save(Reserva reserva) throws DataAccessException;
 	
-	//SUSTITUIDO POR PAGINACIÓN
 	Iterable<Reserva> findAll() throws DataAccessException; //TODAS las reservas
 	
 	Optional<Reserva> findById(int id) throws DataAccessException; //Reserva por ID
@@ -36,5 +33,4 @@ public interface ReservaRepository extends Repository<Reserva, Integer>{
 	@Query(value ="delete FROM reserva  where id=:id", nativeQuery = true)
 	void eliminarReserva(@Param("id") int id);
 	
-	Page<Reserva> findAll(Pageable pageable);
 }

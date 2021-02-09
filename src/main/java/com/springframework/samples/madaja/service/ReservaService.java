@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,18 +30,11 @@ public class ReservaService {
 		return reservaRepository.findById(id);
 	}
 	
-	//SUSTITUIDO POR PAGINACIÓN
 	@Transactional(readOnly = true)
 	public Iterable<Reserva> findAllReserva() throws DataAccessException {
 		return reservaRepository.findAll();
 	}
-	//
 	
-	@Transactional(readOnly = true)
-    public Page<Reserva> getAll(Pageable pageable) {
-        return reservaRepository.findAll(pageable);
-    }
-
 	@Transactional(readOnly = true)
 	public List<Reserva> findByDNI(String dni) throws DataAccessException {
 		return reservaRepository.findByDniReserva(dni);
