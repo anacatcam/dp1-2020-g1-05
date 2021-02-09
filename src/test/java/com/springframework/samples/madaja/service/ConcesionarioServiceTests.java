@@ -1,40 +1,24 @@
 package com.springframework.samples.madaja.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.hibernate.SessionBuilder;
-import org.hibernate.SessionFactory;
-import org.hibernate.search.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
-import com.mysql.cj.Session;
 import com.springframework.samples.madaja.model.Concesionario;
 import com.springframework.samples.madaja.repository.ConcesionarioRepository;
 
@@ -94,4 +78,22 @@ public class ConcesionarioServiceTests {
 		
 		verify(concesionarioRepository).save(concesionario);
 	}
+	
+	//PAGINACIÓN
+	@Test
+	public void testGetAll() throws Exception{
+		List<Concesionario> concesionarios = new ArrayList<Concesionario>();
+		concesionarios.add(concesionario);
+				
+		Pageable pageable = PageRequest.of(0, 8);
+		Page<Concesionario> page = new PageImpl<Concesionario>(concesionarios);
+				
+		when(concesionarioRepository.findAll(pageable)).thenReturn(page);
+		
+		concesionarioService.getAll(pageable);
+		
+		verify(concesionarioRepository).findAll(pageable);
+		assertEquals(page, concesionarioService.getAll(pageable));
+	}
+
 }
