@@ -109,7 +109,7 @@ public class ReservasController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String autoridad;
 		String username = "";
-		String view = "/oups";  //Cambiar por error cuando funcione CustomErrorController
+		String view = "/error"; 
 		
 		if(principal instanceof UserDetails) {
 			 autoridad = ((UserDetails)principal).getAuthorities().iterator().next().toString();
@@ -139,8 +139,6 @@ public class ReservasController {
 					mostrarMisReservas(modelMap);
 					modelMap.addAttribute("message", "Reserva anulada correctamente");
 					break;
-				}else {
-					return "redirect:/oups";
 				}
 			}
 		}

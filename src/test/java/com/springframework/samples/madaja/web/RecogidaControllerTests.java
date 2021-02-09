@@ -31,6 +31,7 @@ import com.springframework.samples.madaja.model.Oferta;
 import com.springframework.samples.madaja.model.Recogida;
 import com.springframework.samples.madaja.model.SeguroVehiculo;
 import com.springframework.samples.madaja.model.Vehiculos;
+import com.springframework.samples.madaja.service.MecanicoService;
 import com.springframework.samples.madaja.service.RecogidaService;
 
 @WebMvcTest(controllers = RecogidaController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
@@ -38,6 +39,9 @@ public class RecogidaControllerTests {
 
 	@MockBean
 	private RecogidaService recogidaService;
+	
+	@MockBean
+	private MecanicoService mecanicoService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -150,7 +154,7 @@ public class RecogidaControllerTests {
 
 		mockMvc.perform(get("/recogidas")).andExpect(status().isOk()).andExpect(model().attributeExists("recogidas"))
 				.andExpect(model().attribute("recogidas", recogidas))
-				.andExpect(view().name("/recogida/mostrarRecogidas"));
+				.andExpect(view().name("recogida/mostrarRecogidas"));
 	}
 
 }

@@ -382,7 +382,7 @@ public class AlquilerControllerTests {
 				.param("depLleno", "true")
 				.param("devuelto", "false")
 				.param("fechaInicio", "2020-02-28")
-				.param("fechaFin", "2020-01-28")
+				.param("fechaFin", "2020-02-29")
 				.param("limiteKM", "20000"))
 		.andExpect(model().attributeHasErrors("alquiler"))
 		.andExpect(model().attributeHasFieldErrors("alquiler", "fechaInicio"))

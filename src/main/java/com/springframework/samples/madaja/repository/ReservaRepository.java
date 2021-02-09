@@ -19,23 +19,11 @@ public interface ReservaRepository extends Repository<Reserva, Integer>{
 	
 	//SUSTITUIDO POR PAGINACIÓN
 	Iterable<Reserva> findAll() throws DataAccessException; //TODAS las reservas
-	//
+	
 	Optional<Reserva> findById(int id) throws DataAccessException; //Reserva por ID
 	
 	@Query("SELECT reserva FROM Reserva reserva WHERE reserva.cliente.dni =:dni") //Encontrar reservas por DNI del cliente
 	public List<Reserva> findByDniReserva(@Param("dni") String dni);	
-
-//	/** Eliminar reservas (obsoleto) **/
-//	@Modifying
-//	@Query(value ="UPDATE venta SET reserva_id = null WHERE reserva_id =:id", nativeQuery = true)
-//	void actVenta(@Param("id") int id);
-//	@Modifying
-//	@Query(value ="UPDATE alquiler SET reserva_id = null WHERE reserva_id =:id", nativeQuery = true)
-//	void actAlquiler(@Param("id") int id);
-//	@Modifying
-//	@Query(value ="delete FROM RESERVA  where id=:id", nativeQuery = true)
-//	void eliminarReserva(@Param("id") int id);
-	
 	
 	/** Eliminar reservas y venta/alq asociado/a**/
 	@Modifying

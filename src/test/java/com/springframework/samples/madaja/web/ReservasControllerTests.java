@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,6 @@ import com.springframework.samples.madaja.model.Vehiculos;
 import com.springframework.samples.madaja.model.Venta;
 import com.springframework.samples.madaja.service.AlquilerService;
 import com.springframework.samples.madaja.service.ClienteService;
-import com.springframework.samples.madaja.service.OfertaService;
 import com.springframework.samples.madaja.service.ReservaService;
 import com.springframework.samples.madaja.service.VehiculosService;
 import com.springframework.samples.madaja.service.VentaService;
@@ -247,7 +245,7 @@ public class ReservasControllerTests {
 	}
 	
 	/*Al tener condicionales no puede revisar si existe el atributo en el modelo, de igual forma la vista a devolver 
-	se actualiza en el condicional, por lo que devolvemos a oups por defecto que significa que la persona que 
+	se actualiza en el condicional, por lo que devolvemos a error por defecto que significa que la persona que 
 	ha intentado acceder no es cliente ni admin*/
 	@WithMockUser(value = "spring")
 	@Test
@@ -256,7 +254,7 @@ public class ReservasControllerTests {
 		mockMvc.perform(get("/reservas/{reservaId}/delete",1))
 		.andExpect(status().isOk())
 		.andExpect(model().hasNoErrors())
-		.andExpect(view().name("/oups"));
+		.andExpect(view().name("/error"));
 	}
 	
 	
