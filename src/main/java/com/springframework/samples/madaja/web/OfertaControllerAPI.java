@@ -51,7 +51,7 @@ public class OfertaControllerAPI {
 			List<APIerror> errores = validacion(oferta);
 			return ResponseEntity.badRequest().body(errores);
 		}else {
-			if(this.ofertaService.findOfertaById(oferta.getId()) == null) {
+			if(oferta.getId() == null) {
 				ofertaService.saveOferta(oferta);
 				if(!ids.isEmpty()) {
 					for(int id : ids.get()) {
@@ -61,8 +61,20 @@ public class OfertaControllerAPI {
 					}
 				}
 				return new ResponseEntity<>(HttpStatus.CREATED);
-			}else {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}else{
+				if(ofertaService.findOfertaById(oferta.getId()) != null) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}else {
+					ofertaService.saveOferta(oferta);
+					if(!ids.isEmpty()) {
+						for(int id : ids.get()) {
+							Vehiculos vehiculo = vehiculosService.findVehiculoById(id);
+							vehiculo.setOferta(oferta);
+							vehiculosService.saveVehiculo(vehiculo);
+						}
+					}
+					return new ResponseEntity<>(HttpStatus.CREATED);
+				}
 			}
 			
 		} 

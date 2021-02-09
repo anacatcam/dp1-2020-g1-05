@@ -5,6 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="madaja" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <madaja:layout pageName="oferta">
 
@@ -35,6 +37,7 @@
 						</spring:url>
 						<a href="${fn:escapeXml(ofertaUrl)}">Detalles</a>
 						<dt>
+						<sec:authorize access="hasAuthority('admin')">
 						<spring:url value="/oferta/{ofertaId}/edit" var="ofertaUrl">
 							<spring:param name="ofertaId" value="${oferta.id}"/>
 						</spring:url>
@@ -46,6 +49,7 @@
 						</spring:url>
 						<a href="${fn:escapeXml(ofertaUrl)}">Eliminar oferta</a>
 						</dt>
+						</sec:authorize>
 						</dl>
 					</td>
 				</tr>
@@ -53,8 +57,9 @@
 		</tbody>
 	</table>
 	<br/>
+	<sec:authorize access="hasAuthority('admin')">
 	<a class="btn btn-default" href='<spring:url value="/oferta/new" htmlEscape="true"/>'>Añadir oferta</a>
-	
+	</sec:authorize>
 	
 	<div>
             <nav aria-label="Pagination">

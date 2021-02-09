@@ -32,7 +32,7 @@ public class TrabajadorTests {
 		
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Trabajador>> constraintViolations = validator.validate(trabajador);
-		assertThat(constraintViolations.size()).isEqualTo(6);
+		assertThat(constraintViolations.size()).isEqualTo(5);
 	}
 	
 	@Test

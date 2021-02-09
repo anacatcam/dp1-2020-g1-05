@@ -22,6 +22,7 @@
 				<th style="width: 150px;">Cliente</th>
 				<th style="width: 150px;">Dirección</th>
 				<th style="width: 150px;">Trabajador encargado</th>
+				<th></th>
 			</tr>
 		</thead>
 		
@@ -42,7 +43,7 @@
                         <a href="${fn:escapeXml(vehiculoUrl)}"><c:out value="${recogida.alquiler.vehiculo.matricula}"/></a>
 					</td>		
 					<td>
-						<c:out value="${recogida.fecha}"/>
+						<c:out value="${recogida.alquiler.fechaFin}"/>
 					</td>
 					<td>
 						<c:out value="${recogida.hora}"/>

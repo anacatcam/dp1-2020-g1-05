@@ -403,19 +403,6 @@ public class VehiculosControllerTests {
 		.andExpect(view().name("vehiculos/vehiculoDetails"));
 	}
 	
-	@WithMockUser(value= "spring")
-	@Test
-	void testShowVehiculosList() throws Exception{
-		
-		mockMvc.perform(get("/vehiculos"))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("vehiculos"))
-		.andExpect(model().attribute("vehiculos", vehiculos))
-		.andExpect(model().attributeExists("disponible"))
-		.andExpect(model().attribute("disponible", disponibles))
-		.andExpect(view().name("vehiculos/mostrarVehiculos"));
-		
-	}
 	
 	@WithMockUser(value= "spring") 
 	@Test
@@ -427,19 +414,6 @@ public class VehiculosControllerTests {
 		
 	}
 	
-	@WithMockUser(value= "spring")
-	@Test
-	void testShowVehiculosDisponibleList() throws Exception{
-
-		mockMvc.perform(get("/vehiculos/disponible/{disponibleId}", 1))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("vehiculos"))
-		.andExpect(model().attribute("vehiculos", vehiculos))
-		.andExpect(model().attributeExists("disponible"))
-		.andExpect(model().attribute("disponible", disponibles))
-		.andExpect(view().name("vehiculos/mostrarVehiculos"));
-	}
-
 	@WithMockUser(value = "spring")
 	@Test
 	void testInitFindForm() throws Exception{

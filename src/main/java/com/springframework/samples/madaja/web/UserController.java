@@ -73,7 +73,7 @@ public class UserController {
 		else {
 			//creando cliente, user, y authority
 			this.clienteService.saveCliente(cliente);
-			return "redirect:/";
+			return "redirect:/login";
 		}
 	}
 
